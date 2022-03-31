@@ -89,50 +89,50 @@ Page({
   //   })
   // },
 
-  authorization() {
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        //console.log(res.userInfo.avatarUrl)
-        wx.showToast({
-          title:'授权成功',
-        })
-        //wx.setStorageSync('userdata', res.userInfo)
-        this.setData({
-          gender: res.userInfo.gender,
-          avatarUrl: res.userInfo.avatarUrl,
-          userInfo: res.userInfo,
-          hasUserInfo: true,
-          logged: true,
-          username: res.userInfo.nickName
-        })
-        //console.log(res.userInfo)
-        wx.cloud.callFunction({
-          name: 'sign_in',
-          data: {
-            avatarUrl: res.userInfo.avatarUrl,
-            nickname: res.userInfo.nickName,
-            gender: res.userInfo.gender
-          },
-          success: out => {
-            console.log('callfunction sucess');
-            console.log(out);
-            if (out.result.errCode == 0) {
-              app.globalData.userData = out.result.data;
-            } else {
-              console.log(out.errMsg);
-            }
-          },
-          fail: out => {
-            console.log('call function failed')
-          },
-          complete: out => {
-            console.log('call function completed')
-          }
-        })
-      }
-    })
-  },
+  // authorization() {
+  //   wx.getUserProfile({
+  //     desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+  //     success: (res) => {
+  //       //console.log(res.userInfo.avatarUrl)
+  //       wx.showToast({
+  //         title:'授权成功',
+  //       })
+  //       //wx.setStorageSync('userdata', res.userInfo)
+  //       this.setData({
+  //         gender: res.userInfo.gender,
+  //         avatarUrl: res.userInfo.avatarUrl,
+  //         userInfo: res.userInfo,
+  //         hasUserInfo: true,
+  //         logged: true,
+  //         username: res.userInfo.nickName
+  //       })
+  //       //console.log(res.userInfo)
+  //       wx.cloud.callFunction({
+  //         name: 'sign_in',
+  //         data: {
+  //           avatarUrl: res.userInfo.avatarUrl,
+  //           nickname: res.userInfo.nickName,
+  //           gender: res.userInfo.gender
+  //         },
+  //         success: out => {
+  //           console.log('callfunction sucess');
+  //           console.log(out);
+  //           if (out.result.errCode == 0) {
+  //             app.globalData.userData = out.result.data;
+  //           } else {
+  //             console.log(out.errMsg);
+  //           }
+  //         },
+  //         fail: out => {
+  //           console.log('call function failed')
+  //         },
+  //         complete: out => {
+  //           console.log('call function completed')
+  //         }
+  //       })
+  //     }
+  //   })
+  // },
 
 
   // onGetUserInfo: function(e) {

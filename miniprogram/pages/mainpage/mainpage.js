@@ -25,6 +25,10 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function() {
+    // new login logic
+    
+
+
     // displaying red dot on calendar icon
     var medDate = app.globalData.userData.med_date
     var tabList = this.getTabBar().data.list
