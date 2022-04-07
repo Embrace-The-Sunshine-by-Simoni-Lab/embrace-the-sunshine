@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
   // check database
   const db = cloud.database();
   var userData;
-  await db.collection("userInfo_db")
+  await db.collection("main_db")
   .where({
     openid: wxContext.OPENID
   })
@@ -50,7 +50,7 @@ exports.main = async (event, context) => {
     }
 
     // insert into database
-    await db.collection('userInfo_db')
+    await db.collection('main_db')
     .add({
       data: data_to_insert
     })
@@ -59,11 +59,11 @@ exports.main = async (event, context) => {
     });
     data_to_return = data_to_insert;
   } else {
-    await db.collection('userInfo_db')
+    await db.collection('main_db')
     .where({
       openid: wxContext.OPENID
     })
-    .UPDATE({
+    .update({
       data: {
         last_sign_in: current_time
       }
