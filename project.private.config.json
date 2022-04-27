@@ -1,5 +1,4 @@
 {
-  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -19,12 +18,14 @@
           "query": ""
         },
         {
+          "id": 1,
           "name": "pages/charts/charts",
           "pathName": "pages/charts/charts",
           "query": "",
           "scene": null
         },
         {
+          "id": -1,
           "name": "pages/medTracking/medTracking",
           "pathName": "pages/medTracking/medTracking",
           "query": "",
@@ -38,25 +39,8 @@
           "scene": null
         },
         {
-          "name": "pages/questionnaire/questionnaire",
-          "pathName": "pages/questionnaire/questionnaire",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/mainpage/mainpage",
-          "pathName": "pages/mainpage/mainpage",
-          "query": "",
-          "scene": null
-        },
-        {
-<<<<<<< HEAD
-          "name": "pages/infoPage/infoPage",
-          "pathName": "pages/infoPage/infoPage",
-=======
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
->>>>>>> main
+          "name": "pages/demo/demo",
+          "pathName": "pages/demo/demo",
           "query": "",
           "scene": null
         }
