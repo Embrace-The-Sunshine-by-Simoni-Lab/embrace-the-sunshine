@@ -3,32 +3,15 @@ const app = getApp()
 
 Page({
   data: {
-    avatarUrl: './user-unlogin.png',
     userInfo: {},
-    username: '用户未登录',
     hasUserInfo: false,
-    logged: false,
-    takeSession: false,
-    requestResult: '',
-    canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') // 如需尝试获取用户信息可改为false
+    logged: false
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
-  onLoad: function (options) {
-      
-  },
 
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function() {
-    // new login logic
+  main_page_data_setup: function() {
     
-
-
+    console.log(app.globalData.userData)
     // displaying red dot on calendar icon
     var medDate = app.globalData.userData.med_date
     var tabList = this.getTabBar().data.list
@@ -73,7 +56,53 @@ Page({
             selected: 3
         })
     }
+  },
+
+  /**
+   * Lifecycle function--Called when page show
+   */
+  onLoad: function() {
+    // login 
+    if (!app.globalData.logged) {
+      wx.showLoading({
+        title: '加载中',
+      })
+      wx.cloud.callFunction({
+        name: 'auto_sign_in',
+        data: {
+        },
+        success: out => {
+          if (out.result.errCode == 0) {
+            if (out.result.data) {
+              app.globalData.userData = out.result.data;
+              app.globalData.logged = true;
+              this.setData({
+                userInfo: out.result.data.userData,
+                hasUserInfo: true,
+                logged: true,
+              })
+            } else {
+              console.log(out.errMsg);
+            }
+          } else {
+            console.log(out.errMsg);
+          }
+        },
+        fail: out => {
+          console.log('call function failed')
+        },
+        complete: out => {
+          this.main_page_data_setup();
+          wx.hideLoading();
+        }
+      })
+    } else {
+      this.main_page_data_setup();
+    }
+
 },
+
+  
 
   /**
    * Lifecycle function--Called when page hide
@@ -165,52 +194,6 @@ Page({
   //     title:'logged out',
   //   })
   // },
-
-  authorization() {
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        //console.log(res.userInfo.avatarUrl)
-        wx.showToast({
-          title:'授权成功',
-        })
-        //wx.setStorageSync('userdata', res.userInfo)
-        this.setData({
-          gender: res.userInfo.gender,
-          avatarUrl: res.userInfo.avatarUrl,
-          userInfo: res.userInfo,
-          hasUserInfo: true,
-          logged: true,
-          username: res.userInfo.nickName
-        })
-        //console.log(res.userInfo)
-        wx.cloud.callFunction({
-          name: 'sign_in',
-          data: {
-            avatarUrl: res.userInfo.avatarUrl,
-            nickname: res.userInfo.nickName,
-            gender: res.userInfo.gender
-          },
-          success: out => {
-            console.log('callfunction sucess');
-            console.log(out);
-            if (out.result.errCode == 0) {
-              app.globalData.userData = out.result.data;
-            } else {
-              console.log(out.errMsg);
-            }
-          },
-          fail: out => {
-            console.log('call function failed')
-          },
-          complete: out => {
-            console.log('call function completed')
-          }
-        })
-      }
-    })
-  },
-
 
   toCalendar: function() {
     wx.navigateTo({

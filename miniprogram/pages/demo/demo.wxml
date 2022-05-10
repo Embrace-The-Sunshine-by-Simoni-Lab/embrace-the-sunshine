@@ -1,0 +1,15 @@
+<!--pages/demo/demo.wxml-->
+<text>{{demo_data}}</text>
+<button bindtap="increase">inc</button>
+<button bindtap="decrease">dec</button>
+
+<button bindtap="switchIMG">switch image</button>
+<view wx:if="{{show_first_image}}">
+  <text>This is the first image</text>
+  <image  src="../../images/5270.jpg"/>
+</view>
+
+<view wx:if="{{!show_first_image}}">
+  <text>This is the second image</text>
+  <image  src="../../images/11015.jpg"/>
+</view>
