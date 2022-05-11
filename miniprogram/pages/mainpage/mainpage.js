@@ -43,6 +43,9 @@ Page({
       complete: out => {
         wx.hideLoading()
         console.log(app.globalData.userData)
+        /**
+         * red dot of tabbar implementation
+         
         // displaying red dot on calendar icon
         var medDate = app.globalData.userData.med_date
         var tabList = this.getTabBar().data.list
@@ -59,7 +62,6 @@ Page({
           tabList[1].showRedDot = true
         }
 
-        // displaying red dot on moodtracking icon
         // displaying red dot on moodtracking icon
         var last_questionare_week = app.globalData.userData.mood_track.mood_date[0];
         var currDate = new Date();
@@ -80,11 +82,12 @@ Page({
         this.getTabBar().setData({
           list:tabList
         })
+        */
 
         // changes color when selected
         if (typeof this.getTabBar === "function" && this.getTabBar()) {
             this.getTabBar().setData({
-                selected: 3
+                selected: 1
             })
         }
       }
