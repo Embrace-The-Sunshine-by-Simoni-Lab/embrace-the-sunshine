@@ -35,7 +35,7 @@
     <image mode="widthFix" class="background"  src="../../images/module_2.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
   </view>
 
-  <view class="moledule" id="moledule-three" style="width: 629rpx; height: 290rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx">
+  <view class="moledule" id="moledule-three" style="width: 629rpx; height: 290rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx; margin-bottom: 180rpx">
     <view class="content">
       <text class="title">选做模块</text>
     </view>
