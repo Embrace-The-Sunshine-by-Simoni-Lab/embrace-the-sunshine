@@ -3,24 +3,41 @@
     <image id="info-img" bindtap="toInfoPage" src="../../images/info.png"></image>
   </view>
   <view id="text">必做模块</view>
+
+  <view class="row_display">
+  
+    <view class="row_moledule" id="black" bindtap="toMoodTracking" style="z-index:999">
+      <view class="row_content" >
+        <text class="title">情绪记录</text>
+      </view>
+      <image  mode="widthFix" src="../../images/mood.png"></image>
+    </view>
+
+    <view class="row_moledule" id="blue" bindtap="toMedTracking" style="z-index:999">
+      <view class="row_content">
+        <text class="title" >药物追踪</text>
+      </view>
+      <image  mode="widthFix" src="../../images/medi_cover.png"></image>
+    </view>
+  </view>
+  
   <view class="moledule" id="moledule-one">
     <view class="content">
       <text class="title">消极思想，情绪和行为</text>
-      <view class="check-circle"></view>
     </view>
     <image mode="widthFix" class="background" src="../../images/module_1.png"></image>
   </view>
+
   <view class="moledule" id="moledule-two">
     <view class="content">
       <text class="title">选择有价值的生活</text>
-      <view class="check-circle"></view>
     </view>
     <image mode="widthFix" class="background"  src="../../images/module_2.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
   </view>
-  <view class="moledule" id="moledule-three" style="width: 629rpx; height: 290rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx">
+
+  <view class="moledule" id="moledule-three" style="width: 629rpx; height: 290rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx; margin-bottom: 180rpx">
     <view class="content">
       <text class="title">选做模块</text>
-      <text> 5-45min </text>
     </view>
   </view>
 </view>

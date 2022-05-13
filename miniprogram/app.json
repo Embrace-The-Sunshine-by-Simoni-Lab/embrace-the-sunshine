@@ -36,20 +36,14 @@
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/selected-emotion.png",
-        "iconPath": "images/Group.png",
+        "selectedIconPath": "images/content-icon-selected.png",
+        "iconPath": "images/content-icon.png",
         "pagePath": "pages/questionnaire/questionnaire",
         "text": "情绪追踪"
       },
       {
-        "selectedIconPath": "images/selected-med.png",
-        "iconPath": "images/med.png",
-        "pagePath": "pages/calendar/calendar",
-        "text": "服药记录"
-      },
-      {
-        "selectedIconPath": "images/selected-tracking.png",
-        "iconPath": "images/tracking.png",
+        "selectedIconPath": "images/home-icon-selected.png",
+        "iconPath": "images/home-icon.png",
         "pagePath": "pages/mainpage/mainpage",
         "text": "评估"
       },

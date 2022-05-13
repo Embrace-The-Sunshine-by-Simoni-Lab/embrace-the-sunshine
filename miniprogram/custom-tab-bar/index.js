@@ -12,36 +12,24 @@ Component({
    * Component initial data
    */
   data: {
-    "selected": 0,
-    "color": "#959494",
-    "selectedColor": "#1C6DCD",
+    "selected": 1,
     "list": [
       {
-        "showRedDot": false,
-        "selectedIconPath": "../images/selected-emotion.png",
-        "iconPath": "../images/Group.png",
-        "pagePath": "/pages/questionnaire/questionnaire",
-        "text": "情绪追踪"
+        "selectedIconPath": "../images/content-icon-selected.png",
+        "iconPath": "../images/content-icon.png",
+        "pagePath": "../pages/questionnaire/questionnaire",
+        "text": "内容"
       },
       {
-        "showRedDot": false,
-        "selectedIconPath": "../images/selected-med.png",
-        "iconPath": "../images/med.png",
-        "pagePath": "/pages/calendar/calendar",
-        "text": "服药记录"
+        "selectedIconPath": "../images/home-icon-selected.png",
+        "iconPath": "../images/home-icon.png",
+        "pagePath": "../pages/mainpage/mainpage",
+        "text": "主页"
       },
       {
-        "showRedDot": false,
-        "selectedIconPath": "../images/selected-tracking.png",
-        "iconPath": "../images/tracking.png",
-        "pagePath": "/pages/mainpage/mainpage",
-        "text": "评估"
-      },
-      {
-        "showRedDot": false,
         "selectedIconPath": "../images/selected-profile2.png",
         "iconPath": "../images/profile.png",
-        "pagePath": "/pages/mainpage/mainpage",
+        "pagePath": "../pages/mainpage/mainpage",
         "text": "我的"
       }
     ],
