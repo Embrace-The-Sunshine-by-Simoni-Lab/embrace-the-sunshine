@@ -6,18 +6,18 @@
 
   <view class="row_display">
   
-    <view class="row_moledule" id="black">
-      <view class="row_content">
+    <view class="row_moledule" id="black" bindtap="toMoodTracking" style="z-index:999">
+      <view class="row_content" >
         <text class="title">情绪记录</text>
       </view>
-      <image mode="widthFix" src="../../images/mood.png"></image>
+      <image  mode="widthFix" src="../../images/mood.png"></image>
     </view>
 
-    <view class="row_moledule" id="blue">
+    <view class="row_moledule" id="blue" bindtap="toMedTracking" style="z-index:999">
       <view class="row_content">
-        <text class="title">药物追踪</text>
+        <text class="title" >药物追踪</text>
       </view>
-      <image mode="widthFix" src="../../images/medi_cover.png"></image>
+      <image  mode="widthFix" src="../../images/medi_cover.png"></image>
     </view>
   </view>
   

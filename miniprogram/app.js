@@ -1,7 +1,8 @@
 //app.js
 App({
   globalData: {
-    userData: {}
+    userData: {},
+    logged: false
   },
 
   onLaunch: function () {
