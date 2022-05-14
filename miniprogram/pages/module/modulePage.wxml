@@ -1,0 +1,63 @@
+<!--pages/module/modulePage.wxml-->
+
+<view class="page">
+
+  <!-- 主页内容 -->
+  <view class="progress_view">
+    <view class="progress_box">
+      <progress percent="{{percentage}}" color="#2C82DE" stroke-width="8"></progress>
+    </view>
+    <text class="progress_text">完成度： {{percentage}}%</text>
+  </view>
+
+  <!-- 侧边栏内容 -->
+  <view class="page-slidebar {{open ? '' : 'hide'}}">
+    <view class="page-content">
+      <view class="wc">
+        <text>首页</text>
+      </view>
+      <view class="wc">
+        <text>导航一</text>
+      </view>
+      <view class="wc">
+        <text>导航二</text>
+      </view>
+      <view class="wc">
+        <text>导航三</text>
+      </view>
+    </view>
+  </view>
+
+
+
+  <!-- （open ? 'c-state' : ''）三元运算符： -->
+  <!-- 1.默认情况下 open 为 false -->
+  <!-- 2.当点击左上角图标的时候或者屏幕向左滑动，open 变化 true -->
+  <!-- 3.当 open 为 true 时，会加上类名为 c-state 和 cover 的 css 样式 -->
+
+  <!-- bindtouchstart、 bindtouchmove、bindtouchend -->
+  <!-- 当手指触摸屏幕并滑动时，所触发的三个函数 -->
+  <view class="top_bar {{open ? ['c-state','cover_top_bar'] : ''}} ">
+        <image class="icon menu" src="../../images/module/menu_icon.png" bindtap="tap_ch"></image>
+        <text class="sub_title">{{sub_title}}</text>
+        <image class="icon favorite" src="../../images/module/favorite_icon.png"></image>
+      </view>
+
+  <swiper indicator-dots="true" duration="300" class="page_body {{open ? ['c-state','cover'] : ''}} ">
+  <swiper-item>
+    <view >
+      page 1 holder
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view >
+      page 2 holder
+    </view>
+  </swiper-item>  <swiper-item>
+    <view >
+      page 3 holder
+    </view>
+  </swiper-item>
+  </swiper>
+
+</view>
