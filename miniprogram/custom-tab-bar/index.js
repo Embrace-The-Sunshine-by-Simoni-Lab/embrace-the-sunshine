@@ -34,7 +34,7 @@ Component({
         "showRedDot": false,
         "selectedIconPath": "../images/selected-tracking.png",
         "iconPath": "../images/tracking.png",
-        "pagePath": "/pages/mainpage/mainpage",
+        "pagePath": "/pages/moodtracking/maoodtracking",
         "text": "评估"
       },
       {
