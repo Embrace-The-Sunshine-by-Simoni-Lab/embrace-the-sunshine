@@ -13,3 +13,5 @@
   <text>This is the second image</text>
   <image  src="../../images/11015.jpg"/>
 </view>
+
+<rich-text></rich-text>
