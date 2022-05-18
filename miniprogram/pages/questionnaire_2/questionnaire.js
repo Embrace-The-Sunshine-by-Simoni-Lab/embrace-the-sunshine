@@ -1,12 +1,16 @@
 const app = getApp();
 
 Page({
-  showNext: function(e) {
-    console.log(e);
+  showNext: function() {
+    this.setData({
+      current_page: this.data.current_page + 1
+    })
   },
 
-  showPrev: function(e) {
-    console.log(e);
+  showPrev: function() {
+    this.setData({
+      current_page: this.data.current_page - 1
+    })
   },
   data: {
     questions: [{option: 0, value: '对任何事情都提不起兴趣'}, 
@@ -50,14 +54,7 @@ Page({
       is_completed: is_completed
     });
   },
-  onShow: function (options) {
-    var next_btns = document.querySelectorAll("next-btn");
-    var prev_btns = document.querySelectorAll("prev-btn");
-    for (var i = 0; i < next_btns.length; i++) {
-    next_btns.addEventListener('click', showNext);
-    prev_btns.addEventListener('click', showPrev);
-    }
-  },
+
 /////////////////////////// "Submit" - In progress
   onTap(event) {
     console.log(app.globalData.userData.mood_track);
