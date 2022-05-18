@@ -174,6 +174,12 @@ Page({
     })
   },
 
+  toq2: function() {
+    wx.navigateTo({
+      url: "../questionnaire_2/questionnaire",
+    })
+  },
+  
   data_object: function() {
 
     const allDates = app.globalData.userData.med_date;
