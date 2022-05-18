@@ -1,8 +1,7 @@
 <view class="container">
-  <view id="info">
+  <!-- <view id="info">
     <image id="info-img" bindtap="toInfoPage" src="../../images/info.png"></image>
-  </view>
-  <view id="text">必做模块</view>
+  </view> -->
 
   <view class="row_display">
   
@@ -21,23 +20,24 @@
     </view>
   </view>
   
-  <view class="moledule" id="moledule-one">
+  <view class="moledule" id="moledule-two" style="z-index:999">
     <view class="content">
-      <text class="title">消极思想，情绪和行为</text>
+      <text class="title">简介</text>
     </view>
     <image mode="widthFix" class="background" src="../../images/module_1.png"></image>
   </view>
 
-  <view class="moledule" id="moledule-two">
+  <view class="moledule" id="moledule-two" style="z-index:999" bindtap="toModule">
     <view class="content">
-      <text class="title">选择有价值的生活</text>
+      <text class="title">模块内容</text>
     </view>
     <image mode="widthFix" class="background"  src="../../images/module_2.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
   </view>
 
-  <view class="moledule" id="moledule-three" style="width: 629rpx; height: 290rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx; margin-bottom: 180rpx">
+  <view class="moledule" id="moledule-two" style="margin-bottom: 180rpx; z-index:999" bindtap="toInfoPage">
     <view class="content">
-      <text class="title">选做模块</text>
+      <text class="title">更多资源</text>
     </view>
+    <image mode="widthFix" class="background" src="../../images/optional_module_img.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
   </view>
 </view>

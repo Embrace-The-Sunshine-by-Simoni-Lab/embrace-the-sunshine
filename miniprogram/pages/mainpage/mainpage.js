@@ -156,18 +156,24 @@ Page({
     
 },
 
-toMoodTracking: function() {
-  console.log("toMoodTracking")
-  wx.navigateTo({
-    url: "../questionnaire/questionnaire",
-  })
-},
-toMedTracking: function() {
-  console.log("toMedTracking")
-  wx.navigateTo({
-    url: "../calendar/calendar",
-  })
-},
+  toMoodTracking: function() {
+    console.log("toMoodTracking")
+    wx.navigateTo({
+      url: "../questionnaire/questionnaire",
+    })
+  },
+  toMedTracking: function() {
+    console.log("toMedTracking")
+    wx.navigateTo({
+      url: "../calendar/calendar",
+    })
+  },
+
+  toModule: function() {
+    wx.navigateTo({
+      url: "../module/modulePage",
+    })
+  },
 
   /**
    * Lifecycle function--Called when page hide
