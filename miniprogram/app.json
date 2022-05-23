@@ -42,10 +42,10 @@
         "text": "情绪追踪"
       },
       {
-        "selectedIconPath": "images/home-icon-selected.png",
-        "iconPath": "images/home-icon.png",
-        "pagePath": "pages/mainpage/mainpage",
-        "text": "评估"
+        "selectedIconPath": "images/selected-med.png",
+        "iconPath": "images/med.png",
+        "pagePath": "pages/calendar/calendar",
+        "text": "服药记录"
       },
       {
         "selectedIconPath": "images/selected-profile2.png",

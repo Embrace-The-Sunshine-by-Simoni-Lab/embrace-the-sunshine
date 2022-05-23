@@ -9,14 +9,14 @@
       <view class="row_content" >
         <text class="title">情绪记录</text>
       </view>
-      <image  mode="widthFix" src="../../images/mood.png"></image>
+      <image  mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mood.png"></image>
     </view>
 
     <view class="row_moledule" id="blue" bindtap="toMedTracking" style="z-index:999">
       <view class="row_content">
         <text class="title" >药物追踪</text>
       </view>
-      <image  mode="widthFix" src="../../images/medi_cover.png"></image>
+      <image  mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/medi_cover.png"></image>
     </view>
   </view>
   
@@ -24,20 +24,20 @@
     <view class="content">
       <text class="title">简介</text>
     </view>
-    <image mode="widthFix" class="background" src="../../images/module_1.png"></image>
+    <image mode="widthFix" class="background" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module_1.png"></image>
   </view>
 
   <view class="moledule" id="moledule-two" style="z-index:999" bindtap="toModule">
     <view class="content">
       <text class="title">模块内容</text>
     </view>
-    <image mode="widthFix" class="background"  src="../../images/module_2.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
+    <image mode="widthFix" class="background"  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module_2.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
   </view>
 
   <view class="moledule" id="moledule-two" style="margin-bottom: 180rpx; z-index:999" bindtap="toInfoPage">
     <view class="content">
       <text class="title">更多资源</text>
     </view>
-    <image mode="widthFix" class="background" src="../../images/optional_module_img.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
+    <image mode="widthFix" class="background" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/optional_module_img.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
   </view>
 </view>
