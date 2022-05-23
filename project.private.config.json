@@ -1,6 +1,16 @@
 {
   "setting": {},
+  "description": "Project configuration file, more information: https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
     "miniprogram": {
       "list": [
         {
@@ -36,18 +46,21 @@
           "name": "",
           "pathName": "pages/index/index",
           "query": "",
-          "launchMode": "default",
           "scene": null
         },
         {
           "name": "",
           "pathName": "pages/infoPage/infoPage",
           "query": "",
-          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/calendar/calendar",
+          "pathName": "pages/calendar/calendar",
+          "query": "",
           "scene": null
         }
       ]
     }
-  },
-  "description": "Project configuration file, more information: https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html"
+  }
 }
