@@ -38,9 +38,9 @@
   <!-- bindtouchstart、 bindtouchmove、bindtouchend -->
   <!-- 当手指触摸屏幕并滑动时，所触发的三个函数 -->
   <view class="top_bar {{open ? ['c-state','cover_top_bar'] : ''}} ">
-        <image class="icon menu" src="../../images/module/menu_icon.png" bindtap="tap_ch"></image>
+        <image class="icon menu" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module/menu_icon.png" bindtap="tap_ch"></image>
         <text class="sub_title">{{sub_title}}</text>
-        <image class="icon favorite" src="../../images/module/favorite_icon.png"></image>
+        <image class="icon favorite" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module/favorite_icon.png"></image>
       </view>
 
   <swiper indicator-dots="true" duration="300" class="page_body {{open ? ['c-state','cover'] : ''}} ">
