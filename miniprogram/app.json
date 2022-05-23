@@ -37,21 +37,22 @@
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/selected-profile2.png",
-        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/content-icon-selected.png",
+        "iconPath": "images/content-icon.png",
+        "pagePath": "pages/index/index",
+        "text": "内容"
+      },
+      {
+        "selectedIconPath": "images/home-icon-selected.png",
+        "iconPath": "images/home-icon.png",
         "pagePath": "pages/mainpage/mainpage",
-        "text": "内容0"
+        "text": "主页"
       },
       {
         "selectedIconPath": "images/selected-profile2.png",
         "iconPath": "images/profile.png",
-        "pagePath": "pages/mainpage/mainpage",
-        "text": "主页0"
-      },{
-        "selectedIconPath": "images/selected-profile2.png",
-        "iconPath": "images/profile.png",
         "pagePath": "pages/profile/profile",
-        "text": "我的0"
+        "text": "我的"
       }
     ],
     "position": "bottom"

@@ -12,12 +12,12 @@ Component({
    * Component initial data
    */
   data: {
-    "selected": 1,
+    "selected": 2,
     "list": [
       {
         "selectedIconPath": "../images/content-icon-selected.png",
         "iconPath": "../images/content-icon.png",
-        "pagePath": "../pages/questionnaire/questionnaire",
+        "pagePath": "../pages/index/index",
         "text": "内容"
       },
       {
@@ -29,7 +29,7 @@ Component({
       {
         "selectedIconPath": "../images/selected-profile2.png",
         "iconPath": "../images/profile.png",
-        "pagePath": "../pages/mainpage/mainpage",
+        "pagePath": "../pages/profile/profile",
         "text": "我的"
       }
     ],
