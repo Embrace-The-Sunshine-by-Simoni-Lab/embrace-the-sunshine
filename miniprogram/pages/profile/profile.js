@@ -5,14 +5,17 @@ Page({
    * Page initial data
    */
   data: {
-
+    username: "傻逼Instagram",
+    use_week: 2,
+    num_finished_module: 2,
+    num_finished_optional_module: 6
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
