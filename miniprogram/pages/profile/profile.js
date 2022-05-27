@@ -18,6 +18,21 @@ Page({
     
   },
 
+  goto_save: function() {
+    wx.navigateTo({
+      url: "../save/save",
+    })
+  },
+  goto_resources: function() {
+    wx.navigateTo({
+      url: "../infoPage/infoPage",
+    })
+  },
+  goto_settings: function() {
+    wx.navigateTo({
+      url: "../setting/setting",
+    })
+  },
   /**
    * Lifecycle function--Called when page is initially rendered
    */

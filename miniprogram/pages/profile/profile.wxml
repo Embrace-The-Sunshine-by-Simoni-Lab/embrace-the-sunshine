@@ -11,17 +11,17 @@
 
       <view class="buttonList-container">
       
-        <view class="button-container-vertical">
+        <view class="button-container-vertical" bindtap="goto_save">
           <image src="../../images/saves.png" style="width: 80rpx; height: 80rpx"></image>
           <text>收藏内容</text>
         </view>
 
-        <view class="button-container-vertical">
+        <view class="button-container-vertical" bindtap="goto_resources">
           <image src="../../images/more_resources.png" style="width: 80rpx; height: 80rpx"></image>
           <text>更多资源</text>
         </view>
 
-        <view class="button-container-vertical">
+        <view class="button-container-vertical" bindtap="goto_settings">
           <image src="../../images/settings.png" style="width: 80rpx; height: 80rpx"></image>
           <text>设置</text>
         </view>
