@@ -1,0 +1,24 @@
+/* pages/setting/setting.wxss */
+
+.container {
+  display: flex;
+  flex-direction: column; 
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.column_display {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.button_container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 50rpx;
+  padding-bottom: 50rpx;
+  border-bottom:  2rpx solid #dadada;
+}

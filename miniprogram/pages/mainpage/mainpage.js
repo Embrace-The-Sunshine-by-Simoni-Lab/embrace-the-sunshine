@@ -163,7 +163,7 @@ Page({
     })
   },
   toMedTracking: function() {
-    console.log("toMedTracking")
+    console.log("toCalendar")
     wx.navigateTo({
       url: "../calendar/calendar",
     })
