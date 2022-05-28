@@ -1,8 +1,8 @@
 <!--pages/setting/setting.wxml-->
 <view class="container">
 
-  <view class="column_display" bindtap="to_feedback">
-    <view class="button_container">
+  <view class="column_display">
+    <view class="button_container" bindtap="to_feedback">
       <text>意见反馈</text>
     </view>
     <view class="button_container" bindtap="to_privacy_policy">

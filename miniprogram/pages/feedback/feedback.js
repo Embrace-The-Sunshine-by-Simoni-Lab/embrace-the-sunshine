@@ -5,7 +5,8 @@ Page({
    * Page initial data
    */
   data: {
-    feedback_content: ""
+    feedback_content: "",
+    btn_disable: false
   },
 
   /**
@@ -17,8 +18,54 @@ Page({
 
   input_handler: function (event) {
     // console.log(event.detail.value)
-    this.feedback_content = event.detail.value
+    this.data.feedback_content = event.detail.value
   },
+
+  submit_feedback: function () {
+    
+    let that = this
+    if (this.data.feedback_content.length < 5) {
+      wx.showToast({
+        title: '请写至少五个字',
+        icon: false
+      })
+    } else {
+      this.setData({
+        btn_disable: true
+      })
+      wx.showLoading({
+        title: '反馈提交中',
+      })
+      wx.cloud.callFunction({
+        name: 'add_feedback',
+        data: {
+          feedback_text: that.data.feedback_content
+        },
+        success: out => {
+          that.setData({
+            feedback_content: ""
+          })
+          that.data.feedback_content = ""
+          wx.hideLoading()
+          wx.showToast({
+            title: '感谢您的反馈',
+          })
+        },
+        fail: out => {
+          wx.hideLoading()
+          wx.showToast({
+            title: '请检查您的网络',
+          })
+        },
+        complete: out => {
+          that.setData({
+            btn_disable: false
+          })
+        }
+      })
+    }
+  },
+  
   /**
    * Lifecycle function--Called when page is initially rendered
    */
