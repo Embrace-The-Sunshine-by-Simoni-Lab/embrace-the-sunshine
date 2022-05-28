@@ -1,0 +1,16 @@
+<!--pages/setting/setting.wxml-->
+<view class="container">
+
+  <view class="column_display" bindtap="to_feedback">
+    <view class="button_container">
+      <text>意见反馈</text>
+    </view>
+    <view class="button_container" bindtap="to_privacy_policy">
+      <text>隐私政策</text>
+    </view>
+    <view class="button_container" bindtap="to_aboutus">
+      <text>关于我们</text>
+    </view>
+  </view>
+
+</view>
