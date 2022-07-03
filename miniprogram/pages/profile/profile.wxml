@@ -9,6 +9,13 @@
         <text class="greeting">您好，{{username}}！</text>
       </view>
 
+      <view class="name_container">
+        <form class="name_change_form" catchsubmit="submitName">
+          <input class="name_input" type="text" maxlength="10" placeholder="修改昵称" name="new_name"/>
+          <button class="name_submit" formType="submit">保存</button>
+        </form>
+      </view>
+
       <view class="buttonList-container">
       
         <view class="button-container-vertical" bindtap="goto_save">
