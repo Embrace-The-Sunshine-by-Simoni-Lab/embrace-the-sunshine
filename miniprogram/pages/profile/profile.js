@@ -80,5 +80,14 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  submitName: function (e) {
+    let name = e.detail.value.new_name;
+    if(name.length !== 0) {
+      this.setData({
+        username: name
+      })
+    }
   }
 })

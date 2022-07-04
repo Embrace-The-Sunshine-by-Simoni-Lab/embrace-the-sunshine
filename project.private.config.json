@@ -1,16 +1,9 @@
 {
-  "setting": {},
+  "setting": {
+    "compileHotReLoad": true
+  },
   "description": "Project configuration file, more information: https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
@@ -59,8 +52,30 @@
           "pathName": "pages/calendar/calendar",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/demo/demo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/mainpage/mainpage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/profile/profile",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
-  }
+  },
+  "projectname": "embrace-the-sunshine"
 }
