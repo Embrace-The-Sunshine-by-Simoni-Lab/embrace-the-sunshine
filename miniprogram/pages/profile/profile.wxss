@@ -13,7 +13,7 @@
 }
 
 .text-container {
-  padding-bottom: 80rpx;
+  padding-bottom: 20rpx;
   text-align: center;
 }
 
@@ -52,3 +52,20 @@
   padding: 36rpx;
 }
 
+.name_container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 185px;
+  text-align: center;
+  margin: auto
+}
+
+.name_input {
+  border-radius: 5px;
+  border: 2px solid lightgray;
+}
+
+.name_submit {
+  color: white;
+  background-color: #7BB32E;
+}
