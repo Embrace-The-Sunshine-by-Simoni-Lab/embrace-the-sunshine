@@ -1,43 +1,30 @@
 <view class="container">
-  <!-- <view id="info">
-    <image id="info-img" bindtap="toInfoPage" src="../../images/info.png"></image>
-  </view> -->
-
-  <view class="row_display">
-  
-    <view class="row_moledule" id="black" bindtap="toMoodTracking" style="z-index:999">
-      <view class="row_content" >
-        <text class="title">情绪记录</text>
-      </view>
-      <image  mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mood.png"></image>
+  <view class="small_moduel_container">
+    <view class="small_module" bindtap="toMoodTracking">
+      <text class="title">情绪记录</text>
+      <image class="smallImg1" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/small-module-mood.png"></image>
     </view>
 
-    <view class="row_moledule" id="blue" bindtap="toMedTracking" style="z-index:999">
-      <view class="row_content">
-        <text class="title" >药物追踪</text>
-      </view>
-      <image  mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/medi_cover.png"></image>
+    <view class="small_module" bindtap="toMedTracking">
+      <text class="title" >药物追踪</text>
+      <image class="smallImg2" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/small-module-med.png"></image>
     </view>
   </view>
-  
-  <view class="moledule" id="moledule-two" style="z-index:999">
-    <view class="content">
+
+  <view class="big_moduel_container">
+    <view class="big_moledule">
       <text class="title">简介</text>
+      <image class="bigImg1" mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/big-module-intro.png"></image>
     </view>
-    <image mode="widthFix" class="background" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module_1.png"></image>
-  </view>
 
-  <view class="moledule" id="moledule-two" style="z-index:999" bindtap="toModule">
-    <view class="content">
+    <view class="big_moledule" bindtap="toModule">
       <text class="title">模块内容</text>
+      <image class="bigImg2" mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/big-module-content.png"></image>
     </view>
-    <image mode="widthFix" class="background"  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module_2.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
-  </view>
 
-  <view class="moledule" id="moledule-two" style="margin-bottom: 180rpx; z-index:999" bindtap="toInfoPage">
-    <view class="content">
+    <view class="big_moledule" bindtap="toInfoPage">
       <text class="title">更多资源</text>
+      <image class="bigImg3" mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/big-module-more.png"></image>
     </view>
-    <image mode="widthFix" class="background" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/optional_module_img.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
   </view>
 </view>

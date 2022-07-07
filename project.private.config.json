@@ -7,50 +7,10 @@
     "miniprogram": {
       "list": [
         {
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide",
-          "query": ""
-        },
-        {
-          "name": "pages/charts/charts",
-          "pathName": "pages/charts/charts",
+          "name": "pages/mainpage/mainpage",
+          "pathName": "pages/mainpage/mainpage",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/medTracking/medTracking",
-          "pathName": "pages/medTracking/medTracking",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/moodTracking/moodTracking",
-          "pathName": "pages/moodTracking/moodTracking",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/demo/demo",
-          "pathName": "pages/demo/demo",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/infoPage/infoPage",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/calendar/calendar",
-          "pathName": "pages/calendar/calendar",
-          "query": "",
+          "launchMode": "default",
           "scene": null
         },
         {

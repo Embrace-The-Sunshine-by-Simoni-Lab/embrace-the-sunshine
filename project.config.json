@@ -3,7 +3,7 @@
   "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
     "urlCheck": true,
-    "es6": true,
+    "es6": false,
     "enhance": true,
     "postcss": true,
     "preloadBackgroundData": false,
@@ -21,8 +21,6 @@
     "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
-    "useApiHook": true,
-    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -38,25 +36,19 @@
     "useCompilerPlugins": false,
     "useStaticServer": true,
     "disableUseStrict": false,
-    "minifyWXML": true
+    "minifyWXML": true,
+    "ignoreUploadUnusedFiles": true
   },
-  "appid": "wxce2e39d26aad783a",
-  "projectname": "miniprogram-2",
-  "libVersion": "2.14.1",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "compileType": "miniprogram",
   "srcMiniprogramRoot": "miniprogram/",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "description": "Project configuration file, more information: https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "condition": {
     "miniprogram": {
       "list": [
@@ -85,5 +77,11 @@
         }
       ]
     }
-  }
+  },
+  "libVersion": "2.24.6",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "appid": "wxce2e39d26aad783a"
 }
