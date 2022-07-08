@@ -93,7 +93,11 @@ Page({
         console.log(med_records);
         for (let i = 0; i < med_records.length; i++) {
             let single_data_in_records = new Date(med_records[i]);
-            demo5_days_style.push({ month: 'current', day: single_data_in_records.getDate(), color: 'white', background: '#54B24C' });
+            // if month matches
+            if (single_data_in_records.getFullYear() == this.data.year && single_data_in_records.getMonth() + 1 == this.data.month) {
+                demo5_days_style.push({ month: 'current', day: single_data_in_records.getDate(), color: 'white', background: '#54B24C' });
+            }
+            
         }
 
         // console.log(last_med_date.getFullYear() + ", " + this.data.year);
