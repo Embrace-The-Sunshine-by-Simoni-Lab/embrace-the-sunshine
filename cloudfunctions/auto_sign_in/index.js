@@ -37,6 +37,7 @@ exports.main = async (event, context) => {
     // build a new record
     data_to_insert = {
       openid: wxContext.OPENID,
+      nickname: "先生/女士",
       is_admin: false,
       reg_time: current_time,
       last_sign_in: current_time,
