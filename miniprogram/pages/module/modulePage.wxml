@@ -1,29 +1,11 @@
 <!--pages/module/modulePage.wxml-->
 
 <view class="page">
-
-  <!-- 主页内容 -->
-  <view class="progress_view">
-    <view class="progress_box">
-      <progress percent="{{percentage}}" color="#2C82DE" stroke-width="8"></progress>
-    </view>
-    <text class="progress_text">完成度： {{percentage}}%</text>
-  </view>
-
   <!-- 侧边栏内容 -->
   <view class="page-slidebar {{open ? '' : 'hide'}}">
-    <view class="page-content">
-      <view class="wc">
-        <text>首页</text>
-      </view>
-      <view class="wc">
-        <text>导航一</text>
-      </view>
-      <view class="wc">
-        <text>导航二</text>
-      </view>
-      <view class="wc">
-        <text>导航三</text>
+    <view class="page-content" wx:for="{{sub_titles}}" wx:for-item="sub_title" wx:for-index="index">
+      <view class="wc {{current_page - 1 == index ? ['wc_selected'] : ''}}">
+        <text> {{sub_title}}</text>
       </view>
     </view>
   </view>
@@ -37,27 +19,44 @@
 
   <!-- bindtouchstart、 bindtouchmove、bindtouchend -->
   <!-- 当手指触摸屏幕并滑动时，所触发的三个函数 -->
-  <view class="top_bar {{open ? ['c-state','cover_top_bar'] : ''}} ">
-        <image class="icon menu" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module/menu_icon.png" bindtap="tap_ch"></image>
-        <text class="sub_title">{{sub_title}}</text>
-        <image class="icon favorite" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module/favorite_icon.png"></image>
+  <view class="main {{open ? ['c-state','cover'] : ''}}" bindtap="{{open ? 'close_menu' : ''}}">
+    <view class="top_bar">
+      <image class="icon menu" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module/menu_icon.png" bindtap="tap_ch"></image>
+      <text class="sub_title">{{sub_titles[current_page - 1]}}</text>
+      <image class="icon favorite" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/module/favorite_icon.png"></image>
+    </view>
+
+    <view class="page_body">
+      <template is="section{{current_page}}">
+      </template>
+    </view>
+
+    <template name='section1'>
+      <view>
+        思想：脑海中的想法，这些想法可能与现实一致，也可能与现实大相径庭。比如，有时我们对人或事情的想法可能过于极端，从而偏离现实。 
       </view>
+      <image src="../../images/module/module_1_section_1_image_1.png"></image>
+    </template>
 
-  <swiper indicator-dots="true" duration="300" class="page_body {{open ? ['c-state','cover'] : ''}} ">
-  <swiper-item>
-    <view >
-      page 1 holder
-    </view>
-  </swiper-item>
-  <swiper-item>
-    <view >
-      page 2 holder
-    </view>
-  </swiper-item>  <swiper-item>
-    <view >
-      page 3 holder
-    </view>
-  </swiper-item>
-  </swiper>
+    <template name='section2'>
+      <view >
+        特定事件会引发一些想法，很多时候，这些想法而不是事件本身会引发特定情绪和行为。有时我们会陷入想法、情绪和行为的恶性循环。
+      </view>
+    </template>
 
+    <view class="bottom_bar ">
+      <view class="button" bindtap="go_back">
+        {{current_page == 1 ? '已经是第一页啦' : sub_titles[current_page - 2]}}
+      </view>
+      <view class="button" bindtap="go_next">
+        {{current_page == sub_titles.length ? '提交' : sub_titles[current_page]}}
+      </view>
+      <view class="progress_view">
+        <view class="progress_box">
+          <progress percent="{{current_page / sub_titles.length * 100}}" color="#2C82DE" stroke-width="3"></progress>
+        </view>
+        <text class="progress_text">完成度： {{current_page}}/{{sub_titles.length}}</text>
+      </view>
+    </view>
+  </view>
 </view>
