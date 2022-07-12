@@ -21,47 +21,47 @@ Page({
     onShow: function() {
         // displaying red dot on calendar icon
 
-        var medDate = app.globalData.userData.med_date
-        var tabList = this.getTabBar().data.list
-        if (medDate.length != 0) {
-            var today = new Date()
-            var lastDate = new Date(app.globalData.userData.med_date[0])
+        // var medDate = app.globalData.userData.med_date
+        // var tabList = this.getTabBar().data.list
+        // if (medDate.length != 0) {
+        //     var today = new Date()
+        //     var lastDate = new Date(app.globalData.userData.med_date[0])
         
-            if (today.toDateString() != lastDate.toDateString()) {
-                tabList[1].showRedDot = true
-            } else {
-                tabList[1].showRedDot = false
-            }
-        } else {
-            tabList[1].showRedDot = true
-        }
+        //     if (today.toDateString() != lastDate.toDateString()) {
+        //         tabList[1].showRedDot = true
+        //     } else {
+        //         tabList[1].showRedDot = false
+        //     }
+        // } else {
+        //     tabList[1].showRedDot = true
+        // }
 
-         // displaying red dot on moodtracking icon
-        var last_questionare_week = app.globalData.userData.mood_track.mood_date[0];
-        var currDate = new Date();
-        var janOne = new Date(currDate.getFullYear(),0,1);
-        var dayNum = Math.floor((currDate - janOne) / (24 * 60 * 60 * 1000));
-        var curWeekNum = Math.ceil((currDate.getDay() + 1 + dayNum) / 7);
-        console.log(curWeekNum);
-        if (last_questionare_week == -1) {
-            tabList[0].showRedDot = true
-        } else {
-            if (curWeekNum == last_questionare_week) {
-            tabList[0].showRedDot = false;
-            } else {
-            tabList[0].showRedDot = true;
-            }
-        }
+        //  // displaying red dot on moodtracking icon
+        // var last_questionare_week = app.globalData.userData.mood_track.mood_date[0];
+        // var currDate = new Date();
+        // var janOne = new Date(currDate.getFullYear(),0,1);
+        // var dayNum = Math.floor((currDate - janOne) / (24 * 60 * 60 * 1000));
+        // var curWeekNum = Math.ceil((currDate.getDay() + 1 + dayNum) / 7);
+        // console.log(curWeekNum);
+        // if (last_questionare_week == -1) {
+        //     tabList[0].showRedDot = true
+        // } else {
+        //     if (curWeekNum == last_questionare_week) {
+        //     tabList[0].showRedDot = false;
+        //     } else {
+        //     tabList[0].showRedDot = true;
+        //     }
+        // }
 
-        this.getTabBar().setData({
-            list:tabList
-        })
+        // this.getTabBar().setData({
+        //     list:tabList
+        // })
 
-        if (typeof this.getTabBar === "function" && this.getTabBar()) {
-            this.getTabBar().setData({
-                selected: 1,
-            })
-        }
+        // if (typeof this.getTabBar === "function" && this.getTabBar()) {
+        //     this.getTabBar().setData({
+        //         selected: 1,
+        //     })
+        // }
     },
 
     /**
@@ -87,6 +87,19 @@ Page({
         console.log("last med date");
         console.log(app.globalData.userData);
         var last_med_date = new Date(app.globalData.userData.med_date[0]);
+        
+        // put med records to calendar
+        var med_records = app.globalData.userData.med_date;
+        console.log(med_records);
+        for (let i = 0; i < med_records.length; i++) {
+            let single_data_in_records = new Date(med_records[i]);
+            // if month matches
+            if (single_data_in_records.getFullYear() == this.data.year && single_data_in_records.getMonth() + 1 == this.data.month) {
+                demo5_days_style.push({ month: 'current', day: single_data_in_records.getDate(), color: 'white', background: '#54B24C' });
+            }
+            
+        }
+
         // console.log(last_med_date.getFullYear() + ", " + this.data.year);
         // console.log(last_med_date.getMonth() + ", " + (this.data.month - 1));
         // console.log(last_med_date.getDate() + ", " + this.data.day);
@@ -105,6 +118,7 @@ Page({
     // Effect: Sends a JSON to the database with information about
     //         the exact time of when the submit button is clicked
     onClick: function(res) {
+        let that = this;
         this.setData({
             is_completed: true
         });
@@ -129,6 +143,12 @@ Page({
             // console.log(res.result.data.med_date);
             // stores latest med_date array to global data
             app.globalData.userData.med_date = res.result.data.med_date;
+            let new_calendar_style = that.data.demo5_days_style;
+            console.log(that)
+            new_calendar_style.push({ month: 'current', day: today.getDate(), color: 'white', background: '#54B24C' })
+            that.setData({
+                demo5_days_style: new_calendar_style
+            })
             console.log(app.globalData.userData);
         });
     }

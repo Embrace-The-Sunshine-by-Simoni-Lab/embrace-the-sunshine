@@ -6,10 +6,18 @@
 <button bindtap="switchIMG">switch image</button>
 <view wx:if="{{show_first_image}}">
   <text>This is the first image</text>
+  <!--
   <image  src="../../images/5270.jpg"/>
+  -->
+  <image  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/5270.jpg"/>
 </view>
 
 <view wx:if="{{!show_first_image}}">
   <text>This is the second image</text>
+  <!--
   <image  src="../../images/11015.jpg"/>
+  -->
+  <image  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/11015.jpg"/>
 </view>
+
+<rich-text></rich-text>

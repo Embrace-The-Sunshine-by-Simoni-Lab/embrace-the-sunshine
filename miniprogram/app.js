@@ -18,7 +18,6 @@ App({
         traceUser: true,
       })
     }
-    this.globalData = {}
   }
   
 })

@@ -28,7 +28,7 @@
         </button> 
     </view>
     <view wx:else>
-        <button class="submit-btn" bindtap="onClick" hover-class="btn-hover" type="default" disabled="{{true}}">
+        <button class="submit-btn"  hover-class="btn-hover" type="default" disabled="{{true}}">
             今日用药已完成
         </button> 
     </view>

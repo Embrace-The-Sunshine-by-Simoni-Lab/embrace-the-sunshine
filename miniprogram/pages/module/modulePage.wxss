@@ -1,0 +1,142 @@
+/* pages/module/modulePage.wxss */
+
+/* 全局样式 */
+page, .page {
+  height: 100%;
+  font-family: 'PingFang SC',
+               'Helvetica Neue',
+               Helvetica,
+               'Droid Sans Fallback',
+               'Microsoft Yachei',
+               sans-serif;
+}
+
+/* 进度条 */
+.process_view {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;        
+}
+
+.progress_text {
+  font-size: 12px;
+  display: flex;
+  justify-content: center;        
+}
+
+/* 侧边栏样式 */
+.page-slidebar {
+  margin-top: 5%;
+  height: 100%;
+  width: 750rpx;
+  position: fixed;
+  background-color:white;
+  z-index: 0;
+}
+
+/* 控制侧边栏的内容距离顶部的距离 */
+.page-content {
+  margin-top: 5%;
+}
+
+/* 侧边栏内容的 css 样式 */
+.wc {
+  margin-top: 5%;
+  color:black;
+  padding: 30rpx 0 30rpx 150rpx;
+  border-bottom: 1px solid #eee; 
+}
+
+/* 当屏幕向左滑动，出现侧边栏的时候，主页的动画样式 */
+/* scale：取值范围 0~1 ，表示屏幕大小是原来的百分之几，可以自己修改成 0.8 试下*/
+/* translate(60%,0%) 表示向左滑动的时候，侧边栏占用平时的宽度为 60%   */
+.c-state {
+  margin-top: 5%;
+  margin-left: 4%;
+  margin-right: 4%;
+  padding-left: 4%;
+  padding-right: 4%;
+  width: 20%;
+  transform: rotate(0deg) scale(1) translate(68%, 0%);
+  -webkit-transform: rotate(0deg) scale(1) translate(68%, 0%);
+}
+
+/* 主页样式 */
+.page_body {
+  margin-top: 5%;
+  margin-left: 4%;
+  margin-right: 4%;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 5%;
+  height: 75%;
+  position: fixed;
+  width: 84%;
+  background-color:white;
+  z-index: 0;
+  transition: All 0.4s ease;
+  -webkit-transition: All 0.4s ease;
+}
+
+.top_bar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  width: 84%;
+  height: 5%;
+  margin-top: 5%;
+  margin-left: 4%;
+  margin-right: 4%;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+
+  transition: All 0.4s ease;
+  -webkit-transition: All 0.4s ease;
+}
+
+.icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.menu {
+  display: absolute;
+  left: 5%;
+}
+
+.sub_title {
+  font-size: 40rpx;
+}
+
+/* 遮盖层样式 */
+.cover{
+  margin-top: 0%;
+  padding-top: 5%;
+  width: 84%;
+  height: 100%;
+  background-color:gray;
+  opacity: 0.5;
+  z-index: 9000;
+}
+
+.cover_top_bar{
+  width: 84%;
+  height:10%;
+  background-color:gray;
+  opacity: 0.5;
+  z-index: 9000;
+}
+
+.content{
+  margin-top: 100rpx; 
+}
+
+.hide{
+  display: none;
+}

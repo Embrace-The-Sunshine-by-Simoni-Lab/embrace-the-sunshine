@@ -1,0 +1,18 @@
+/* pages/feedback/feedback.wxss */
+.feedback_title {
+  padding: 30rpx;
+}
+
+.input {
+  width: 700rpx;
+  height: 400rpx; 
+  border: 1px solid rgb(214, 214, 214);
+  background-color: rgb(255, 255, 255);
+  }
+
+  .submit-btn {
+    width: 90%;
+    margin-top: 30rpx;
+    background-color: rgba(0, 100, 0, 0.6);
+    color: #FFF;
+  }

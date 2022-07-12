@@ -1,26 +1,30 @@
 <view class="container">
-  <view id="info">
-    <image id="info-img" bindtap="toInfoPage" src="../../images/info.png"></image>
-  </view>
-  <view id="text">必做模块</view>
-  <view class="moledule" id="moledule-one">
-    <view class="content">
-      <text class="title">消极思想，情绪和行为</text>
-      <view class="check-circle"></view>
+  <view class="small_moduel_container">
+    <view class="small_module" bindtap="toMoodTracking">
+      <text class="title">情绪记录</text>
+      <image class="smallImg1" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/small-module-mood.png"></image>
     </view>
-    <image mode="widthFix" class="background" src="../../images/module_1.png"></image>
-  </view>
-  <view class="moledule" id="moledule-two">
-    <view class="content">
-      <text class="title">选择有价值的生活</text>
-      <view class="check-circle"></view>
+
+    <view class="small_module" bindtap="toMedTracking">
+      <text class="title" >药物追踪</text>
+      <image class="smallImg2" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/small-module-med.png"></image>
     </view>
-    <image mode="widthFix" class="background"  src="../../images/module_2.png" style="width: 669rpx; height: 336rpx; display: block; box-sizing: border-box; left: 13rpx; top: 0rpx"></image>
   </view>
-  <view class="moledule" id="moledule-three" style="width: 629rpx; height: 290rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx">
-    <view class="content">
-      <text class="title">选做模块</text>
-      <text> 5-45min </text>
+
+  <view class="big_moduel_container">
+    <view class="big_moledule">
+      <text class="title">简介</text>
+      <image class="bigImg1" mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/big-module-intro.png"></image>
+    </view>
+
+    <view class="big_moledule" bindtap="toModule">
+      <text class="title">模块内容</text>
+      <image class="bigImg2" mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/big-module-content.png"></image>
+    </view>
+
+    <view class="big_moledule" bindtap="toInfoPage">
+      <text class="title">更多资源</text>
+      <image class="bigImg3" mode="widthFix" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/big-module-more.png"></image>
     </view>
   </view>
 </view>

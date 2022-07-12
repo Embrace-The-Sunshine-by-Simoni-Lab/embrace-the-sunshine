@@ -62,28 +62,67 @@ Page({
    * Lifecycle function--Called when page show
    */
   onLoad: function() {
-    // login 
-    if (!app.globalData.logged) {
-      wx.showLoading({
-        title: '加载中',
-      })
-      wx.cloud.callFunction({
-        name: 'auto_sign_in',
-        data: {
-        },
-        success: out => {
-          if (out.result.errCode == 0) {
-            if (out.result.data) {
-              app.globalData.userData = out.result.data;
-              app.globalData.logged = true;
-              this.setData({
-                userInfo: out.result.data.userData,
-                hasUserInfo: true,
-                logged: true,
-              })
+    // new login logic
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.cloud.callFunction({
+      name: 'auto_sign_in',
+      data: {
+      },
+      success: out => {
+        if (out.result.errCode == 0) {
+          if (out.result.data) {
+            app.globalData.userData = out.result.data;
+            this.setData({
+              userInfo: out.result.data.userData,
+              hasUserInfo: true,
+              logged: true,
+            })
+          } else {
+            console.log(out.errMsg);
+          }
+        } else {
+          console.log(out.errMsg);
+        }
+      },
+      fail: out => {
+        console.log('call function failed')
+      },
+      complete: out => {
+        wx.hideLoading()
+        console.log(app.globalData.userData)
+        /**
+         * red dot of tabbar implementation
+         
+        // displaying red dot on calendar icon
+        var medDate = app.globalData.userData.med_date
+        var tabList = this.getTabBar().data.list
+        if (medDate.length != 0) {
+            var today = new Date()
+            var lastDate = new Date(app.globalData.userData.med_date[0])
+        
+            if (today.toDateString() != lastDate.toDateString()) {
+              tabList[1].showRedDot = true
             } else {
               console.log(out.errMsg);
             }
+        } else {
+          tabList[1].showRedDot = true
+        }
+
+        // displaying red dot on moodtracking icon
+        var last_questionare_week = app.globalData.userData.mood_track.mood_date[0];
+        var currDate = new Date();
+        var janOne = new Date(currDate.getFullYear(),0,1);
+        var dayNum = Math.floor((currDate - janOne) / (24 * 60 * 60 * 1000));
+        var curWeekNum = Math.ceil((currDate.getDay() + 1 + dayNum) / 7);
+        console.log(curWeekNum);
+        if (last_questionare_week == -1) {
+          tabList[0].showRedDot = true
+        } else {
+          if (curWeekNum == last_questionare_week) {
+            tabList[0].showRedDot = false;
           } else {
             console.log(out.errMsg);
           }
@@ -100,9 +139,41 @@ Page({
       this.main_page_data_setup();
     }
 
+        this.getTabBar().setData({
+          list:tabList
+        })
+        */
+
+        // changes color when selected
+        if (typeof this.getTabBar === "function" && this.getTabBar()) {
+            this.getTabBar().setData({
+                selected: 1
+            })
+        }
+      }
+    })
+
+    
 },
 
-  
+  toMoodTracking: function() {
+    console.log("toMoodTracking")
+    wx.navigateTo({
+      url: "../questionnaire/questionnaire",
+    })
+  },
+  toMedTracking: function() {
+    console.log("toCalendar")
+    wx.navigateTo({
+      url: "../calendar/calendar",
+    })
+  },
+
+  toModule: function() {
+    wx.navigateTo({
+      url: "../module/modulePage",
+    })
+  },
 
   /**
    * Lifecycle function--Called when page hide
@@ -142,41 +213,6 @@ Page({
   toInfoPage: function () {
     wx.navigateTo({
       url: '../infoPage/infoPage',
-    })
-    wx.cloud.callFunction({
-      name: 'authorized_user',
-      data: {
-      },
-      success: out => {
-        console.log('callfunction sucess');
-        console.log(out);
-        if (out.result.errCode == 0) {
-          if (out.result.data.registered) {
-            app.globalData.userData = out.result.data.userData;
-            console.log(out.errMsg);
-            this.setData({
-              gender: out.result.data.userData.gender,
-              avatarUrl: out.result.data.userData.avatarUrl,
-              userInfo: out.result.data.userData,
-              hasUserInfo: true,
-              logged: true,
-              username: out.result.data.userData.nickname
-            })
-          } else {
-            console.log(out.errMsg);
-          }
-        } else {
-          console.log(out.errMsg);
-        }
-      },
-      fail: out => {
-        console.log('call function failed')
-      },
-      complete: out => {
-        console.log('call function completed')
-        wx.hideLoading()
-        console.log(app.globalData.userData)
-      }
     })
   },
 

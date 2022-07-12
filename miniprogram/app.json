@@ -19,7 +19,11 @@
     "pages/infoPage/infoPage",
     "pages/medTracking/medTracking",
     "pages/moodTracking/moodTracking",
-    "pages/demo/demo"
+    "pages/demo/demo",
+    "pages/profile/profile",
+    "pages/setting/setting",
+    "pages/save/save",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -29,34 +33,27 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "custom": true,
     "color": "#959494",
     "selectedColor": "#1C6DCD",
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/selected-emotion.png",
-        "iconPath": "images/Group.png",
-        "pagePath": "pages/questionnaire/questionnaire",
-        "text": "情绪追踪"
+        "selectedIconPath": "images/content-icon-selected.png",
+        "iconPath": "images/content-icon.png",
+        "pagePath": "pages/index/index",
+        "text": "内容"
       },
       {
-        "selectedIconPath": "images/selected-med.png",
-        "iconPath": "images/med.png",
-        "pagePath": "pages/calendar/calendar",
-        "text": "服药记录"
-      },
-      {
-        "selectedIconPath": "images/selected-tracking.png",
-        "iconPath": "images/tracking.png",
+        "selectedIconPath": "images/home-icon-selected.png",
+        "iconPath": "images/home-icon.png",
         "pagePath": "pages/mainpage/mainpage",
-        "text": "评估"
+        "text": "主页"
       },
       {
         "selectedIconPath": "images/selected-profile2.png",
         "iconPath": "images/profile.png",
-        "pagePath": "pages/mainpage/mainpage",
+        "pagePath": "pages/profile/profile",
         "text": "我的"
       }
     ],

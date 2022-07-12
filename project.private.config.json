@@ -1,50 +1,41 @@
 {
-  "setting": {},
+  "setting": {
+    "compileHotReLoad": true
+  },
+  "description": "Project configuration file, more information: https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide",
-          "query": ""
-        },
-        {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
+          "name": "pages/mainpage/mainpage",
+          "pathName": "pages/mainpage/mainpage",
           "query": "",
+          "launchMode": "default",
           "scene": null
         },
         {
-          "id": -1,
-          "name": "pages/medTracking/medTracking",
-          "pathName": "pages/medTracking/medTracking",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": 3,
-          "name": "pages/moodTracking/moodTracking",
-          "pathName": "pages/moodTracking/moodTracking",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/demo/demo",
+          "name": "",
           "pathName": "pages/demo/demo",
           "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/mainpage/mainpage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/profile/profile",
+          "query": "",
+          "launchMode": "default",
           "scene": null
         }
       ]
     }
-  }
+  },
+  "projectname": "embrace-the-sunshine"
 }
