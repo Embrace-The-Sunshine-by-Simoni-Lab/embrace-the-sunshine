@@ -27,19 +27,73 @@
     </view>
 
     <view class="page_body">
-      <template is="section{{current_page}}">
-      </template>
+      <scroll-view scroll-y="true">
+        <template is="section{{current_page}}">
+        </template>
+      </scroll-view>
     </view>
 
     <template name='section1'>
-      <view>
-        思想：脑海中的想法，这些想法可能与现实一致，也可能与现实大相径庭。比如，有时我们对人或事情的想法可能过于极端，从而偏离现实。 
+      <view style="padding-left: 8%; padding-right: 8%; ">
+        <rich-text nodes="<p style='font-weight: 500;font-size: 17px;line-height: 30px'><big style='color: #1C6DCD;font-size: 22px'>思想：</big>脑海中的想法，这些想法可能与现实一致，也可能与现实大相径庭。比如，有时我们对人或事情的想法可能过于极端，从而偏离现实。</p>">
+        </rich-text>
       </view>
       <image src="../../images/module/module_1_section_1_image_1.png"></image>
+      <text style="line-height: 70rpx; padding-top: 0%">
+        比如：
+        感染HIV以后，即使吃药也不会对我有任何帮助。
+        感染HIV意味着我的人生没有办法继续了。
+        感染HIV以后我再也不能做我一直喜欢做的事情了。
+      </text>
+
+      <!-- 分割线 -->
+      <view style="margin-left:25%; margin-right:25%;margin-top: 150rpx; margin-bottom:50rpx; background: #1C6DCD; width: 50%; height: 2rpx;"></view>
+
+
+      <view style="padding-left: 8%; padding-right: 8%; ">
+        <rich-text nodes="<p style='font-weight: 500;font-size: 17px;line-height: 30px'><big style='color: #1C6DCD;font-size: 22px'>情绪: </big>心中感受到的情感，很多时候由特定事件和想法引发。比如，极端消极的想法（“感染HIV意味着我的人生没有办法继续了” ）可能会引发极端消极的情绪</p>">
+        </rich-text>
+      </view>
+      <image src="../../images/module/module_1_section_1_image_2.png"></image>
+      <view style="padding-top: 25rpx">
+        比如：
+      </view>
+      <view style="padding-top: 25rpx">
+        想到我感染了HIV我就感到很绝望。
+      </view>
+      <view style="padding-top: 25rpx">
+        听了医生解释HIV现在基本是慢性病可以用药物控制，我感到心中感到轻松许多。
+      </view>
+      <view style="padding-top: 25rpx">
+        听到朋友说他们会一直在我身边帮助我，我感到很欣慰。
+      </view>
+
+      <!-- 分割线 -->
+      <view style="margin-left:25%; margin-right:25%;margin-top: 150rpx; margin-bottom:50rpx; background: #1C6DCD; width: 50%; height: 2rpx;"></view>
+
+      <view style="padding-left: 8%; padding-right: 8%; ">
+        <rich-text nodes="<p style='font-weight: 500;font-size: 17px;line-height: 30px'><big style='color: #1C6DCD;font-size: 22px'>行为： </big>基于想法（和/或）情绪而采取的行动。比如，感到绝望和消极的时候可能会不想做任何事情；“按时吃药能够控制艾滋病的发展”的想法可能会激励我们每天按时吃药。</p>">
+        </rich-text>
+      </view>
+      <image src="../../images/module/module_1_section_1_image_3.png"></image>
+      <view style="padding-top: 25rpx">
+        比如：
+      </view>
+      <view style="padding-top: 25rpx">
+        了解服药的重要性，我每个月都按时取药、吃药。
+      </view>
+      <view style="padding-top: 25rpx">
+        考虑到朋友或同事看到我的药物会产生好奇心，我把HIV药物放在维生素瓶子里。
+      </view>
+      <view style="padding-top: 25rpx">
+        感到孤独无助的时候，我约朋友出来一起散步，那之后心情好多了。
+      </view>
+      <!-- 空白内容 -->
+      <view style="width: 100%; height: 360rpx;"></view>
     </template>
 
     <template name='section2'>
-      <view >
+      <view>
         特定事件会引发一些想法，很多时候，这些想法而不是事件本身会引发特定情绪和行为。有时我们会陷入想法、情绪和行为的恶性循环。
       </view>
     </template>

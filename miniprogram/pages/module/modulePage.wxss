@@ -3,12 +3,8 @@
 /* 全局样式 */
 page, .page {
   height: 100%;
-  font-family: 'PingFang SC',
-               'Helvetica Neue',
-               Helvetica,
-               'Droid Sans Fallback',
-               'Microsoft Yachei',
-               sans-serif;
+  font: 'Noto Sans SC';
+  background: #97979720;
 }
 
 /* 侧边栏样式 */
@@ -53,8 +49,6 @@ page, .page {
   padding-left: 8%;
   padding-right: 8%;
   padding-top: 5%;
-  height: 70%;
-  position: fixed;
   width: 84%;
   background-color:white;
   z-index: 0;
@@ -75,6 +69,7 @@ page, .page {
   padding-right: 4%;
   padding-top: 3%;
   padding-bottom: 3%;
+  
 }
 
 .main{
