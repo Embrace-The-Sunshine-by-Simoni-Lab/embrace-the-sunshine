@@ -1,34 +1,89 @@
-<view class="title">
-  <text>情绪评估</text>
-</view>
+<form id="regForm" action="/action_page.php">
 
-<view class="subtitle">
-  <text>在过去的七天，您受一下问题困扰的频率如何?</text>
-</view>
-
-<view wx:if="{{!is_completed}}">
-  <view class="question-set" wx:for="{{questions}}">
-    <text class="question">
-      {{index + 1}}. {{item.value}}
-    </text>
-    <radio-group mark:groupMark="{{index}}" class="radio-set">
-      <label class="radio-label" wx:for="{{options}}" bindtap="onTap" data-index="{{index}}">
-        <view class="choices">
-          <radio class="radio" value="{{item.value}}" />
-          <view class="hline"></view>
-          <view class="vline"></view>
-          <text class="option" >{{item.value}}</text>
-        </view>
-        </label>
+  <!-- One "tab" for each step in the form: -->
+  <div class="tab">1. 没有兴趣或不乐意做事情
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
     </radio-group>
-  </view>
-
-  <view class="uploader">
-      <button class="submit-button" bindtap="mood_submit" hover-class="button-submit" style="width: 140vw">
-      提交
-      </button> 
-  </view>
-</view>
-<view wx:else>
-  <text>You are done for the questionare of the week</text>
-</view>
+  </div>
+  <div class="tab">  2. 感到情绪低落，沮丧或绝望
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
+    </radio-group>
+  </div>
+  <div class="tab">   3. 入睡或保持睡眠有困难
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
+    </radio-group>
+  </div>
+  <div class="tab">   4. 感到疲劳或没有精神
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
+    </radio-group>
+  </div>
+  <div class="tab">   5. 胃口不好或饮食过度
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
+    </radio-group>
+  </div>
+  <div class="tab">6. 对自己感到难过；感觉自己是个失败者或让自己或家人失望             
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
+    </radio-group>
+  </div>
+  <div class="tab">7.  做事不能集中注意力，如读报纸或看电视
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
+    </radio-group>
+  </div>
+  <div class="tab">8. 走路或说话很慢，慢到引人注意（或者相反，坐立      不安或好动，比通常情况下走动的时间多）        
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
+    </radio-group>
+  </div>
+  <div class="tab">9. 想到自己最好去死或者以某种方式伤害自己
+    <radio-group name="radio">
+      <label><radio value="radio1"/>很少或没有时间（不到1天） </label>
+      <label><radio value="radio2"/>一些或一点时间（1-2天） </label>
+      <label><radio value="radio3"/>偶尔或适量时间（3-4天） </label>
+      <label><radio value="radio4"/>大部分或所有时间（5-7天） </label>
+    </radio-group>
+  </div>
+  <div style="overflow:auto;">
+    <div style="float:right;">
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
+  </div>
+  <!-- Circles which indicates the steps of the form: -->
+  <div style="text-align:center;margin-top:40px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+  </div>
+</form>

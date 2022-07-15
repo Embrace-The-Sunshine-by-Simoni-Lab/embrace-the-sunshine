@@ -51,7 +51,7 @@
   </view>
 
   <view class="uploader">
-    <button bindtap="to_new_mood_tracking">go to new Questionnaire</button>
+    <button bindtap="toMoodTracking">go to new MoodTracking</button>
   </view>
 
 
@@ -59,6 +59,10 @@
     <button bindtap="toMedTracking">go to MedTracking</button>
 </view>
 
+<view class="uploader">
+    <button bindtap="toq2">go to q2</button>
+  </view>
+  
   <!-- 登录 --> 
   <view class="uploader" wx:if="{{!logged}}">
     <button  bindtap="authorization" style="position: relative; left: -29rpx; top: 0rpx">Login</button> 
