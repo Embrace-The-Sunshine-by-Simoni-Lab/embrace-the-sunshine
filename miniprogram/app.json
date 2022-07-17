@@ -18,6 +18,7 @@
     "pages/im/room/room",
     "pages/infoPage/infoPage",
     "pages/medTracking/medTracking",
+    "pages/module/modulePage",
     "pages/moodTracking/moodTracking",
     "pages/demo/demo",
     "pages/profile/profile",
