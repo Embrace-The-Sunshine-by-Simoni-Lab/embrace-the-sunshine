@@ -1,11 +1,13 @@
+const app = getApp()
+
 // pages/profile/profile.js
 Page({
-
+  
   /**
    * Page initial data
    */
   data: {
-    username: "傻逼Instagram",
+    username: app.globalData.userData.nickname,
     use_week: 2,
     num_finished_module: 2,
     num_finished_optional_module: 6
@@ -15,7 +17,14 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    
+    this.setData({
+      nickname: app.globalData.userData.nickname
+    })
+    /*
+    const date = new Date();
+    let todayDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+    console.log(Math.round(Math.abs(todayDate - app.globalData.userData.reg_time) / (1000*60*60*24*7)))
+    */
   },
 
   goto_save: function() {
@@ -37,7 +46,7 @@ Page({
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function () {
-
+    
   },
 
   /**
@@ -82,12 +91,26 @@ Page({
 
   },
 
-  submitName: function (e) {
+  updateName: function (e) {
     let name = e.detail.value.new_name;
     if(name.length !== 0) {
       this.setData({
         username: name
       })
     }
+  },
+
+  submitNameTest: function (e) {
+    let that = this;
+    let newName = e.detail.value.new_name;
+    wx.cloud.callFunction({
+      name: 'nickname_edit',
+      data: {
+        nickname: newName
+      }
+    })
+      that.setData({
+        nickname: newName
+    })
   }
 })
