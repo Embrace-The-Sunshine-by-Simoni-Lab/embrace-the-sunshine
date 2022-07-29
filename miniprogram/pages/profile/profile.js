@@ -8,7 +8,6 @@ Page({
    */
   data: {
     username: app.globalData.userData.nickname,
-    use_week: 2,
     num_finished_module: 2,
     num_finished_optional_module: 6
   },
@@ -17,14 +16,31 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    this.setData({
-      nickname: app.globalData.userData.nickname
+
+    const todayDate = new Date();
+    const regDate = new Date(app.globalData.userData.reg_time);
+    const weeksUsed = Math.round(Math.abs((todayDate - regDate) / (1000*60*60*24*7)));
+
+    let that = this
+    wx.cloud.callFunction({
+      name: 'authorized_user',
+      data: {
+      },
+      success: out => {
+        console.log('callfunction sucess');
+        console.log(out);
+        if (out.result.errCode == 0) {
+          if (out.result.data.registered) {
+            app.globalData.userData = out.result.data.userData;
+            console.log(out.errMsg);
+            this.setData({
+              username: out.result.data.userData.nickname,
+              use_week: weeksUsed
+            })
+          }
+        }
+      }
     })
-    /*
-    const date = new Date();
-    let todayDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
-    console.log(Math.round(Math.abs(todayDate - app.globalData.userData.reg_time) / (1000*60*60*24*7)))
-    */
   },
 
   goto_save: function() {
@@ -91,15 +107,6 @@ Page({
 
   },
 
-  updateName: function (e) {
-    let name = e.detail.value.new_name;
-    if(name.length !== 0) {
-      this.setData({
-        username: name
-      })
-    }
-  },
-
   submitNameTest: function (e) {
     let that = this;
     let newName = e.detail.value.new_name;
@@ -109,8 +116,8 @@ Page({
         nickname: newName
       }
     })
-      that.setData({
-        nickname: newName
+    that.setData({
+      username: newName
     })
   }
 })

@@ -147,6 +147,11 @@ Page({
   //     })
   //   }
   // },
+
+  onShow: function() {
+    this.onLoad();
+  },
+
   toCalendar: function() {
     wx.navigateTo({
       url: "../calendar/calendar",
