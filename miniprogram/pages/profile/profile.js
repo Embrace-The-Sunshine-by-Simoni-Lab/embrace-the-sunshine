@@ -7,40 +7,16 @@ Page({
    * Page initial data
    */
   data: {
-    username: app.globalData.userData.nickname,
-    num_finished_module: 2,
-    num_finished_optional_module: 6
+    username: "先生/女士",
+    num_finished_module: 0,
+    num_finished_optional_module: 0,
+    weeksUsed: 0
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
-    const todayDate = new Date();
-    const regDate = new Date(app.globalData.userData.reg_time);
-    const weeksUsed = Math.round(Math.abs((todayDate - regDate) / (1000*60*60*24*7)));
-
-    let that = this
-    wx.cloud.callFunction({
-      name: 'authorized_user',
-      data: {
-      },
-      success: out => {
-        console.log('callfunction sucess');
-        console.log(out);
-        if (out.result.errCode == 0) {
-          if (out.result.data.registered) {
-            app.globalData.userData = out.result.data.userData;
-            console.log(out.errMsg);
-            this.setData({
-              username: out.result.data.userData.nickname,
-              use_week: weeksUsed
-            })
-          }
-        }
-      }
-    })
   },
 
   goto_save: function() {
@@ -69,7 +45,15 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
+    const todayDate = new Date();
+    const regDate = new Date(app.globalData.userData.reg_time);
+    const weeksUsed = Math.round(Math.abs((todayDate - regDate) / (1000*60*60*24*7)));
 
+    console.log("weeksUsed: " + weeksUsed);
+    this.setData({
+      username: app.globalData.userData.nickname,
+      weeksUsed: weeksUsed
+    })
   },
 
   /**

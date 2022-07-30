@@ -65,6 +65,7 @@ Page({
     // new login logic
     wx.showLoading({
       title: '加载中',
+      mask: true
     })
     wx.cloud.callFunction({
       name: 'auto_sign_in',
