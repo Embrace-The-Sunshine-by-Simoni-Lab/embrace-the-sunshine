@@ -154,3 +154,115 @@ page {
   line-height: 36rpx;
   word-break: break-all;
 }
+
+/* basic style - font size */
+.Heading {
+  font-size: 22rpx;
+}
+.EMTitle {
+  font-size: 17px;
+}
+.Title {
+  font-size: 17rpx;
+}
+.EMGroupTitle {
+  font-size: 15rpx;
+}
+.GroupTitle {
+  font-size: 14rpx;
+}
+.GroupBody {
+  font-size: 17rpx;
+}
+.Text {
+  font-size: 17rpx;
+}
+.EMDesc {
+  font-size: 15rpx;
+}
+.Desc {
+  font-size: 14rpx;
+}
+.Desc {
+  font-size: 14rpx;
+}
+.Footnote {
+  font-size: 12rpx;
+}
+.NavText {
+  font-size: 10rpx;
+}
+.GraphText {
+  font-size: 10rpx;
+}
+/* basic style - font color */
+.BW_10 {
+  color: #F2F2F2;
+}
+.BW_15 {
+  color: #D1D1D1;
+}
+.BW_30 {
+  color: #AAAAAA;
+}
+.BW_50 {
+  color: #7B7B7B;
+}
+.BW_70 {
+  color: #4C4C4C;
+}
+.BW_90 {
+  color: #191919;
+}
+/* basic style - background */
+.BG_Card {
+  background-color: #FDFBFC;
+}
+.BG_White {
+  background-color: #FFFFFF;
+}
+.BG_All {
+  background-color: #F7F7F7;
+}
+.bg-Coral_0 {
+  background-color: #F38A73;
+}
+.bg-Coral_1 {
+  background-color: #FEA28D;
+}
+.bg-oral_2 {
+  background-color: #FFB9AA;
+}
+.bg-Coral_3 {
+  background-color: #FFD1C6;
+}
+.bg-Coral_4 {
+  background-color: #FFE8E3;
+}
+.bg-Blue_0 {
+  background-color: #2E317D;
+}
+.bg-Blue_1 {
+  background-color: #4D50A4;
+}
+.bg-Blue_2 {
+  background-color: #6568BC;
+}
+.bg-Blue_3 {
+  background-color: #DCD6F7;
+}
+.bg-Red_1 {
+  background-color: #FA5151;
+}
+.bg-orange {
+  background-color: #F48657;
+}
+.bg-Yellow_1 {
+  background-color: #FFC300;
+}
+.bg-Green1 {
+  background-color: #91D300;
+}
+.bg-Green_01 {
+  background-color: #46BA74;
+}
