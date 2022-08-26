@@ -1,0 +1,93 @@
+/* components/mainButton.wxss */
+.mainButton {
+  width: 184px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background-color: #4D50A4;
+  border-radius: 8px;
+  color: #FFFFFF;
+}
+
+.secondaryButton {
+  width: 184px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #4D50A4;
+  border: 1px solid #4D50A4;
+  border-radius: 8px;
+}
+
+.recordButton-fill {
+  font-size: 14px !important;
+  line-height: 28px;
+  width: 66px !important;
+  height: 28px !important;
+  color: white;
+  background-color: #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+}
+.recordButton-empty {
+  font-size: 14px !important;
+  line-height: 28px;
+  width: 66px !important;
+  height: 28px !important;
+  color: #4D50A4;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+}
+.analyst-fill {
+  font-size: 14px !important;
+  line-height: 28px;
+  width: 66px !important;
+  height: 28px !important;
+  color: white;
+  background-color: #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+}
+.analyst-empty {
+  font-size: 14px !important;
+  line-height: 28px;
+  width: 66px !important;
+  height: 28px !important;
+  color: #4D50A4;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+}
+
+.button_icon {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  width: 16px;
+  height: 17px;
+}
+.record_title {
+  position: absolute;
+  left: 28px;
+}
+.help-fill {
+  font-size: 14px !important;
+  line-height: 28px;
+  text-align: center;
+  width: 72px !important;
+  height: 28px !important;
+  color: white;
+  background-color: #4D50A4;
+  border-radius: 1020px;
+}
+.help-empty {
+  font-size: 14px !important;
+  line-height: 28px;
+  text-align: center;
+  width: 72px !important;
+  height: 28px !important;
+  color: #4D50A4;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+}
