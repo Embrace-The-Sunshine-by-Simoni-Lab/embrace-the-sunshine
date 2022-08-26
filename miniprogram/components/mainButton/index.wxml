@@ -1,0 +1,24 @@
+<!--components/mainButton.wxml-->
+<view class=".{{type}}">
+  <!-- icon toggle -->
+  <image wx-if="{{type=='recordButton-empty'}}" class="button_icon" src="../../images/记录.png"/>
+
+  <image wx-if="{{type=='recordButton-fill'}}" class="button_icon" src="../../images/记录-w.png"/>
+
+  <image wx-if="{{type=='analyst-empty'}}" class="button_icon" src="../../images/分析.png"/>
+
+  <image wx-if="{{type=='analyst-fill'}}" class="button_icon" src="../../images/分析-w.png"/>
+
+  <!-- main title -->
+  <text wx-if="{{type=='mainButton' || type=='secondaryButton'}}" >{{title}}</text>
+
+  <!-- record button -->
+  <text wx-if="{{type=='recordButton-fill' || type=='recordButton-empty'}}" class="record_title">记录</text>
+
+  <!-- analyst button -->
+  <text wx-if="{{type=='analyst-fill' || type=='analyst-empty'}}" class="record_title">分析</text>
+
+  <!-- help button -->
+  <text wx-if="{{type=='help-fill' || type=='help-empty'}}" >互助小组</text>
+
+</view>

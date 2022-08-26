@@ -1,4 +1,5 @@
 <view class="container">
+  <!-- <mainButton title="sdfsf" type="help-empty"></mainButton> -->
   <view class="small_moduel_container">
     <view class="small_module" bindtap="toMoodTracking">
       <text class="title">情绪记录</text>
