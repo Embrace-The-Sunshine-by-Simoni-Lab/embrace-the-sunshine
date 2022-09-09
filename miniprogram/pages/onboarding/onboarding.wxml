@@ -1,0 +1,17 @@
+<view class="container">
+  <view>this page is working</view>
+  <image src="../../images/onboarding/Group 18498.png" mode="aspectFit"></image>
+    <view class="page-section page-section-spacing swiper">
+      <swiper indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{background}}" wx:key="*this">
+          <swiper-item>
+            <view class="swiper-item {{item}}">
+            <image src="../../images/onboarding/Group 18498.png"></image>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+
+</view>
