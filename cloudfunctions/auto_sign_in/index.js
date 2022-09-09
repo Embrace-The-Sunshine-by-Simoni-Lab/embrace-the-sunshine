@@ -30,10 +30,11 @@ exports.main = async (event, context) => {
     console.log("sucessfully check the database for user information");
     userData = res.data[0];
   })
-  
+  var is_new_user = false;
   data_to_return = {};
   if (userData == undefined) {
     // new user
+    is_new_user = true;
     // build a new record
     data_to_insert = {
       openid: wxContext.OPENID,
@@ -79,15 +80,9 @@ exports.main = async (event, context) => {
      
     
   var result = {};
+  result.is_new_user = is_new_user;
   result.errCode = 0;
   result.errMsg = 'successfully return userinformation';
   result.data = data_to_return;
   return result;
-
-  return {
-    event,
-    openid: wxContext.OPENID,
-    appid: wxContext.APPID,
-    unionid: wxContext.UNIONID,
-  }
 }
