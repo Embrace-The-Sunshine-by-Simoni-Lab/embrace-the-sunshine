@@ -235,6 +235,12 @@ Page({
     },
   },
 
+  goToTest() {
+    console.log(124)
+    wx.redirectTo({
+      url:'/pages/moodTracking-Content/mockTracking-Content'
+    })
+  },
   /**
        * Life cycle function-monitor page loading
    */

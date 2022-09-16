@@ -174,7 +174,7 @@ Page({
   },
 
   toMoodTracking: function() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: "../moodTracking/moodTracking",
     })
   },
