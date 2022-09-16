@@ -1,0 +1,54 @@
+/**index.wxss**/
+.container{
+  background-color: white;
+  display:flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-bottom: 1rem;
+}
+
+
+
+.swiper {
+  display: contents;
+  height: 100vh;
+}
+
+image {
+  display:flex;
+  height: 35rem;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+}
+
+.img4 {
+  height: 42rem;
+}
+
+.img5 {
+  height: 31rem;
+}
+
+.title{
+  margin: 25rem 3rem 10rem 3rem ;
+  position: absolute;
+  color: black;
+  font-size: 1.3rem;
+}
+
+.body{
+  margin: 27.5rem 2rem 10rem 2rem;
+  position: absolute;
+  color: #8b8b8b;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+mainButton{
+  margin: 36rem 2rem 10rem 2rem;
+}
+
+.wx-swiper-dots{
+  color: #FEA28D;
+}

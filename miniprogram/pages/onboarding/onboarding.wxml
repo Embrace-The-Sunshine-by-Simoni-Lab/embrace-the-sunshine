@@ -1,17 +1,37 @@
 <view class="container">
-  <view>this page is working</view>
-  <image src="../../images/onboarding/Group 18498.png" mode="aspectFit"></image>
-    <view class="page-section page-section-spacing swiper">
-      <swiper indicator-dots="{{indicatorDots}}"
-        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-        <block wx:for="{{background}}" wx:key="*this">
-          <swiper-item>
-            <view class="swiper-item {{item}}">
-            <image src="../../images/onboarding/Group 18498.png"></image>
-            </view>
-          </swiper-item>
-        </block>
-      </swiper>
-    </view>
-
+  <swiper indicator-dots="{{indicatorDots}}" class="swiper for" indicator-active-color="#FEA28D">
+    <!--<block wx:for="{{background}}" wx:key="*this">
+      <swiper-item>
+        <view class="swiper-item">{{item}}</view>
+      </swiper-item>
+    </block>-->
+      <swiper-item class="container">
+        <image src="../../images/onboarding/Vector.png" mode="aspectFit"></image>
+        <text class="title">拥抱阳光小程序的功能目的</text>
+        <text class="body">使用专业科学的方法，帮助您应对常见的情绪问题
+        
+        通过学习基于辩证行为疗法（DBT）的心理技能，积极应对负面情绪，改善心理健康，创造有价值的生活</text>
+      </swiper-item>
+      <swiper-item class="container">
+        <image src="../../images/onboarding/Group 18498.png" mode="aspectFit"></image>
+        <text class="title">情绪管理技能</text>
+        <text class="body">情绪管理≠压抑情绪，跟我们一起理解情绪，学习情绪管理技巧，与情绪和平相处</text>
+      </swiper-item>
+      <swiper-item class="container">
+        <image src="../../images/onboarding/Group 18499.png" mode="aspectFit"></image>
+        <text class="title">社会支持</text>
+        <text class="body">与上海心生的工作人员共同学习探讨心理健康技能.</text>
+      </swiper-item>
+      <swiper-item class="container">
+        <image class="img4" src="../../images/onboarding/Group 18500.png" mode="aspectFit"></image>
+        <text class="title">情绪记录</text>
+        <text class="body">关注心理健康从情绪记录开始，追踪情绪波动，揭示情绪触发因素，反映情绪管理技能提升情况。</text>
+      </swiper-item>
+      <swiper-item class="container">
+        <image class="img5" src="../../images/onboarding/Group 18501.png" mode="aspectFit"></image>
+        <text class="title">服药记录</text>
+        <text class="body">以日历的方式呈现您当月的药物依从情况以及每周的平均服药天数。</text>
+        <mainButton title='开启使用' type="mainButton" bindtap="toMainPage"></mainButton>
+      </swiper-item>
+  </swiper>
 </view>
