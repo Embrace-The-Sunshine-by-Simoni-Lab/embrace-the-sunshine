@@ -62,7 +62,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onLoad: function() {
-    // new login logic
+    var is_new_user = false;
     wx.showLoading({
       title: '加载中',
       mask: true
@@ -76,11 +76,8 @@ Page({
           if (out.result.data) {
             console.log(out.result.data);
             app.globalData.userData = out.result.data;
-            this.setData({
-              userInfo: out.result.data.userData,
-              hasUserInfo: true,
-              logged: true,
-            })
+            is_new_user = out.result.is_new_user;
+            console.log("login_status: " + out.result)
           } else {
             console.log(out.errMsg);
           }
@@ -93,7 +90,7 @@ Page({
       },
       complete: out => {
         wx.hideLoading()
-        console.log(app.globalData.userData)
+        // console.log(app.globalData.userData)
         /**
          * red dot of tabbar implementation
          
@@ -152,10 +149,16 @@ Page({
                 selected: 1
             })
         }
-      }
+        // start onboarding page if this is new user
+        if (is_new_user) {
+          wx.navigateTo({
+            url: "../onboarding/onboarding",
+          })
+        }
+       }
     })
-
-    
+        
+  
 },
 
   toMoodTracking: function() {
