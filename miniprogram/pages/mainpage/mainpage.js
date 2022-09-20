@@ -74,6 +74,7 @@ Page({
       success: out => {
         if (out.result.errCode == 0) {
           if (out.result.data) {
+            console.log(out.result.data);
             app.globalData.userData = out.result.data;
             this.setData({
               userInfo: out.result.data.userData,
