@@ -74,6 +74,7 @@ Page({
       success: out => {
         if (out.result.errCode == 0) {
           if (out.result.data) {
+            console.log(out.result.data);
             app.globalData.userData = out.result.data;
             is_new_user = out.result.is_new_user;
             console.log("login_status: " + out.result)

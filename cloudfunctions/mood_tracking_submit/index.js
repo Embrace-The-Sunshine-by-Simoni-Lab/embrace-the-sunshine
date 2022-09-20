@@ -35,8 +35,6 @@ exports.main = async (event, context) => {
   var new_mood_date = userData.mood_track.mood_date;
   var new_mood_score = userData.mood_track.mood_score;
 
-  new_mood_date.pop();
-  new_mood_score.pop();
   new_mood_date.unshift(event.week);
   new_mood_score.unshift(event.score);
   
