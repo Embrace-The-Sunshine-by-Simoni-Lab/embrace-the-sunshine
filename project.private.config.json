@@ -33,6 +33,27 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/moodTracking/moodTracking",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/moodTracking-Content/mockTracking-Content",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/moodtrack-finish/moodtrack-finish",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
