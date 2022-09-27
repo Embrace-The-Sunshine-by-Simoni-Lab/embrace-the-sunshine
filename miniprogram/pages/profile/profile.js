@@ -7,7 +7,7 @@ Page({
    * Page initial data
    */
   data: {
-    username: "先生/女士",
+    username: app.globalData.userData.nickname,
     num_finished_module: 0,
     num_finished_optional_module: 0,
     weeksUsed: 0
@@ -16,7 +16,8 @@ Page({
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
+  onShow: function (options) {
+
   },
 
   goto_save: function() {
@@ -29,9 +30,20 @@ Page({
       url: "../infoPage/infoPage",
     })
   },
+  goto_profileEdit: function() {
+    console.log(this.data.username);
+    wx.navigateTo({
+      url: "../profileEdit/profileEdit",
+    })
+  },
   goto_settings: function() {
     wx.navigateTo({
       url: "../setting/setting",
+    })
+  },
+  goto_info: function() {
+    wx.navigateTo({
+      url: "../infoPage/infoPage",
     })
   },
   /**
@@ -44,7 +56,7 @@ Page({
   /**
    * Lifecycle function--Called when page show
    */
-  onShow: function () {
+  onLoad: function () {
     const todayDate = new Date();
     const regDate = new Date(app.globalData.userData.reg_time);
     const weeksUsed = Math.round(Math.abs((todayDate - regDate) / (1000*60*60*24*7)));
@@ -54,6 +66,9 @@ Page({
       username: app.globalData.userData.nickname,
       weeksUsed: weeksUsed
     })
+
+    console.log(this.data.username);
+    console.log(app.globalData.userData.nickname);
   },
 
   /**
@@ -91,7 +106,7 @@ Page({
 
   },
 
-  submitNameTest: function (e) {
+  setNewName: function (e) {
     let that = this;
     let newName = e.detail.value.new_name;
     wx.cloud.callFunction({

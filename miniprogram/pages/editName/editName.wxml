@@ -1,0 +1,7 @@
+<!--pages/profile/profile.wxml-->
+<view class="container">
+
+  <text>hello</text>
+
+</view>
+

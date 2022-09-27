@@ -1,35 +1,206 @@
-/* pages/profile/profile.wxss */
-.container {
-  padding-top: 80rpx;
+
+body{
+  background-color: #cccccc;
+}
+
+.container{
   display: flex;
-  flex-direction: column; 
-  background-color: rgb(255, 255, 255);
-  width: 100%;
-  margin: 0 auto;
+  flex-direction: column;
+  padding-top: 8%;
+}
+
+.summary-board {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  height: 22%;
+  background: #FDFBFC;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 36rpx;
+  margin: 0 4%;
 }
 
 .greeting {
-  font-size: large;
-}
-
-.text-container {
-  padding-bottom: 20rpx;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.5%;
   text-align: center;
+  padding-top: 5%;
 }
 
-.row_display {
+.user_container{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 85%;
-  height: 10rem;
+}
+
+.name_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px 5px;
+
+  width: 9.5%;
+  height: 22px;
+  background: #F2F2F2;
+  border-radius: 1020px;
+}
+
+.name_submit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 0px;
+}
+
+.name_submit_text{
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+
+  color: #191919;
+}
+
+.experience_a {
+  width: 199px;
+  height: 20px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #191919;
+  padding-top: 0.5%;
+}
+
+.experience_b {
+  width: 199px;
+  height: 40px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #191919;
+  padding-top: 1%;
+  padding-bottom: 2.5%;
+}
+
+.sub-board {
+  display: flex;
+  flex-direction: row;
+  padding-top: 8%;
+  width: auto;
+  margin: 0 4%;
+}
+
+.sub-board-a {
+  display: flex;
+  flex-direction: row;
+  padding: 4% 2%;
+
+  width: 44%;
+  height: 21%;
+
+  background: #FDFBFC;
+
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin-right: 2%;
+}
+
+.sub-board-b {
+  display: flex;
+  flex-direction: row;
+  padding: 4% 2%;
+
+  width: 44%;
+  height: 21%;
+
+  background: #FDFBFC;
+
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin-left: 2%;
+}
+
+.sub-board-vertical {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.main-text {
+  padding-top: 2%;
+  width: 69.57px;
+  height: 21px;
+
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 21px;
+
+  display: flex;
+  align-items: center;
+
+  color: #191919;
+}
+
+.sub-text {
+  padding-top: 4%;
+  padding-bottom: 2%;
+  width: 87px;
+  height: 20px;
+
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
+
+  color: #7B7B7B;
+}
+
+.sub-board-img {
+  margin: 3% 1% 3% 2%;
+}
+
+.tool_container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 6%;
+  width: auto;
+  margin: 0 4%;
+}
+
+.tool-text {
+  width: 34px;
+  height: 24px;
+
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+
+  color: #000000;
 }
 
 .buttonList-container {
   display: flex;
   flex-direction: row;
-  width: 85%;
+  width: 100%;
   margin: 0 auto;
+  align-items: center;
 }
 
 .button-container-vertical {
@@ -39,33 +210,26 @@
   height: 200rpx;
   align-items:center;
   text-align: center;
+  margin: 4% 5%;
 }
 
-.summary-board {
+.button-img {
+  margin-bottom: 1%;
+}
+
+.buttonList-text {
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+
   display: flex;
-  flex-direction: column;
-  width: 80%;
-  height: 390rpx;
-  background: rgb(245, 245, 245);
-  border-radius: 10rpx;
-  box-shadow: 5px 5px 5px 2px #cdcfcf;
-  padding: 36rpx;
+  align-items: center;
+
+  color: #191919;
 }
 
-.name_container {
-  display: flex;
-  flex-flow: row wrap;
-  width: 185px;
-  text-align: center;
-  margin: auto
-}
-
-.name_input {
-  border-radius: 5px;
-  border: 2px solid lightgray;
-}
-
-.name_submit {
-  color: white;
-  background-color: #7BB32E;
+.highlight {
+  color: #4D50A4;
 }
