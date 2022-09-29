@@ -26,6 +26,7 @@
     "pages/setting/setting",
     "pages/save/save",
     "pages/feedback/feedback",
+    "pages/v2/index",
     "components/yty"
     ],
   "window": {
