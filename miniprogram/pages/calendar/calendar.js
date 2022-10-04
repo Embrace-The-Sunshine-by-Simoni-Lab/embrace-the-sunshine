@@ -114,6 +114,10 @@ Page({
         
     },
 
+    dayClick: function(res) {
+        console.log(res);
+    },
+
     // EventHandler linked to the sumbit button.
     // Effect: Sends a JSON to the database with information about
     //         the exact time of when the submit button is clicked

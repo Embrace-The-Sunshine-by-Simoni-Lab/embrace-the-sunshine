@@ -1,6 +1,5 @@
 // pages/moodtrack-finish/moodtrack-finish.js
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -91,7 +90,7 @@ Page({
 
   },
   backHome() {
-    wx.redirectTo({
+    wx.switchTab({
       url: '/pages/mainpage/mainpage',
     })
   }
