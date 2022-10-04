@@ -35,44 +35,44 @@ Page({
     //   })
     // }
     // check if the current user have already registered
-    wx.showLoading({
-      title: '加载中',
-    })
-    wx.cloud.callFunction({
-      name: 'authorized_user',
-      data: {
-      },
-      success: out => {
-        console.log('callfunction sucess');
-        console.log(out);
-        if (out.result.errCode == 0) {
-          if (out.result.data.registered) {
-            app.globalData.userData = out.result.data.userData;
-            console.log(out.errMsg);
-            this.setData({
-              gender: out.result.data.userData.gender,
-              avatarUrl: out.result.data.userData.avatarUrl,
-              userInfo: out.result.data.userData,
-              hasUserInfo: true,
-              logged: true,
-              username: out.result.data.userData.nickname
-            })
-          } else {
-            console.log(out.errMsg);
-          }
-        } else {
-          console.log(out.errMsg);
-        }
-      },
-      fail: out => {
-        console.log('call function failed')
-      },
-      complete: out => {
-        console.log('call function completed')
-        wx.hideLoading()
-      }
-    })
-  },
+  //   wx.showLoading({
+  //     title: '加载中',
+  //   })
+  //   wx.cloud.callFunction({
+  //     name: 'authorized_user',
+  //     data: {
+  //     },
+  //     success: out => {
+  //       console.log('callfunction sucess');
+  //       console.log(out);
+  //       if (out.result.errCode == 0) {
+  //         if (out.result.data.registered) {
+  //           app.globalData.userData = out.result.data.userData;
+  //           console.log(out.errMsg);
+  //           this.setData({
+  //             gender: out.result.data.userData.gender,
+  //             avatarUrl: out.result.data.userData.avatarUrl,
+  //             userInfo: out.result.data.userData,
+  //             hasUserInfo: true,
+  //             logged: true,
+  //             username: out.result.data.userData.nickname
+  //           })
+  //         } else {
+  //           console.log(out.errMsg);
+  //         }
+  //       } else {
+  //         console.log(out.errMsg);
+  //       }
+  //     },
+  //     fail: out => {
+  //       console.log('call function failed')
+  //     },
+  //     complete: out => {
+  //       console.log('call function completed')
+  //       wx.hideLoading()
+  //     }
+  //   })
+  // },
 
   // logout() {
   //   let that = this
@@ -146,7 +146,7 @@ Page({
   //       hasUserInfo: true,
   //     })
   //   }
-  // },
+  },
 
   onShow: function() {
     this.onLoad();

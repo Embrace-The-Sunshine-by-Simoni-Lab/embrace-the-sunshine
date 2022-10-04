@@ -21,6 +21,8 @@
     "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -32,12 +34,7 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "showES6CompileOption": false,
-    "useCompilerPlugins": false,
-    "useStaticServer": true,
-    "disableUseStrict": false,
-    "minifyWXML": true,
-    "ignoreUploadUnusedFiles": true
+    "showES6CompileOption": false
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
@@ -49,6 +46,12 @@
     "tabSize": 2
   },
   "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "libVersion": "2.24.6",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "appid": "wxce2e39d26aad783a",
   "condition": {
     "miniprogram": {
       "list": [
@@ -77,11 +80,5 @@
         }
       ]
     }
-  },
-  "libVersion": "2.24.6",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
-  "appid": "wxce2e39d26aad783a"
+  }
 }
