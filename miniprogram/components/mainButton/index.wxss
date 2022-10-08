@@ -9,6 +9,16 @@
   color: #FFFFFF;
 }
 
+.mainButtonDisabled {
+  width: 184px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background-color: #b9b9b9;
+  border-radius: 8px;
+  color: #2b2b2b;
+}
+
 .secondaryButton {
   width: 184px;
   height: 40px;
