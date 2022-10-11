@@ -1,3 +1,7 @@
 {
-  "component": true
+  "usingComponents": {
+    "mainButton":"/components/mainButton/index",
+    "l-circle":"/components/circle/index",
+    "calendar":"/components/v2/index"
+  }
 }

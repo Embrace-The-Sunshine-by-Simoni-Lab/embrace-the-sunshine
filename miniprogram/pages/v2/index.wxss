@@ -1,57 +1,58 @@
-@import '../../components/v2/theme/iconfont.wxss';
-@import '../../components/v2/theme/theme-default.wxss';
-@import '../../components/v2/theme/theme-elegant.wxss';
-
-
-page {
-  background-color: #efefef;
+Page{
+  background:#FFFFFF;
 }
- 
-.container-fluid {
-  background-color: white;
-  border-radius: 15px
-}
-
-.title {
-  border-radius: 10px;
-  display: block;
-  position: relative;
+.medicineContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  text-align: center;
-  padding-bottom: 15px;
-  padding-top: 0.5rem;
-  margin-top: 1.5rem;
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-bottom: 2rem;
-  color: white;
-  height: 11.1rem;
-  background: linear-gradient(90deg, rgba(139,128,188,0.5) 0%, rgba(221,147,144,0.5) 100%);
-  box-shadow: 0px 11px 2px 1px rgba(234, 234, 229, 0.3);
+  margin: 15px 0 0 0;
 }
-
-#title-weekday {
+.medi-taken {
+  color: #7B7B7B;
+  border-radius: 10px;
+  background-color: #FFD1C6;
+}
+.medi-today {
+  /* background: #e9e5eb; */
+  border-radius: 10px;
+  border: 1px solid #FFD1C6;
+}
+.calendar_box {
+  width: 88%;
+}
+.medicineCalendar {
+  width: 92%;
+}
+.dateBox {
+  border-radius: 10px;
+  background: #F7F7F7;
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  flex-direction:  column;
+  align-items: center;
+}
+.btnBox {
+  display: flex;
+}
+.madicineBtn {
+  padding: 20px 15px;
+}
+.titleMonth {
+  font-size: 16px;
   color: #59518d;
-  font-size: 19px;
-  position: absolute;
-  left: 50%;
-  width: 5rem;
-  margin-left: -2.5rem;
-  margin-top: 5.8rem ;
+  margin-top: 5px;
 }
-
-#title-month {
-  font-size: 21px;
+.medicineNotice {
   color: #59518d;
+  font-size: 15px;
+  padding: 12px;
 }
-
-#title-date {
+.titleDate{
   font-size: 40px;
   color: #59518d;
-}
-
-#title-year {
-  font-size: 21px;
+  margin-top: -8px;
 }
 
 .submit-btn {
@@ -72,7 +73,19 @@ page {
   margin-left: 105px;
   margin-right: 105px;
 }
-
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(139,128,188,0.5) 0%, rgba(221,147,144,0.5) 100%);
+  box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  -webkit-box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  -moz-box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  border-radius: 13px;
+  width: 92%;
+  height: 12rem;
+  margin-bottom: 20px;
+}
 .btn-hover {
   background-color: #b49eeb;
 }
@@ -87,10 +100,10 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;    
-  background-color: #ef7a82;
+  background-color: #FFD1C6;
   margin-left: auto;
   margin-right:auto;
 }
@@ -102,7 +115,11 @@ page {
 .calendar-box .left .today .monthStr {
   font-size: 0.8rem;
 }
-
+.medicineRecord {
+  font-size: 23px;
+  padding: 8px 0;
+  color: #4D50A4;
+}
 .calendar-box .right {
   width: 70%;
   font-size: 12px;
@@ -112,26 +129,6 @@ page {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-}
-
-/* .calendar .tracking {
-  display: inline-block;
-
-}
-
-.buttons {
-  width:100%;
-  text-align: center;
-} */
-
-.dateBox {
-  border-radius: 5px;
-  background: #F7F7F7;
-  width: 5rem;
-  height: 5rem;
-  position: absolute;
-  left: 50%;
-  margin-left: -2.5rem;
 }
 
 .row {
@@ -147,67 +144,163 @@ page {
   width: 80px;
   height: 40px;
 }
+.calendar_arrow_right {
+  width: 10px;
+  height: 16px;
+  padding: 0 12px;
+}
+.calendar_arrow_left {
+  width: 10px;
+  height: 16px;
+  padding: 0 12px;
+  transform: scaleX(-1);
+}
+.calendar_datepicker {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calendar_content_container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.calendar_dateRange {
+  color: #2E317D;
+  font-size: 17px;
+}
+.calendar_content_title {
+  align-self: flex-start;
+  font-size: 14px;
+  color: #2E317D;
+}
+.calendar_bar_container {
+  margin-top: 7px;
+  height: 190px;
+  width: 300px;
+  /* background-color: #FFD1C6; */
+  display: flex;
+}
+.calendar_y_axis {
+  width: 15%;
+  height: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ /*定义滚动条轨道 内阴影+圆角*/
+ ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color:#DCD6F7;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+ }
+ 
+ /*定义滑块 内阴影+圆角*/
+ ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color:#4D50A4;
+ }
+.calendar_bar_block {
+  height: 100%;
 
-/* ----------------------------------------------------------------- */
+  display: flex;
+} 
 
-
-.b {
-    display: flex;
+.calendar_y_axis_label {
+  color: #4C4C4C;
+  font-size: 12px;
+  height: 22%;
+}
+.calendar_bar_container {
+  display: flex;
+}
+.calendar_bar_body_container {
+  display: flex;
+  flex-direction: column;
 }
 
-.lr {
-    flex-direction: row;
+.calendar_circle_container {
+  display: flex;
 }
-
-.tb {
-    flex-direction: column;
+.calendar_summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 230px;
+  padding-left: 10px;
 }
-
-.pc {
-    justify-content: center;
+.calendar_summary_top_circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #FFC300;
+  margin: 8px 0;
+  color: white;
+  text-align: center;
+  line-height: 25px;
+  font-size: 16px;
 }
-
-.ac {
-    align-items: center;
+.calendar_summary_text {
+  font-size: 14px;
+  padding: 5px 0;
+  color: #7B7B7B;
 }
-
-.cc {
-    align-items: center;
-    justify-content: center;
+.calendar_line {
+  margin: 10px 0;
+  border-radius: 90%;
+  border: 1px solid #DCD6F7;
+  width: 80%;
 }
-
-.wrap {
-    flex-wrap: wrap;
+.calendar_summary_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
-.flex {
-    flex-grow: 1;
+.calendar_circle {
+  width: 58%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
-
-.bg {
-    background-image: linear-gradient(to bottom, #faefe7, #ffcbd7);
-    overflow: hidden;
+.calendar_circle_text_container {
+  z-index: 100;
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  margin-top: -70px;
+  margin-left: -70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
 }
-
-.white-color {
-    color: #fff;
+.charts-box {
+  width: 100%;
+  height: 300px;
+} 
+.calendar_circle_big_num {
+  margin-top: -19px;
+  font-weight: 330;
+  font-size: 60px;
+  color: #7B7B7B;
 }
-
-.fs24 {
-    font-size: 24rpx;
-}
-
-.fs28 {
-    font-size: 28rpx;
-}
-
-.fs32 {
-    font-size: 32rpx;
-}
-
-.fs36 {
-    font-size: 36rpx;
-    color:purple;
+.calendar_circle_small_text {
+  margin-top: -12px;
+  font-size: 15px;
+  color: #7B7B7B;
 }
 
 .calendar {
@@ -224,146 +317,81 @@ page {
 
 .prev-handle,
 .next-handle {
-    padding: 20rpx;
+  padding: 20rpx;
+  font-size: 15px;
 }
 
 .date-in-handle {
     height: 80rpx;
-    font-size: 33rpx;
-}
-
-/* 星期栏 */
-
-.weeks {
-    height: 50rpx;
-    line-height: 50rpx;
-    opacity: 1;
-    font-size: 33rpx;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.week {
-  text-align: center;
-}
-
-.grid,
-.week {
-    width: 14.286014285714286%;
-}
-
-.date-wrap {
-    width: 100%;
-    height: 80rpx;
-    position: relative;
-    left: 0;
-    top: 0;
-}
-
-.date {
-    position: relative;
-    left: 0;
-    top: 0;
-    width: 60rpx;
-    height: 60rpx;
-    text-align: center;
-    line-height: 55rpx;
-    font-size: 36rpx;
-    font-weight: 200;
-    border-radius: 10%;
-    transition: all 0.3s;
-    animation-name: choosed;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: 1;
-}
-
-.date-area-mode {
-    width: 100%;
-    border-radius: 0;
-}
-
-.date-desc {
-    width: 150%;
-    height: 32rpx;
     font-size: 30rpx;
-    line-height: 32rpx;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow: hidden;
-    word-break: break-all;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    -webkit-line-clamp: 1;
-    text-align: center;
 }
 
-@keyframes choosed {
-    from {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(0.9);
-    }
-
-    to {
-        transform: scale(1);
-    }
+/* bar graph */
+.calendar_bar_body {
+  /* background: orange; */
+  width: 250px;
+  height: 160px;
 }
-
-/* 日期圆圈标记 */
-.todo-circle {
-    border-width: 1rpx;
-    border-style: solid;
-    box-sizing: border-box;
+.scroll-view_H{
+  white-space: nowrap;
+  /* background: green; */
+  height: 200px;
 }
-
-/* 待办点标记相关样式 */
-.todo-dot {
-    width: 10rpx;
-    height: 10rpx;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+.scroll-view-item_H{
+  display: inline-block;
+  width: 25%;
+  height: 150px;
+  position: relative;
 }
-
-.todo-dot-top {
-    top: 3rpx;
+.scroll-view-item-grey {
+  position: absolute;
+  left:50%;
+  margin-left: -10px;
+  width:20px;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.1);
 }
-
-.todo-dot.todo-dot-top-always {
-    top: -8rpx;
+.scroll-view-item-color {
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  background: red;
 }
-
-.todo-dot.todo-dot-bottom {
-    bottom: 0;
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
-.todo-dot.todo-dot-bottom-always {
-    bottom: -10rpx;
+.scroll_date_container {
+  position: absolute;
+  width: 100%;
+  left:50%;
+  margin-left: -30px;
+  bottom: -50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
-/* 日期描述文字（待办文字/农历）相关样式 */
-
-.date-desc.date-desc-top {
-    top: -6rpx;
+.scoll_date_text {
+  font-size: 11px;
+  height: 10px;
+  line-height: 10px;
+  color:  #4C4C4C;
 }
-
-.date-desc.date-desc-top-always {
-    top: -20rpx;
-}
-
-.date-desc.date-desc-bottom {
-    bottom: -14rpx;
-}
-
-.todo-circle .date-desc.date-desc-bottom {
-    bottom: -30rpx;
-}
-
-.date-desc.date-desc-bottom-always {
-    bottom: -28rpx;
-}
+/* slide bar edit */
+.slide{
+  height: 3px;
+  background:#DCD6F7;
+  border-radius: 5px;
+  width:100%;
+ }
+.slide-show{
+  height: 3px;
+  border-radius: 8rpx;
+  background-color: #4D50A4;
+ }

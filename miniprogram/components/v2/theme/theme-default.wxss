@@ -9,14 +9,14 @@
 }
 
 .default_today {
-    /* color: #fff;
-    background-color: #874fb4; */
     color: #7B7B7B;
-    border-color: #FFD1C6
+    height: 80rpx !important;
+    background-color: #FFFFFF;
+    border: 1px solid#FFD1C6;
 }
 
 .default_choosed {
-    color: #7B7B7B; 
+    color: #7B7B7B;
     background-color: #FFD1C6;
 }
 

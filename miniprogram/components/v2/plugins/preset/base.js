@@ -13,7 +13,7 @@ import {
   getCalendarData,
   setCalendarData,
   getCalendarConfig
-} from '../../../../pages/v2/utils/index'
+} from '../../utils/index'
 
 export default () => {
   return {

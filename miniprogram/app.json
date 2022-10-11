@@ -27,8 +27,8 @@
     "pages/save/save",
     "pages/feedback/feedback",
     "pages/v2/index",
-    "components/yty"
-    ],
+    "pages/medicationReport/index"
+  ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
@@ -64,7 +64,6 @@
     "position": "bottom"
   },
   "sitemapLocation": "sitemap.json",
-  "style": "v2",
   "plugins": {
     "calendar": {
       "version": "1.1.3",

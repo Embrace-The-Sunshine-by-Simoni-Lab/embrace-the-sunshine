@@ -1,78 +1,135 @@
-<view class="container-fluid">
-  <view class="title">
-    <view class="row">
-      <view class="column"></view>
-      <view class="column"><image class="img" src="../../images/calendar/Calendar Option-1.png"/></view>
-      <view class="column"><image class="img" src="../../images/calendar/Tracking Option.png"/></view>
-      <view class="column"></view>
+<view class="medicineContainer">
+  <!-- **** purple square on top **** -->
+  <view class="infoBox">
+    <view class="btnBox">
+      <!-- record button -->
+      <mainButton type="{{currentMode == 'record'?'recordButton-fill':'recordButton-empty'}}" class="madicineBtn" bindtap="switchToRecord"></mainButton>
+      <!-- analyst button -->
+      <mainButton type="{{currentMode == 'record'?'analyst-empty':'analyst-fill'}}"  class="madicineBtn" bindtap="switchToAnalyst"></mainButton>
     </view>
-    <view class="dateBox">
-      <text id="title-month">{{str}}</text>
-      <text>\n</text>
-      <text id="title-date">{{day}}</text>
-      <text>\n</text>
+    <!-- record content -->
+    <view class="dateBox" wx-if="{{currentMode=='record'}}">
+      <text class="titleMonth">7月</text>
+      <text class="titleDate">20</text>
     </view>
-    <text id="title-weekday">{{weekday}}</text>
-    <!-- <text>\n</text>
-    <text>\n</text>
-    <text id="title-year">{{year}}</text> -->
+    <view class="medicineNotice" wx-if="{{currentMode=='record'}}">
+      今日已服药
+    </view>
+    <!-- analyst content -->
+    <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
+    <view wx-if="{{currentMode=='analyst'}}" class="calendar_datepicker">
+      <image class="calendar_arrow_left" src="../../images/calendar/rightArrow.png"/>
+      <view wx-if="{{currentMode=='analyst'}}" class="calendar_dateRange">02月20日-02月27日</view>
+      <image class="calendar_arrow_right" src="../../images/calendar/rightArrow.png"/>
+    </view>
   </view>
-  <view class="flex b tb ac" wx:if="{{calendar}}">
-    <view class="calendar b tb">
-      <!-- 头部操作栏 -->
-      <view
-        wx:if="{{!config.hideHeader}}"
-        class="handle {{config.theme}}_handle-color fs28 b lr ac pc">
-        <view class="prev fs36" wx:if="{{!config.weekMode}}">
-          <text class="prev-handle iconfont icon-doubleleft" bindtap="changeDate" data-type="prev_year"></text>
-          <text class="prev-handle iconfont icon-left" bindtap="changeDate" data-type="prev_month"></text>
+
+  <view class="calendar_box">
+    <calendar
+      id="calendar"
+      wx-if="{{currentMode=='record'}}"
+      config="{{calendarConfig}}"
+      bind:takeoverTap="takeoverTap"
+      bind:afterTapDate="afterTapDate"
+      bind:afterCalendarRender="afterCalendarRender"
+      bind:onSwipe="onSwipe"
+      bind:whenChangeMonth="whenChangeMonth"
+    />
+  </view> 
+  
+  <!-- **** calendar content -- the data visu **** -->
+  <view wx-if="{{currentMode != 'record'}}" class="calendar_content_container">
+    <text class="calendar_content_title">服药天数</text> 
+    <!-- bar chart here -->
+    <view class="calendar_bar_container">
+      <!-- y label -->
+      <view class="calendar_y_axis">
+        <text class="calendar_y_axis_label">7</text>
+        <text class="calendar_y_axis_label">5</text>
+        <text class="calendar_y_axis_label">3</text>
+        <text class="calendar_y_axis_label">1</text>
+      </view>
+      <!-- cylinder bars -->
+      <view class="calendar_bar_body_container">
+        <view class="calendar_bar_body">
+          <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%" bindscroll="getleft">
+            <view class="scroll-view-item_H">
+              <view class="scroll-view-item-grey">
+                <view class="scroll-view-item-color"></view>
+              </view>
+              <view class="scroll_date_container">
+                <text class="scoll_date_text">01.30</text>
+                <text class="scoll_date_text">-</text>
+                <text class="scoll_date_text">02.05</text>
+              </view>
+            </view>
+            <view class="scroll-view-item_H">
+              <view class="scroll-view-item-grey">
+                <view class="scroll-view-item-color"></view>
+              </view>
+              <view class="scroll_date_container">
+                <text class="scoll_date_text">01.30</text>
+                <text class="scoll_date_text">-</text>
+                <text class="scoll_date_text">02.05</text>
+              </view>
+            </view>
+            <view class="scroll-view-item_H">
+              <view class="scroll-view-item-grey">
+                <view class="scroll-view-item-color"></view>
+              </view>
+              <view class="scroll_date_container">
+                <text class="scoll_date_text">01.30</text>
+                <text class="scoll_date_text">-</text>
+                <text class="scoll_date_text">02.05</text>
+              </view>
+            </view>
+            <view class="scroll-view-item_H">
+              <view class="scroll-view-item-grey">
+                <view class="scroll-view-item-color"></view>
+              </view>
+              <view class="scroll_date_container">
+                <text class="scoll_date_text">01.30</text>
+                <text class="scoll_date_text">-</text>
+                <text class="scoll_date_text">02.05</text>
+              </view>
+            </view>
+            <view class="scroll-view-item_H">
+              <view class="scroll-view-item-grey">
+                <view class="scroll-view-item-color"></view>
+              </view>
+              <view class="scroll_date_container">
+                <text class="scoll_date_text">01.30</text>
+                <text class="scoll_date_text">-</text>
+                <text class="scoll_date_text">02.05</text>
+              </view>
+            </view>
+          </scroll-view>
         </view>
-        <view class="flex date-in-handle b lr cc" bindtap="doubleClickJumpToToday">{{calendar.curYear || "--"}} 年 {{calendar.curMonth || "--"}} 月</view>
-        <view class="next fs36" wx:if="{{!config.weekMode}}">
-          <text class="next-handle iconfont icon-right" bindtap="changeDate" data-type="next_month"></text>
-          <text class="next-handle iconfont icon-doubleright" bindtap="changeDate" data-type="next_year"></text>
+        <!-- 滚动条 -->
+        <view class="slide">
+          <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view>
         </view>
       </view>
-      <!-- 星期栏 -->
-      <view class="weeks b lr ac {{config.theme}}_week-color">
-        <view class="week fs28" wx:for="{{calendar.weeksCh}}" wx:key="index" data-idx="{{index}}">{{item}}</view>
+    </view>
+
+
+    <view class="calendar_circle_container">
+      <view class="calendar_circle">
+        <l-circle wx-if="{{currentMode != 'record'}}"  percent='50' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="#FFC300"></l-circle>
+        <view class="calendar_circle_text_container">
+          <view class="calendar_circle_big_num">6</view> 
+          <view class="calendar_circle_small_text">本周已服药天数</view>
+        </view>
       </view>
-      <!-- 日历面板主体 -->
-      <view class="b lr wrap" bindtouchstart="calendarTouchstart" catchtouchmove="calendarTouchmove" catchtouchend="calendarTouchend">
-        <!-- 上月日期格子 -->
-        <view class="grid b ac pc {{config.theme}}_prev-month-date" wx:for="{{calendar.prevMonthGrids}}" wx:key="index" data-idx="{{index}}">
-          <view class="date-wrap b cc">
-            <view class="date">
-                  {{item.date}}
-            </view>
-          </view>
+      <view class="calendar_summary">
+        <view class="calendar_summary_container">
+          <view class="calendar_summary_top_circle">+3</view>
+          <view class="calendar_summary_text">本周比上周天数</view>
         </view>
-        <!-- 本月日期格子 -->
-        <view wx:for="{{calendar.dates}}" wx:key="index" data-idx="{{index}}" data-info="{{item}}" bindtap="tapDate" class="grid {{item.class ? item.class  : ''}} {{config.theme}}_normal-date b ac pc">
-          <view class="date-wrap b cc {{config.emphasisWeek && (item.week === 0 || item.week === 6) ? config.theme + '_weekend-color' : ''}}">
-            <view class="date b ac pc {{item.class ? item.class  : ''}} {{item.isToday && config.highlightToday ? config.theme + '_today' : ''}} {{item.choosed ? config.theme + '_choosed' : ''}} {{item.disable ? config.theme + '_date-disable' : ''}} {{config.chooseAreaMode ? 'date-area-mode' : ''}}  {{calendar.todoLabelCircle && item.showTodoLabel && !item.choosed ? config.theme + '_todo-circle todo-circle' : '' }}">
-                  {{config.markToday && item.isToday ? config.markToday : item.date}}
-                  <view
-                    wx:if="{{(config.showLunar && item.lunar && !item.showTodoLabel) || (item.showTodoLabel && calendar.todoLabelPos !== 'bottom') || config.showHolidays}}"
-                    class="date-desc {{config.theme}}_date-desc date-desc-bottom {{(item.choosed || item.isToday) ? 'date-desc-bottom-always' : ''}} {{item.disable ? config.theme + '_date-desc-disable' : ''}}">
-                    <text class="{{config.showHolidays && !item.showTodoLabel && item.label && !item.choosed ? config.theme + '_date-desc-lunar' : ''}} {{item.type === 'festival' ? config.theme + '_festival' : ''}}">{{item.label || item.lunar.Term || item.lunar.IDayCn}}</text>
-                  </view>
-                  <view
-                    wx:if="{{item.showTodoLabel && !calendar.todoLabelCircle}}"
-                    class="{{item.todoText ? 'date-desc' : config.theme + '_todo-dot todo-dot'}} {{config.showLunar ? config.theme + '_date-desc-lunar' : ''}} {{calendar.todoLabelPos === 'bottom' ? 'date-desc-bottom todo-dot-bottom' : 'date-desc-top todo-dot-top'}} {{calendar.showLabelAlways && item.choosed && calendar.todoLabelPos === 'bottom' ? 'date-desc-bottom-always todo-dot-bottom-always' : ''}} {{calendar.showLabelAlways && item.choosed && calendar.todoLabelPos === 'top' ? 'date-desc-top-always todo-dot-top-always' : ''}}"
-                    style="background-color: {{item.todoText ? '' : item.color || calendar.todoLabelColor}}; color: {{item.color}}">
-                      {{item.todoText}}
-                  </view>
-            </view>
-          </view>
-        </view>
-        <!-- 下月日期格子 -->
-        <view class="grid b ac pc {{config.theme}}_next-month-date" wx:for="{{calendar.nextMonthGrids}}" wx:key="index" data-idx="{{index}}">
-          <view class="date-wrap b cc">
-            <view class="date">
-                {{item.date}}
-            </view>
-          </view>
+        <view class="calendar_line"></view>
+        <view class="calendar_summary_container">
+          <view class="calendar_summary_top_circle">5</view>
+          <view class="calendar_summary_text">平均每周服药天数</view>
         </view>
       </view>
     </view>

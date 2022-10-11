@@ -1,281 +1,72 @@
-import plugins from '../../components/v2/plugins/index'
-import { calcJumpData } from '../../components/v2/core'
-import { renderCalendar } from '../../components/v2/render'
-import { calcTargetYMInfo } from '../../components/v2/helper'
-import { dateUtil, calendarGesture, logger } from './utils/index'
+// import selectable from '../component/v2/plugins/selectable'
+// import plugin from '../component/v2/plugins/index'
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-const WEEKDAYS = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-const app = getApp()
+// import selectable from '/components/v2/plugins/selectable'
+// import plugin from '../../../miniprogram/components/v2/plugins/index'
+
+const app = getApp();
+
+// plugin.use(selectable)
+
 Page({
   data: {
-    year: new Date().getFullYear(),      // 年份
-    month: new Date().getMonth() + 1,    // 月份
-    day: new Date().getDate(),
-    str: MONTHS[new Date().getMonth()],  // 月份字符串
-    weekday: WEEKDAYS[new Date().getDay()], // 星期几
-    // is_completed: false,
-    // demo5_days_style: [],
+    currentMode: "record",
+    left: 4,
+    slideWidth: 40,
+    slideLeft: 20
   }, 
-
-  onLoad:function(params) {
+  afterTapDate(e) {
+    // console.log('takeoverTap', e)
+  },
+  afterCalendarRender(e) {
+    this.renderMediTaken()
+    // marktoday
+    const today = new Date();
     const calendar = this.selectComponent('#calendar').calendar
-    const currentMonth = MONTHS[calendar.getCurrentYM().month];
-    const currentYear = calendar.getCurrentYM().year
-    this.selectComponent('title-month').value = currentMonth
-    console.log(currentMonth)
-    console.log(currentYear)
-  }
-})
+    const toSet = []
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let date = today.getDate();
+    let obj = { year, month, date, class: 'medi-today'};
+    let objDisable = { year, month, date};
+    toSet.push(obj)
+    calendar.setDateStyle(toSet)
+    // only enable today
 
-Component({
-  options: {
-    styleIsolation: 'apply-shared',
-    multipleSlots: true // 在组件定义时的选项中启用多slot支持
+    
   },
-  properties: {
-    config: {
-      type: Object,
-      value: {}
-    }
+
+  whenChangeMonth(e) {
+    this.renderMediTaken()
   },
-  lifetimes: {
-    attached: function() {
-      this.initComp()
+  renderMediTaken() {
+    const calendar = this.selectComponent('#calendar').calendar
+    const medi_taken = app.globalData.userData.med_date;
+    const toSet = []
+    for(let i = 0; i < medi_taken.length; i++) {
+      let currDate = new Date(medi_taken[i]);
+      let year = currDate.getFullYear();
+      let month = currDate.getMonth() + 1;
+      let date = currDate.getDate();
+      let obj = { year, month, date, class: 'medi-taken'};
+      toSet.push(obj)
     }
+    calendar.setDateStyle(toSet)
   },
-  methods: {
-    initComp() {
-      const calendarConfig = this.setDefaultDisableDate()
-      this.setConfig(calendarConfig)
-    },
-    // 禁用某天日期配置默认为今天
-    setDefaultDisableDate() {
-      const calendarConfig = this.properties.config || {}
-      if (calendarConfig.disableMode && !calendarConfig.disableMode.date) {
-        calendarConfig.disableMode.date = dateUtil.toTimeStr(
-          dateUtil.todayFMD()
-        )
-      }
-      return calendarConfig
-    },
-    initCalendar(config) {
-      const { defaultDate } = config
-      let date = dateUtil.todayFMD()
-      if (defaultDate && typeof defaultDate === 'string') {
-        const dateInfo = defaultDate.split('-')
-        if (dateInfo.length < 3) {
-          return logger.warn('defaultDate配置格式应为: 2018-4-2 或 2018-04-02')
-        } else {
-          date = {
-            year: +dateInfo[0],
-            month: +dateInfo[1],
-            date: +dateInfo[2]
-          }
-        }
-      }
-      const waitRenderData = calcJumpData({
-        dateInfo: date,
-        config
-      })
-      const timestamp = dateUtil.todayTimestamp()
-      if (config.autoChoosedWhenJump) {
-        const target = waitRenderData.dates.filter(
-          item => dateUtil.toTimeStr(item) === dateUtil.toTimeStr(date)
-        )
-        if (target && target.length) {
-          if (!waitRenderData.selectedDates) {
-            waitRenderData.selectedDates = target
-          } else {
-            waitRenderData.selectedDates.push(target[0])
-          }
-        }
-      }
-      return {
-        ...waitRenderData,
-        todayTimestamp: timestamp,
-        weeksCh: dateUtil.getWeekHeader(config.firstDayOfWeek)
-      }
-    },
-    setConfig(config) {
-      if (config.markToday && typeof config.markToday === 'string') {
-        config.highlightToday = true
-      }
-      config.theme = config.theme || 'default'
-      this.setData(
-        {
-          config
-        },
-        () => {
-          for (let plugin of plugins.installed) {
-            const [, p] = plugin
-            if (typeof p.install === 'function') {
-              p.install(this)
-            }
-            if (typeof p.methods === 'function') {
-              const methods = p.methods(this)
-              for (let fnName in methods) {
-                if (fnName.startsWith('__')) continue
-                const fn = methods[fnName]
-                if (typeof fn === 'function') {
-                  if (!this.calendar) this.calendar = {}
-                  this.calendar[fnName] = fn
-                }
-              }
-            }
-          }
-          const initData = this.initCalendar(config)
-          renderCalendar.call(this, initData, config)
-        }
-      )
-    },
-    tapDate(e) {
-      const { info } = e.currentTarget.dataset
-      const { date, disable } = info || {}
-      if (disable || !date) return
-      const { calendar, config } = this.data
-      let calendarData = calendar
-      let calendarConfig = config
-      if (config.takeoverTap) {
-        return this.triggerEvent('takeoverTap', info)
-      }
-      for (let plugin of plugins.installed) {
-        const [, p] = plugin
-        if (typeof p.onTapDate === 'function') {
-          const {
-            calendarData: __calendarData,
-            calendarConfig: __calendarConfig
-          } = p.onTapDate(info, calendarData, calendarConfig)
-          calendarData = __calendarData
-          calendarConfig = __calendarConfig
-        }
-      }
-      renderCalendar.call(this, calendarData, calendarConfig).then(() => {
-        this.triggerEvent('afterTapDate', info)
-      })
-    },
-    /**
-     * 日历滑动开始
-     * @param {object} e
-     */
-    calendarTouchstart(e) {
-      const t = e.touches[0]
-      const startX = t.clientX
-      const startY = t.clientY
-      this.swipeLock = true
-      this.setData({
-        'gesture.startX': startX,
-        'gesture.startY': startY
-      })
-    },
-    /**
-     * 日历滑动中
-     * @param {object} e
-     */
-    calendarTouchmove(e) {
-      const { gesture } = this.data
-      const { preventSwipe } = this.properties.config
-      if (!this.swipeLock || preventSwipe) return
-      if (calendarGesture.isLeft(gesture, e.touches[0])) {
-        this.handleSwipe('left')
-        this.swipeLock = false
-      }
-      if (calendarGesture.isRight(gesture, e.touches[0])) {
-        this.handleSwipe('right')
-        this.swipeLock = false
-      }
-    },
-    calendarTouchend(e) {
-      this.setData({
-        'calendar.leftSwipe': 0,
-        'calendar.rightSwipe': 0
-      })
-    },
-    handleSwipe(direction) {
-      let swipeKey = 'calendar.leftSwipe'
-      if (direction === 'right') {
-        swipeKey = 'calendar.rightSwipe'
-      }
-      this.setData({
-        [swipeKey]: 1
-      })
-      const { calendar } = this.data
-      let calendarData = calendar
-      const { curYear, curMonth } = calendarData
-      const getMonthInfo = calcTargetYMInfo()[direction]
-      const target = getMonthInfo({
-        year: +curYear,
-        month: +curMonth
-      })
-      target.direction = direction
-      this.renderCalendar(target)
-    },
-    changeDate(e) {
-      const { type } = e.currentTarget.dataset
-      const { calendar: calendarData } = this.data
-      const { curYear, curMonth } = calendarData
-      const getMonthInfo = calcTargetYMInfo()[type]
-      const target = getMonthInfo({
-        year: +curYear,
-        month: +curMonth
-      })
-      target.direction = type
-      this.renderCalendar(target)
-    },
-    renderCalendar(target) {
-      let { calendar: calendarData, config } = this.data
-      const { curYear, curMonth } = calendarData || {}
-      for (let plugin of plugins.installed) {
-        const [, p] = plugin
-        if (typeof p.onSwitchCalendar === 'function') {
-          calendarData = p.onSwitchCalendar(target, calendarData, this)
-        }
-      }
-      return renderCalendar.call(this, calendarData, config).then(() => {
-        let triggerEventName = 'whenChangeMonth'
-        if (config.weekMode) {
-          triggerEventName = 'whenChangeWeek'
-        }
-        this.triggerEvent(triggerEventName, {
-          current: {
-            year: +curYear,
-            month: +curMonth
-          },
-          next: target
-        })
-        this.triggerEvent('onSwipe', {
-          current: {
-            year: +curYear,
-            month: +curMonth
-          },
-          next: target,
-          type: triggerEventName
-        })
-      })
-    },
-    doubleClickJumpToToday() {
-      const { multi, weekMode } = this.calendar.getCalendarConfig() || {}
-      if (multi || weekMode) return
-      if (this.count === undefined) {
-        this.count = 1
-      } else {
-        this.count += 1
-      }
-      if (this.lastClick) {
-        const difference = new Date().getTime() - this.lastClick
-        if (
-          difference < 500 &&
-          this.count >= 2 &&
-          typeof this.calendar.jump === 'function'
-        ) {
-          const today = dateUtil.todayFMD()
-          this.calendar.jump(today)
-        }
-        this.count = undefined
-        this.lastClick = undefined
-      } else {
-        this.lastClick = new Date().getTime()
-      }
-    }
+
+  getleft(e) {
+      this.setData({
+        slideLeft: e.detail.scrollLeft
+      })
+   },
+  switchToRecord: function() {
+    this.setData({
+      currentMode: "record"
+    })
+  },
+  switchToAnalyst: function() {
+    this.setData({
+      currentMode: "analyst"
+    })
   }
 })

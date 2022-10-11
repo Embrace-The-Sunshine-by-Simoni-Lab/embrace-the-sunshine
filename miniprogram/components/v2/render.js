@@ -1,4 +1,4 @@
-import plugins from '../../components/v2/plugins/index'
+import plugins from './plugins/index'
 import { getCalendarConfig } from './utils/index'
 
 /**

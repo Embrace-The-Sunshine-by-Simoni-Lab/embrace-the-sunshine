@@ -69,7 +69,7 @@ Page({
             })
         }
   
-},
+  },
 
   toMoodTracking: function() {
     console.log("toMoodTracking")
@@ -77,10 +77,11 @@ Page({
       url: "../questionnaire/questionnaire",
     })
   },
+
   toMedTracking: function() {
     console.log("toCalendar")
     wx.navigateTo({
-      url: "../calendar/calendar",
+      url: "../v2/index",
     })
   },
 
