@@ -20,7 +20,9 @@
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
-    "useMultiFrameRuntime": true,
+    "useMultiFrameRuntime": false,
+    "useApiHook": false,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -33,10 +35,9 @@
     "packNpmRelationList": [],
     "minifyWXSS": true,
     "showES6CompileOption": false,
-    "useCompilerPlugins": false,
     "useStaticServer": true,
     "disableUseStrict": false,
-    "minifyWXML": true,
+    "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true
   },
   "simulatorType": "wechat",
@@ -49,6 +50,12 @@
     "tabSize": 2
   },
   "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "libVersion": "2.24.6",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "appid": "wxce2e39d26aad783a",
   "condition": {
     "miniprogram": {
       "list": [
@@ -78,10 +85,5 @@
       ]
     }
   },
-  "libVersion": "2.24.6",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
-  "appid": "wxce2e39d26aad783a"
+  "projectname": "embrace-the-sunshine"
 }

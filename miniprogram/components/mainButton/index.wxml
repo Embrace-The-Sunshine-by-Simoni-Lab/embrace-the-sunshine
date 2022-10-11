@@ -10,7 +10,7 @@
   <image wx-if="{{type=='analyst-fill'}}" class="button_icon" src="../../images/分析-w.png"/>
 
   <!-- main title -->
-  <text wx-if="{{type=='mainButton' || type=='secondaryButton'}}" >{{title}}</text>
+  <text wx-if="{{type=='mainButton' || type=='secondaryButton' || type=='mainButtonDisabled'}}" >{{title}}</text>
 
   <!-- record button -->
   <text wx-if="{{type=='recordButton-fill' || type=='recordButton-empty'}}" class="record_title">记录</text>

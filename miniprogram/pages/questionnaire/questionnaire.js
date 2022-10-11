@@ -136,15 +136,16 @@ Page({
       is_completed: true
     });
 
+    
     wx.cloud.callFunction({
       name: 'mood_tracking_submit',
       data: {
-        week: weekNum,
+        week: Timestamp, // new Date();
         score: finalScore
       },
       success: out => {
         console.log(out)
-        app.globalData.userData.mood_track = out.result.data.mood_track;
+        app.globalData.userData.mood_track = out.result.data.mood_track; // 
         wx.showToast({
           title:'提交成功',
           icon: 'success'

@@ -1,0 +1,43 @@
+/* pages/moodtrack-finish/moodtrack-finish.wxss */
+
+.mood_finish_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mood_finish_title {
+  font-size: 20px;
+  padding: 20px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.mood_finish_image {
+  width: 12rem;
+  height: 17rem;
+}
+.mood_score {
+  font-size: 20px;
+  padding: 24px;
+}
+.mood_summary {
+  margin-bottom: 2rem;
+}
+.mini-depress {
+  color: #46BA74;
+}
+.mild-depress {
+  color: #91D300;
+}
+.moder-depress {
+  color: #FFC300;
+}
+.moder-severe-depress {
+  color: #F48657;
+}
+.severe-depress {
+  color: #FA5151;
+}
+.mood_back_home {
+  margin-top: 10px;
+}
