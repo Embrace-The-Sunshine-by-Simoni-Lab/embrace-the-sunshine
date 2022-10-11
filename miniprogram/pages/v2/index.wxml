@@ -9,11 +9,11 @@
     </view>
     <!-- record content -->
     <view class="dateBox" wx-if="{{currentMode=='record'}}">
-      <text class="titleMonth">7月</text>
-      <text class="titleDate">20</text>
+      <text class="titleMonth">{{currentMonth}}月</text>
+      <text class="titleDate">{{currentDate}}</text>
     </view>
     <view class="medicineNotice" wx-if="{{currentMode=='record'}}">
-      今日已服药
+      {{ifTodayTaken ? "今日已服药": "今日未服药"}}
     </view>
     <!-- analyst content -->
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
@@ -24,6 +24,7 @@
     </view>
   </view>
 
+  <!-- **** calendar **** -->
   <view class="calendar_box">
     <calendar
       id="calendar"

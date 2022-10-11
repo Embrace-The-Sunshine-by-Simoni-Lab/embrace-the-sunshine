@@ -1,25 +1,68 @@
-// import selectable from '../component/v2/plugins/selectable'
-// import plugin from '../component/v2/plugins/index'
-
-// import selectable from '/components/v2/plugins/selectable'
-// import plugin from '../../../miniprogram/components/v2/plugins/index'
-
 const app = getApp();
-
-// plugin.use(selectable)
-
 Page({
   data: {
+    currentMonth: "",
+    currentDate: "",
     currentMode: "record",
-    left: 4,
+    leftt: 20,
+    calendarCo: 4,
     slideWidth: 40,
-    slideLeft: 20
+    slideLefnfig: {
+      takeoverTap: true,
+    },
+    calendarConfig: {
+      takeoverTap: true
+    },
+    ifTodayTaken: false,
+    medi_taken: []
   }, 
-  afterTapDate(e) {
-    // console.log('takeoverTap', e)
+  onLoad() {
+    const medi_taken = app.globalData.userData.med_date;
+    const today = new Date()
+    this.setData({
+      medi_taken,
+      currentMonth: today.getMonth() + 1,
+      currentDate: today.getDate()
+    })
+    console.log(this.data.medi_taken)
+    this.checkIfTodayTaken(today)
+  },
+  checkIfTodayTaken(today) {
+    if(this.data.medi_taken.length > 0) {
+      const medi_first = new Date(this.data.medi_taken[0])
+      if(medi_first.getYear() == today.getYear() && medi_first.getMonth() == today.getMonth() && medi_first.getDate() == today.getDate()) {
+        this.setData({
+          ifTodayTaken: true
+        })
+      }
+    }
+  },
+  takeoverTap(e) {
+    if(e.detail.isToday && !this.data.ifTodayTaken) {
+      const today = new Date()
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      wx.cloud.callFunction({
+        name: 'medication_track',
+        data: {
+            date: today
+        }
+      })
+      .then(res => {
+        wx.hideLoading()
+        const newDateLst = res.result.data.med_date;
+        app.globalData.userData.med_date = newDateLst
+        this.setData({
+          medi_taken: newDateLst,
+          ifTodayTaken: true
+        })
+        this.renderMediTaken()
+      });
+    }
   },
   afterCalendarRender(e) {
-    this.renderMediTaken()
     // marktoday
     const today = new Date();
     const calendar = this.selectComponent('#calendar').calendar
@@ -31,20 +74,16 @@ Page({
     let objDisable = { year, month, date};
     toSet.push(obj)
     calendar.setDateStyle(toSet)
-    // only enable today
-
-    
+    this.renderMediTaken()
   },
-
   whenChangeMonth(e) {
     this.renderMediTaken()
   },
   renderMediTaken() {
     const calendar = this.selectComponent('#calendar').calendar
-    const medi_taken = app.globalData.userData.med_date;
     const toSet = []
-    for(let i = 0; i < medi_taken.length; i++) {
-      let currDate = new Date(medi_taken[i]);
+    for(let i = 0; i < this.data.medi_taken.length; i++) {
+      let currDate = new Date(this.data.medi_taken[i]);
       let year = currDate.getFullYear();
       let month = currDate.getMonth() + 1;
       let date = currDate.getDate();
@@ -53,12 +92,11 @@ Page({
     }
     calendar.setDateStyle(toSet)
   },
-
   getleft(e) {
       this.setData({
         slideLeft: e.detail.scrollLeft
       })
-   },
+  },
   switchToRecord: function() {
     this.setData({
       currentMode: "record"

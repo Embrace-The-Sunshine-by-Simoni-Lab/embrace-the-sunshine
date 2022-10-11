@@ -7,11 +7,7 @@ Page({
     hasUserInfo: false,
     logged: false
   },
-
-
   main_page_data_setup: function() {
-    
-    console.log(app.globalData.userData)
     // displaying red dot on calendar icon
     var medDate = app.globalData.userData.med_date
     var tabList = this.getTabBar().data.list
@@ -35,7 +31,6 @@ Page({
     var janOne = new Date(currDate.getFullYear(),0,1);
     var dayNum = Math.floor((currDate - janOne) / (24 * 60 * 60 * 1000));
     var curWeekNum = Math.ceil((currDate.getDay() + 1 + dayNum) / 7);
-    console.log(curWeekNum);
     if (last_questionare_week == -1) {
       tabList[0].showRedDot = true
     } else {
@@ -75,7 +70,6 @@ Page({
         success: out => {
           if (out.result.errCode == 0) {
             if (out.result.data) {
-              console.log(out.result.data);
               app.globalData.userData = out.result.data;
               app.globalData.logged = true;
               is_new_user = out.result.is_new_user;
@@ -166,20 +160,15 @@ Page({
         })
       }
     }
-    
-        
-  
   },
 
   toMoodTracking: function() {
-    console.log("toMoodTracking")
     wx.redirectTo({
       url: "../moodTracking/moodTracking",
     })
   },
 
   toMedTracking: function() {
-    console.log("toCalendar")
     wx.navigateTo({
       url: "../v2/index",
     })

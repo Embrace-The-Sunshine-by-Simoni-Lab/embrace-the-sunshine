@@ -27,7 +27,9 @@
     "pages/save/save",
     "pages/feedback/feedback",
     "pages/v2/index",
-    "pages/medicationReport/index"
+    "pages/medicationReport/index",
+    "pages/moodTracking-Content/mockTracking-Content",
+    "pages/moodtrack-finish/moodtrack-finish"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
