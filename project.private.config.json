@@ -36,6 +36,20 @@
         },
         {
           "name": "",
+          "pathName": "pages/v2/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/calendar/calendar",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/moodTracking/moodTracking",
           "query": "",
           "launchMode": "default",
@@ -43,14 +57,14 @@
         },
         {
           "name": "",
-          "pathName": "pages/moodTracking-Content/mockTracking-Content",
+          "pathName": "pages/medTracking/medTracking",
           "query": "",
           "launchMode": "default",
           "scene": null
         },
         {
           "name": "",
-          "pathName": "pages/moodtrack-finish/moodtrack-finish",
+          "pathName": "pages/medicationReport/index",
           "query": "",
           "launchMode": "default",
           "scene": null
@@ -58,5 +72,6 @@
       ]
     }
   },
-  "projectname": "embrace-the-sunshine"
+  "projectname": "embrace-the-sunshine",
+  "libVersion": "2.24.7"
 }

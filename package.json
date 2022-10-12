@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "wx-server-sdk": "^2.5.3"
-  }
+  },
+  "name": "embrace-the-sunshine",
+  "description": "Development Documentation: https://docs.google.com/document/d/13CzB2GQ4e1oP4cS_S6IEAxxlB1yuOPM-7Fg7cCXve1c/edit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Embrace-The-Sunshine-by-Simoni-Lab/embrace-the-sunshine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Embrace-The-Sunshine-by-Simoni-Lab/embrace-the-sunshine/issues"
+  },
+  "homepage": "https://github.com/Embrace-The-Sunshine-by-Simoni-Lab/embrace-the-sunshine#readme",
+  "keywords": []
 }

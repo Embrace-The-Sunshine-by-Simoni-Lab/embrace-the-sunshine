@@ -26,7 +26,8 @@
     "pages/setting/setting",
     "pages/save/save",
     "pages/feedback/feedback",
-    "components/yty",
+    "pages/v2/index",
+    "pages/medicationReport/index",
     "pages/moodTracking-Content/mockTracking-Content",
     "pages/moodtrack-finish/moodtrack-finish"
   ],
@@ -65,7 +66,6 @@
     "position": "bottom"
   },
   "sitemapLocation": "sitemap.json",
-  "style": "v2",
   "plugins": {
     "calendar": {
       "version": "1.1.3",

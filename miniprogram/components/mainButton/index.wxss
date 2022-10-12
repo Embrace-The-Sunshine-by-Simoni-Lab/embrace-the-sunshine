@@ -45,6 +45,7 @@
   width: 66px !important;
   height: 28px !important;
   color: #4D50A4;
+  background: #FFFFFF;
   border: 1px solid #4D50A4;
   border-radius: 1020px;
   position: relative;
@@ -65,6 +66,7 @@
   width: 66px !important;
   height: 28px !important;
   color: #4D50A4;
+  background: #FFFFFF;
   border: 1px solid #4D50A4;
   border-radius: 1020px;
   position: relative;

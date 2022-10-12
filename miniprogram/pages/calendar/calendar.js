@@ -68,61 +68,61 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        const days_count = new Date(this.data.year, this.data.month, 0).getDate();
-
-        let demo5_days_style = new Array;
-        for (let i = 1; i <= days_count; i++) {
-            const date = new Date(this.data.year, this.data.month - 1, i);
-            if (date.getDay() == 0) {
-                demo5_days_style.push({
-                    month: 'current', day: i, color: '#f488cd'
-                });
-            } else {
-                demo5_days_style.push({
-                    month: 'current', day: i, color: '#a18ada'
-                });
-            }
+      const days_count = new Date(this.data.year, this.data.month, 0).getDate();
+      let demo5_days_style = new Array;
+      for (let i = 1; i <= days_count; i++) {
+          const date = new Date(this.data.year, this.data.month - 1, i);
+          if (date.getDay() == 0) {
+              demo5_days_style.push({
+                  month: 'current', day: i, color: '#f488cd'
+              });
+          } else {
+              demo5_days_style.push({
+                  month: 'current', day: i, color: '#a18ada'
+              });
+          }
+      }
+      demo5_days_style.push({ month: 'current', day: this.data.day, color: 'white', background: '#979797' });
+      
+      // Get last med date
+      var last_med_date = new Date(app.globalData.userData.med_date[0]);
+      console.log("last med date: " + last_med_date)
+      
+      // put med records of the specific user to calendar
+      var med_records = app.globalData.userData.med_date;
+      console.log("user med date: ");
+      console.log(med_records);
+      for (let i = 0; i < med_records.length; i++) {
+        let single_data_in_records = new Date(med_records[i]);
+        // if month matches
+        if (single_data_in_records.getFullYear() == this.data.year &&
+            single_data_in_records.getMonth() + 1 == this.data.month) {
+              demo5_days_style.push({ month: 'current', day: single_data_in_records.getDate(), color: 'white', background: '#8b80bc' });
         }
-        demo5_days_style.push({ month: 'current', day: this.data.day, color: 'white', background: '#b49eeb' });
-        console.log("last med date");
-        console.log(app.globalData.userData);
-        var last_med_date = new Date(app.globalData.userData.med_date[0]);
-        
-        // put med records to calendar
-        var med_records = app.globalData.userData.med_date;
-        console.log(med_records);
-        for (let i = 0; i < med_records.length; i++) {
-            let single_data_in_records = new Date(med_records[i]);
-            // if month matches
-            if (single_data_in_records.getFullYear() == this.data.year && single_data_in_records.getMonth() + 1 == this.data.month) {
-                demo5_days_style.push({ month: 'current', day: single_data_in_records.getDate(), color: 'white', background: '#54B24C' });
-            }
-            
-        }
-
-        // console.log(last_med_date.getFullYear() + ", " + this.data.year);
-        // console.log(last_med_date.getMonth() + ", " + (this.data.month - 1));
-        // console.log(last_med_date.getDate() + ", " + this.data.day);
-        // if today's medication task is finished, show the block "今日用药已完成"
-        var is_completed = (last_med_date.getFullYear() == this.data.year 
-                            && last_med_date.getMonth() == this.data.month - 1
-                            && last_med_date.getDate() == this.data.day);
-        this.setData({
-            demo5_days_style,
-            is_completed: is_completed
-        });
-        
+      }
+      console.log(demo5_days_style)
+      // console.log(last_med_date.getFullYear() ,"+",this.data.year);
+      // console.log(last_med_month ,"+", (this.data.month));
+      // console.log(last_med_date.getDate() ,"+", this.data.day);
+      // if today's medication task is finished, show the block "今日用药已完成"
+      let is_completed = (last_med_date.getFullYear() == this.data.year)
+                          && (last_med_date.getMonth() + 1 == this.data.month)
+                          && (last_med_date.getDate() == this.data.day);
+      console.log(is_completed)
+      this.setData({
+          demo5_days_style,
+          is_completed: is_completed
+      });
     },
 
-    dayClick: function(res) {
-        console.log(res);
-    },
-
+     
+    // Click button to check med track
     // EventHandler linked to the sumbit button.
     // Effect: Sends a JSON to the database with information about
     //         the exact time of when the submit button is clicked
     onClick: function(res) {
         let that = this;
+        console.log(that)
         this.setData({
             is_completed: true
         });
@@ -144,16 +144,93 @@ Page({
         })
         .then(res => {
             console.log("new med_date data");
-            // console.log(res.result.data.med_date);
+            console.log(res.result.data.med_date);
             // stores latest med_date array to global data
             app.globalData.userData.med_date = res.result.data.med_date;
             let new_calendar_style = that.data.demo5_days_style;
             console.log(that)
-            new_calendar_style.push({ month: 'current', day: today.getDate(), color: 'white', background: '#54B24C' })
+            new_calendar_style.push({ month: 'current', day: today.getDate(), color: 'white', background: '#8b80bc' })
             that.setData({
                 demo5_days_style: new_calendar_style
             })
             console.log(app.globalData.userData);
         });
-    }
+    },
+
+  //   New Version
+  //   dayClick: function(res) {
+  //     let that = this;
+  //     console.log(that)
+  //     this.setData({
+  //         is_completed: true
+  //     });
+  //     wx.showToast({
+  //         title: '已完成今日用药',
+  //         duration: 2000,
+  //         mask: true,
+  //         icon: 'success'
+  //     })
+  //     var today = new Date();
+  //     // console.log("old med date");
+  //     // console.log(app.globalData.data.med_date);
+      
+  //     wx.cloud.callFunction({
+  //         name: 'medication_track',
+  //         data: {
+  //             date: today
+  //         }
+  //     })
+  //     .then(res => {
+  //         console.log("new med_date data");
+  //         console.log(res.result.data.med_date);
+  //         // stores latest med_date array to global data
+  //         app.globalData.userData.med_date = res.result.data.med_date;
+  //         let new_calendar_style = that.data.demo5_days_style;
+  //         console.log(that)
+  //         new_calendar_style.push({ month: 'current', day: today.getDate(), color: 'white', background: '#8b80bc' })
+  //         that.setData({
+  //             demo5_days_style: new_calendar_style
+  //         })
+  //         console.log(app.globalData.userData);
+  //     });
+  // }
+
+
+    // Original Version: Click the date on the calendar to check med track
+    // dayClick: function(res) {
+    //   let that = this;
+    //   console.log(that)
+    //     this.setData({
+    //         is_completed: true
+    //     });
+    //     wx.showToast({
+    //         title: '已完成今日用药',
+    //         duration: 2000,
+    //         mask: true,
+    //         icon: 'success'
+    //     })
+    //     var today = new Date();
+    //     // console.log("old med date");
+    //     // console.log(app.globalData.data.med_date);
+        
+    //     wx.cloud.callFunction({
+    //         name: 'medication_track',
+    //         data: {
+    //             date: today
+    //         }
+    //     })
+    //     .then(res => {
+    //         console.log("new med_date data");
+    //         // console.log(res.result.data.med_date);
+    //         // stores latest med_date array to global data
+    //         app.globalData.userData.med_date = res.result.data.med_date;
+    //         let new_calendar_style = that.data.demo5_days_style;
+    //         console.log(that)
+    //         new_calendar_style.push({ month: 'current', day: today.getDate(), color: 'white', background: '#54B24C' })
+    //         that.setData({
+    //             demo5_days_style: new_calendar_style
+    //         })
+    //         console.log(app.globalData.userData);
+    //     });
+    // }
 })

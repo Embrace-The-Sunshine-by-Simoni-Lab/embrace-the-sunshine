@@ -34,7 +34,11 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "showES6CompileOption": false
+    "showES6CompileOption": false,
+    "useStaticServer": true,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "ignoreUploadUnusedFiles": true
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
@@ -80,5 +84,6 @@
         }
       ]
     }
-  }
+  },
+  "projectname": "embrace-the-sunshine"
 }
