@@ -1,4 +1,4 @@
-// components/yty.js
+// pages/medicationReport/index.js
 Page({
 
   /**

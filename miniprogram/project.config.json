@@ -13,7 +13,9 @@
 		"autoAudits": false,
 		"coverView": true,
 		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false
+    "scopeDataCheck": false,
+    "packNpmManually": false,
+    "packNpmRelationList": []
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.18.0",

@@ -1,0 +1,397 @@
+Page{
+  background:#FFFFFF;
+}
+.medicineContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 0 0;
+}
+.medi-taken {
+  color: #7B7B7B;
+  border-radius: 10px;
+  background-color: #FFD1C6;
+}
+.medi-today {
+  /* background: #e9e5eb; */
+  border-radius: 10px;
+  border: 1px solid #FFD1C6;
+}
+.calendar_box {
+  width: 88%;
+}
+.medicineCalendar {
+  width: 92%;
+}
+.dateBox {
+  border-radius: 10px;
+  background: #F7F7F7;
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  flex-direction:  column;
+  align-items: center;
+}
+.btnBox {
+  display: flex;
+}
+.madicineBtn {
+  padding: 20px 15px;
+}
+.titleMonth {
+  font-size: 16px;
+  color: #59518d;
+  margin-top: 5px;
+}
+.medicineNotice {
+  color: #59518d;
+  font-size: 15px;
+  padding: 12px;
+}
+.titleDate{
+  font-size: 40px;
+  color: #59518d;
+  margin-top: -8px;
+}
+
+.submit-btn {
+  width: 90%;
+  margin-top: 30rpx;
+  background-color: rgba(0, 100, 0, 0.6);
+  color: #FFF;
+}
+
+.submit-switch {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 100, 0, 0.6);
+  color: #FFF;
+  border-radius: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-left: 105px;
+  margin-right: 105px;
+}
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(139,128,188,0.5) 0%, rgba(221,147,144,0.5) 100%);
+  box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  -webkit-box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  -moz-box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  border-radius: 13px;
+  width: 92%;
+  height: 12rem;
+  margin-bottom: 20px;
+}
+.btn-hover {
+  background-color: #b49eeb;
+}
+
+.calendar-box .left {
+  width: 30%;
+  text-align: center;
+}
+
+.calendar-box .left .today {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;    
+  background-color: #FFD1C6;
+  margin-left: auto;
+  margin-right:auto;
+}
+
+.calendar-box .left .today p {
+  font-size: 2rem;    
+}
+
+.calendar-box .left .today .monthStr {
+  font-size: 0.8rem;
+}
+.medicineRecord {
+  font-size: 23px;
+  padding: 8px 0;
+  color: #4D50A4;
+}
+.calendar-box .right {
+  width: 70%;
+  font-size: 12px;
+}
+
+.calendar-box .right .box {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 0.7rem;
+}
+
+.column {
+  flex: auto;
+}
+
+.img {
+  width: 80px;
+  height: 40px;
+}
+.calendar_arrow_right {
+  width: 10px;
+  height: 16px;
+  padding: 0 12px;
+}
+.calendar_arrow_left {
+  width: 10px;
+  height: 16px;
+  padding: 0 12px;
+  transform: scaleX(-1);
+}
+.calendar_datepicker {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calendar_content_container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.calendar_dateRange {
+  color: #2E317D;
+  font-size: 17px;
+}
+.calendar_content_title {
+  align-self: flex-start;
+  font-size: 14px;
+  color: #2E317D;
+}
+.calendar_bar_container {
+  margin-top: 7px;
+  height: 190px;
+  width: 300px;
+  /* background-color: #FFD1C6; */
+  display: flex;
+}
+.calendar_y_axis {
+  width: 15%;
+  height: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ /*定义滚动条轨道 内阴影+圆角*/
+ ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color:#DCD6F7;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+ }
+ 
+ /*定义滑块 内阴影+圆角*/
+ ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color:#4D50A4;
+ }
+.calendar_bar_block {
+  height: 100%;
+
+  display: flex;
+} 
+
+.calendar_y_axis_label {
+  color: #4C4C4C;
+  font-size: 12px;
+  height: 22%;
+}
+.calendar_bar_container {
+  display: flex;
+}
+.calendar_bar_body_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar_circle_container {
+  display: flex;
+}
+.calendar_summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 230px;
+  padding-left: 10px;
+}
+.calendar_summary_top_circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #FFC300;
+  margin: 8px 0;
+  color: white;
+  text-align: center;
+  line-height: 25px;
+  font-size: 16px;
+}
+.calendar_summary_text {
+  font-size: 14px;
+  padding: 5px 0;
+  color: #7B7B7B;
+}
+.calendar_line {
+  margin: 10px 0;
+  border-radius: 90%;
+  border: 1px solid #DCD6F7;
+  width: 80%;
+}
+.calendar_summary_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.calendar_circle {
+  width: 58%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.calendar_circle_text_container {
+  z-index: 100;
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  margin-top: -70px;
+  margin-left: -70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
+}
+.charts-box {
+  width: 100%;
+  height: 300px;
+} 
+.calendar_circle_big_num {
+  margin-top: -19px;
+  font-weight: 330;
+  font-size: 60px;
+  color: #7B7B7B;
+}
+.calendar_circle_small_text {
+  margin-top: -12px;
+  font-size: 15px;
+  color: #7B7B7B;
+}
+
+.calendar {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+}
+
+/* 日历操作栏 */
+
+.handle {
+    height: 80rpx;
+}
+
+.prev-handle,
+.next-handle {
+  padding: 20rpx;
+  font-size: 15px;
+}
+
+.date-in-handle {
+    height: 80rpx;
+    font-size: 30rpx;
+}
+
+/* bar graph */
+.calendar_bar_body {
+  /* background: orange; */
+  width: 250px;
+  height: 160px;
+}
+.scroll-view_H{
+  white-space: nowrap;
+  /* background: green; */
+  height: 200px;
+}
+.scroll-view-item_H{
+  display: inline-block;
+  width: 25%;
+  height: 150px;
+  position: relative;
+}
+.scroll-view-item-grey {
+  position: absolute;
+  left:50%;
+  margin-left: -10px;
+  width:20px;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.1);
+}
+.scroll-view-item-color {
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  background: red;
+}
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.scroll_date_container {
+  position: absolute;
+  width: 100%;
+  left:50%;
+  margin-left: -30px;
+  bottom: -50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.scoll_date_text {
+  font-size: 11px;
+  height: 10px;
+  line-height: 10px;
+  color:  #4C4C4C;
+}
+/* slide bar edit */
+.slide{
+  height: 3px;
+  background:#DCD6F7;
+  border-radius: 5px;
+  width:100%;
+ }
+.slide-show{
+  height: 3px;
+  border-radius: 8rpx;
+  background-color: #4D50A4;
+ }
