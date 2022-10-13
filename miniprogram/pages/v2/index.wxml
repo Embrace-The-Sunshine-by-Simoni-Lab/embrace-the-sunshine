@@ -51,16 +51,26 @@
         <text class="calendar_y_axis_label">1</text>
       </view>
       <!-- cylinder bars -->
-      <view style="white-space:nowrap">
-        <scroll-view scroll-x class="bar_container">
-          <view style="display: inline-block;" class="item2" wx:for="{{analyticsData}}" wx:key="{{index}}">
-            <view class="scroll-view-item-grey">
-            </view> 
-          </view>
-        </scroll-view>
+      <view class="bar_outer_container">
+        <view style="white-space:nowrap">
+          <scroll-view scroll-x class="bar_container">
+            <view style="display: inline-block;" class="item2" wx:for="{{analyticsData}}" wx:key="{{index}}">
+              <view class="scroll-view-item-grey">
+              </view> 
+              <view class="scroll-view-item-text">
+                <view class="scroll-view-item-date">123</view>
+                <view class="scroll-view-item-date">-</view>
+                <view class="scroll-view-item-date">123</view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+
+        <view class="slide">
+          <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view>
+        </view>
       </view>
     </view>
-
 
     <view class="calendar_circle_container">
       <view class="calendar_circle">

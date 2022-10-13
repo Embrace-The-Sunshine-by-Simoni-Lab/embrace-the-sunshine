@@ -167,9 +167,22 @@ Page{
   font-size: 14px;
   color: #2E317D;
 }
+.scroll-view-item-text {
+  position: absolute;
+  width: 75px;
+  left: 50%;
+  bottom: -22px;
+  margin-left: -37.5px;
+  display: flex;
+  font-size: 13px;
+  flex-direction: column;
+}
+.scroll-view-item-date {
+  line-height: 10px;
+}
 .calendar_bar_container {
   margin-top: 7px;
-  height: 190px;
+  height: 200px;
   width: 300px;
   /* background-color: #FFD1C6; */
   display: flex;
@@ -320,13 +333,13 @@ Page{
 
 .scroll-view-item-grey {
   width: 20px;
-  height: 150px;
+  height: 160px;
   background: rgb(235, 232, 232);
   border-radius: 6px;
   position: absolute;
   left: 50%;
   margin-left: -12px;
-  bottom: 0;
+  bottom: 23px;
 }
 .bar-container {
   display: flex;
@@ -352,11 +365,16 @@ Page{
   color:  #4C4C4C;
 }
 /* slide bar edit */
+.bar_outer_container {
+  position: relative;
+}
 .slide{
   height: 3px;
   background:#DCD6F7;
   border-radius: 5px;
   width:100%;
+  position: absolute;
+  bottom: 24px;
  }
 .slide-show{
   height: 3px;
@@ -432,13 +450,13 @@ Page{
  
  .bar_container {
    width: 250px;
-   height: 160px;
+   height: 220px;
  }
  
  /*列表项*/
  .item2{
   width: 25%;
-  height: 160px;
+  height: 190px;
   text-align: center;
   position: relative;
  }
