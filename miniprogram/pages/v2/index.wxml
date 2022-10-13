@@ -37,7 +37,7 @@
       bind:whenChangeMonth="whenChangeMonth"
     />
   </view> 
-  
+
   <!-- **** calendar content -- the data visu **** -->
   <view wx-if="{{currentMode != 'record'}}" class="calendar_content_container">
     <text class="calendar_content_title">服药天数</text> 
@@ -51,65 +51,13 @@
         <text class="calendar_y_axis_label">1</text>
       </view>
       <!-- cylinder bars -->
-      <view class="calendar_bar_body_container">
-        <view class="calendar_bar_body">
-          <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%" bindscroll="getleft">
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-          </scroll-view>
-        </view>
-        <!-- 滚动条 -->
-        <view class="slide">
-          <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view>
-        </view>
+      <view style="white-space:nowrap">
+        <scroll-view scroll-x class="bar_container">
+          <view style="display: inline-block;" class="item2" wx:for="{{analyticsData}}" wx:key="{{index}}">
+            <view class="scroll-view-item-grey">
+            </view> 
+          </view>
+        </scroll-view>
       </view>
     </view>
 
