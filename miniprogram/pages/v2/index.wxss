@@ -9,6 +9,31 @@ Page{
   align-items: center;
   margin: 15px 0 0 0;
 }
+.toggleButton-text {
+  margin-right: 10px;
+  color: #4D50A4;
+}
+.toggleButton {
+  margin-top: 70px;
+  width: 200px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.toggleButton-notice-on {
+  position: absolute;
+  left: 106px;
+  top: 10px;
+  color: #FFFFFF;
+}
+.toggleButton-notice-off {
+  position: absolute;
+  left: 135px;
+  top: 10px;
+  color: #FFFFFF;
+}
 .medi-taken {
   color: #7B7B7B;
   border-radius: 10px;
@@ -155,6 +180,8 @@ Page{
 }
 .calendar_content_container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   width: 80%;
 }
@@ -230,7 +257,10 @@ Page{
   flex-direction: column;
 }
 .calendar_circle_container {
+  margin-top: 20px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .calendar_summary {
   display: flex;
@@ -241,14 +271,13 @@ Page{
   padding-left: 10px;
 }
 .calendar_summary_top_circle {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: #FFC300;
   margin: 8px 0;
   color: white;
   text-align: center;
-  line-height: 25px;
+  line-height: 30px;
   font-size: 16px;
 }
 .calendar_summary_text {
@@ -340,6 +369,13 @@ Page{
   left: 50%;
   margin-left: -12px;
   bottom: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.scroll-view-item-color {
+  width: 20px;
+  border-radius: 6px
 }
 .bar-container {
   display: flex;
@@ -372,7 +408,7 @@ Page{
   height: 3px;
   background:#DCD6F7;
   border-radius: 5px;
-  width:100%;
+  width: 250px;
   position: absolute;
   bottom: 24px;
  }
@@ -381,13 +417,6 @@ Page{
   border-radius: 8rpx;
   background-color: #4D50A4;
  }
-
-
-
-
-
-
-
  /* temp */
  page{
   width: 100%;

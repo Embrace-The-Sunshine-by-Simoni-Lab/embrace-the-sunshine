@@ -2,6 +2,7 @@
   "usingComponents": {
     "mainButton":"/components/mainButton/index",
     "l-circle":"/components/circle/index",
-    "calendar":"/components/v2/index"
+    "calendar":"/components/v2/index",
+    "l-switch":"/components/switch/index"
   }
 }
