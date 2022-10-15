@@ -73,7 +73,6 @@ Page({
               app.globalData.userData = out.result.data;
               app.globalData.logged = true;
               is_new_user = out.result.is_new_user;
-              console.log("login_status: " + out.result)
             } else {
               console.log(out.errMsg);
             }

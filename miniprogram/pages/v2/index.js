@@ -222,10 +222,31 @@ Page({
     // Adjust to Thursday in week 1 and count number of weeks from date to week1.
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
+
+  isSameDay(d1, d2) {
+    return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+  },
+
   onLoad() {
     // 弹窗
+    const medi_taken = app.globalData.userData.med_date;
+    this.setData({
+      medi_taken: medi_taken
+    });
     let that = this
-    if(!app.globalData.ifCalendarModalShow) {
+    const today = new Date()
+    let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
+
+    this.checkIfTodayTaken(today);
+    console.log(this.data.ifTodayTaken);
+    if (this.data.ifTodayTaken) {
+      this.setData({
+        toggleButtonStatus: true
+      })
+    }
+    
+    console.log(lastShownModalTime);
+    if(!this.data.ifTodayTaken && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
       wx.showModal({
         title: '服药记录',
         content: '今天是否已经服药?',
@@ -237,22 +258,25 @@ Page({
               ifTodayTaken: true,
               toggleButtonStatus: true
             })
-            app.globalData.ifCalendarModalShow = true
+          }
+          try {
+            wx.setStorageSync('NotificationLastShownTime', today)
+          } catch (e) {
+            console.log(e);
           }
         }
       })
     }
-    
-    const medi_taken = app.globalData.userData.med_date;
+
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(medi_taken);
-    const today = new Date()
+    
     this.setData({
       medi_taken,
       currentMonth: today.getMonth() + 1,
       currentDate: today.getDate(),
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
-    this.checkIfTodayTaken(today)
+    // this.checkIfTodayTaken(today)
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
     this.generateDisplayDate(this.data.analyticsData[0])
