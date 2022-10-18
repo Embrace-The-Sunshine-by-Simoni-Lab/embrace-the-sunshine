@@ -11,25 +11,25 @@
   </view>
 
   <!-- line graph -->
-  <view class="line-graph-container">
-    <text class="calendar_content_title">自测抑郁症风险等级</text> 
-    <view class="calendar_bar_container">
-      <view class="calendar_y_axis">
-        <text class="calendar_y_axis_label">重度</text>
-        <text class="calendar_y_axis_label">高度</text>
-        <text class="calendar_y_axis_label">中度</text>
-        <text class="calendar_y_axis_label">轻度</text>
-        <text class="calendar_y_axis_label">最低</text>
-      </view>
-      <view class="calendar_bar_body_container">
-        <view class="calendar_bar_body">
-          <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%" bindscroll="getleft">
-          </scroll-view>
-        </view>
-        <!-- 滚动条 -->
-        <view class="slide">
-          <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view>
-        </view>
+  <view class="line_chart_container">
+    <!-- <text class="calendar_content_title">自测抑郁症风险等级</text>  -->
+    <view class="line_chart_bar_container">
+      <view class="line_chart_y_axis">
+        <text class="line_chart_y_axis_label">重度</text>
+        <text class="line_chart_y_axis_label">高度</text>
+        <text class="line_chart_y_axis_label">中度</text>
+        <text class="line_chart_y_axis_label">轻度</text>
+        <text class="line_chart_y_axis_label">最低</text>
+    </view>
+    <view class="line_chart_body_container">
+      <ec-canvas id="mychart-dom-line" class="line-chart" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>  
+      <!-- <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%" bindscroll="getleft">
+      </scroll-view> -->
+    </view>
+    <!-- 滚动条 -->
+    <view class="slide">
+      <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view>
+    </view>
       </view>
     </view>
   </view>
@@ -45,5 +45,5 @@
         <view class="calendar_summary_top_circle"></view>
         <view class="calendar_summary_text">轻度风险</view>
       </view>
-    </view>
 </view>
+

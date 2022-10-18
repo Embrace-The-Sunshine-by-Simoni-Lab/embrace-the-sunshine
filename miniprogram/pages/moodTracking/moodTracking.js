@@ -271,5 +271,11 @@ Page({
     var old_count = parseInt(otherDate.getTime()/oneDayTime);
     var now_other = parseInt(today.getTime()/oneDayTime);
     return parseInt((old_count+4)/7) === parseInt((now_other+4)/7);
+  },
+
+  goToMedicationReport() {
+    wx.redirectTo({
+      url:'/pages/medicationReport/index'
+    })
   }
 })

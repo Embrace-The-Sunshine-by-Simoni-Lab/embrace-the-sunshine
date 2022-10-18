@@ -1,5 +1,3 @@
-
-
 Page{
   background:#FFFFFF;
 }
@@ -118,14 +116,16 @@ Page{
   display: flex;
   flex-direction: column;
 }
-.calendar_bar_container {
+.line_chart_bar_container {
+  margin-left: 40px;
   margin-top: 7px;
-  height: 190px;
-  width: 300px;
+  height: 240px;
+  width: 320px;
   /* background-color: #FFD1C6; */
   display: flex;
 }
-.calendar_y_axis {
+/* slide bar edit */
+.line_chart_y_axis {
   width: 15%;
   height: 100%;
   background-color: #FFFFFF;
@@ -133,9 +133,64 @@ Page{
   flex-direction: column;
   align-items: center;
 }
-.calendar_y_axis_label {
+
+.line_chart_y_axis_label {
   color: #7B7B7B;
-  font-size: 11px;
+  font-size: 13px;
   height: 14%;
 }
-/* slide bar edit */
+
+/* echart style */
+.line_chart_container {
+  width: 400px;
+  height: 250px;
+}
+
+ec-canvas {
+  width: 300px;
+  height: 270px;
+}
+
+/* .container {
+  width: 320px;
+  height: 270px;
+} */
+
+.line-chart {
+  left: 7;
+  top: 7;
+  width: 330px;
+  height: 270px;
+}
+
+.line_chart_body_container {
+  /* border: 1px solid grey; */
+  display: flex;
+  width: 280px;
+  height: 210px;
+  margin-bottom: 10px;
+}
+
+  /*.line-chart-container {
+  width: 350px;
+  height: 300px;
+  overflow-x: scroll;
+  background: green;
+} 
+
+ .scroll-view_H{
+  white-space: nowrap;
+  background: orange;
+  height: 400px;
+} 
+
+.scroll-view-item_H{
+  background: green;
+  display: inline-block;
+  margin-right: 10px;
+  width: 40px;
+  height: 300px;
+  position: relative;
+}*/
+
+

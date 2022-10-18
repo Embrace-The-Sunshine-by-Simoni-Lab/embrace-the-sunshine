@@ -93,5 +93,11 @@ Page({
     wx.switchTab({
       url: '/pages/mainpage/mainpage',
     })
+  },
+  
+  goToMedicationReport() {
+    wx.redirectTo({
+      url:'/pages/medicationReport/index'
+    })
   }
 })
