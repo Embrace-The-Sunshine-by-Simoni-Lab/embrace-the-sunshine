@@ -39,6 +39,14 @@ Page{
   border-radius: 10px;
   background-color: #FFD1C6;
 }
+.ready-taken {
+  border-radius: 10px;
+  background-color: #CCCCCC;
+}
+.remove-taken {
+  border-radius: 10px;
+  background-color: #ffffff;
+}
 .medi-today {
   /* background: #e9e5eb; */
   border-radius: 10px;
@@ -361,8 +369,8 @@ Page{
 }
 
 .scroll-view-item-grey {
-  width: 20px;
   height: 160px;
+  width: 20px;
   background: rgb(235, 232, 232);
   border-radius: 6px;
   position: absolute;

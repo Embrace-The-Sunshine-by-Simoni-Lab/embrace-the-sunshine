@@ -76,9 +76,9 @@
             </view>
           </scroll-view>
         </view>
-
+        
         <view class="slide">
-          <view class="slide-show" style="width: {{slideWidth}}px; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'px'}};"></view>
+          <view class="slide-show" style="width: {{slideWidth}}px; margin-left:{{slideLeft == 0 ? 0 : slideLeft+'px'}};"></view>
         </view>
       </view>
     </view>

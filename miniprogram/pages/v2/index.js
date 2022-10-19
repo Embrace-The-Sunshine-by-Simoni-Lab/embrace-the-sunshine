@@ -11,21 +11,25 @@ Page({
     currentMonth: "",
     currentDate: "",
     currentMode: "record",
-    left: 30,
+    left: 0,
     calendarCo: 4,
-    slideWidth: 50,
+    slideWidth: 40,
     slideLefnfig: {
       takeoverTap: true,
     },
     calendarConfig: {
-      takeoverTap: true
+      takeoverTap: true,
     },
     ifTodayTaken: false,
     medi_taken: [],
+    medi_taken_obj: [],
     analyticsData: [],
     lowestWeekNum: -1,
     weekNumToRange: {},
-    medi_taken_classified_by_years: {}
+    medi_taken_classified_by_years: {},
+    // 用来记录准备被服药的灰色方框
+    readyToBeTaken: {},
+    curTapDate: {}
   }, 
   clickBar(e) {
     // 改变日期比较
@@ -75,7 +79,7 @@ Page({
     } else if (count <= 5) {
       return "#FFC300"
     } else {
-      return "4DA470"
+      return "#4DA470"
     }
   },
   createMedi_taken_classified_by_years(medi_taken) {
@@ -100,30 +104,85 @@ Page({
     }
   },
   takeoverTap(e) {
-    if(e.detail.isToday && !this.data.ifTodayTaken) {
-      const today = new Date()
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      })
-      wx.cloud.callFunction({
-        name: 'medication_track',
-        data: {
-            date: today
-        }
-      })
-      .then(res => {
-        wx.hideLoading()
-        const newDateLst = res.result.data.med_date;
-        app.globalData.userData.med_date = newDateLst
+    const today = new Date()
+    let tap_year = e.detail.year
+    let tap_month = e.detail.month
+    let tap_day = e.detail.date
+    const tap_date = new Date(tap_year, tap_month - 1, tap_day)
+    if(tap_date < today) {
+      // 判断点击的格子是不是已经服药的格子
+      let ifClickIsTaken = this.checkIfTapDateTaken(tap_year, tap_month, tap_day)
+      // 只有点击了不是被taken过的box才会执行
+      if(!ifClickIsTaken) {
+        const calendar = this.selectComponent('#calendar').calendar
+        // 获取当前toggle button的状态
         this.setData({
-          medi_taken: newDateLst,
-          ifTodayTaken: true
+          toggleButtonStatus: false
         })
-        this.renderMediTaken()
-      });
-    }
+
+        // 获取当前的灰色格子, 且如果不是taken状态,那么改为白色
+        const removeReady = this.data.readyToBeTaken
+        let checkReadyTaken = this.checkIfTapDateTaken(removeReady.year , removeReady.month, removeReady.date)
+        if(!checkReadyTaken) {
+          const remove = []
+          removeReady["class"] = 'remove-taken'
+          remove.push(removeReady)
+          calendar.setDateStyle(remove)
+          const today = new Date();
+        }
+
+        // 如果是今天要重新渲染成红色边框
+        if(today.getFullYear() == removeReady.year && today.getMonth() + 1 == removeReady.month && today.getDate() == removeReady.date) {
+          let obj = { 
+            year: removeReady.year, 
+            month: removeReady.month, 
+            date: removeReady.date, 
+            class: 'medi-today'
+          };
+          const paintToday = []
+          paintToday.push(obj)
+          calendar.setDateStyle(paintToday)
+        }
+        // 改变新点击的方块为灰色
+        const {year, month, date} = e.detail
+        const onReady = {year, month, date, class: 'ready-taken'}
+        const toSet = []
+        toSet.push(onReady)
+        calendar.setDateStyle(toSet)
+        this.setData({
+          readyToBeTaken: onReady,
+          curTapDate: { 
+            year: e.detail.year, 
+            month: e.detail.month, 
+            date: e.detail.date
+          }
+        })
+      } else {
+        // 如果已经吃过药了, 那么toggle按钮设置为开启
+        this.setData({
+          toggleButtonStatus: true,
+          curTapDate: { 
+            year: e.detail.year, 
+            month: e.detail.month, 
+            date: e.detail.date
+          }
+        })
+      }
+    } 
   },
+  // 判断当前点击的格子是不是已经确认服药了
+  checkIfTapDateTaken(year, month, day) {
+    let curr_medi_taken = this.data.medi_taken_obj
+      let ifClickIsTaken = false
+      for(let i = 0; i < curr_medi_taken.length; i++) {
+        let date = curr_medi_taken[i]
+        if(date.getFullYear() == year && date.getMonth() + 1 == month && date.getDate() == day) {
+          ifClickIsTaken = true
+        }
+      }
+      return ifClickIsTaken
+  },
+
   afterCalendarRender(e) {
     // marktoday
     const today = new Date();
@@ -133,7 +192,6 @@ Page({
     let month = today.getMonth() + 1;
     let date = today.getDate();
     let obj = { year, month, date, class: 'medi-today'};
-    let objDisable = { year, month, date};
     toSet.push(obj)
     calendar.setDateStyle(toSet)
     this.renderMediTaken()
@@ -141,6 +199,7 @@ Page({
   whenChangeMonth(e) {
     this.renderMediTaken()
   },
+  // 把所有已经服药过的日期渲染成红色
   renderMediTaken() {
     const calendar = this.selectComponent('#calendar').calendar
     const toSet = []
@@ -233,21 +292,52 @@ Page({
         confirmText: '是',
         success (res) {
           if (res.confirm) {
+            // 把按钮变成开启状态
             that.setData({
-              ifTodayTaken: true,
               toggleButtonStatus: true
             })
             app.globalData.ifCalendarModalShow = true
+            // 更新今日服药状态
+            let today = new Date()
+            wx.cloud.callFunction({
+              name: 'medication_track',
+              data: {
+                  date: today
+              }
+            }).then(res => {
+              const newDateLst = res.result.data.med_date;
+              app.globalData.userData.med_date = newDateLst
+              // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
+              let medi_taken_obj = []
+              newDateLst.map(date_str => {
+                const date = new Date(date_str)
+                medi_taken_obj.push(date)
+              })
+              that.setData({
+                medi_taken: newDateLst,
+                medi_taken_obj,
+                ifTodayTaken: true
+              })
+              that.renderMediTaken()
+            });
           }
         }
       })
     }
-    
+
     const medi_taken = app.globalData.userData.med_date;
+    // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
+    const medi_taken_obj = []
+    medi_taken.map(date_str => {
+      const date = new Date(date_str)
+      medi_taken_obj.push(date)
+    })
+    
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(medi_taken);
     const today = new Date()
     this.setData({
       medi_taken,
+      medi_taken_obj,
       currentMonth: today.getMonth() + 1,
       currentDate: today.getDate(),
       medi_taken_classified_by_years: _medi_taken_classified_by_years
@@ -265,6 +355,7 @@ Page({
       compare,
       analyticsData
     })
+    console.log(this.data.analyticsData)
   },
   getCompareString(index) {
     if(index == 0) {
@@ -285,7 +376,8 @@ Page({
     for(let i = 0; i < lst.length; i++) {
       sum += lst[i].count
     }
-    return sum / lst.length
+    let avg = sum / lst.length
+    return avg.toFixed(1)
   },
   generateDisplayDate(obj) {
     const start = obj.start;
@@ -298,8 +390,9 @@ Page({
     })
   },
   getleft(e) {
+      const chunkCount = this.data.analyticsData.length
       const userScroll = e.detail.scrollLeft
-      const barScroll = (userScroll * 200) / 125
+      const barScroll = (userScroll * 210) / ((chunkCount - 4) * 62.5)
       this.setData({
         slideLeft: barScroll
       })
@@ -351,10 +444,40 @@ Page({
   },
   // for toggle button
   onChange(event) {
+    let curTapDate = this.data.curTapDate
     let toggleResult = event.detail.checked
     let newMediStatus = false
+    // 如果用户是打开按钮, 那么就把MediStatus设置为taken并且改变数据库
     if(toggleResult) {
       newMediStatus = true
+      // 改变数据库的药的taken状态
+      let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      wx.cloud.callFunction({
+        name: 'medication_track',
+        data: {
+            date: dateChange
+        }
+      })
+      .then(res => {
+        wx.hideLoading()
+        const newDateLst = res.result.data.med_date;
+        app.globalData.userData.med_date = newDateLst
+        // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
+        let medi_taken_obj = []
+        newDateLst.map(date_str => {
+          const date = new Date(date_str)
+          medi_taken_obj.push(date)
+        })
+        this.setData({
+          medi_taken: newDateLst,
+          medi_taken_obj
+        })
+        this.renderMediTaken()
+      });
     }
     this.setData({
       toggleButtonStatus: newMediStatus
