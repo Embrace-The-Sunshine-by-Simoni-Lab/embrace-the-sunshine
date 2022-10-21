@@ -34,6 +34,8 @@ Page({
     // 弹窗
     let that = this
     let today = new Date()
+    let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
+    let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
 
     // model显示之前先对calendar进行渲染
     const medi_taken = app.globalData.userData.med_date;
@@ -44,7 +46,7 @@ Page({
       currentDate: today.getMonth()+1
     })
     // 用户如果点击了model需要执行的内容
-    if(!app.globalData.ifCalendarModalShow) {
+    if(!ifTodayTaken && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
       wx.showModal({
         title: '服药记录',
         content: '今天是否已经服药?',
@@ -75,6 +77,11 @@ Page({
           }
         }
       })
+      try {
+        wx.setStorageSync('NotificationLastShownTime', today)
+      } catch (e) {
+        console.log(e);
+      }
     }
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(medi_taken);
     this.setData({
@@ -94,8 +101,32 @@ Page({
       analyticsData
     })
   },
+  isSameDay(d1, d2) {
+    return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+  },
   afterCalendarRender(e) {
+    // 日历第一次渲染完给当天画框
+    const today = new Date()
+    const dateObj = {
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      date: today.getDate()
+    }
     this.renderMediTaken()
+
+    let todayMeditaken = false
+    if(this.checkIfTapDateTaken(dateObj)) {
+      todayMeditaken = true;
+    }
+    if(todayMeditaken) {
+      this.changeCalendarBoxStyle(dateObj, "box-selected-taken")
+    } else {
+      this.changeCalendarBoxStyle(dateObj, "box-selected")
+    }
+    this.setData({
+      toggleButtonStatus: todayMeditaken,
+      LastClick: dateObj
+    })
   },
   // 把日期的string列表转换为obj列表
   convertStringtoDateArray(lst) {
@@ -150,6 +181,7 @@ Page({
   }, 
   // 判断当前点击的格子是不是已经确认服药了
   checkIfTapDateTaken(dateObj) {
+    console.log("dateObj", dateObj)
     let curr_medi_taken = this.data.medi_taken_obj
     let ifClickIsTaken = false
     for(let i = 0; i < curr_medi_taken.length; i++) {
@@ -165,14 +197,10 @@ Page({
     let curTapDate = this.data.curTapDate
     let toggleResult = event.detail.checked
     let newMediStatus = false
-    if(toggleResult) {
-      newMediStatus = true
-    } else {
-      this.changeCalendarBoxStyle(curTapDate, "box-removeTaken")
-    }
     // 改变数据库的药的taken状态
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
-    console.log("dateChange", dateChange)
+    if (toggleResult) newMediStatus = true
+  
     wx.showLoading({
       title: '加载中',
       mask: true
@@ -193,6 +221,12 @@ Page({
         medi_taken: newDateLst,
       })
       this.renderMediTaken()
+      
+      if(toggleResult) {
+        this.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
+      } else {
+        this.changeCalendarBoxStyle(curTapDate, "box-selected")
+      }
     });
     this.setData({
       toggleButtonStatus: newMediStatus

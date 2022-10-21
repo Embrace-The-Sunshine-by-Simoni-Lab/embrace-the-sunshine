@@ -48,6 +48,11 @@ Page{
   background-color: #FFD1C6;
   border-radius: 10px;
 }
+.box-selected-remove {
+  border: 1px solid #4D50A4;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
 .box-deselect {
   border: none;
   border-radius: 10px;
