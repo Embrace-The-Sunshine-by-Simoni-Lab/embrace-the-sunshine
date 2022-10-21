@@ -1,11 +1,20 @@
 /* pages/moodTracking-Content/mockTracking-Content.wxss */
-
+.outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
 .mood_container {
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  position: relative;
 }
 .mood_main_question {
   max-width: 18rem;
@@ -16,10 +25,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 15%;
+  height: 13%;
 }
 .mood_content_image {
-  width: 23rem;
+  width: 600rpx;
 }
 .mood_notice {
   font-size: 14px;
@@ -45,7 +54,7 @@
 }
 .mood_gap {
   width: 100%;
-  height: 0.7rem;
+  height: 90rpx;
 }
 .moodtrack_options {
   display: flex;
@@ -53,15 +62,21 @@
 }
 .moodtrack_option {
   background-color: white;
-  width: 13rem;
-  height: 1.5rem;
-  padding: .2rem .9rem;
-  line-height: 1.5rem;
+  width: 450rpx;
+  height: 2.5rem;
+  padding: .2rem 1.2rem;
+  line-height: 2.5rem;
   border: 1px solid #D1D1D1;
   border-radius: 4px;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.4rem;
 }
 .submit_box {
+  height: 10%;
+  width: 640rpx;
+  /* position: absolute;
+  bottom: 40rpx;
+  left: 50%;
+  margin-left: -320rpx; */
   display: flex;
   flex-direction: column;
   justify-content: center;
