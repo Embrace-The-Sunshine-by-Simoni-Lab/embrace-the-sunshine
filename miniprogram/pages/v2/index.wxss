@@ -39,18 +39,27 @@ Page{
   border-radius: 10px;
   background-color: #FFD1C6;
 }
-.ready-taken {
+.box-selected {
+  border: 1px solid #4D50A4;
   border-radius: 10px;
-  background-color: #CCCCCC;
 }
-.remove-taken {
+.box-selected-taken {
+  border: 1px solid #4D50A4;
+  background-color: #FFD1C6;
   border-radius: 10px;
-  background-color: #ffffff;
 }
-.medi-today {
-  /* background: #e9e5eb; */
+.box-deselect {
+  border: none;
   border-radius: 10px;
-  border: 1px solid #FFD1C6;
+}
+.box-deselect-taken {
+  border: none;
+  border-radius: 10px;
+  background-color: #FFD1C6;
+}
+.box-removeTaken {
+  border-radius: 10px;
+  background-color: #FFFFFF;
 }
 .calendar_box {
   width: 88%;

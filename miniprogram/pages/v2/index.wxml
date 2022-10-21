@@ -3,9 +3,9 @@
   <view class="infoBox">
     <view class="btnBox">
       <!-- record button -->
-      <mainButton type="{{currentMode == 'record'?'recordButton-fill':'recordButton-empty'}}" class="madicineBtn" bindtap="switchToRecord"></mainButton>
+      <mainButton type="{{currentMode == 'record'?'recordButton-fill':'recordButton-empty'}}" class="madicineBtn" bindtap="switchMode" data-mode="record"></mainButton>
       <!-- analyst button -->
-      <mainButton type="{{currentMode == 'record'?'analyst-empty':'analyst-fill'}}"  class="madicineBtn" bindtap="switchToAnalyst"></mainButton>
+      <mainButton type="{{currentMode == 'record'?'analyst-empty':'analyst-fill'}}"  class="madicineBtn" bindtap="switchMode" data-mode="analyst"></mainButton>
     </view>
     <!-- record content -->
     <view class="dateBox" wx-if="{{currentMode=='record'}}">
@@ -29,7 +29,7 @@
     <calendar
       id="calendar"
       wx-if="{{currentMode=='record'}}"
-      config="{{calendarConfig}}"
+      config="{{calendarConfig}}" 
       bind:takeoverTap="takeoverTap"
       bind:afterTapDate="afterTapDate"
       bind:afterCalendarRender="afterCalendarRender"
@@ -41,7 +41,7 @@
   <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
     <text wx-if="{{!toggleButtonStatus}}" class="toggleButton-text">未服药</text>
     <text wx-if="{{toggleButtonStatus}}" class="toggleButton-text">已服药</text>
-    <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="onChange"/>
+    <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
     <text class="toggleButton-notice-on">是</text> 
     <text class="toggleButton-notice-off">否</text> 
   </view>
