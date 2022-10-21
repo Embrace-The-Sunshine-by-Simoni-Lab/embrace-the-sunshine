@@ -17,11 +17,12 @@
 .pc {
     justify-content: center;
 }
-
-.ac {
-    align-items: center;
+.boxText {
+  border: none
 }
-
+.ac {
+  align-items: center;
+}
 .cc {
     align-items: center;
     justify-content: center;
@@ -29,6 +30,8 @@
 
 .wrap {
     flex-wrap: wrap;
+    width: 100%;
+    margin-left: 20rpx;
 }
 
 .flex {
@@ -61,14 +64,18 @@
 }
 
 .calendar {
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* 日历操作栏 */
 
 .handle {
-    height: 80rpx;
+  height: 80rpx;
+  margin-bottom:20px;
 }
 
 .prev-handle,
@@ -78,14 +85,15 @@
 
 .date-in-handle {
     height: 80rpx;
+    padding: 0 80rpx;
 }
 
 /* 星期栏 */
 
 .weeks {
-    height: 50rpx;
-    line-height: 50rpx;
-    opacity: 0.5;
+  height: 50rpx;
+  line-height: 50rpx;
+  opacity: 0.5;
 }
 
 .week {
@@ -95,30 +103,33 @@
 .grid,
 .week {
   margin: 0 3px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  height: 80rpx;
   /* width: 14.286014285714286%; */
-  width: 40px;
+  width: 80rpx;
 }
 
 .date-wrap {
-    /* width: 100%;
-    height: 80rpx; */
-    width: 40px;
-    height: 40px;
+    width: 38rpx !important;
+    height: 40rpx !important;
+    max-height: 38rpx !important;
+    max-height: 40rpx !important;
     position: relative;
     left: 0;
     top: 0;
+    font-size: 26rpx;
+    text-align: center;
+    font-weight: 200;
 }
 
-.date {
-    /* margin: 0 5px; */
+/* .date {
     position: relative;
+    margin-bottom: 15px ;
     left: 0;
     top: 0;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     text-align: center;
-    /* line-height: 55rpx; */
     font-size: 26rpx;
     font-weight: 200;
     border-radius: 10px;
@@ -127,7 +138,7 @@
     animation-duration: 0.5s;
     animation-timing-function: linear;
     animation-iteration-count: 1;
-}
+} */
 
 .date-area-mode {
     width: 100%;

@@ -6,12 +6,12 @@ Page({
     currentMonth:"", // 顶部方形日历
     currentDate: "",
     displayedDate: [], // 顶部左右滑动的日期
+    analyticsData: [], // 按照每周排列好的服药日期
     // ******************* 日历逻辑 *******************
     toggleButtonStatus: false,
     medi_taken: [],
     medi_taken_obj: [],
     LastClick: {}, // 用来记录上一次被点击的日历方框
-    analyticsData: [], // 按照每周排列好的服药日期
     calendarConfig: {
       takeoverTap: true,
     },
@@ -73,6 +73,8 @@ Page({
                 medi_taken: newDateLst,
               })
               that.renderMediTaken()
+              // 全部渲染完之后需要单独对今天进行渲染
+              that.changeCalendarBoxStyle(that.data.LastClick, "box-selected-taken")
             });
           }
         }
@@ -83,11 +85,13 @@ Page({
         console.log(e);
       }
     }
-    let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(medi_taken);
+  },
+  // 处理bar chart的数据
+  processAnalystPageData() {
+    let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(this.data.medi_taken);
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
-    //处理barchart逻辑
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
     this.generateDisplayDate(this.data.analyticsData[0])
@@ -101,6 +105,9 @@ Page({
       analyticsData
     })
   },
+  convertDateobjToDateOBJ(obj) {
+    return new Date(obj.year, obj.month-1, obj.date)
+  },
   isSameDay(d1, d2) {
     return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
   },
@@ -113,7 +120,7 @@ Page({
       date: today.getDate()
     }
     this.renderMediTaken()
-
+    // 判断今天是否taken,已经taken的话要补上框
     let todayMeditaken = false
     if(this.checkIfTapDateTaken(dateObj)) {
       todayMeditaken = true;
@@ -123,10 +130,21 @@ Page({
     } else {
       this.changeCalendarBoxStyle(dateObj, "box-selected")
     }
+    // 今天要是taken, 那么toggle button 要开启, 同时把今天设置为上次点击
     this.setData({
       toggleButtonStatus: todayMeditaken,
       LastClick: dateObj
     })
+  },
+  // 当左右滑动的时候需要重新渲染日历
+  whenChangeMonth(e) {
+    this.renderMediTaken()
+    // 全部渲染完之后, 需要单独再把last click渲染一遍, 不然会使得原本选中的框子消失
+    if(this.checkIfTapDateTaken(this.data.LastClick)) {
+      this.changeCalendarBoxStyle(this.data.LastClick, "box-selected-taken")
+    } else {
+      this.changeCalendarBoxStyle(this.data.LastClick, "box-selected")
+    }
   },
   // 把日期的string列表转换为obj列表
   convertStringtoDateArray(lst) {
@@ -159,16 +177,19 @@ Page({
         this.changeCalendarBoxStyle(this.data.curTapDate, "box-selected")
       }
       // 取消上一次的深色边框(需要判断是否taken)
-      if(this.checkIfTapDateTaken(this.data.LastClick)) {
-        this.changeCalendarBoxStyle(this.data.LastClick, "box-deselect-taken")
-      } else {
-        this.changeCalendarBoxStyle(this.data.LastClick, "box-deselect")
+      let LastClickDateObj = this.convertDateobjToDateOBJ(this.data.LastClick)
+      if(!this.isSameDay(LastClickDateObj, tap_date)) {
+        if(this.checkIfTapDateTaken(this.data.LastClick)) {
+          this.changeCalendarBoxStyle(this.data.LastClick, "box-deselect-taken")
+        } else {
+          this.changeCalendarBoxStyle(this.data.LastClick, "box-deselect")
+        }
+        // 把当前方框设置为上次点击方框
+        this.setData({
+          toggleButtonStatus: this.checkIfTapDateTaken(this.data.curTapDate),
+          LastClick: this.data.curTapDate
+        })
       }
-      // 把当前方框设置为上次点击方框
-      this.setData({
-        toggleButtonStatus: this.checkIfTapDateTaken(this.data.curTapDate),
-        LastClick: this.data.curTapDate
-      })
     } 
   },
   // 改变格子颜色
@@ -181,7 +202,6 @@ Page({
   }, 
   // 判断当前点击的格子是不是已经确认服药了
   checkIfTapDateTaken(dateObj) {
-    console.log("dateObj", dateObj)
     let curr_medi_taken = this.data.medi_taken_obj
     let ifClickIsTaken = false
     for(let i = 0; i < curr_medi_taken.length; i++) {
@@ -231,6 +251,8 @@ Page({
     this.setData({
       toggleButtonStatus: newMediStatus
     })
+    // 更新分析页面的数据
+    this.processAnalystPageData()
   },
   // 把所有已经服药过的日期渲染成红色
   renderMediTaken() {
@@ -247,10 +269,6 @@ Page({
     calendar.setDateStyle(toSet)
   },
   // ******************* bar chart 逻辑 *******************
-  // 当左右滑动的时候需要重新渲染日历
-  whenChangeMonth(e) {
-    this.renderMediTaken()
-  },
   // 根据数据显示bar的颜色
   addBarColor(count) {
     if(count <= 3) {
@@ -354,7 +372,6 @@ Page({
     this.setData({
       analyticsData: _analyticsData
     });
-    console.log(this.data.analyticsData);
   },
   getDateRangeOfWeek(weekNo){
     var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
@@ -427,6 +444,10 @@ Page({
   },
   // 切换记录和分析模式
   switchMode: function(event) {
+    if(event.currentTarget.dataset.mode == "analyst") {
+      this.processAnalystPageData()
+    }
+
     this.setData({
       currentMode: event.currentTarget.dataset.mode
     })
