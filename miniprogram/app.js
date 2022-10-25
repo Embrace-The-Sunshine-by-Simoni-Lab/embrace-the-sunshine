@@ -2,7 +2,8 @@
 App({
   globalData: {
     userData: {},
-    logged: false
+    logged: false,
+    ifCalendarModalShow: false
   },
 
   onLaunch: function () {

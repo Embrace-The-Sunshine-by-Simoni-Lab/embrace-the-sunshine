@@ -3,9 +3,9 @@
   <view class="infoBox">
     <view class="btnBox">
       <!-- record button -->
-      <mainButton type="{{currentMode == 'record'?'recordButton-fill':'recordButton-empty'}}" class="madicineBtn" bindtap="switchToRecord"></mainButton>
+      <mainButton type="{{currentMode == 'record'?'recordButton-fill':'recordButton-empty'}}" class="madicineBtn" bindtap="switchMode" data-mode="record"></mainButton>
       <!-- analyst button -->
-      <mainButton type="{{currentMode == 'record'?'analyst-empty':'analyst-fill'}}"  class="madicineBtn" bindtap="switchToAnalyst"></mainButton>
+      <mainButton type="{{currentMode == 'record'?'analyst-empty':'analyst-fill'}}"  class="madicineBtn" bindtap="switchMode" data-mode="analyst"></mainButton>
     </view>
     <!-- record content -->
     <view class="dateBox" wx-if="{{currentMode=='record'}}">
@@ -13,14 +13,14 @@
       <text class="titleDate">{{currentDate}}</text>
     </view>
     <view class="medicineNotice" wx-if="{{currentMode=='record'}}">
-      {{ifTodayTaken ? "今日已服药": "今日未服药"}}
+      {{toggleButtonStatus ? "今日已服药": "今日未服药"}}
     </view>
     <!-- analyst content -->
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
     <view wx-if="{{currentMode=='analyst'}}" class="calendar_datepicker">
-      <image class="calendar_arrow_left" src="../../images/calendar/rightArrow.png"/>
-      <view wx-if="{{currentMode=='analyst'}}" class="calendar_dateRange">02月20日-02月27日</view>
-      <image class="calendar_arrow_right" src="../../images/calendar/rightArrow.png"/>
+      <image class="calendar_arrow_left" src="../../images/calendar/rightArrow.png" bind:tap="clickLeftArrow" />
+      <view wx-if="{{currentMode=='analyst'}}" class="calendar_dateRange">{{displayedDate[0]}}月{{displayedDate[1]}}日-{{displayedDate[2]}}月{{displayedDate[3]}}日</view>
+      <image class="calendar_arrow_right" src="../../images/calendar/rightArrow.png" bind:tap="clickRightArrow"/>
     </view>
   </view>
 
@@ -29,7 +29,7 @@
     <calendar
       id="calendar"
       wx-if="{{currentMode=='record'}}"
-      config="{{calendarConfig}}"
+      config="{{calendarConfig}}" 
       bind:takeoverTap="takeoverTap"
       bind:afterTapDate="afterTapDate"
       bind:afterCalendarRender="afterCalendarRender"
@@ -37,7 +37,15 @@
       bind:whenChangeMonth="whenChangeMonth"
     />
   </view> 
-  
+
+  <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
+      <text wx-if="{{!toggleButtonStatus}}" class="toggleButton-text">未服药</text>
+      <text wx-if="{{toggleButtonStatus}}" class="toggleButton-text">已服药</text>
+      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
+      <text class="toggleButton-notice-on">是</text> 
+      <text class="toggleButton-notice-off">否</text> 
+    </view>
+
   <!-- **** calendar content -- the data visu **** -->
   <view wx-if="{{currentMode != 'record'}}" class="calendar_content_container">
     <text class="calendar_content_title">服药天数</text> 
@@ -51,85 +59,46 @@
         <text class="calendar_y_axis_label">1</text>
       </view>
       <!-- cylinder bars -->
-      <view class="calendar_bar_body_container">
-        <view class="calendar_bar_body">
-          <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%" bindscroll="getleft">
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
-              </view>
-            </view>
-            <view class="scroll-view-item_H">
-              <view class="scroll-view-item-grey">
-                <view class="scroll-view-item-color"></view>
-              </view>
-              <view class="scroll_date_container">
-                <text class="scoll_date_text">01.30</text>
-                <text class="scoll_date_text">-</text>
-                <text class="scoll_date_text">02.05</text>
+      <view class="bar_outer_container">
+        <view style="white-space:nowrap">
+          <scroll-view scroll-x class="bar_container" bindscroll="getleft" 	scroll-left="{{swiperPosition}}px">
+            <view style="display: inline-block;" class="item2" wx:for="{{analyticsData}}" wx:key="index" wx:for-index="bindex">
+              <view bind:tap="clickBar" data-bindex='{{bindex}}'>
+                <view class="scroll-view-item-grey">
+                  <view class="scroll-view-item-color" style="height: {{160 * item.count / 7}}px; background: {{item.color}}; opacity: {{item.opacity}};"></view>
+                </view> 
+                <view class="scroll-view-item-text">
+                  <view class="scroll-view-item-date">{{item.start}}</view>
+                  <view class="scroll-view-item-date">-</view>
+                  <view class="scroll-view-item-date">{{item.end}}</view>
+                </view>
               </view>
             </view>
           </scroll-view>
         </view>
-        <!-- 滚动条 -->
+        
         <view class="slide">
-          <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view>
+          <view class="slide-show" style="width: {{slideWidth}}px; margin-left:{{slideLeft == 0 ? 0 : slideLeft+'px'}};"></view>
         </view>
       </view>
     </view>
 
-
     <view class="calendar_circle_container">
       <view class="calendar_circle">
-        <l-circle wx-if="{{currentMode != 'record'}}"  percent='50' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="#FFC300"></l-circle>
+        <l-circle wx-if="{{currentMode != 'record'}}"  percent='{{analyticsData[currentClickedBar].count / 7 * 100}}' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{analyticsData[currentClickedBar].color}}"></l-circle>
         <view class="calendar_circle_text_container">
-          <view class="calendar_circle_big_num">6</view> 
+          <view class="calendar_circle_big_num">{{analyticsData[currentClickedBar].count}}</view> 
           <view class="calendar_circle_small_text">本周已服药天数</view>
         </view>
       </view>
       <view class="calendar_summary">
         <view class="calendar_summary_container">
-          <view class="calendar_summary_top_circle">+3</view>
+          <view class="calendar_summary_top_circle" style="background: {{analyticsData[currentClickedBar].color}}">{{compare}}</view>
           <view class="calendar_summary_text">本周比上周天数</view>
         </view>
         <view class="calendar_line"></view>
         <view class="calendar_summary_container">
-          <view class="calendar_summary_top_circle">5</view>
+          <view class="calendar_summary_top_circle" style="background: {{analyticsData[currentClickedBar].color}}">{{averageMediTake}}</view>
           <view class="calendar_summary_text">平均每周服药天数</view>
         </view>
       </view>

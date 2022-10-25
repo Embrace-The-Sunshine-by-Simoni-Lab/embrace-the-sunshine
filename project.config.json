@@ -38,7 +38,8 @@
     "useStaticServer": true,
     "disableUseStrict": false,
     "useCompilerPlugins": false,
-    "ignoreUploadUnusedFiles": true
+    "ignoreUploadUnusedFiles": true,
+    "minifyWXML": true
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
