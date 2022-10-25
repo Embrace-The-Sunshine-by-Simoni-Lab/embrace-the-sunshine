@@ -15,7 +15,12 @@
 		"showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [
+      {
+        "packageJsonPath": "./package.json",
+        "miniprogramNpmDistDir": "./"
+      }
+    ]
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.18.0",

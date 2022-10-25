@@ -27,7 +27,7 @@
     "pages/save/save",
     "pages/feedback/feedback",
     "pages/v2/index",
-    "pages/medicationReport/index",
+    "pages/medicationReportUchart/index",
     "pages/moodTracking-Content/mockTracking-Content",
     "pages/moodtrack-finish/moodtrack-finish"
   ],

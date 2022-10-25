@@ -275,7 +275,7 @@ Page({
 
   goToMedicationReport() {
     wx.redirectTo({
-      url:'/pages/medicationReport/index'
+      url:'/pages/medicationReportUchart/index'
     })
   }
 })

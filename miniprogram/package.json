@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@qiun/ucharts": "^2.4.3-20220505",
+    "@qiun/wx-ucharts": "^2.4.3-20220505",
     "lin-ui": "^0.9.12"
   }
 }

@@ -1,6 +1,12 @@
 Page{
   background:#FFFFFF;
 }
+
+.charts-box {
+  width: 70%;
+  height: 200px;
+}
+
 .medicineContainer {
   display: flex;
   flex-direction: column;

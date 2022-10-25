@@ -1,4 +1,4 @@
-// pages/medicationReport/index.js
+// pages/medicationReportUchart/index.js
 import * as echarts from '../../ec-canvas/echarts';
 // 6 个数据点
 let nearHalfYear = [['m1', 3], ['m2', 7], ['m3', 12], ['m4', 8], ['m5', 4], ['m6', 1]]
@@ -9,9 +9,7 @@ let nearOneWeek = [['d1', 3], ['d2', 7], ['d3', 12], ['d4', 8], ['d5', 4], ['d6'
 // 4 个数据点
 let nearOneMonth = [['w1', 3], ['w2', 7], ['w3', 12]]
 const query = wx.createQuerySelector;
-
 var chart = null;
-
 function initChart(canvas, width, height, dpr) {
   chart = echarts.init(canvas, null, {
     width: width,
