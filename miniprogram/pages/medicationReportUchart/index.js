@@ -6,13 +6,18 @@ const app = getApp()
 Page({
   data: {
     chartData: {},
+    animation: false,
     //您可以通过修改 config-ucharts.js 文件中下标为 ['line'] 的节点来配置全局默认参数，如都是默认参数，此处可以不传 opts
     //实际应用过程中 opts 只需传入与全局默认参数中不一致的【某一个属性】即可实现同类型的图表显示不同的样式，达到页面简洁的需求。
     opts: {
-        color: ["#1890FF","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
+        color: ["#4D50A4"],
         padding: [15,10,0,15],
+        legend: {
+          show: false
+        },
         xAxis: {
-          disableGrid: true
+          disableGrid: true,
+          itemCount: 2
         },
         yAxis: {
           disabled: false,
@@ -25,7 +30,7 @@ Page({
             width: 2
           },
           tooltip: {
-            showBox: false
+            showBox: true
           }
         }
       }
@@ -36,12 +41,12 @@ Page({
     setTimeout(() => {
       //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
       let res = {
-          // categories: this.getUserScoreDate(),
-          categories: this.getUserScoreDate(),
+          // categories: this.getUserScoreDateRange(),
+          categories: this.getUserScoreDateRange(),
           series: [
             {
               name: 'Score',
-              data: this.data.userScoreInfo.scoreLevel
+              data: this.getUserScoreLevel()
             }
           ]
         };
@@ -52,8 +57,7 @@ Page({
 
   setTimeCategory() {
     var date = new Date();
-    var currentMonth = 0;
-    console.log("current month:" + date.getMonth())
+    console.log("current month: " + date.getMonth())
   },
 
   createMedi_taken_classified_by_years(medi_taken) {
@@ -67,12 +71,46 @@ Page({
     };
     return _medi_taken_classified_by_years;
   },
-    
-  getUserScoreDate() {
+  
+  // (from v2 index.js)
+  reconstruct(date) {
+    let date_split = date.split('-')
+    let date_month = date_split[0]
+    let date_date = date_split[1]
+    return date_month + "." + date_date
+  },
+
+  // 给line chart重新塑造日期(from v2 index.js)
+  modifyDateList(lst) {
+    let alter_lst = []
+    for(let i = 0; i < lst.length; i++) {
+      // format start date
+      let count = lst[i].count;
+      let start = lst[i].start;
+      let new_start = this.reconstruct(start)
+      let end = lst[i].end;
+      let new_end = this.reconstruct(end)
+      // let color = this.addBarColor(count)
+      // let obj = {"start": new_start, "end": new_end, "count": count, "color": color, "opacity": 0.5}
+      let obj = {"start": new_start, "end": new_end}
+      alter_lst.push(obj)
+    }
+    this.setData({
+      analyticsData: alter_lst
+    })
+  },
+
+  getUserScoreDateRange() {
     var userScoreDate = app.globalData.userData.mood_track.mood_date
     this.setData({"medi_taken_classified_by_years": this.createMedi_taken_classified_by_years(userScoreDate)})
-    var userScoreWeek = 
-    return userScoreDate
+    this.prepareAnalyticsData()
+    this.modifyDateList(this.data.analyticsData)
+    var userAnalyticsData = this.data.analyticsData
+    var userScoreDateRange = []
+    userAnalyticsData.forEach((range) => {
+      userScoreDateRange.push(range.start+ "-" + range.end)
+    })
+    return userScoreDateRange;
   },
 
 // 把所有的日期按照周排列好 (Jara's func)
@@ -119,7 +157,7 @@ Page({
     });
   },
 
-getDateRangeOfWeek(weekNo){
+  getDateRangeOfWeek(weekNo){
     var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
     d1 = new Date();
     numOfdaysPastSinceLastMonday = d1.getDay() - 1;
@@ -142,17 +180,18 @@ getDateRangeOfWeek(weekNo){
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
 
-
   getUserScoreLevel() {
     var userScoreValue = app.globalData.userData.mood_track.mood_score
-    console.log(userScoreValue)
     var currLevel = ""
     var currCategory = ""
     var currType = ""
     var scoreLevel = []
     var scoreCategory = []
     var scoreType = []
-    userScoreValue.forEach(score => {
+    var scoreValue = []
+    for(var i = userScoreValue.length-1; i >= 0 ; i--){
+      var score = userScoreValue[i]
+      console.log(score)
       if(score <= 4) {
         currLevel = "1"
         currCategory = "mini-depress"
@@ -174,20 +213,38 @@ getDateRangeOfWeek(weekNo){
         currCategory = "severe-depress"
         currType = "重度抑郁"
       }
+      scoreValue.push(score);
       scoreLevel.push(currLevel);
       scoreCategory.push(currCategory);
       scoreType.push(currType);
-    })
+    }
     var userScoreInfo = {}
+    userScoreInfo["scoreValue"] = scoreValue;
     userScoreInfo["scoreLevel"] = scoreLevel,
     userScoreInfo["scoreCategory"] = scoreCategory,
-    userScoreInfo["scoreType"] = scoreType
-  
-    console.log(userScoreInfo);
-    this.setData({"userScoreInfo": userScoreInfo});
-    return scoreLevel
+    userScoreInfo["scoreType"] = scoreType,
+    this.setData({"userScoreInfo": userScoreInfo})
+    return userScoreInfo.scoreValue;
   },
   
+  _tap(e) {
+    //方法一：格式化ToolTip
+    uChartsInstance[e.target.id].showToolTip(e, {
+      formatter: (item, category, index, opts) => {
+        return item.name + ":" + item.data;
+      }
+    });
+    //方法二：自定义ToolTip
+    // uChartsInstance[e.target.id].showToolTip(e, {
+    //   idnex: 2,
+    //   offset: {x: 10, y: 10},//不传offset显示位置为点击的坐标
+    //   textList: [
+    //       {text: "2022年销量", color: null},
+    //       {text: "大米：100万斤", color: "#1890FF"},
+    //       {text: "豆油：10吨", color: "#91CB74"}
+    //   ]
+    // });
+  },
 
   methods: {
     // getServerData() {
@@ -229,12 +286,10 @@ getDateRangeOfWeek(weekNo){
    */
   onLoad(options) {
     console.log(this.data)
-    console.log(this.getUserScoreDate())
+    console.log("global date: " + app.globalData.userData.mood_track.mood_date)
+    console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
+    console.log(this.getUserScoreDateRange())
     console.log(this.getUserScoreLevel())
-    this.prepareAnalyticsData()
-    console.log(this.data.medi_taken_classified_by_years)
-    // console.log(analyticsData)
-
   },
 
   /**
