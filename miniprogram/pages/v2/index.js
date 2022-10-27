@@ -42,8 +42,8 @@ Page({
     this.convertStringtoDateArray(medi_taken)
     this.setData({
       medi_taken,
-      currentMonth: today.getFullYear(),
-      currentDate: today.getMonth()+1
+      currentMonth: today.getMonth() + 1,
+      currentDate: today.getDate()
     })
     // 用户如果点击了model需要执行的内容
     if(!ifTodayTaken && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
@@ -316,12 +316,14 @@ Page({
   },
   // 获取滚动条向左边移动的长度
   getleft(e) {
-    const chunkCount = this.data.analyticsData.length
-    const userScroll = e.detail.scrollLeft
-    const barScroll = (userScroll * 210) / ((chunkCount - 4) * 62.5)
+    const barScroll = this.convertScollLeftToSlideLeft(e.detail.scrollLeft)
     this.setData({
       slideLeft: barScroll
     })
+  },
+  convertScollLeftToSlideLeft(userScroll) {
+    const chunkCount = this.data.analyticsData.length
+    return (userScroll * 210) / ((chunkCount - 4) * 62.5);
   },
   // 将日期从-连接变成点连接
   reconstruct(date) {
@@ -461,7 +463,7 @@ Page({
     };
     curAnalyticsData[currentClickedBar].opacity = 0.5
     currentClickedBar -= 1
-    let newSwiperPosition = currentClickedBar * 40
+    let newSwiperPosition = currentClickedBar * 62.5
     curAnalyticsData[currentClickedBar].opacity = 1
     this.generateDisplayDate(this.data.analyticsData[currentClickedBar])
     this.setData({
@@ -478,7 +480,7 @@ Page({
     };
     curAnalyticsData[currentClickedBar].opacity = 0.5
     currentClickedBar += 1
-    let newSwiperPosition = currentClickedBar * 40
+    let newSwiperPosition = currentClickedBar * 62.5
     curAnalyticsData[currentClickedBar].opacity = 1
     this.generateDisplayDate(this.data.analyticsData[currentClickedBar])
     this.setData({
