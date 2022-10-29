@@ -1,59 +1,185 @@
 // import * as ucharts from '@qiun/ucharts/';
-// import uCharts from '../../miniprogram_npm/@qiun/ucharts/index.js';
+import uCharts from '../../miniprogram_npm/@qiun/ucharts/index.js';
 
 const app = getApp()
+var uChartsInstance = {};
 
 Page({
   data: {
-    chartData: {},
-    animation: false,
+    cWidth: 540,
+    cHeight: 450,
+    pixelRatio: 2,
+    userScoreValue: '',
+    userScoreType: '情绪状况',
+    userScoreColor: '',
+    // chartData: {},
+    // animation: false,
     //您可以通过修改 config-ucharts.js 文件中下标为 ['line'] 的节点来配置全局默认参数，如都是默认参数，此处可以不传 opts
     //实际应用过程中 opts 只需传入与全局默认参数中不一致的【某一个属性】即可实现同类型的图表显示不同的样式，达到页面简洁的需求。
-    opts: {
-        color: ["#4D50A4"],
-        padding: [15,10,0,15],
-        legend: {
-          show: false
-        },
-        xAxis: {
-          disableGrid: true,
-          itemCount: 2
-        },
-        yAxis: {
-          disabled: false,
-          gridType: "dash",
-          dashLength: 2
-        },
-        extra: {
-          line: {
-            type: "straight",
-            width: 2
-          },
-          tooltip: {
-            showBox: true
-          }
-        }
-      }
+    // opts: {
+    //     color: ["#4D50A4"],
+    //     padding: [15,10,0,15],
+    //     enableScroll: true,
+    //     dataPointShapeType: "hollow",
+    //     legend: {
+    //       show: false
+    //     },
+    //     xAxis: {
+    //       disableGrid: true,
+    //       scrollShow: true,
+    //       itemCount: 1
+    //     },
+    //     yAxis: {
+    //       disabled: false,
+    //       gridType: "dash",
+    //       dashLength: 2
+    //     },
+    //     extra: {
+    //       line: {
+    //         type: "straight",
+    //         width: 2
+    //       },
+    //       tooltip: {
+    //         showBox: true
+    //       }
+    //     }
+    // }
   },
 
   getServerData() {
   //模拟从服务器获取数据时的延时
     setTimeout(() => {
       //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
+      var scoreData = this.getUserScoreLevel();
       let res = {
           // categories: this.getUserScoreDateRange(),
-          categories: this.getUserScoreDateRange(),
+          // 下列一行为测试数据，当数据个数足够多时，scroll效果才出现
+          categories: [2,3,4,2,1,2],
           series: [
             {
               name: 'Score',
-              data: this.getUserScoreLevel()
+              data: scoreData,
             }
           ]
         };
-        this.setTimeCategory();
-        this.setData({ chartData: JSON.parse(JSON.stringify(res)) });
+        // this.setTimeCategory();
+        // this.setData({ chartData: JSON.parse(JSON.stringify(res)) });
+         this.drawCharts('UxMBnLLjpWIojdTydNQkyeLutcXoQYEw', res);
     }, 500);
   },
+
+  // 非2d canvas 方法
+  // drawCharts(id, data){
+  //   const ctx = wx.createCanvasContext(id, this);
+  //   uChartsInstance[id] = new uCharts({
+  //       type: "line",
+  //       context: ctx,
+  //       legend: {
+  //         show: false
+  //       },
+  //       width: this.data.cWidth,
+  //       height: this.data.cHeight,
+  //       categories: data.categories,
+  //       series: data.series,
+  //       animation: true,
+  //       background: "#FFFFFF",
+  //       enableScroll: true,
+  //       color:  ["#4D50A4"],
+  //       padding: [15,10,0,15],
+  //       dataPointShapeType: "hollow",
+  //       xAxis: {
+  //         disableGrid: true,
+  //         scrollShow: true,
+  //         scrollColor: "#4D50A4",
+  //         itemCount: 2
+  //       },
+  //       yAxis: {
+  //         gridType: "dash",
+  //         dashLength: 2
+  //       },
+  //       extra: {
+  //         line: {
+  //           type: "straight",
+  //           width: 2
+  //         }
+  //       }
+  //     });
+  // },
+
+  // 2d canvas 方法
+  drawCharts(id,data){
+    const query = wx.createSelectorQuery().in(this);
+    query.select('#' + id).fields({ node: true, size: true }).exec(res => {
+      if (res[0]) {
+        const canvas = res[0].node;
+        const ctx = canvas.getContext('2d');
+        canvas.width = res[0].width * this.data.pixelRatio;
+        canvas.height = res[0].height * this.data.pixelRatio;
+        uChartsInstance[id] = new uCharts({
+          type: "line",
+          context: ctx,
+          width: this.data.cWidth * this.data.pixelRatio,
+          height: this.data.cHeight * this.data.pixelRatio,
+          categories: data.categories,
+          series: data.series,
+          pixelRatio: this.data.pixelRatio,
+          dataLabel: false,
+          animation: true,
+          background: "#FFFFFF",
+          color:  ["#4D50A4"],
+          padding: [15,10,0,15],
+          enableScroll: true,
+          legend: {
+            show: false
+          },
+          xAxis: {
+            disableGrid: true,
+            scrollShow: true,
+            itemCount: 3
+          },
+          yAxis: {
+            gridType: "dash",
+            dashLength: 2
+          },
+          extra: {
+            line: {
+              type: "straight",
+              width: 3
+            }
+          },
+          tooltip: {
+            showBox: false
+          }
+        });
+      }else{
+        console.error("[uCharts]: 未获取到 context");
+      }
+    });
+  },
+
+  touchstart(e){
+    uChartsInstance[e.target.id].scrollStart(e);
+  },
+  touchmove(e){
+    uChartsInstance[e.target.id].scroll(e);
+  },
+  touchend(e){
+    uChartsInstance[e.target.id].scrollEnd(e);
+    uChartsInstance[e.target.id].touchLegend(e);
+    uChartsInstance[e.target.id].showToolTip(e);
+    var tapObj = uChartsInstance[e.target.id].getCurrentDataIndex(e);
+    console.log(tapObj)
+    if (tapObj.index != -1) {
+      this.setData({
+        userScoreValue: this.data.userScoreInfo.scoreValue[tapObj.index],
+        userScoreType: this.data.userScoreInfo.scoreType[tapObj.index],
+        userScoreColor: this.data.userScoreInfo.scoreColor[tapObj.index]
+      })
+      
+    }
+    
+  },
+
 
   setTimeCategory() {
     var date = new Date();
@@ -185,55 +311,64 @@ Page({
     var currLevel = ""
     var currCategory = ""
     var currType = ""
+    var typeColor = ""
     var scoreLevel = []
     var scoreCategory = []
     var scoreType = []
     var scoreValue = []
+    var scoreColor = []
     for(var i = userScoreValue.length-1; i >= 0 ; i--){
       var score = userScoreValue[i]
       console.log(score)
       if(score <= 4) {
         currLevel = "1"
         currCategory = "mini-depress"
-        currType = ""
+        currType = "情绪正常"
+        typeColor= "#4DA470"
       } else if (score <= 9) {
         currLevel = "2"
         currCategory = "mild-depress"
         currType = "轻度抑郁"
+        typeColor = "#FFC300"
       } else if (score <= 14) {
         currLevel = "3"
         currCategory = "moder-depress"
         currType = "中度抑郁"
+        typeColor = "orange"
       } else if (score <= 19) {
         currLevel = "4"
         currCategory = "moder-severe-depress"
         currType = "中重度抑郁"
+        typeColor = "red"
       } else {
         currLevel = "5"
         currCategory = "severe-depress"
         currType = "重度抑郁"
+        typeColor = "#FA5151"
       }
       scoreValue.push(score);
       scoreLevel.push(currLevel);
       scoreCategory.push(currCategory);
       scoreType.push(currType);
+      scoreColor.push(typeColor)
     }
     var userScoreInfo = {}
     userScoreInfo["scoreValue"] = scoreValue;
     userScoreInfo["scoreLevel"] = scoreLevel,
     userScoreInfo["scoreCategory"] = scoreCategory,
     userScoreInfo["scoreType"] = scoreType,
+    userScoreInfo['scoreColor'] = scoreColor,
     this.setData({"userScoreInfo": userScoreInfo})
     return userScoreInfo.scoreValue;
   },
   
-  _tap(e) {
-    //方法一：格式化ToolTip
-    uChartsInstance[e.target.id].showToolTip(e, {
-      formatter: (item, category, index, opts) => {
-        return item.name + ":" + item.data;
-      }
-    });
+  // _tap(e) {
+  //   //方法一：格式化ToolTip
+  //   uChartsInstance[e.target.id].showToolTip(e, {
+  //     formatter: (item, category, index, opts) => {
+  //       return item.name + ":" + item.data;
+  //     }
+  //   });
     //方法二：自定义ToolTip
     // uChartsInstance[e.target.id].showToolTip(e, {
     //   idnex: 2,
@@ -244,7 +379,7 @@ Page({
     //       {text: "豆油：10吨", color: "#91CB74"}
     //   ]
     // });
-  },
+  // },
 
   methods: {
     // getServerData() {
@@ -290,6 +425,11 @@ Page({
     console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
     console.log(this.getUserScoreDateRange())
     console.log(this.getUserScoreLevel())
+    this.setData({
+      userScoreValue: 5,
+      userScoreType: this.data.userScoreInfo.userScoreType[0],
+      userScoreColor: this.data.userScoreInfo.userScoreColor[0],
+    })
   },
 
   /**
@@ -300,6 +440,12 @@ Page({
   },
   
   onReady() {
+    //这里的第一个 750 对应 css .charts 的 width
+    const cWidth = 750 / 750 * wx.getSystemInfoSync().windowWidth;
+    //这里的 500 对应 css .charts 的 height
+    const cHeight = 500 / 750 * wx.getSystemInfoSync().windowWidth;
+    const pixelRatio = wx.getSystemInfoSync().pixelRatio;
+    this.setData({ cWidth, cHeight, pixelRatio });
     this.getServerData();
   },
 
