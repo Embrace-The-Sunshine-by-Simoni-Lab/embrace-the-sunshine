@@ -21,4 +21,14 @@
   <!-- help button -->
   <text wx-if="{{type=='help-fill' || type=='help-empty'}}" >互助小组</text>
 
+  <!-- one month period button -->
+  <text wx-if="{{type=='oneMonth-fill' || type=='oneMonth-empty'}}" >近1月</text>
+
+  <!-- three month period button -->
+  <text wx-if="{{type=='threeMonth-fill' || type=='threeMonth-empty'}}" >近3月</text>
+
+  <!-- six month period button -->
+  <text wx-if="{{type=='sixMonth-fill' || type=='sixMonth-empty'}}" >近6月</text>
+
+
 </view>

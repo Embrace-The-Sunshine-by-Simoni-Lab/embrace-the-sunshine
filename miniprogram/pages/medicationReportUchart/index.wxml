@@ -2,12 +2,17 @@
   <!-- **** purple square on top **** -->
   <view class="infoBox">
     <!-- analyst content -->
-    <text class="medicineRecord">本周服药记录</text>
-    <view class="calendar_datepicker">
+    <view class="btnBox">
+      <mainButton type="{{timePeriod == '近1月' ? 'oneMonth-fill':'oneMonth-empty'}}" class="madicineBtn" bindtap="changeTimePeriod"></mainButton>
+      <mainButton type="{{timePeriod == '近3月'? 'threeMonth-fill':'threeMonth-empty'}}"  class="madicineBtn" bindtap="changeTimePeriod"></mainButton>
+      <mainButton type="{{timePeriod == '近6月'? 'sixMonth-fill':'sixMonth-empty'}}"  class="madicineBtn" bindtap="switchMode"></mainButton>
+    </view>
+    <text class="medicineRecord">{{timePeriod}}服药记录</text>
+    <!-- <view class="calendar_datepicker">
       <image class="calendar_arrow_left" src="../../images/calendar/rightArrow.png"/>
       <view class="calendar_dateRange">02月20日-02月27日</view>
       <image class="calendar_arrow_right" src="../../images/calendar/rightArrow.png"/>
-    </view>
+    </view> -->
   </view>
   <!-- 时间范围选择弹窗 -->
   <!-- <view class="section">

@@ -2,12 +2,13 @@ Page{
   background:#FFFFFF;
 }
 .charts {
-  width: 540rpx;
-  height: 450rpx;
+  width: 560rpx;
+  height: 480rpx;
 }
 
 .charts-box {
-  width: 85%;
+  /* position:relative; */
+  width: 540px;
   height: 200px;
 }
 
@@ -33,9 +34,19 @@ Page{
 }
 .medicineRecord {
   font-size: 23px;
-  padding-top: 50px;
+  padding-top: 30px;
   color: #4D50A4;
 }
+
+.btnBox {
+  position: relative;
+  top: 13px;
+  display: flex;
+}
+.madicineBtn {
+  padding: 20px 15px;
+}
+
 .calendar_datepicker {
   padding-top: 30px;
   display: flex;
@@ -58,6 +69,7 @@ Page{
   padding: 0 12px;
 }
 .calendar_circle_container {
+  margin-top: 30px;
   display: flex;
   justify-content: center;
   align-items: center;

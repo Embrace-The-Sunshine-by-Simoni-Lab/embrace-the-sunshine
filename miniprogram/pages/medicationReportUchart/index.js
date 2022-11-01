@@ -6,8 +6,9 @@ var uChartsInstance = {};
 
 Page({
   data: {
-    cWidth: 540,
-    cHeight: 450,
+    timePeriod: '近1月',
+    cWidth: 700,
+    cHeight: 500,
     pixelRatio: 2,
     userScoreValue: '',
     userScoreType: '情绪状况',
@@ -51,14 +52,16 @@ Page({
     setTimeout(() => {
       //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
       var scoreData = this.getUserScoreLevel();
+      console.log(scoreData)
       let res = {
-          // categories: this.getUserScoreDateRange(),
+          categories: this.getUserScoreDateRange(),
           // 下列一行为测试数据，当数据个数足够多时，scroll效果才出现
-          categories: [2,3,4,2,1,2],
+          // categories: [1, 2, 3, 4, 5, 6, 7, 8],
           series: [
             {
-              name: 'Score',
+              name: '测试分数',
               data: scoreData,
+              // data: [3, 7, 14, 1, 0, 20, 3, 27, 14],
             }
           ]
         };
@@ -135,16 +138,22 @@ Page({
           xAxis: {
             disableGrid: true,
             scrollShow: true,
-            itemCount: 3
+            itemCount: 2
           },
           yAxis: {
             gridType: "dash",
-            dashLength: 2
+            dashLength: 2,
+            disabled: false,
+            data: {
+              max: 27,
+              min: 0,
+              position: "right"
+            }
           },
           extra: {
             line: {
               type: "straight",
-              width: 3
+              width: 2
             }
           },
           tooltip: {
@@ -169,6 +178,7 @@ Page({
     uChartsInstance[e.target.id].showToolTip(e);
     var tapObj = uChartsInstance[e.target.id].getCurrentDataIndex(e);
     console.log(tapObj)
+    console.log(this.data.userScoreInfo)
     if (tapObj.index != -1) {
       this.setData({
         userScoreValue: this.data.userScoreInfo.scoreValue[tapObj.index],
@@ -236,6 +246,9 @@ Page({
     userAnalyticsData.forEach((range) => {
       userScoreDateRange.push(range.start+ "-" + range.end)
     })
+    userScoreDateRange.push("10.24-10.30")
+    userScoreDateRange.push("                                                              ")
+    console.log(userScoreDateRange)
     return userScoreDateRange;
   },
 
@@ -334,7 +347,7 @@ Page({
         currLevel = "3"
         currCategory = "moder-depress"
         currType = "中度抑郁"
-        typeColor = "orange"
+        typeColor = "pink"
       } else if (score <= 19) {
         currLevel = "4"
         currCategory = "moder-severe-depress"
@@ -381,6 +394,14 @@ Page({
     // });
   // },
 
+    // 切换记录和分析模式
+    changeTimePeriod: function(event) {
+      this.setData({
+        timePeriod: '近1月'
+      })
+    },
+  
+
   methods: {
     // getServerData() {
     //   //模拟从服务器获取数据时的延时
@@ -425,11 +446,11 @@ Page({
     console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
     console.log(this.getUserScoreDateRange())
     console.log(this.getUserScoreLevel())
-    this.setData({
-      userScoreValue: 5,
-      userScoreType: this.data.userScoreInfo.userScoreType[0],
-      userScoreColor: this.data.userScoreInfo.userScoreColor[0],
-    })
+    // this.setData({
+    //   userScoreValue: 5,
+    //   userScoreType: this.data.userScoreInfo.userScoreType[0],
+    //   userScoreColor: this.data.userScoreInfo.userScoreColor[0],
+    // })
   },
 
   /**

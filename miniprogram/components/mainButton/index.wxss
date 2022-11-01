@@ -103,3 +103,36 @@
   border: 1px solid #4D50A4;
   border-radius: 1020px;
 }
+
+.oneMonth-empty, .threeMonth-empty, .sixMonth-empty {
+  font-size: 16px !important;
+  line-height: 28px;
+  width: 66px !important;
+  height: 28px !important;
+  color: #4D50A4;
+  background: #FFFFFF;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+}
+.oneMonth-empty text, .threeMonth-empty text, .sixMonth-empty text {
+  position: relative;
+  left: 12.5px;
+}
+
+.oneMonth-fill, .threeMonth-fill, .sixMonth-fill {
+  font-size: 16px !important;
+  line-height: 28px;
+  width: 66px !important;
+  height: 28px !important;
+  color: #FFFFFF;
+  background: #4D50A4;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+}
+
+.oneMonth-fill text, .threeMonth-fill text, .sixMonth-fill text {
+  position: relative;
+  left: 12.5px;
+}
