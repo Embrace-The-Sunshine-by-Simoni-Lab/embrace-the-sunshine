@@ -4,6 +4,8 @@ Page{
 .charts {
   width: 560rpx;
   height: 480rpx;
+  position: relative;
+  left: 8px;
 }
 
 .charts-box {
