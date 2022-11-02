@@ -397,7 +397,7 @@ Page({
     // 切换记录和分析模式
     changeTimePeriod: function(event) {
       this.setData({
-        timePeriod: '近1月'
+        timePeriod: '近3月'
       })
     },
   
