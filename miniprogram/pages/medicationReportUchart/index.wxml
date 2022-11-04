@@ -1,71 +1,44 @@
 <view class="medicineContainer">
   <!-- **** purple square on top **** -->
   <view class="infoBox">
-    <!-- analyst content -->
-    <view class="btnBox">
-      <mainButton type="{{timePeriod == '近1月' ? 'oneMonth-fill':'oneMonth-empty'}}" class="madicineBtn" bindtap="changeTimePeriod"></mainButton>
-      <mainButton type="{{timePeriod == '近3月'? 'threeMonth-fill':'threeMonth-empty'}}"  class="madicineBtn" bindtap="changeTimePeriod"></mainButton>
-      <mainButton type="{{timePeriod == '近6月'? 'sixMonth-fill':'sixMonth-empty'}}"  class="madicineBtn" bindtap="switchMode"></mainButton>
-    </view>
-    <text class="medicineRecord">{{timePeriod}}服药记录</text>
-    <!-- <view class="calendar_datepicker">
-      <image class="calendar_arrow_left" src="../../images/calendar/rightArrow.png"/>
-      <view class="calendar_dateRange">02月20日-02月27日</view>
-      <image class="calendar_arrow_right" src="../../images/calendar/rightArrow.png"/>
-    </view> -->
+    <text class="medicineRecord">{{timePeriod}}本周情绪记录</text>
+    <view class="medicineRecord_date">02月20日-02月27日</view>
   </view>
-  <!-- 时间范围选择弹窗 -->
-  <!-- <view class="section">
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-      <view class="picker">
-        当前选择：{{array[index]}}
-      </view>
-    </picker>
-  </view> -->
   <!-- line graph -->
   <view class="line_chart_container">
-    <!-- <text class="calendar_content_title">自测抑郁症风险等级</text>  -->
     <view class="line_chart_bar_container">
-      <view class="line_chart_y_axis">
-        <text class="line_chart_y_axis_label">重度</text>
-        <text class="line_chart_y_axis_label">高度</text>
-        <text class="line_chart_y_axis_label">中度</text>
-        <text class="line_chart_y_axis_label">轻度</text>
-        <text class="line_chart_y_axis_label">最低</text>
-      </view>
-      <view class="charts-box">
-        <view class="charts">
-          <canvas canvas-id="UxMBnLLjpWIojdTydNQkyeLutcXoQYEw" id="UxMBnLLjpWIojdTydNQkyeLutcXoQYEw" class="charts" bindtouchstart="touchstart" type="2d" bindtouchmove="touchmove" bindtouchend="touchend" />
+      <text class="line_chart_bar_container_title">自测抑郁症风险等级</text>
+      <!-- box that contains the y label and line chart -->
+      <view class="line_chart_body">
+        <view class="line_chart_y_axis">
+          <text class="line_chart_y_axis_label">重度</text>
+          <text class="line_chart_y_axis_label">高度</text>
+          <text class="line_chart_y_axis_label">中度</text>
+          <text class="line_chart_y_axis_label">轻度</text>
+          <text class="line_chart_y_axis_label">最低</text>
         </view>
-        <!-- 原生 非2d <view class="charts">
-          <canvas canvas-id="UxMBnLLjpWIojdTydNQkyeLutcXoQYEw" id="UxMBnLLjpWIojdTydNQkyeLutcXoQYEw" type="2d" class="charts" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend"/>
-        </view> -->
-      <!-- 组件 <qiun-wx-ucharts type="line" opts="{{opts}}" chartData="{{chartData}}" ontouch="{{true}}" bindtouchend="tap"/> -->
+        <!-- line chart 图片 -->
+        <view class="charts-box">
+          <view class="charts">
+            <canvas canvas-id="jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG" id="jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG" class="charts" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend"/>
+          </view>
+        </view>
       </view>
-   <!--  <view class="line_chart_body_container">
-      <ec-canvas id="mychart-dom-line" class="line-chart" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>  
-      <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%" bindscroll="getleft">
-      </scroll-view>
-    </view> -->
-    <!-- 滚动条 -->
-      <!-- <view class="slide">
-        <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view>
-      </view> -->
+    </view>
   </view>
-
   <view class="calendar_circle_container">
-    <view class="calendar_circle">
-      <l-circle percent='{{userScoreValue / 27  * 100}}' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{userScoreColor}}"></l-circle>
-      <view class="calendar_circle_text_container">
-        <view class="calendar_circle_big_num">{{userScoreValue}}</view> 
-        <view class="calendar_circle_small_text">测试分数</view>
+      <view class="calendar_circle">
+        <l-circle percent='100' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='235' inner-color='#FFFFFF' 
+        active-color="#91D300"
+        ></l-circle>
+        <view class="calendar_circle_text_container">
+          <view class="calendar_circlel_text">12分</view>
+        </view>
       </view>
-    </view>
-    <view class="calendar_summary_container">
-      <view class="calendar_summary_top_circle" style="background: {{userScoreColor}};"></view>
-      <view class="calendar_summary_text">{{userScoreType}}</view>
-    </view>
+      <view class="calendar_summary_container">
+        <view class="calendar_summary_container_circle"></view>
+        <text class="calendar_summary_container_text">轻度风险</text>
+      </view>
   </view> 
-</view>
 </view>
 

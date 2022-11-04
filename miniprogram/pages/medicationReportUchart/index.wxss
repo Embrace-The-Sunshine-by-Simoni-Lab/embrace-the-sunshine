@@ -1,17 +1,6 @@
 Page{
   background:#FFFFFF;
 }
-.charts {
-  width: 560rpx;
-  height: 480rpx;
-}
-
-.charts-box {
-  /* position:relative; */
-  width: 540px;
-  height: 200px;
-}
-
 .medicineContainer {
   display: flex;
   flex-direction: column;
@@ -34,45 +23,14 @@ Page{
 }
 .medicineRecord {
   font-size: 23px;
-  padding-top: 30px;
+  padding-top: 45px;
   color: #4D50A4;
 }
-
-.btnBox {
-  position: relative;
-  top: 13px;
-  display: flex;
-}
-.madicineBtn {
-  padding: 20px 15px;
-}
-
-.calendar_datepicker {
-  padding-top: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.calendar_arrow_left {
-  width: 10px;
-  height: 16px;
-  padding: 0 12px;
-  transform: scaleX(-1);
-}
-.calendar_dateRange {
-  color: #2E317D;
+.medicineRecord_date {
+  padding-top: 40px;
   font-size: 17px;
-}
-.calendar_arrow_right {
-  width: 10px;
-  height: 16px;
-  padding: 0 12px;
-}
-.calendar_circle_container {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* background: green; */
+  color: #4D50A4;
 }
 .calendar_circle {
   width: 51%;
@@ -96,12 +54,6 @@ Page{
   top: 50%;
   color: #7B7B7B;
 }
-.calendar_circle_big_num {
-  margin-top: -7px;
-  font-weight: 330;
-  font-size: 55px;
-  color: #7B7B7B;
-}
 
 .calendar_summary_container {
   display: flex;
@@ -110,48 +62,41 @@ Page{
   padding: 0 10px; 
   border-left: 2px solid#E5E5E5;
   height: 40px;
-  margin-left: 10px;
+  margin-left: 20px;
 }
-.calendar_summary_top_circle {
-  width: 20px;
-  height: 20px;
+.calendar_summary_container_circle {
+  width: 25px;
+  height: 25px;
+  margin: 0 10px;
+  background: #91D300;
   border-radius: 50%;
-  background: #7B7B7B;
-  margin: 8px 0;
-  color: white;
-  text-align: center;
-  line-height: 25px;
-  font-size: 16px;
 }
-.calendar_summary_text {
-  font-size: 14px;
-  padding: 5px 0;
+.calendar_circlel_text {
+  font-size: 60px;
+  font-weight: 320;
+}
+.calendar_summary_container_text {
   color: #7B7B7B;
-  padding: 0 5px;
+  font-size: 18px;
+  font-weight: 360;
 }
-.calendar_content_title {
-  align-self: flex-start;
-  font-size: 14px;
-  padding-bottom: 12px;
-  color: #2E317D;
-}
-.line-graph-container {
+.charts-box {
+  width: 700rpx;
+  height: 360rpx;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.line_chart_bar_container {
-  margin-left: 30px;
-  margin-top: 7px;
-  height: 240px;
-  width: 320px;
-  /* background-color: #FFD1C6; */
-  display: flex;
+.charts {
+  /* background: yellow; */
+  width: 600rpx;
+  height: 400rpx;
 }
-/* slide bar edit */
+
 .line_chart_y_axis {
-  width: 15%;
-  height: 100%;
-  background-color: #FFFFFF;
+  /* background: green; */
+  width: 17%;
+  height: 360rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -160,65 +105,46 @@ Page{
 .line_chart_y_axis_label {
   color: #7B7B7B;
   font-size: 13px;
-  height: 14%;
+  /* padding: 9.2px 0; */
+  height: 20%;
 }
 
 /* echart style */
+.line_chart_body {
+  display: flex;
+}
 .line_chart_container {
-  width: 400px;
-  height: 250px;
+  width: 480px;
+  height: 280px;
+  /* background: purple; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.line_chart_bar_container {
+  height: 280px;
+  width: 370px;
+  display: flex;
+  flex-direction: column;
+  /* background: orange; */
+}
+.line_chart_bar_container_title {
+  align-self: flex-start;
+  font-size: 16px;
+  margin: 24px 0;
+  color: #2E317D;
+}
+.calendar_circle_container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 ec-canvas {
   width: 300px;
   height: 270px;
 }
-
-/* .container {
-  width: 320px;
-  height: 270px;
-} */
-
-.line-chart {
-  left: 7;
-  top: 7;
-  width: 330px;
-  height: 270px;
+.scrollable-element {
+  scrollbar-color: red yellow;
 }
-
-.line_chart_body_container {
-  /* border: 1px solid grey; */
-  display: flex;
-  width: 280px;
-  height: 210px;
-  margin-bottom: 10px;
-}
-
-  /*.line-chart-container {
-  width: 350px;
-  height: 300px;
-  overflow-x: scroll;
-  background: green;
-} 
-
- .scroll-view_H{
-  white-space: nowrap;
-  background: orange;
-  height: 400px;
-} 
-
-.scroll-view-item_H{
-  background: green;
-  display: inline-block;
-  margin-right: 10px;
-  width: 40px;
-  height: 300px;
-  position: relative;
-}*/
-
-/* -----时间范围选择弹窗------ */
-.picker {
-  color: #4D50A4;
-}
-
-

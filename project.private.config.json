@@ -68,6 +68,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/medicationReportUchart/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
