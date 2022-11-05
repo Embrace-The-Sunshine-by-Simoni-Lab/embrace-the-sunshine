@@ -8,16 +8,14 @@ Page({
   data: {
     cWidth: 340,
     cHeight: 220,
-    pixelRatio: 2,
     userScoreValue: '',
     userScoreType: '情绪状况',
     userScoreColor: '#7B7B7B',
-    oneMonth: true,
-    threeMonth: false,
-    sixMonth: false,
-    timePeriodText: '近一月',
-    timePeirodDate: '02月20日-02月27日',
-    res_index: 0,
+    oneMonth: '',
+    threeMonth: '',
+    sixMonth: '',
+    timePeriodText: '',
+    timePeirodDate: '',
     OneMonthMoodTrackData: {},
     ThreeMonthMoodTrackData: {},
     SixMonthMoodTrackData: {},
@@ -207,6 +205,7 @@ Page({
         height: this.data.cHeight,
         categories: data.categories,
         series: data.series,
+        dataLabel: false,
         animation: true,
         background: "#FFFFFF",
         color: ["#4D50A4","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
@@ -216,7 +215,7 @@ Page({
         xAxis: {
           disableGrid: true,
           scrollShow: true,
-          itemCount: 4,
+          itemCount: 5,
           fontSize: 11
         },
         yAxis: {
@@ -317,7 +316,20 @@ Page({
       })
       
     }
-    
+  },
+
+  reconstruct(date) {
+    let date_split = date.split('.')
+    let date_month = date_split[0]
+    let date_date = date_split[1]
+    return date_month + "月" + date_date + "日"
+  },
+
+  dateFormat(dateCategory) {
+    var length = dateCategory.length
+    var start = dateCategory[0]
+    var end = dateCategory[length-1]
+    return this.reconstruct(start) + '-' + this.reconstruct(end)
   },
 
   onLoad(options) {
@@ -326,6 +338,16 @@ Page({
     console.log(this.data)
     console.log("global date: " + app.globalData.userData.mood_track.mood_date)
     console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
+    this.setData({
+      oneMonth: true,
+      threeMonth: false,
+      sixMonth: false,
+      timePeriodText: '近一月',
+      timePeirodDate: this.dateFormat(this.data.OneMonthMoodTrackData.categories),
+      userScoreValue: this.data.userScoreInfo.scoreValue[this.data.userScoreInfo.scoreValue.length-1],
+      userScoreType: this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
+      userScoreColor: this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
+    })
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.OneMonthMoodTrackData);
   },
 
@@ -336,7 +358,8 @@ Page({
         threeMonth: false,
         sixMonth: false,
         timePeriodText: '近一月',
-        res_index: 0
+        timePeirodDate: this.dateFormat(this.data.OneMonthMoodTrackData.categories)
+
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.OneMonthMoodTrackData);
@@ -350,7 +373,7 @@ Page({
         threeMonth: true,
         sixMonth: false,
         timePeriodText: '近三月',
-        res_index: 1
+        timePeirodDate: this.dateFormat(this.data.ThreeMonthMoodTrackData.categories)
       }
     ),
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.ThreeMonthMoodTrackData);
@@ -363,7 +386,7 @@ Page({
         threeMonth: false,
         sixMonth: true,
         timePeriodText: '近六月',
-        res_index: 2,
+        timePeirodDate: this.dateFormat(this.data.SixMonthMoodTrackData.categories)
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.SixMonthMoodTrackData);
