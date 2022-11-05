@@ -68,7 +68,7 @@ Page{
   width: 25px;
   height: 25px;
   margin: 0 10px;
-  background: #91D300;
+  /* background: #91D300; */
   border-radius: 50%;
 }
 .calendar_circlel_text {
@@ -129,9 +129,7 @@ Page{
   /* background: orange; */
 }
 .line_chart_bar_container_title {
-  align-self: flex-start;
   font-size: 16px;
-  margin: 24px 0;
   color: #2E317D;
 }
 .calendar_circle_container {
@@ -147,4 +145,17 @@ ec-canvas {
 }
 .scrollable-element {
   scrollbar-color: red yellow;
+}
+
+.btnBox {
+  position: relative;
+  display: flex;
+  bottom: 3px;
+}
+
+.line_chart_heading {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 35px;
 }

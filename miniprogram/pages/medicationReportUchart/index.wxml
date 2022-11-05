@@ -1,13 +1,20 @@
 <view class="medicineContainer">
   <!-- **** purple square on top **** -->
   <view class="infoBox">
-    <text class="medicineRecord">{{timePeriod}}本周情绪记录</text>
-    <view class="medicineRecord_date">02月20日-02月27日</view>
+    <text class="medicineRecord">{{timePeriodText}}情绪记录</text>
+    <view class="medicineRecord_date">{{timePeirodDate}}</view>
   </view>
   <!-- line graph -->
   <view class="line_chart_container">
     <view class="line_chart_bar_container">
-      <text class="line_chart_bar_container_title">自测抑郁症风险等级</text>
+      <view class="line_chart_heading">
+        <view><text class="line_chart_bar_container_title">自测抑郁症风险等级</text></view>
+        <view class="btnBox">
+          <mainButton type="{{oneMonth ? 'oneMonth-fill':'oneMonth-empty'}}" class="madicineBtn" bindtap="chooseOneMonth"></mainButton>
+          <mainButton type="{{threeMonth ? 'threeMonth-fill':'threeMonth-empty'}}"  class="madicineBtn" bindtap="chooseThreeMonth"></mainButton>
+          <mainButton type="{{sixMonth ? 'sixMonth-fill':'sixMonth-empty'}}"  class="madicineBtn" bindtap="chooseSixMonth"></mainButton>
+        </view>
+      </view> 
       <!-- box that contains the y label and line chart -->
       <view class="line_chart_body">
         <view class="line_chart_y_axis">
@@ -28,16 +35,15 @@
   </view>
   <view class="calendar_circle_container">
       <view class="calendar_circle">
-        <l-circle percent='100' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='235' inner-color='#FFFFFF' 
-        active-color="#91D300"
+        <l-circle percent='{{userScoreValue / 27  * 100}}' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{userScoreColor}}"
         ></l-circle>
         <view class="calendar_circle_text_container">
-          <view class="calendar_circlel_text">12分</view>
+          <view class="calendar_circlel_text">{{userScoreValue}}分</view>
         </view>
       </view>
       <view class="calendar_summary_container">
-        <view class="calendar_summary_container_circle"></view>
-        <text class="calendar_summary_container_text">轻度风险</text>
+        <view class="calendar_summary_container_circle" style="background: {{userScoreColor}};"></view>
+        <text class="calendar_summary_container_text" style="color: {{userScoreColor}};">{{userScoreType}}</text>
       </view>
   </view> 
 </view>
