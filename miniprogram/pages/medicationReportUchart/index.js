@@ -59,7 +59,7 @@ Page({
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 30) {
         oneMonthScoreDate.unshift(curr_date);
-        oneMonthScore.unshift(curr_score);
+        oneMonthScore.push(curr_score);
       } else {
         break;
       }
@@ -77,7 +77,7 @@ Page({
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 90) {
         ThreeMonthScoreDate.unshift(curr_date);
-        ThreeMonthScore.unshift(curr_score);
+        ThreeMonthScore.push(curr_score);
       } else {
         break;
       }
@@ -95,7 +95,7 @@ Page({
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 180) {
         SixMonthScoreDate.unshift(curr_date);
-        SixMonthScore.unshift(curr_score);
+        SixMonthScore.push(curr_score);
       } else {
         break;
       }
