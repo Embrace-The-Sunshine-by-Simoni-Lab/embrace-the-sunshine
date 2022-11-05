@@ -58,8 +58,8 @@ Page({
       let curr_score = userScore[i];
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 30) {
-        oneMonthScoreDate.push(curr_date);
-        oneMonthScore.push(curr_score);
+        oneMonthScoreDate.unshift(curr_date);
+        oneMonthScore.unshift(curr_score);
       } else {
         break;
       }
@@ -76,8 +76,8 @@ Page({
       let curr_score = userScore[i];
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 90) {
-        ThreeMonthScoreDate.push(curr_date);
-        ThreeMonthScore.push(curr_score);
+        ThreeMonthScoreDate.unshift(curr_date);
+        ThreeMonthScore.unshift(curr_score);
       } else {
         break;
       }
@@ -94,8 +94,8 @@ Page({
       let curr_score = userScore[i];
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 180) {
-        SixMonthScoreDate.push(curr_date);
-        SixMonthScore.push(curr_score);
+        SixMonthScoreDate.unshift(curr_date);
+        SixMonthScore.unshift(curr_score);
       } else {
         break;
       }
