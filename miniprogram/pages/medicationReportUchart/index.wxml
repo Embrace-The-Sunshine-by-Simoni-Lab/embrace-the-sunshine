@@ -35,11 +35,10 @@
   </view>
   <view class="calendar_circle_container">
       <view class="calendar_circle">
-        <l-circle percent='100' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='235' inner-color='#FFFFFF' 
-        active-color="#91D300"
+        <l-circle percent='{{userScoreValue / 27  * 100}}' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{userScoreColor}}"
         ></l-circle>
         <view class="calendar_circle_text_container">
-          <view class="calendar_circlel_text">{{userScoreValue}}</view>
+          <view class="calendar_circlel_text">{{userScoreValue}}分</view>
         </view>
       </view>
       <view class="calendar_summary_container">
