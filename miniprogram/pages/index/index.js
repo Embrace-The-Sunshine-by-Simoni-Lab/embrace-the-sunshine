@@ -179,25 +179,6 @@ Page({
     })
   },
 
-  calendar_test: function() {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    wx.cloud.callFunction({
-      name: 'medication_track',
-      data: {
-          date: new Date("2022-10-10")
-      }
-    })
-    .then(res => {
-      wx.hideLoading()
-        const newDateLst = res.result.data.med_date;
-        app.globalData.userData.med_date = newDateLst
-        console.log(newDateLst);
-    });
-  },
-
   toq2: function() {
     wx.navigateTo({
       url: "../questionnaire_2/questionnaire",

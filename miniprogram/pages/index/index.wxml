@@ -45,10 +45,6 @@
   <view class="uploader">
     <button bindtap="toCalendar">go to calendar</button>
   </view>
-
-  <view class="uploader">
-    <button bindtap="calendar_test">calendar_test</button>
-  </view>
   
   <view class="uploader">
     <button bindtap="toQuesetionnaire">go to Quesetionnaire</button>

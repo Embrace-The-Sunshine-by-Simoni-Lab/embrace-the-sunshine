@@ -1,0 +1,90 @@
+{
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "lazyloadPlaceholderEnable": false,
+    "useMultiFrameRuntime": false,
+    "useApiHook": false,
+    "useApiHostProcess": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "useIsolateContext": true,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "showES6CompileOption": false,
+    "useStaticServer": true,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "ignoreUploadUnusedFiles": true,
+    "minifyWXML": true
+  },
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "compileType": "miniprogram",
+  "srcMiniprogramRoot": "miniprogram/",
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "libVersion": "2.24.6",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "appid": "wxce2e39d26aad783a",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "pages/charts/charts",
+          "pathName": "pages/charts/charts",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/medTracking/medTracking",
+          "pathName": "pages/medTracking/medTracking",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/moodTracking/moodTracking",
+          "pathName": "pages/moodTracking/moodTracking",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  },
+  "projectname": "embrace-the-sunshine"
+}
