@@ -6,8 +6,8 @@ var uChartsInstance = {};
 
 Page({
   data: {
-    cWidth: 340,
-    cHeight: 220,
+    cWidth: 310,
+    cHeight: 190,
     userScoreValue: '',
     userScoreType: '情绪状况',
     userScoreColor: '#7B7B7B',
