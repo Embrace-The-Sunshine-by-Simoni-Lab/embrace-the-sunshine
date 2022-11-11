@@ -274,8 +274,17 @@ Page({
   },
 
   goToMedicationReport() {
-    wx.redirectTo({
-      url:'/pages/medicationReportUchart/index'
-    })
+    if (app.globalData.userData.mood_track.mood_date.length == 0) {
+      wx.showToast({
+        title: '请先完成至少一次情绪测试',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      wx.redirectTo({
+        url:'/pages/medicationReportUchart/index'
+      })
+    }
+    
   }
 })
