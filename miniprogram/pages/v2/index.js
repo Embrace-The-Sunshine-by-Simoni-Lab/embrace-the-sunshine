@@ -1,20 +1,3 @@
-import todo from '../../components/v2/plugins/todo'
-// import todo from '../../component/v2/plugins/todo'
-import selectable from '../../components/v2/plugins/selectable'
-import solarLunar from '../../components/v2/plugins/solarLunar/index'
-import timeRange from '../../components/v2/plugins/time-range'
-import week from '../../components/v2/plugins/week'
-import holidays from '../../components/v2/plugins/holidays/index'
-import plugin from '../../components/v2/plugins/index'
-
-plugin
-  .use(todo)
-  .use(solarLunar)
-  .use(selectable)
-  .use(week)
-  .use(timeRange)
-  .use(holidays)
-
 const app = getApp();
 Page({
   data: {

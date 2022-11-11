@@ -68,10 +68,6 @@ Component({
           }
         }
       }
-
-
-      console.log(123, this.data.calendar)
-
       return {
         ...waitRenderData,
         todayTimestamp: timestamp,
