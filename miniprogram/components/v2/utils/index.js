@@ -235,6 +235,7 @@ class DateUtil {
     return dates
   }
   getWeekHeader(firstDayOfWeek) {
+    
     let weeksCh = ['日', '一', '二', '三', '四', '五', '六']
     if (firstDayOfWeek === 'Mon') {
       weeksCh = ['一', '二', '三', '四', '五', '六', '日']
