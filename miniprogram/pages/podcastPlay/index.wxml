@@ -1,0 +1,51 @@
+<!--pages/podcastPlay/index.wxml-->
+<view class="podcastContainer">
+  <view class="gap"></view>
+  <view class="podcastHeader">
+    <view class="headerImage">
+      123
+    </view>
+    <view class="headerContent">
+      <view class="headerTitle">消极思想,  情绪和行为</view>
+      <view class="headerDate">名字1 | 2022/9/3</view>
+      <view class="headerContentBox">
+        <text class="headerDetail">消极思想, 情绪和行为, 如何面对负面情绪带来的影响</text>
+        <view class="headerMark"></view>
+      </view>
+    </view>
+  </view>
+  <view class="playButton">
+    <view class="prevButton"></view> 
+    <view class="back30Button"></view> 
+    <view class="mainPlayButton"></view> 
+    <view class="forward30Button"></view> 
+    <view class="nextButton"></view> 
+  </view>
+  <view class="quiz">
+    <view class="selection">
+      <view class="contentOpt">
+        <text class="quizHeader">内容</text>
+        <view class="bar"></view> 
+      </view>
+      <view class="contentOpt">
+        <text class="quizHeader">测试</text>
+        <view class="bar"></view> 
+      </view>
+    </view>
+
+    <view class="quizContent">
+      <text class="quizContent">第一题</text>
+      <text>如何面对负面情绪带来的影响?</text>
+      <view class="quizOptions">
+        <view class="prevArrow"></view> 
+        <view class="optionContent">
+          <view class="optionDetail">选项A</view> 
+          <view class="optionDetail">选项B</view> 
+          <view class="optionDetail">选项C</view> 
+          <view class="optionDetail">选项D</view> 
+        </view> 
+        <view class="nextArrow"></view> 
+      </view>
+    </view>
+  </view>
+</view>

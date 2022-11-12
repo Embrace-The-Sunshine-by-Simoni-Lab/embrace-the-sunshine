@@ -1,0 +1,148 @@
+/* pages/podcastPlay/index.wxss */
+
+.podcastContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background: yellow;
+}
+.gap {
+  height: 3%;
+}
+.podcastHeader {
+  background: green;
+  height: 24%;
+}
+.playButton {
+  background:orange;
+  height: 21%; 
+}
+.quiz {
+  background: #bce3c8; 
+  height: 52%; 
+  box-sizing: border-box;
+  padding: 40rpx;
+}
+.headerImage {
+  width: 30%;
+  height: 86%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  background: orange;
+}
+.headerTitle {
+  font-size: 38rpx;
+  margin-bottom: 14rpx;
+}
+.headerContentBox {
+  display: flex;
+}
+.headerDetail {
+  font-size: 26rpx;
+}
+.headerMark {
+  width: 90rpx;
+  height: 90rpx;
+  padding-left: 90rpx;
+  background: blue;
+}
+.headerDate {
+  font-size: 30rpx;
+  margin-bottom: 7rpx;
+}
+.headerContent {
+  width: 70%;
+  height: 86%;
+  display: flex;
+  box-sizing: border-box;
+  padding: 20rpx;
+  flex-direction: column;
+  background: grey;
+}
+.podcastHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playButton {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.prevButton {
+  width: 60rpx;
+  height: 60rpx;
+  background: green;
+  margin-bottom: -70rpx;
+}
+.back30Button {
+  width: 60rpx;
+  height: 60rpx;
+  background: green;
+}
+.mainPlayButton {
+  width: 140rpx;
+  height: 140rpx;
+  background: green;
+}
+.forward30Button {
+  width: 60rpx;
+  height: 60rpx;
+  background: green;
+}
+.nextButton {
+  width: 60rpx;
+  height: 60rpx;
+  background: green;
+  margin-bottom: -70rpx;
+}
+.selection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+.quizHeader {
+  font-size: 34rpx;
+  padding-bottom: 14rpx;
+}
+.contentOpt {
+  background: #c8a7f2;
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bar {
+  width: 100%;
+  height: 5px;
+  background: green;
+  border-radius: 20rpx;
+}
+.quizContent {
+  display: flex;
+  flex-direction: column;
+}
+.quizOptions {
+  display: flex;
+  justify-content: space-around;
+}
+.optionDetail {
+  background: #FFFFFF;
+  height: 60rpx;
+  padding-left: 20rpx;
+  line-height: 60rpx;
+  width: 380rpx;
+  margin-bottom: 30rpx;
+}
+.prevArrow {
+  width: 80rpx;
+  height: 80rpx;
+  background: #9567cf
+}
+.nextArrow {
+  width: 80rpx;
+  height: 80rpx;
+  background: #9567cf
+}
