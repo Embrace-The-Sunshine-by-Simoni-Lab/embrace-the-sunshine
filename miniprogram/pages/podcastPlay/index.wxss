@@ -1,35 +1,61 @@
 /* pages/podcastPlay/index.wxss */
-
+Page{
+  background:white !important;
+}
 .podcastContainer {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background: yellow;
+  /* background: yellow; */
+}
+.headerContainer {
+  display: flex;
+  height: 28%;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  /* background: green; */
 }
 .gap {
-  height: 3%;
+  height: 2%;
 }
 .podcastHeader {
-  background: green;
-  height: 24%;
+  /* background: blue; */
+  height: 70%;
 }
-.playButton {
-  background:orange;
-  height: 21%; 
+
+.curve {
+  position: absolute; 
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 60%;
 }
 .quiz {
-  background: #bce3c8; 
+  background: #FDFBFC; 
   height: 52%; 
   box-sizing: border-box;
   padding: 40rpx;
 }
+.podcast_img {
+  width: 230rpx;
+  height: 230rpx;
+  border-radius: 20rpx;
+}
+.podcast_star {
+  width: 50rpx;
+  height: 50rpx;
+}
 .headerImage {
-  width: 30%;
+  width: 38%;
   height: 86%;
-  padding: 20rpx;
+  padding-left: 40rpx;
+  padding-top: 20rpx;
   box-sizing: border-box;
-  background: orange;
+  display: flex;
+  /* align-items: flex-end; */
+  /* background: orange; */
 }
 .headerTitle {
   font-size: 38rpx;
@@ -37,6 +63,7 @@
 }
 .headerContentBox {
   display: flex;
+
 }
 .headerDetail {
   font-size: 26rpx;
@@ -44,8 +71,12 @@
 .headerMark {
   width: 90rpx;
   height: 90rpx;
-  padding-left: 90rpx;
-  background: blue;
+  padding-left: 50rpx;
+  padding-right: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: blue; */
 }
 .headerDate {
   font-size: 30rpx;
@@ -58,7 +89,7 @@
   box-sizing: border-box;
   padding: 20rpx;
   flex-direction: column;
-  background: grey;
+  /* background: grey; */
 }
 .podcastHeader {
   display: flex;
@@ -66,36 +97,68 @@
   align-items: center;
 }
 .playButton {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.prevButton {
-  width: 60rpx;
-  height: 60rpx;
-  background: green;
-  margin-bottom: -70rpx;
+  height: 14%;
+  position: relative; 
 }
 .back30Button {
   width: 60rpx;
   height: 60rpx;
-  background: green;
+  margin-right: -30rpx;
+  position: absolute;
+  left: 20%;
+  bottom: 38%;
 }
 .mainPlayButton {
-  width: 140rpx;
-  height: 140rpx;
-  background: green;
+  width: 210rpx;
+  height: 210rpx;
+  position: absolute;
+  left: 50%;
+  margin-left: -105rpx;
+  bottom: 5%;
+  z-index: 99;
 }
 .forward30Button {
   width: 60rpx;
   height: 60rpx;
-  background: green;
+  margin-left: -30rpx;
+  position: absolute;
+  left: 75%;
+  bottom: 38%;
+}
+.slider {
+  padding-top: 20rpx;
+  /* background: yellow; */
+  width: 95%;
+  height: 15%;
+}
+.timing {
+  width: 95%;
+  height: 18%;
+  display: flex;
+  justify-content: space-between;
+  /* background: orange; */
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+.timingDetail {
+  font-size: 25rpx;
+  padding-top: 10rpx;
+}
+.prevButton {
+  width: 40rpx;
+  height: 40rpx;
+  /* margin-left: -30rpx; */
+  position: absolute;
+  right: 85%;
+  bottom: 30%;
 }
 .nextButton {
-  width: 60rpx;
-  height: 60rpx;
-  background: green;
-  margin-bottom: -70rpx;
+  width: 40rpx;
+  height: 40rpx;
+  /* margin-left: -30rpx; */
+  position: absolute;
+  left: 85%;
+  bottom: 30%;
 }
 .selection {
   display: flex;
@@ -106,8 +169,9 @@
   font-size: 34rpx;
   padding-bottom: 14rpx;
 }
+
 .contentOpt {
-  background: #c8a7f2;
+  /* background: #c8a7f2; */
   width: 48%;
   display: flex;
   flex-direction: column;
@@ -117,32 +181,155 @@
 .bar {
   width: 100%;
   height: 5px;
-  background: green;
+  background: #E0E0E0;
   border-radius: 20rpx;
+}
+.mode_active {
+  background: #F38A73;
 }
 .quizContent {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  /* background: yellow;  */
+}
+.quizIndicator {
+  height: 60rpx;
+  width: 100%;
+  /* background: orange;  */
+}
+.quizQuestion {
+  font-weight: 300;
+  margin-bottom: 20rpx;
+  height: 60rpx;
+  width: 100%;
+  /* background: purple; */
+}
+.quizHeaderSpaceBox {
+  background: yellow;
+  width: 100%;
+  height: 120rpx;
 }
 .quizOptions {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  font-weight: 300;
+  font-size: 27rpx;
+  /* background: orange; */
+}
+.optionContent {
+  /* background: orange; */
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 .optionDetail {
   background: #FFFFFF;
   height: 60rpx;
-  padding-left: 20rpx;
-  line-height: 60rpx;
   width: 380rpx;
-  margin-bottom: 30rpx;
+  border-radius: 7rpx;
+  margin-bottom: 20rpx;
+  border: 3rpx solid #BDBDBD;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.prevArrow {
+.option {
+  padding-left: 20rpx;
+}
+.submit {
+  margin-top: 20rpx;
+  background: #4D50A4;
+  color: white;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 7rpx;
+  width: 270rpx;
+}
+.buttonDisabled {
+  background: #F2F2F2;
+  color: #7e8185;
+}
+.next {
+  margin-top: -100rpx;
   width: 80rpx;
   height: 80rpx;
-  background: #9567cf
+  /* background: green;  */
 }
-.nextArrow {
+.option_active {
+  background-color: #DCD6F7;
+}
+.checkMark {
+  width: 35rpx;
+  height: 24rpx;
+  padding-right: 20rpx;
+  /* background: green; */
+}
+.tempBox {
   width: 80rpx;
   height: 80rpx;
-  background: #9567cf
+}
+.prev {
+  margin-top: -100rpx;
+  width: 80rpx;
+  height: 80rpx;
+  transform: scaleX(-1);
+}
+.optionContainer {
+  /* background: blue; */
+  height: 340rpx;
+  width: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+.quizfinshimg {
+  width: 240rpx;
+  height: 360rpx;
+}
+.completeNotice {
+  padding: 5rpx 0;
+  font-size: 26rpx;
+}
+.completeContainer {
+  /* background: green; */
+  width: 400rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.noticeBox {
+  font-weight: 300;
+  width: 300rpx;
+  /* height: 100rpx; */
+  /* background: orange; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.ContentContainer {
+  overflow-y: scroll;
+  width: 100%;
+  height: 80%;
+}
+.ContentChunk {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14rpx;
+}
+.ContentTitle {
+  margin-bottom: 14rpx;
+}
+.ContentDetails {
+  display: flex;
+  flex-direction: column;
+  font-weight: 300;
+}
+.ContentDetail {
+  padding: 5rpx 0;
 }

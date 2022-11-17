@@ -1,50 +1,139 @@
 <!--pages/podcastPlay/index.wxml-->
 <view class="podcastContainer">
+  <!-- ********* height: 2%; ********* -->
   <view class="gap"></view>
-  <view class="podcastHeader">
-    <view class="headerImage">
-      123
-    </view>
-    <view class="headerContent">
-      <view class="headerTitle">消极思想,  情绪和行为</view>
-      <view class="headerDate">名字1 | 2022/9/3</view>
-      <view class="headerContentBox">
-        <text class="headerDetail">消极思想, 情绪和行为, 如何面对负面情绪带来的影响</text>
-        <view class="headerMark"></view>
+  <!-- ********* height: 24%; ********* -->
+  <view class="headerContainer">
+    <view class="podcastHeader">
+      <view class="headerImage">
+        <image class="podcast_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast-human.png"></image>
+      </view>
+      <view class="headerContent">
+        <view class="headerTitle">消极思想,  情绪和行为</view>
+        <view class="headerDate">名字1 | 2022/9/3</view>
+        <view class="headerContentBox">
+          <text class="headerDetail">消极思想, 情绪和行为, 如何面对负面情绪带来的影响</text>
+          <view class="headerMark">
+            <image wx:if="{{collectStatus}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/orangeStar.png" bind:tap="changeCollectStatus"></image>
+            <image wx:if="{{!collectStatus}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/darkStar.png" bind:tap="changeCollectStatus"></image>
+          </view>
+        </view>
       </view>
     </view>
+    <view class='slider'>
+      <slider bindchange='sliderChange' activeColor='red' block-size="12" color="#959695" value='{{}}' block-color="#F38A73"/>
+    </view>
+    <view class='timing'>
+      <text class='timingDetail'>5:35</text>
+      <text class='timingDetail'>15:35</text>
+    </view> 
   </view>
+  <!-- ********* height: 18%; ********* -->
   <view class="playButton">
-    <view class="prevButton"></view> 
-    <view class="back30Button"></view> 
-    <view class="mainPlayButton"></view> 
-    <view class="forward30Button"></view> 
-    <view class="nextButton"></view> 
+    <image class="prevButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/prevplay.png"></image>
+    <image class="back30Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/down30.png"></image>
+    <image wx:if="{{!playStatus}}" class="mainPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png" bind:tap="changePlayStatus"></image>
+    <image wx:if="{{playStatus}}" class="mainPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/stopplay.png" bind:tap="changePlayStatus"></image>
+    <image class="forward30Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/up30.png"></image>
+    <image class="nextButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/nextplay.png"></image>
+    <image class="curve" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/curveShape.png"></image>
   </view>
+  <!-- ********* height: 52%; ********* -->
   <view class="quiz">
     <view class="selection">
-      <view class="contentOpt">
+      <view class="contentOpt" bind:tap="goToContent">
         <text class="quizHeader">内容</text>
-        <view class="bar"></view> 
+        <view class="bar {{mode == 'Content' && 'mode_active'}}"></view> 
       </view>
-      <view class="contentOpt">
+      <view class="contentOpt" bind:tap="goToTest">
         <text class="quizHeader">测试</text>
-        <view class="bar"></view> 
+        <view class="bar {{mode == 'Quiz' && 'mode_active'}}"></view> 
       </view>
     </view>
 
-    <view class="quizContent">
-      <text class="quizContent">第一题</text>
-      <text>如何面对负面情绪带来的影响?</text>
+    <view class="ContentContainer" wx:if="{{mode == 'Content'}}">
+      <view class="ContentChunk">
+        <view class="ContentTitle">第一部分 5:35</view>
+        <view class="ContentDetails">
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+        </view>
+      </view>
+      
+      <view class="ContentChunk">
+        <view class="ContentTitle">第二部分</view>
+        <view class="ContentDetails">
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+        </view>
+      </view>
+
+      <view class="ContentChunk">
+        <view class="ContentTitle">第三部分</view>
+        <view class="ContentDetails">
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+          <text class="ContentDetail">如何面对负面情绪带来的影响</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="quizContent" wx:if="{{mode == 'Quiz'}}">
+      <text wx:if="{{!submitStatus}}" class="quizIndicator">第{{currentQuestion+1}}题</text>
+      <!-- question here -->
+      <text wx:if="{{!submitStatus}}" class="quizQuestion">{{questions[currentQuestion][0]}}</text>
+
+      <!-- <view wx:if="{{submitStatus}}" class="quizHeaderSpaceBox"></view> -->
+
+      <!-- options here -->
       <view class="quizOptions">
-        <view class="prevArrow"></view> 
+        <!-- 占位置用的 -->
+        <view class="tempBox" wx:if="{{currentQuestion <= 0 || submitStatus}}"></view>
+        <!-- 返回按钮 -->
+        <image class="prev" src="../../images/next-enable.png" wx:if="{{currentQuestion > 0 && !submitStatus}}" bind:tap="goToPrevQuestion"></image>
+
         <view class="optionContent">
-          <view class="optionDetail">选项A</view> 
-          <view class="optionDetail">选项B</view> 
-          <view class="optionDetail">选项C</view> 
-          <view class="optionDetail">选项D</view> 
+          <!-- all options -->
+          <view class="optionContainer" wx:if="{{!submitStatus}}">
+            <view class="optionDetail {{finishStatus[currentQuestion] == '0' && 'option_active'}}" bind:tap="pickOption" data-option-id="0">
+            <text class="option">选项A</text>
+            <image class="checkMark" src="../../images/check.png" wx:if="{{finishStatus[currentQuestion] == '0'}}"></image>
+            </view> 
+            <view class="optionDetail {{finishStatus[currentQuestion] == '1' && 'option_active'}}" bind:tap="pickOption" data-option-id="1">
+              <text class="option">选项B</text>
+              <image class="checkMark" src="../../images/check.png" wx:if="{{finishStatus[currentQuestion] == '1'}}"></image>
+            </view> 
+            <view class="optionDetail {{finishStatus[currentQuestion] == '2' && 'option_active'}}" bind:tap="pickOption" data-option-id="2">
+              <text class="option">选项C</text>
+              <image class="checkMark" src="../../images/check.png" wx:if="{{finishStatus[currentQuestion] == '2'}}"></image>
+            </view> 
+            <view class="optionDetail {{finishStatus[currentQuestion] == '3' && 'option_active'}}" bind:tap="pickOption" data-option-id="3">
+              <text class="option">选项D</text>
+              <image class="checkMark" src="../../images/check.png" wx:if="{{finishStatus[currentQuestion] == '3'}}"></image>
+            </view> 
+          </view>
+          <!-- 完成页面 -->
+          <view class="completeContainer" wx:if="{{submitStatus}}" style="height: {{submitStatus ? '460rpx' : '340rpx'}}">
+            <view class="noticeBox">
+              <image class="quizfinshimg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podquiz-finish.png"></image>
+              <text class="completeNotice">恭喜您答对了7/8题</text>
+              <text class="completeNotice">请再接再厉!</text>
+            </view>
+          </view>
+          <!-- 提交按钮 -->
+          <view class="submit {{!completeStatus && !submitStatus && 'buttonDisabled'}}" bind:tap="submit">{{submitStatus ? "重做一遍": "提交"}}</view> 
         </view> 
-        <view class="nextArrow"></view> 
+
+        <!-- 前进按钮 -->
+        <image class="next" src="../../images/next-enable.png" bind:tap="goToNextQuestion" wx:if="{{currentQuestion < 7}}"></image>
+
+        <view class="tempBox" wx:if="{{currentQuestion >= 7 || submitStatus}}"></view>
+
       </view>
     </view>
   </view>
