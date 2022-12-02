@@ -47,6 +47,8 @@ var config = {
   toolTipOpacity: 0.7,
   toolTipLineHeight: 20,
   radarLabelTextMargin: 13,
+  // Enlarge Points
+  clickIndex: "",
 };
 
 var assign = function(target, ...varArgs) {
@@ -2020,6 +2022,7 @@ function contextRotate(context, opts) {
   }
 }
 
+
 function drawPointShape(points, color, shape, context, opts) {
   context.beginPath();
   if (opts.dataPointShapeType == 'hollow') {
@@ -2027,9 +2030,9 @@ function drawPointShape(points, color, shape, context, opts) {
     context.setFillStyle(opts.background);
     context.setLineWidth(2 * opts.pix);
   } else {
-    context.setStrokeStyle("#ffffff");
-    context.setFillStyle(color);
-    context.setLineWidth(1 * opts.pix);
+    context.setStrokeStyle("#4D50A4");
+    context.setFillStyle("#4D50A4");
+    context.setLineWidth(2 * opts.pix);
   }
   if (shape === 'diamond') {
     points.forEach(function(item, index) {
@@ -3404,6 +3407,7 @@ function drawCandleDataPoints(series, seriesMA, opts, config, context) {
   };
 }
 
+
 function drawAreaDataPoints(series, opts, config, context) {
   var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
   var areaOption = assign({}, {
@@ -3771,7 +3775,7 @@ function drawLineDataPoints(series, opts, config, context) {
       context.setLineDash([dashLength, dashLength]);
     }
     context.beginPath();
-    context.setStrokeStyle(eachSeries.color);
+    context.setStrokeStyle("#4D50A4");
     context.setLineWidth(lineOption.width);
     splitPointList.forEach(function(points, index) {
       if (points.length === 1) {
@@ -3825,6 +3829,7 @@ function drawLineDataPoints(series, opts, config, context) {
     context.setLineDash([]);
     if (opts.dataPointShape !== false) {
       drawPointShape(points, eachSeries.color, eachSeries.pointShape, context, opts);
+      // drawCircleAfterClick(2, context, opts)
     }
   });
   if (opts.dataLabel !== false && process === 1) {
@@ -7003,6 +7008,40 @@ uCharts.prototype.touchLegend = function(e) {
 
 };
 
+function drawCircleAfterClick(index, context, opts) {
+  context.beginPath();
+  var process = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  console.log(arguments)
+  let xAxisData = opts.chartData.xAxisData,
+    xAxisPoints = xAxisData.xAxisPoints,
+    eachSpacing = xAxisData.eachSpacing;
+  context.save();
+  let series = opts.series[0]
+  let ranges, minRange, maxRange;
+  console.log("series", series)
+  console.log("opts inside function", opts)
+  ranges = opts.chartData.yAxisData.ranges[0];
+  console.log("ranges", ranges)
+  minRange = ranges.pop();
+  maxRange = ranges.shift();
+  let data = series.data;
+  console.log("minRange", minRange)
+  console.log("maxRange", maxRange)
+  let points = getDataPoints(data, minRange, maxRange, xAxisPoints, eachSpacing, opts, config, process);
+  // var points = data.map(function(item) {
+  //   return item.position;
+  // });
+  console.log("points inside function", points)
+  let scoreColor = ["#4DA470", "#FFC300", "pink", "red", "#FA5151"];
+  points.forEach(function(item, index) {
+    if (item !== null) {
+      context.moveTo(item.x + 2.5 * opts.pix, item.y);
+      context.arc(item.x, item.y, 5 * opts.pix, 0, 2 * Math.PI, false);
+      context.setFillStyle(scoreColor[index])
+    }
+  });
+}
+
 uCharts.prototype.showToolTip = function(e) {
   var option = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var touches = null;
@@ -7030,6 +7069,12 @@ uCharts.prototype.showToolTip = function(e) {
           textList = _getToolTipData.textList,
           offset = _getToolTipData.offset;
         offset.y = _touches$.y;
+        // Point Click
+        config.clickIndex = index;
+        // console.log("tooltips work")
+        // console.log("index", index)
+        // console.log("config index", config.clickIndex)
+        // console.log("opts", this.opts)
         opts.tooltip = {
           textList: option.textList !== undefined ? option.textList : textList,
           offset: option.offset !== undefined ? option.offset : offset,
@@ -7038,6 +7083,7 @@ uCharts.prototype.showToolTip = function(e) {
         };
       }
     }
+
     drawCharts.call(this, opts.type, opts, this.config, this.context);
   }
   if (this.opts.type === 'mount') {
