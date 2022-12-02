@@ -1,9 +1,39 @@
 module.exports = {
+  getAllPodcastAudioInfo: getAllPodcastAudioInfo,
   loadAudioFile: loadAudioFile,
   audioGoToTime: audioGoToTime,
   playAudioFile: playAudioFile,
   pauseAudioFile: pauseAudioFile,
   getCurrTime: getCurrTime
+}
+
+function getAllPodcastAudioInfo() {
+    var podcasts_info;
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.cloud.callFunction({
+      name: 'getAllPodcastAudio',
+      data: {
+      },
+      success: out => {
+        console.log('callfunction sucess');
+        console.log(out);
+        if (out.result.errCode == 0) {
+          podcasts_info = out.result.data;
+        } else {
+          console.log(out.errMsg);
+        }
+      },
+      fail: out => {
+        console.log('call function failed');
+      },
+      complete: out => {
+        console.log('call function completed');
+        wx.hideLoading();
+        console.log(podcasts_info);
+      }
+    })
 }
 
 // load audio file
