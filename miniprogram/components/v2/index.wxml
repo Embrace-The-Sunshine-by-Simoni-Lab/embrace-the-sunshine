@@ -20,8 +20,17 @@
     </view>
     <!-- 日历面板主体 -->
     <view class="b lr wrap" bindtouchstart="calendarTouchstart" catchtouchmove="calendarTouchmove" catchtouchend="calendarTouchend">
+      <!-- 上月日期格子 -->
+      <view class="grid b ac pc {{config.theme}}_prev-month-date" wx:for="{{calendar.prevMonthGrids}}" wx:key="index" data-idx="{{index}}">
+        <view class="date-wrap b cc">
+          <view class="date">
+                {{item.date}}
+          </view>
+        </view>
+      </view>
       <!-- 本月日期格子 -->
       <view wx:for="{{calendar.dates}}" wx:key="index" data-idx="{{index}}" data-info="{{item}}" bindtap="tapDate" class="grid {{item.class ? item.class  : ''}} {{config.theme}}_normal-date b ac pc">
+
         <view class="date-wrap b cc {{config.emphasisWeek && (item.week === 0 || item.week === 6) ? config.theme + '_weekend-color' : ''}}">
           <view class="boxText date b ac pc {{item.class ? item.class  : ''}} {{item.isToday && config.highlightToday ? config.theme + '_today' : ''}} {{item.choosed ? config.theme + '_choosed' : ''}} {{item.disable ? config.theme + '_date-disable' : ''}} {{config.chooseAreaMode ? 'date-area-mode' : ''}}  {{calendar.todoLabelCircle && item.showTodoLabel && !item.choosed ? config.theme + '_todo-circle todo-circle' : '' }}">
                 {{config.markToday && item.isToday ? config.markToday : item.date}}

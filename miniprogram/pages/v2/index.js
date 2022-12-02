@@ -13,7 +13,8 @@ Page({
     medi_taken_obj: [],
     LastClick: {}, // 用来记录上一次被点击的日历方框
     calendarConfig: {
-      takeoverTap: true,
+      theme: 'elegant',
+      takeoverTap: true
     },
     weekNumToRange: {}, // jara方程
     lowestWeekNum: -1,
@@ -42,8 +43,8 @@ Page({
     this.convertStringtoDateArray(medi_taken)
     this.setData({
       medi_taken,
-      currentMonth: today.getFullYear(),
-      currentDate: today.getMonth()+1
+      currentMonth: today.getMonth()+1,
+      currentDate: today.getDate()
     })
     // 用户如果点击了model需要执行的内容
     if(!ifTodayTaken && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
