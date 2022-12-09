@@ -47,17 +47,18 @@ Page({
     // latest one month
     let today = new Date();
     let userScoreDate = this.data.userScoreDate;
-    let userScore = this.data.userScoreInfo.scoreLevel;
-
+    let userScore = this.data.userScore;
     let oneMonthScoreDate = [];
     let oneMonthScore = [];
+    // console.log(userScoreDate);
+    // console.log(userScore);
     for (let i = 0; i < userScoreDate.length; i++) {
       let curr_date = userScoreDate[i];
       let curr_score = userScore[i];
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 30) {
         oneMonthScoreDate.unshift(curr_date);
-        oneMonthScore.push(curr_score);
+        oneMonthScore.unshift(curr_score);
       } else {
         break;
       }
@@ -75,7 +76,7 @@ Page({
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 90) {
         ThreeMonthScoreDate.unshift(curr_date);
-        ThreeMonthScore.push(curr_score);
+        ThreeMonthScore.unshift(curr_score);
       } else {
         break;
       }
@@ -93,7 +94,7 @@ Page({
       let dateDiff = this.dateDiffInDays(today, new Date(curr_date));
       if (dateDiff < 180) {
         SixMonthScoreDate.unshift(curr_date);
-        SixMonthScore.push(curr_score);
+        SixMonthScore.unshift(curr_score);
       } else {
         break;
       }
@@ -158,43 +159,7 @@ Page({
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
 
-  
 
-  // getServerData() {
-  //   //模拟从服务器获取数据时的延时
-  //   setTimeout(() => {
-  //     //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-  //     // let res = {
-  //     //   // categories: [],
-  //     //   categories: ["01.30-02.05","02.06-02.12","02.13-02.19","02.20-02.27","02.28-03.04","03.05-03.11"],
-  //     //   series: [
-  //     //     {
-  //     //       // data: [],
-  //     //       data: [1,0,2,3,4,4],
-
-  //     //     },
-  //     //   ]
-  //     // };
-
-
-  //     let res_pre = [
-  //       // 近1月
-  //       { categories: ["01.30-02.05","02.06-02.12","02.13-02.19","02.20-02.27","02.28-03.04","03.05-03.11"],
-  //         series: [{data: [1,0,2,3,4,4]}]},
-
-  //       // 近3月
-  //       { categories: ["01.30-02.05","02.06-02.12","02.13-02.19","02.20-02.27","02.28-03.04","03.05-03.11"],
-  //         series: [{data: [6,7,9,12,4,3]}]},
-        
-  //       // 近6月
-  //       { categories: ["01.30-02.05","02.06-02.12","02.13-02.19","02.20-02.27","02.28-03.04","03.05-03.11"],
-  //         series: [{data: [8,0,12,3,14,4]}]},
-  //     ];
-
-  //     var res = res_pre[0]
-  //     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', res);
-  //   }, 500);
-  // },
 
   drawCharts(id,data){
     const ctx = wx.createCanvasContext(id, this);
@@ -205,8 +170,17 @@ Page({
         height: this.data.cHeight,
         categories: data.categories,
         series: data.series,
+        // categories: ['1', '2', '3'],
+        // series: [
+        //   {
+        //     color: this.data.userScoreInfo.scoreColor,
+        //     connectNulls: true,
+        //     data: this.data.userScoreInfo.scoreValue,
+        //     linearIndex: 3,
+        //   }
+        // ],
         dataLabel: false,
-        animation: true,
+        animation: false,
         background: "#FFFFFF",
         color: ["#4D50A4","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
         padding: [5,5,5,5],
@@ -216,28 +190,75 @@ Page({
           disableGrid: true,
           scrollShow: true,
           itemCount: 5,
-          fontSize: 11
+          fontSize: 14
         },
         yAxis: {
           disabled: true,
           gridType: "dash",
-          dashLength: 2,
+          dashLength: 4,
+          disableGrid: true,
+          splitNumber: 5,
+          data: [{
+            max: 27,
+            min: 0,
+          }]
+
+        },
+        legend: {
+          show: false
         },
         extra: {
           line: {
             type: "straight",
-            width: 2
+            width: 1.5,
           },
           tooltip: {
             showBox: false,
-          }
+          },
+          markLine: {
+            type: 'dash',
+            data: [
+              {
+                showLabel: false,
+                value: 4,
+                labelOffsetX: 20,
+                lineColor: '#46BA74'
+
+              },
+              {
+                showLabel: false,
+                value: 9,
+                labelOffsetX: 20,
+                lineColor: '#91D300'
+
+              },
+              {
+                showLabel: false,
+                value: 14,
+                labelOffsetX: 20,
+                lineColor: '#FFC300'
+
+              },
+              {
+                showLabel: false,
+                value: 19,
+                labelOffsetX: 20,
+                lineColor: '#F48657'
+
+              },
+              {
+                showLabel: false,
+                value: 27,
+                labelOffsetX: 20,
+                lineColor: '#FA5151'
+              },
+            ]
+          },
         },
-        legend: {
-          show: false
-        }
       });
   },
 
+  // ['#46BA74', '#91D300', '#FFC300', '#F48657', '#FA5151']
   getUserScoreLevel() {
     var userScoreValue = app.globalData.userData.mood_track.mood_score
     var currLevel = ""
@@ -249,40 +270,39 @@ Page({
     var scoreType = []
     var scoreValue = []
     var scoreColor = []
-    for(var i = userScoreValue.length-1; i >= 0 ; i--){
+    for(var i = 0; i < userScoreValue.length; i++){
       var score = userScoreValue[i]
-      console.log(score)
       if(score <= 4) {
         currLevel = "1"
         currCategory = "mini-depress"
         currType = "情绪正常"
-        typeColor= "#4DA470"
+        typeColor= '#46BA74'
       } else if (score <= 9) {
         currLevel = "2"
         currCategory = "mild-depress"
         currType = "轻度抑郁"
-        typeColor = "#FFC300"
+        typeColor = '#91D300'
       } else if (score <= 14) {
         currLevel = "3"
         currCategory = "moder-depress"
         currType = "中度抑郁"
-        typeColor = "pink"
+        typeColor = '#FFC300'
       } else if (score <= 19) {
         currLevel = "4"
         currCategory = "moder-severe-depress"
         currType = "中重度抑郁"
-        typeColor = "red"
+        typeColor = '#F48657'
       } else {
         currLevel = "5"
         currCategory = "severe-depress"
         currType = "重度抑郁"
-        typeColor = "#FA5151"
+        typeColor = '#FA5151'
       }
-      scoreValue.push(score);
-      scoreLevel.push(currLevel);
-      scoreCategory.push(currCategory);
-      scoreType.push(currType);
-      scoreColor.push(typeColor)
+      scoreValue.unshift(score);
+      scoreLevel.unshift(currLevel);
+      scoreCategory.unshift(currCategory);
+      scoreType.unshift(currType);
+      scoreColor.unshift(typeColor)
     }
     var userScoreInfo = {}
     userScoreInfo["scoreValue"] = scoreValue;
@@ -291,28 +311,43 @@ Page({
     userScoreInfo["scoreType"] = scoreType,
     userScoreInfo['scoreColor'] = scoreColor,
     this.setData({"userScoreInfo": userScoreInfo})
+    // console.log(userScoreInfo);
     return userScoreInfo.scoreValue;
   },
   
-
   touchstart(e){
     uChartsInstance[e.target.id].scrollStart(e);
   },
+
   touchmove(e){
     uChartsInstance[e.target.id].scroll(e);
   },
+  
   touchend(e){
     uChartsInstance[e.target.id].scrollEnd(e);
     uChartsInstance[e.target.id].touchLegend(e);
     uChartsInstance[e.target.id].showToolTip(e);
     var tapObj = uChartsInstance[e.target.id].getCurrentDataIndex(e);
     console.log(tapObj)
-    console.log(this.data.userScoreInfo)
     if (tapObj.index != -1) {
+      let total_len = this.data.userScoreInfo.scoreValue.length;
+      let category_len = 0;
+      if (this.data.oneMonth) {
+        category_len = this.data.OneMonthMoodTrackData.categories.length;
+      } else if (this.data.threeMonth) {
+        category_len = this.data.ThreeMonthMoodTrackData.categories.length;
+      } else if (this.data.sixMonth) {
+        category_len = this.data.SixMonthMoodTrackData.categories.length;
+      } else {
+        console.error("no category chosen");
+      }
+      console.log(tapObj.index);
+      console.log(this.data.userScoreInfo.scoreType);
+      console.log(this.data.userScoreInfo.scoreValue);
       this.setData({
-        userScoreValue: this.data.userScoreInfo.scoreValue[tapObj.index],
-        userScoreType: this.data.userScoreInfo.scoreType[tapObj.index],
-        userScoreColor: this.data.userScoreInfo.scoreColor[tapObj.index]
+        userScoreValue: this.data.userScoreInfo.scoreValue[tapObj.index + (total_len - category_len)],
+        userScoreType: this.data.userScoreInfo.scoreType[tapObj.index + (total_len - category_len)],
+        userScoreColor: this.data.userScoreInfo.scoreColor[tapObj.index + (total_len - category_len)]
       })
       
     }
@@ -335,9 +370,9 @@ Page({
   onLoad(options) {
     this.getUserScoreLevel();
     this.getUserScoreDate();
-    console.log(this.data)
-    console.log("global date: " + app.globalData.userData.mood_track.mood_date)
-    console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
+    // console.log("data", this.data)
+    // console.log("global date: " + app.globalData.userData.mood_track.mood_date)
+    // console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
     this.setData({
       oneMonth: true,
       threeMonth: false,

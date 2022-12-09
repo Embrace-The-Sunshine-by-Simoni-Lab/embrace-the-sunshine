@@ -6,32 +6,28 @@
   </view>
   <!-- line graph -->
   <view class="line_chart_container">
-    <view class="line_chart_bar_container">
-      <view class="line_chart_heading">
-        <view><text class="line_chart_bar_container_title">自测抑郁症风险等级</text></view>
-        <view class="btnBox">
-          <mainButton type="{{oneMonth ? 'oneMonth-fill':'oneMonth-empty'}}" class="timeBtn" bindtap="chooseOneMonth"></mainButton>
-          <mainButton type="{{threeMonth ? 'threeMonth-fill':'threeMonth-empty'}}"  class="timeBtn" bindtap="chooseThreeMonth"></mainButton>
-          <mainButton type="{{sixMonth ? 'sixMonth-fill':'sixMonth-empty'}}"  class="timeBtn" bindtap="chooseSixMonth"></mainButton>
-        </view>
-      </view> 
-      <!-- box that contains the y label and line chart -->
-      <view class="line_chart_body">
-        <view class="line_chart_y_axis">
-          <text class="line_chart_y_axis_top"></text>
-          <text class="line_chart_y_axis_label">重度</text>
-          <text class="line_chart_y_axis_label">高度</text>
-          <text class="line_chart_y_axis_label">中度</text>
-          <text class="line_chart_y_axis_label">轻度</text>
-          <text class="line_chart_y_axis_label">最低</text>
-          <text class="line_chart_y_axis_bottom"></text>
-        </view>
-        <!-- line chart 图片 -->
-        <view class="charts-box">
-          <view class="charts">
-            <canvas canvas-id="jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG" id="jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG" class="charts" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend"/>
-          </view>
-        </view>
+    <view class="line_chart_heading">
+      <view class="line_chart_tittle_container">
+        <text class="tittle_text">自测抑郁症风险等级</text>
+      </view>
+      <view class="btnBox">
+        <mainButton type="{{oneMonth ? 'oneMonth-fill':'oneMonth-empty'}}" class="madicineBtn" bindtap="chooseOneMonth"></mainButton>
+        <mainButton type="{{threeMonth ? 'threeMonth-fill':'threeMonth-empty'}}"  class="madicineBtn" bindtap="chooseThreeMonth"></mainButton>
+        <mainButton type="{{sixMonth ? 'sixMonth-fill':'sixMonth-empty'}}"  class="madicineBtn" bindtap="chooseSixMonth"></mainButton>
+      </view>
+    </view> 
+    <!-- box that contains the y label and line chart -->
+    <view class="line_chart_body">
+      <view class="line_chart_y_axis">
+        <text class="line_chart_y_axis_label" id='label_1'>重度</text>
+        <text class="line_chart_y_axis_label" id='label_2'>高度</text>
+        <text class="line_chart_y_axis_label" id='label_3'>中度</text>
+        <text class="line_chart_y_axis_label" id='label_4'>轻度</text>
+        <text class="line_chart_y_axis_label" id='label_5'>最低</text>
+      </view>
+      <!-- line chart 图片 -->
+      <view class="line_chart">
+          <canvas class="charts" canvas-id="jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG" id="jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend"/>
       </view>
     </view>
   </view>
@@ -40,7 +36,7 @@
         <l-circle percent='{{userScoreValue / 27  * 100}}' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{userScoreColor}}"
         ></l-circle>
         <view class="calendar_circle_text_container">
-          <view class="calendar_circlel_text">{{userScoreValue}}分</view>
+          <view class="calendar_circle_text">{{userScoreValue}}分</view>
         </view>
       </view>
       <view class="calendar_summary_container">
