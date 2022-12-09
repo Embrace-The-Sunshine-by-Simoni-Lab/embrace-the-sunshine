@@ -33,7 +33,9 @@
     <image class="prevButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/prevplay.png"></image>
     <image class="back30Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/down30.png"></image>
     <image wx:if="{{!playStatus}}" class="mainPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png" bind:tap="changePlayStatus"></image>
+
     <image wx:if="{{playStatus}}" class="mainPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/stopplay.png" bind:tap="changePlayStatus"></image>
+    
     <image class="forward30Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/up30.png"></image>
     <image class="nextButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/nextplay.png"></image>
     <image class="curve" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/curveShape.png"></image>
