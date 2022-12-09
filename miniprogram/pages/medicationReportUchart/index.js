@@ -322,7 +322,7 @@ Page({
       } else if (score <= 19) {
         currLevel = "4"
         currCategory = "moder-severe-depress"
-        currType = "中重度抑郁"
+        currType = "高度抑郁"
         typeColor = '#F48657'
       } else {
         currLevel = "5"
