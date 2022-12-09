@@ -38,6 +38,7 @@ Component({
     initCalendar(config) {
       const { defaultDate } = config
       let date = dateUtil.todayFMD()
+
       if (defaultDate && typeof defaultDate === 'string') {
         const dateInfo = defaultDate.split('-')
         if (dateInfo.length < 3) {
