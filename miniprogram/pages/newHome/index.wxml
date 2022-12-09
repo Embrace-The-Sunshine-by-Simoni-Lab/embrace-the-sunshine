@@ -1,0 +1,93 @@
+<!--pages/newHome/index.wxml-->
+
+<view class="homeContainer">
+
+  <view class="page-section page-section-spacing swiper homeBanner">
+    <swiper indicator-dots="{{indicatorDots}}" 	indicator-active-color="#BDBDBD"
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="homeIndicator">
+      <block wx:for="{{background}}" wx:key="*this">
+        <swiper-item>
+          <view class="swiper-item {{item}}">
+            <view class="homeBannerContent">
+              <text class="homePodNum">第一集 | Topic ABC</text>
+              <text class="homePodTitle">消极思想, 情绪和行为</text>
+              <text class="homePodDetail">如何面对负面情绪带来的影响</text>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <view class="homeMiddleBox">
+    <view class="homeMoodTrack">
+      <text>情绪记录</text> 
+      <image class="homeMoodImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/smileCloud.png"></image>
+    </view>
+
+    <view class="homeMediTrack">
+      <view class="homeMediTrackContent">
+        <text class="homeMediTrackContentTitle">药物追踪</text> 
+        <text class="homeMediTrackContentTitleSmall">本周服药天数</text> 
+        <view class="homeMediTrackProgressBox"> 
+          <view class="homeMediTrackProgress"></view>
+          <text class="homeMediTrackProgressText">5/7</text>
+        </view>
+
+        <image class="homeMediImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/homeMedi.png"></image>
+      </view>
+
+    </view>
+  </view>
+
+  <view class="homePodCast">
+    <text class="homePodCastTitle">播客</text>
+    
+    <view class="castItem">
+      <view class="castImage">
+        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+      </view>
+      <view class="castContent">
+        <text>消极思想, 情绪和行为</text>
+        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
+        <view class="castProgress"></view> 
+      </view>
+      <view class="castButton">
+        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
+        <text class="castTimer">7:01/10:55</text>
+      </view>
+    </view>
+
+    <view class="castItem">
+      <view class="castImage">
+        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+      </view>
+      <view class="castContent">
+        <text>消极思想, 情绪和行为</text>
+        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
+        <view class="castProgress"></view> 
+      </view>
+      <view class="castButton">
+        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
+        <text class="castTimer">7:01/10:55</text>
+      </view>
+    </view>
+
+    <view class="castItem">
+      <view class="castImage">
+        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+      </view>
+      <view class="castContent">
+        <text>消极思想, 情绪和行为</text>
+        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
+        <view class="castProgress"></view> 
+      </view>
+      <view class="castButton">
+        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
+        <text class="castTimer">7:01/10:55</text>
+      </view>
+    </view>
+
+    <text class="checkAll">查看全部</text>
+  </view>
+</view> 

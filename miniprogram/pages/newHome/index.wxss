@@ -1,0 +1,195 @@
+/* pages/newHome/index.wxss */
+
+.homeContainer {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* background: orange; */
+}
+.homeBanner {
+  height: 150px;
+  width: 100%;
+  border-radius: 10px;
+  background: #4D50A4;
+  margin-bottom: 15px;
+  position: relative;
+}
+.swiper-item {
+  height: 100px;
+}
+.homeMiddleBox {
+  height: 100px;
+  width: 100%;
+  border-radius: 10px;
+  /* background: #4D50A4; */
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.homeMoodTrack {
+  height: 100px;
+  width: 120px;
+  background: #FDFBFC;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.homeMediTrack {
+  height: 100px;
+  width: 210px;
+  background: #FDFBFC;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+.homeMoodImg {
+  height: 50px;
+  width: 90px;
+}
+.homeBannerContent {
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  box-sizing: border-box;
+}
+.homePodNum {
+  font-weight: 200;
+  font-size: 15px;
+}
+.homePodTitle {
+  font-weight: 400;
+  font-size: 19px;
+  padding: 10px 0;
+}
+.homePodDetail {
+  font-weight: 200;
+  font-size: 12px;
+  /* padding: 12px 0; */
+}
+.homeBannerIndicator {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  width: 20px;
+  margin-left: -10px;
+
+  display: flex;
+}
+.homeBannerCircle {
+  height: 5px;
+  width: 5px;
+  background: white;
+  margin: 0 5px;
+  border-radius: 50%;
+}
+.homeMediTrackContent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.homeMediTrackContentTitle {
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+.homeMediTrackContentTitleSmall {
+  font-weight: 300;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.homeMediTrackProgress {
+  width: 85px;
+  margin-right: 8px;
+  height: 10px;
+  border-radius: 8px;
+  background: #D9D9D9;
+}
+.homeMediTrackProgressBox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.homeMediTrackProgressText {
+  font-size: 12px;
+}
+.homeMediImg {
+  position: absolute;
+  right: 0;
+  width: 85px;
+  height: 85px;
+}
+.homePodCast {
+  display: flex;
+  flex-direction: column;
+}
+.homePodCastTitle {
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+.castItem {
+  height: 95px;
+  border-radius: 10px;
+  background: #FDFBFC;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 5px;
+  margin-bottom: 15px;
+}
+.castImage {
+  /* background: orange; */
+  width: 100px;
+  height: 80px;
+}
+.castImageItem {
+  width: 100%;
+  height: 100%;
+}
+.castContent {
+  /* background: blue; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  box-sizing: border-box;
+  padding: 5px 0;
+  width: 170px;
+  height: 80px;
+}
+.castContentDetails {
+  font-size: 13px;
+  padding: 12px 0;
+  color: #666666
+}
+.castProgress {
+  width: 98%;
+  height: 7px;
+  border-radius: 14px;
+  background: #DADADA;
+}
+.castButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.castPlayButton {
+  width: 35px;
+  height: 35px;
+  margin-bottom: 10px;
+}
+.castTimer {
+  font-size: 10px;
+  padding-bottom: 2px;
+}
+.checkAll {
+  font-size: 14px;
+  align-self: flex-end
+}

@@ -1,0 +1,83 @@
+<!--pages/allPodCastPage/index.wxml-->
+<view class="allCastsContainer">
+  <text class="allCastHeader">全部播客</text>
+
+  <view class="castList">
+    <view class="castItem">
+      <view class="castImage">
+        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+      </view>
+      <view class="castContent">
+        <text>消极思想, 情绪和行为</text>
+        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
+        <view class="castProgress"></view> 
+      </view>
+      <view class="castButton">
+        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
+        <text class="castTimer">7:01/10:55</text>
+      </view>
+    </view>
+
+    <view class="castItem">
+      <view class="castImage">
+        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+      </view>
+      <view class="castContent">
+        <text>消极思想, 情绪和行为</text>
+        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
+        <view class="castProgress"></view> 
+      </view>
+      <view class="castButton">
+        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
+        <text class="castTimer">7:01/10:55</text>
+      </view>
+    </view>
+
+    <view class="castItem">
+      <view class="castImage">
+        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+      </view>
+      <view class="castContent">
+        <text>消极思想, 情绪和行为</text>
+        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
+        <view class="castProgress"></view> 
+      </view>
+      <view class="castButton">
+        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
+        <text class="castTimer">7:01/10:55</text>
+      </view>
+    </view>
+
+    <view class="castItem">
+      <view class="castImage">
+        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+      </view>
+      <view class="castContent">
+        <text>消极思想, 情绪和行为</text>
+        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
+        <view class="castProgress"></view> 
+      </view>
+      <view class="castButton">
+        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
+        <text class="castTimer">7:01/10:55</text>
+      </view>
+    </view>
+
+    <view class="castItem">
+      <view class="castImage">
+        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+      </view>
+      <view class="castContent">
+        <text>消极思想, 情绪和行为</text>
+        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
+        <view class="castProgress"></view> 
+      </view>
+      <view class="castButton">
+        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
+        <text class="castTimer">7:01/10:55</text>
+      </view>
+    </view>
+
+
+  </view>
+</view> 
