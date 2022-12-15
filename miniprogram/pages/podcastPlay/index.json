@@ -1,4 +1,5 @@
 {
-  "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "playAudio":"/components/PlayAudio/playAudio"
+  }
 }
