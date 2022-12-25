@@ -5,13 +5,13 @@ Component({
     // 音频文件的临时路径
     src: {
       type: String,
-      value: ''
+      currentPlayTime: ''
     }
   },
   data: {
     isPlaying: false,
     sliderPosition: 0,
-    value: '00:00', // 进度条的初始值为 0
+    currentPlayTime: '00:00', // 进度条的初始值为 0
     time: '00:10',
     duration: 9, // 音频的总时长（单位：秒）
     currentProgressSecond: 0
@@ -20,6 +20,7 @@ Component({
   // 组件的生命周期函数s
   created() {
     this.innerAudioContext = wx.createInnerAudioContext()
+
     wx.cloud.downloadFile({
       fileID: 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/cartoon-intro-13087.mp3',
       success: (res) => {
@@ -36,15 +37,15 @@ Component({
     // 监听音频上下文的 timeUpdate 事件
     this.innerAudioContext.onTimeUpdate(() => {
       // 获取当前播放进度（单位：秒）
-      const currentTime = this.innerAudioContext.currentTime
-      const newSliderPosition = currentTime / this.data.duration * 100
-      const format = this.formatTime(currentTime)
+      const currentSeconds = this.innerAudioContext.currentTime
+      const newSliderPosition = currentSeconds / this.data.duration * 100
+      const format = this.formatTime(currentSeconds)
 
       // 更新进度条的值
       this.setData({
         sliderPosition: newSliderPosition,
-        value: format, // 当前播放的位置 01:00
-        currentProgressSecond: currentTime
+        currentPlayTime: format, // 当前播放的位置 01:00
+        currentProgressSecond: currentSeconds
       })
     })
   },
@@ -55,16 +56,18 @@ Component({
     sliderChange(event) {
       // 获取用户拖动进度条的值
       const value = event.detail.value
+      // 计算新的播放位置，单位为秒
       const newAudioSecond = (value / 100) * this.data.duration
-      const newSliderPosition = value / 100
-      
-      // 更新进度条的值
+      // 更新进度条位置
       this.setData({
-        sliderPosition: newSliderPosition,
-        currentProgressSecond: newAudioSecond
+        sliderPosition: value
       })
       // 更新音频的播放进度
       this.innerAudioContext.seek(newAudioSecond)
+      // 更新当前播放位置
+      this.setData({
+        currentProgressSecond: newAudioSecond
+      })
     },
 
     togglePlay () {
@@ -82,36 +85,6 @@ Component({
           isPlaying: true
         })
       }
-    },
-
-    speedDown30() {
-      let currentProgressSecond = this.data.currentProgressSecond
-      currentProgressSecond -= 30
-      if(currentProgressSecond <= 0) {
-        currentProgressSecond = 0
-      }
-      const newSliderPosition = currentProgressSecond / this.data.duration * 100
-      this.setData({
-        sliderPosition: newSliderPosition,
-        currentProgressSecond: currentProgressSecond
-      })
-      // 更新音频的播放进度
-      this.innerAudioContext.seek(currentProgressSecond)
-    },
-
-    speedUp30() {
-      let currentProgressSecond = this.data.currentProgressSecond
-      currentProgressSecond += 30
-      if(currentProgressSecond >= this.data.duration) {
-        currentProgressSecond = this.data.duration
-      }
-      const newSliderPosition = currentProgressSecond / this.data.duration * 100
-      this.setData({
-        sliderPosition: newSliderPosition,
-        currentProgressSecond: currentProgressSecond
-      })
-      // 更新音频的播放进度
-      this.innerAudioContext.seek(currentProgressSecond)
     },
 
     changeCollectStatus() {
@@ -143,6 +116,38 @@ Component({
         return `0${number}`
       }
       return number
-    }
-  }
+    },
+
+    speedDown30() {
+      let currentProgressSecond = this.data.currentProgressSecond
+      currentProgressSecond -= 30
+      if(currentProgressSecond <= 0) {
+        currentProgressSecond = 0
+      }
+      const newSliderPosition = currentProgressSecond / this.data.duration * 100
+      this.setData({
+        sliderPosition: newSliderPosition,
+        currentProgressSecond: currentProgressSecond
+      })
+      // 更新音频的播放进度
+      this.innerAudioContext.seek(currentProgressSecond)
+    },
+    speedUp30() {
+      let currentProgressSecond = this.data.currentProgressSecond
+      currentProgressSecond += 30
+      if(currentProgressSecond >= this.data.duration) {
+        currentProgressSecond = this.data.duration
+      }
+      const newSliderPosition = currentProgressSecond / this.data.duration * 100
+      this.setData({
+        sliderPosition: newSliderPosition,
+        currentProgressSecond: currentProgressSecond
+      })
+      // 更新音频的播放进度
+      this.innerAudioContext.seek(currentProgressSecond)
+    },
+  },
+
+
 })
+

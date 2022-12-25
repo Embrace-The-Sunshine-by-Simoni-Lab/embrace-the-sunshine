@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "playAudio":"/components/PlayAudio/playAudio"
+    "playAudio":"/components/PlayAudio/playAudio",
+    "singleChoice":"/components/singleChoice/singleChoice"
   }
 }

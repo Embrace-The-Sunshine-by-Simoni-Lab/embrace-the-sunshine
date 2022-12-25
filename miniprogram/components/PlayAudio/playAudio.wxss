@@ -80,7 +80,7 @@
   /* margin-top: 90px; */
   height: 110px;
   position: relative; 
-  /* background: blue; */
+  /* background:  orange; */
 }
 .back30Button {
   width: 60rpx;
@@ -89,6 +89,7 @@
   position: absolute;
   left: 20%;
   bottom: 38%;
+  z-index: 100;
 }
 .mainPlayButton {
   width: 210rpx;
@@ -99,13 +100,14 @@
   bottom: 5%;
   z-index: 99;
 }
-.forward30Button {
+.speedup {
   width: 60rpx;
   height: 60rpx;
   margin-left: -30rpx;
   position: absolute;
   left: 75%;
   bottom: 38%;
+  z-index: 100;
 }
 .slider {
   padding-top: 20rpx;

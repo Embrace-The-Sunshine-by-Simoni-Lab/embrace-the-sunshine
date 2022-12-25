@@ -21,7 +21,6 @@
     "pages/medTracking/medTracking",
     "pages/module/modulePage",
     "pages/moodTracking/moodTracking",
-    "pages/demo/demo",
     "pages/profile/profile",
     "pages/setting/setting",
     "pages/save/save",
