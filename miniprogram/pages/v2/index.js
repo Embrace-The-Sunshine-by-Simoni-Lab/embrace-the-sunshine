@@ -86,6 +86,10 @@ Page({
         console.log(e);
       }
     }
+    
+    this.setData({
+      curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()}
+    })
   },
   // 处理bar chart的数据
   processAnalystPageData() {
@@ -165,12 +169,13 @@ Page({
     let tap_year = e.detail.year
     let tap_month = e.detail.month
     let tap_day = e.detail.date
-    this.setData({
-      curTapDate: {year: tap_year, month: tap_month, date: tap_day}
-    })
+
     const tap_date = new Date(tap_year, tap_month - 1, tap_day)
     // 只允许用户点击早于今天的日期
     if(tap_date < today) {
+      this.setData({
+        curTapDate: {year: tap_year, month: tap_month, date: tap_day}
+      })
       // 给当前点击的方框加入深色边框(需要判断是否taken)
       if(this.checkIfTapDateTaken(this.data.curTapDate)) {
         this.changeCalendarBoxStyle(this.data.curTapDate, "box-selected-taken")
@@ -220,8 +225,10 @@ Page({
     let newMediStatus = false
     // 改变数据库的药的taken状态
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
+    console.log("223", curTapDate);
+    console.log("224", dateChange);
     if (toggleResult) newMediStatus = true
-  
+    let that = this
     wx.showLoading({
       title: '加载中',
       mask: true
@@ -233,27 +240,30 @@ Page({
       }
     })
     .then(res => {
-      wx.hideLoading()
       const newDateLst = res.result.data.med_date;
+      console.log("238", res)
       app.globalData.userData.med_date = newDateLst
       // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
-      this.convertStringtoDateArray(newDateLst)
-      this.setData({
+      that.convertStringtoDateArray(newDateLst)
+      that.setData({
         medi_taken: newDateLst,
       })
-      this.renderMediTaken()
+      that.renderMediTaken()
       
       if(toggleResult) {
-        this.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
+        that.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
       } else {
-        this.changeCalendarBoxStyle(curTapDate, "box-selected")
+        that.changeCalendarBoxStyle(curTapDate, "box-selected")
       }
+
+      that.setData({
+        toggleButtonStatus: newMediStatus
+      })
+      // 更新分析页面的数据
+      that.processAnalystPageData()
+      wx.hideLoading()
     });
-    this.setData({
-      toggleButtonStatus: newMediStatus
-    })
-    // 更新分析页面的数据
-    this.processAnalystPageData()
+    
   },
   // 把所有已经服药过的日期渲染成红色
   renderMediTaken() {
@@ -337,6 +347,7 @@ Page({
     let _analyticsData = [];
     let _weekNumToRange = {};
     let _weekNumToCount = {};
+    console.log(this.data.medi_taken_classified_by_years);
     let this_year_medi_taken = this.data.medi_taken_classified_by_years[today.getFullYear()];
     if (this_year_medi_taken.length === 0) {
       return;
@@ -396,6 +407,7 @@ Page({
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
   createMedi_taken_classified_by_years(medi_taken) {
+    console.log("400", medi_taken);
     let _medi_taken_classified_by_years = {};
     for (let i = 0; i < medi_taken.length; i++) { 
       let currDate = new Date(medi_taken[i]);
