@@ -341,9 +341,9 @@ Page({
       } else {
         console.error("no category chosen");
       }
-      console.log(tapObj.index);
-      console.log(this.data.userScoreInfo.scoreType);
-      console.log(this.data.userScoreInfo.scoreValue);
+      // console.log(tapObj.index);
+      // console.log(this.data.userScoreInfo.scoreType);
+      // console.log(this.data.userScoreInfo.scoreValue);
       this.setData({
         userScoreValue: this.data.userScoreInfo.scoreValue[tapObj.index + (total_len - category_len)],
         userScoreType: this.data.userScoreInfo.scoreType[tapObj.index + (total_len - category_len)],
