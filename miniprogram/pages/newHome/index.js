@@ -2,8 +2,8 @@ const app = getApp()
 
 Page({
   data: {
-    // 本周服药天数数据
-    currWeekAlreadyTaken: 1,
+    // days in the current week on which user has taken medicine 
+    currWeekAlreadyTaken: 0,
     // display if enter medication today
     ifMediTaken: false,
     // original data
@@ -62,6 +62,12 @@ Page({
               app.globalData.userData = out.result.data;
               app.globalData.logged = true;
               is_new_user = out.result.is_new_user;
+
+              let medi_taken_days = app.globalData.userData.med_date
+              let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
+              this.setData({
+                currWeekAlreadyTaken: takenInWeek
+              })
             } else {
               console.log(out.errMsg);
             }
@@ -70,6 +76,8 @@ Page({
           }
           // 获取当天是否已经确认服药
           let today = new Date()
+          console.log("today", today)
+
           let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
           this.setData({
             ifMediTaken: ifTodayTaken
@@ -127,19 +135,33 @@ Page({
         wx.hideLoading()
        }
     })
-    // 获取红点逻辑
-    // let today = new Date()
-    // let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
-    // console.log("lastShownModalTime", lastShownModalTime)
-    // if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
-    //   this.setData({
-    //     ifMediTaken: true
-    //   })
-    // } else {
-    //   this.setData({
-    //     ifMediTaken: false
-    //   })
-    // }
+  },
+  onShow() {
+    try {
+      let medi_taken_days = app.globalData.userData.med_date
+      let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
+      this.setData({
+        currWeekAlreadyTaken: takenInWeek
+      })
+    } catch {
+    }
+  },
+
+
+  // check how many days in a week users have taken the medicine 
+  getMeditakenDayInWeek(dates) {
+    let count = 0;
+    let today = new Date();
+    for (let date of dates) {
+      let d = new Date(date);
+      let day = d.getDay();
+      let timestamp = d.getTime();
+    
+      if (timestamp >= today.getTime() - day * 24 * 60 * 60 * 1000 && timestamp < today.getTime() + (7 - day) * 24 * 60 * 60 * 1000) {
+        count++;
+      }
+    }
+    return count;
   },
   isSameDay(d1, d2) {
     return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();

@@ -29,7 +29,7 @@
 }
 .homeMoodTrack {
   height: 100px;
-  width: 120px;
+  width: 35%;
   background: #FDFBFC;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
@@ -40,7 +40,7 @@
 }
 .homeMediTrack {
   height: 100px;
-  width: 210px;
+  width: 60%;
   background: #FDFBFC;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
