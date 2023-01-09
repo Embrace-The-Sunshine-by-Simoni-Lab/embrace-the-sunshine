@@ -12,7 +12,6 @@
           <text class="headerDetail">{{podCastInfo.mainContentSummary}}</text>
           <view class="headerMark">
             <image wx:if="{{podCastInfo.podCastCollected}}" class="podcast_star" src="../../images/Podcast-icon-favorite-click.png" bind:tap="changeCollectStatus"></image>
-
             <image wx:if="{{!podCastInfo.podCastCollected}}" class="podcast_star" src="../../images/Podcast-icon-favorite-unclick.png" bind:tap="changeCollectStatus"></image>
           </view>
         </view>

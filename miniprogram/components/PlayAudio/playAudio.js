@@ -19,36 +19,41 @@ Component({
     currentProgressSecond: 0,
     podCastInfo: {}
   },
-  created() {
+
+  ready() {
     // fetch the index of the podcast list and assign the corresponding podcast
     // for the podcast Player and podcast Quiz
     let allPodCastData =  wx.getStorageSync('allPodCastData');
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
-    console.log("currPodCast", currPodCast)
     this.setData({
       podCastInfo: currPodCast
     })
+    this.innerAudioContext = wx.createInnerAudioContext({
+      useWebAudioImplement: false
+    })
+    this.innerAudioContext.src = this.data.podCastInfo.url
+    let totalDuration = this.data.podCastInfo.totalTimeSecond
 
-    // this.innerAudioContext = wx.createInnerAudioContext({
-    //   useWebAudioImplement: false
-    // })
-    // console.log(123, this.data.podCastInfo)
-    // console.log(123, this.data.podCastInfo.url)
-    // this.innerAudioContext.src = this.data.podCastInfo.url
-    // let totalDuration = this.data.podCastInfo.totalTimeSecond
-    // this.innerAudioContext.onTimeUpdate(() => {
-    //   const currentSeconds = this.innerAudioContext.currentTime
-    //   const newSliderPosition = currentSeconds / totalDuration * 100
-    //   const format = this.formatTime(currentSeconds)
+    this.innerAudioContext.onTimeUpdate(() => {
+      const currentSeconds = this.innerAudioContext.currentTime
+      const newSliderPosition = currentSeconds / totalDuration * 100
+      const format = this.formatTime(currentSeconds)
     
-    //   this.setData({
-    //     sliderPosition: newSliderPosition,
-    //     currentPlayTime: format,
-    //     currentProgressSecond: currentSeconds
-    //   })
-    // })
+      this.setData({
+        sliderPosition: newSliderPosition,
+        currentPlayTime: format,
+        currentProgressSecond: currentSeconds
+      })
+    })
+
+    this.innerAudioContext.onSeeked(()=> {
+      const currentSeconds = this.innerAudioContext.currentTime
+    })
   },
 
+  create() {
+
+  },
   // 组件的方法列表
   methods: {
     // 处理滑动进度条时的事件
@@ -58,18 +63,20 @@ Component({
       // 计算新的播放位置，单位为秒
       const newAudioSecond = (value / 100) * this.data.podCastInfo.totalTimeSecond
       const format = this.formatTime(newAudioSecond)
-      // 更新当前播放位置
+
       this.setData({
         currentPlayTime: format, // 当前播放的位置例如 01:00
         sliderPosition: value,
         currentProgressSecond: newAudioSecond,
       })
-      // 更新音频的播放进度
+      
       this.innerAudioContext.seek(newAudioSecond)
       // 重要!!!!! 不可删
-      setTimeout(() => {
-          let temp = this.innerAudioContext.paused
-      }, 1200)
+      // setTimeout(() => {
+      //     // let temp = this.innerAudioContext.play
+      //     this.innerAudioContext.pause()
+      //     this.innerAudioContext.play()
+      // }, 1000)
     },
 
     togglePlay () {
@@ -158,7 +165,6 @@ Component({
           let temp = this.innerAudioContext.paused
       }, 1200)
     },
-
     goToPrevPodCast() {
       this.triggerEvent("changePlayListOrder", { newPodCastNum: 1})
     },
