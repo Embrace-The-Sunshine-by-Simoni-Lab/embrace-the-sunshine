@@ -78,9 +78,9 @@
 }
 .playButtonContainer {
   /* margin-top: 90px; */
-  height: 110px;
+  height: 170rpx;
   position: relative; 
-  /* background:  orange; */
+  /* background:  purple; */
 }
 .back30Button {
   width: 60rpx;
@@ -135,6 +135,7 @@
   position: absolute;
   right: 85%;
   bottom: 30%;
+  z-index: 200;
 }
 .nextButton {
   width: 40rpx;
@@ -143,6 +144,7 @@
   position: absolute;
   left: 85%;
   bottom: 30%;
+  z-index: 200;
 }
 
 .next {

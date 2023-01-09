@@ -5,49 +5,48 @@ Component({
     // 音频文件的临时路径
     src: {
       type: String,
-      currentPlayTime: ''
+      currentPlayTime: '',
+    },
+    currPodCastOrder: {
+      type: Number
     }
   },
   data: {
     isPlaying: false,
     sliderPosition: 0,
     currentPlayTime: '00:00', // 进度条的初始值为 0
-    time: '00:10',
     duration: 9, // 音频的总时长（单位：秒）
-    currentProgressSecond: 0
+    currentProgressSecond: 0,
+    podCastInfo: {}
   },
-
-  // 组件的生命周期函数s
   created() {
-    this.innerAudioContext = wx.createInnerAudioContext()
-
-    wx.cloud.downloadFile({
-      fileID: 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/cartoon-intro-13087.mp3',
-      success: (res) => {
-        // 下载成功后，将文件的临时路径赋值给音频上下文
-        this.innerAudioContext.src = res.tempFilePath
-        // 监听 canplay 事件
-        this.innerAudioContext.onCanplay(() => {         
-          // 获取音频文件的总时长（单位：秒）
-          const duration = this.innerAudioContext.duration
-        })
-      }
+    // fetch the index of the podcast list and assign the corresponding podcast
+    // for the podcast Player and podcast Quiz
+    let allPodCastData =  wx.getStorageSync('allPodCastData');
+    let currPodCast = allPodCastData[this.properties.currPodCastOrder]
+    console.log("currPodCast", currPodCast)
+    this.setData({
+      podCastInfo: currPodCast
     })
+
+    // this.innerAudioContext = wx.createInnerAudioContext({
+    //   useWebAudioImplement: false
+    // })
+    // console.log(123, this.data.podCastInfo)
+    // console.log(123, this.data.podCastInfo.url)
+    // this.innerAudioContext.src = this.data.podCastInfo.url
+    // let totalDuration = this.data.podCastInfo.totalTimeSecond
+    // this.innerAudioContext.onTimeUpdate(() => {
+    //   const currentSeconds = this.innerAudioContext.currentTime
+    //   const newSliderPosition = currentSeconds / totalDuration * 100
+    //   const format = this.formatTime(currentSeconds)
     
-    // 监听音频上下文的 timeUpdate 事件
-    this.innerAudioContext.onTimeUpdate(() => {
-      // 获取当前播放进度（单位：秒）
-      const currentSeconds = this.innerAudioContext.currentTime
-      const newSliderPosition = currentSeconds / this.data.duration * 100
-      const format = this.formatTime(currentSeconds)
-
-      // 更新进度条的值
-      this.setData({
-        sliderPosition: newSliderPosition,
-        currentPlayTime: format, // 当前播放的位置 01:00
-        currentProgressSecond: currentSeconds
-      })
-    })
+    //   this.setData({
+    //     sliderPosition: newSliderPosition,
+    //     currentPlayTime: format,
+    //     currentProgressSecond: currentSeconds
+    //   })
+    // })
   },
 
   // 组件的方法列表
@@ -57,17 +56,20 @@ Component({
       // 获取用户拖动进度条的值
       const value = event.detail.value
       // 计算新的播放位置，单位为秒
-      const newAudioSecond = (value / 100) * this.data.duration
-      // 更新进度条位置
+      const newAudioSecond = (value / 100) * this.data.podCastInfo.totalTimeSecond
+      const format = this.formatTime(newAudioSecond)
+      // 更新当前播放位置
       this.setData({
-        sliderPosition: value
+        currentPlayTime: format, // 当前播放的位置例如 01:00
+        sliderPosition: value,
+        currentProgressSecond: newAudioSecond,
       })
       // 更新音频的播放进度
       this.innerAudioContext.seek(newAudioSecond)
-      // 更新当前播放位置
-      this.setData({
-        currentProgressSecond: newAudioSecond
-      })
+      // 重要!!!!! 不可删
+      setTimeout(() => {
+          let temp = this.innerAudioContext.paused
+      }, 1200)
     },
 
     togglePlay () {
@@ -86,7 +88,6 @@ Component({
         })
       }
     },
-
     changeCollectStatus() {
       let currentCollectStatus = this.data.collectStatus
       this.setData({
@@ -99,16 +100,15 @@ Component({
     },
     // 将秒数转换为时间字符串（如 01:30）
     formatTime(time) {
-      // 将秒数转换为分钟和秒数
+      // Convert seconds to minutes and seconds
       const minutes = Math.floor(time / 60)
       const seconds = Math.floor(time % 60)
-      // 格式化分钟和秒数
+      // Format minutes and seconds
       const formattedMinutes = this.pad(minutes)
       const formattedSeconds = this.pad(seconds)
-      // 拼接时间字符串
+      // Concatenate time string
       return `${formattedMinutes}:${formattedSeconds}`
     },
-
     // 将数字格式化为两位数（如 5 返回 05）
     pad(number) {
       // 如果传入的数字小于 10，则在前面添加一个 0
@@ -117,37 +117,54 @@ Component({
       }
       return number
     },
-
     speedDown30() {
+      let totalSeconds = this.data.podCastInfo.totalTimeSecond
       let currentProgressSecond = this.data.currentProgressSecond
       currentProgressSecond -= 30
       if(currentProgressSecond <= 0) {
         currentProgressSecond = 0
       }
-      const newSliderPosition = currentProgressSecond / this.data.duration * 100
+      const newSliderPosition = currentProgressSecond / totalSeconds * 100
+      const format = this.formatTime(currentProgressSecond)
       this.setData({
+        currentPlayTime: format, // 当前播放的位置例如 01:00
         sliderPosition: newSliderPosition,
         currentProgressSecond: currentProgressSecond
       })
       // 更新音频的播放进度
       this.innerAudioContext.seek(currentProgressSecond)
+      setTimeout(() => {
+        let temp = this.innerAudioContext.paused
+    }, 1200)
     },
     speedUp30() {
+      let totalSeconds = this.data.podCastInfo.totalTimeSecond
       let currentProgressSecond = this.data.currentProgressSecond
       currentProgressSecond += 30
-      if(currentProgressSecond >= this.data.duration) {
-        currentProgressSecond = this.data.duration
+
+      if(currentProgressSecond >= totalSeconds) {
+        currentProgressSecond = totalSeconds
       }
-      const newSliderPosition = currentProgressSecond / this.data.duration * 100
+      const newSliderPosition = currentProgressSecond / totalSeconds * 100
+      const format = this.formatTime(currentProgressSecond)
       this.setData({
+        currentPlayTime: format, // 当前播放的位置例如 01:00
         sliderPosition: newSliderPosition,
         currentProgressSecond: currentProgressSecond
       })
       // 更新音频的播放进度
       this.innerAudioContext.seek(currentProgressSecond)
+        setTimeout(() => {
+          let temp = this.innerAudioContext.paused
+      }, 1200)
     },
+
+    goToPrevPodCast() {
+      this.triggerEvent("changePlayListOrder", { newPodCastNum: 1})
+    },
+    goToNextPodCast() {
+      this.triggerEvent("changePlayListOrder", { newPodCastNum: 1})
+    }
   },
-
-
 })
 

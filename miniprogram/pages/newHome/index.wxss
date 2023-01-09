@@ -25,7 +25,7 @@
   /* background: #4D50A4; */
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 30rpx;
 }
 .homeMoodTrack {
   height: 100px;
@@ -46,6 +46,17 @@
   border-radius: 8px;
   padding: 12px;
   box-sizing: border-box;
+  position: relative;
+}
+.reddot {
+  width: 18rpx;
+  height: 18rpx;
+  position: absolute;
+  left: 140rpx;
+  top: 0;
+  z-index: 200;
+  border-radius: 50%;
+  background:#FA5151;
 }
 .homeMoodImg {
   height: 50px;
@@ -63,14 +74,16 @@
   font-size: 15px;
 }
 .homePodTitle {
-  font-weight: 400;
-  font-size: 19px;
   padding: 10px 0;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
 }
 .homePodDetail {
   font-weight: 200;
   font-size: 12px;
-  /* padding: 12px 0; */
 }
 .homeBannerIndicator {
   position: absolute;
@@ -110,9 +123,20 @@
   background: #D9D9D9;
 }
 .homeMediTrackProgressBox {
+  width: 250rpx;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
+  /* background: purple */
+}
+.homeMediTrackAlreadyTaken {
+  position: absolute; 
+  left: 0;
+  margin-right: 8px;
+  height: 10px;
+  border-radius: 8px;
+  background: #46BA74;
 }
 .homeMediTrackProgressText {
   font-size: 12px;
@@ -128,38 +152,33 @@
   flex-direction: column;
 }
 .homePodCastTitle {
-  font-size: 18px;
-  padding-bottom: 10px;
+  font-size: 35rpx;
+  padding-bottom: 15rpx;
 }
 .castItem {
-  height: 95px;
+  height: 170rpx;
   border-radius: 10px;
   background: #FDFBFC;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  padding: 0 5px;
-  margin-bottom: 15px;
+  padding: 0 1rpx;
+  margin-bottom: 18rpx;
 }
 .castImage {
-  /* background: orange; */
   width: 100px;
   height: 80px;
+  padding: 0 10rpx;
 }
 .castImageItem {
   width: 100%;
   height: 100%;
 }
 .castContent {
-  /* background: blue; */
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
-  box-sizing: border-box;
-  padding: 5px 0;
+  justify-content: center;
   width: 170px;
   height: 80px;
 }
@@ -190,6 +209,6 @@
   padding-bottom: 2px;
 }
 .checkAll {
-  font-size: 14px;
+  font-size: 25rpx;
   align-self: flex-end
 }

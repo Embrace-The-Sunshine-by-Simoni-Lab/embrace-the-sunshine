@@ -3,11 +3,10 @@
   <!-- ********* height: 2%; ********* -->
   <view class="gap"></view>
 
-  <playAudio></playAudio>
+  <playAudio currPodCastOrder="{{currPodCastOrder}}" bind:changePlayListOrder="changePlayListOrder"></playAudio>
   <!-- ********* height: 52%; ********* -->
 
-    
-  <singleChoice></singleChoice>
+  <PodCastContent></PodCastContent>
 
 </view>
 

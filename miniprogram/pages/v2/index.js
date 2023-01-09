@@ -78,13 +78,14 @@ Page({
               that.changeCalendarBoxStyle(that.data.LastClick, "box-selected-taken")
             });
           }
+          try {
+            wx.setStorageSync('NotificationLastShownTime', today)
+          } catch (e) {
+            console.log(e);
+          }
         }
       })
-      try {
-        wx.setStorageSync('NotificationLastShownTime', today)
-      } catch (e) {
-        console.log(e);
-      }
+   
     }
     
     this.setData({

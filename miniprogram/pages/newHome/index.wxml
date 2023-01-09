@@ -1,17 +1,17 @@
 <!--pages/newHome/index.wxml-->
 
 <view class="homeContainer">
-
+ <!-- 首页轮播图 -->
   <view class="page-section page-section-spacing swiper homeBanner">
     <swiper indicator-dots="{{indicatorDots}}" 	indicator-active-color="#BDBDBD"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="homeIndicator">
-      <block wx:for="{{background}}" wx:key="*this">
+      <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < 3}}">
         <swiper-item>
-          <view class="swiper-item {{item}}">
+          <view class="swiper-item {{item}}" data-id="0" bind:tap="jumpToPodCastPlay">
             <view class="homeBannerContent">
-              <text class="homePodNum">第一集 | Topic ABC</text>
-              <text class="homePodTitle">消极思想, 情绪和行为</text>
-              <text class="homePodDetail">如何面对负面情绪带来的影响</text>
+              <text class="homePodNum">{{item.episodeNum}}</text>
+              <text class="homePodTitle">{{item.mainTitle}}</text>
+              <text class="homePodDetail">{{item.mainContentSummary}}</text>
             </view>
           </view>
         </swiper-item>
@@ -19,75 +19,43 @@
     </swiper>
   </view>
 
+  <!-- 首页中间导航 -->
   <view class="homeMiddleBox">
-    <view class="homeMoodTrack">
+    <view class="homeMoodTrack" bind:tap="jumpToMoodTracking">
       <text>情绪记录</text> 
       <image class="homeMoodImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/smileCloud.png"></image>
     </view>
 
-    <view class="homeMediTrack">
+    <view class="homeMediTrack" bind:tap="jumpToCalendar">
       <view class="homeMediTrackContent">
+        <view wx:if="{{!ifMediTaken}}" class="reddot"></view>
         <text class="homeMediTrackContentTitle">药物追踪</text> 
         <text class="homeMediTrackContentTitleSmall">本周服药天数</text> 
         <view class="homeMediTrackProgressBox"> 
+          <view class="homeMediTrackAlreadyTaken" style="width: {{currWeekAlreadyTaken/7*100}}%;"></view>
           <view class="homeMediTrackProgress"></view>
-          <text class="homeMediTrackProgressText">5/7</text>
+          <text class="homeMediTrackProgressText">{{currWeekAlreadyTaken}}/7</text>
         </view>
 
         <image class="homeMediImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/homeMedi.png"></image>
       </view>
-
     </view>
   </view>
 
+  <!-- 首页底部播客 -->
+
   <view class="homePodCast">
     <text class="homePodCastTitle">播客</text>
-    
-    <view class="castItem">
+    <!-- 在这里使用 wx:if 指令来控制整个 view 组件是否渲染 -->
+    <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" wx:if="{{idx < 3}}" data-id="0" bind:tap="jumpToPodCastPlay">
       <view class="castImage">
-        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
+        <image class="castImageItem" src="{{item.imageUrl}}"></image>
       </view>
       <view class="castContent">
-        <text>消极思想, 情绪和行为</text>
-        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
-        <view class="castProgress"></view> 
-      </view>
-      <view class="castButton">
-        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
-        <text class="castTimer">7:01/10:55</text>
+        <text>{{item.mainTitle}}</text>
+        <text class="castContentDetails">{{item.mainContentSummary}}</text> 
       </view>
     </view>
-
-    <view class="castItem">
-      <view class="castImage">
-        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
-      </view>
-      <view class="castContent">
-        <text>消极思想, 情绪和行为</text>
-        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
-        <view class="castProgress"></view> 
-      </view>
-      <view class="castButton">
-        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
-        <text class="castTimer">7:01/10:55</text>
-      </view>
-    </view>
-
-    <view class="castItem">
-      <view class="castImage">
-        <image class="castImageItem" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png"></image>
-      </view>
-      <view class="castContent">
-        <text>消极思想, 情绪和行为</text>
-        <text class="castContentDetails">如何面对负面情绪带来的影响</text>
-        <view class="castProgress"></view> 
-      </view>
-      <view class="castButton">
-        <image class="castPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/play.png"></image>
-        <text class="castTimer">7:01/10:55</text>
-      </view>
-    </view>
-
-    <text class="checkAll">查看全部</text>
+    <text class="checkAll" bind:tap="jumptoAllPodCastPage">查看全部</text>
   </view>
 </view> 

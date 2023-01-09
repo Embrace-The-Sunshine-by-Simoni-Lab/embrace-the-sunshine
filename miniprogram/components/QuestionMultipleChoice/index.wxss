@@ -1,0 +1,33 @@
+/* components/QuestionMultipleChoice/index.wxss */
+
+.OptionBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Option {
+  background: #FFFFFF;
+  border: 1px solid #BDBDBD;
+  border-radius: 4px;
+  padding-left: 20rpx;
+  width: 500rpx;
+  box-sizing: border-box;
+  padding: 13rpx;
+  font-size: 28rpx;
+  font-weight: 400;
+  margin-bottom: 20rpx;
+  line-height: 40rpx;
+}
+.expandExplanation {
+  float:right
+}
+
+.correctAnswer {
+  background: rgba(9, 187, 7, 0.2);
+  border: 1px solid #09BB07;
+}
+.wrongAnswer {
+  background: rgba(230, 67, 64, 0.2);
+  border: 1px solid #E64340;
+}

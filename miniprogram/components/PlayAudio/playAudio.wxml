@@ -1,45 +1,46 @@
 <!--components/playAudio.wxml-->
 <view>
-  <!-- ********* height: 24%; ********* -->
   <view class="headerContainer">
     <view class="podcastHeader">
       <view class="headerImage">
         <image class="podcast_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast-human.png"></image>
       </view>
       <view class="headerContent">
-        <view class="headerTitle">消极思想,  情绪和行为</view>
-        <view class="headerDate">名字1 | 2022/9/3</view>
+        <view class="headerTitle">{{podCastInfo.mainTitle}}</view>
+        <view class="headerDate">{{podCastInfo.author}} | {{podCastInfo.publishDate}}</view>
         <view class="headerContentBox">
-          <text class="headerDetail">消极思想, 情绪和行为, 如何面对负面情绪带来的影响</text>
+          <text class="headerDetail">{{podCastInfo.mainContentSummary}}</text>
           <view class="headerMark">
-            <image wx:if="{{collectStatus}}" class="podcast_star" src="../../images/Podcast-icon-favorite-click.png" bind:tap="changeCollectStatus"></image>
+            <image wx:if="{{podCastInfo.podCastCollected}}" class="podcast_star" src="../../images/Podcast-icon-favorite-click.png" bind:tap="changeCollectStatus"></image>
 
-            <image wx:if="{{!collectStatus}}" class="podcast_star" src="../../images/Podcast-icon-favorite-unclick.png" bind:tap="changeCollectStatus"></image>
+            <image wx:if="{{!podCastInfo.podCastCollected}}" class="podcast_star" src="../../images/Podcast-icon-favorite-unclick.png" bind:tap="changeCollectStatus"></image>
           </view>
         </view>
       </view>
     </view>
-    <!-- currentProgressSecond -->
+
     <view class='slider'>
       <slider bindchange="sliderChange" value="{{ sliderPosition }}" activeColor='red' block-size="10" color="#959695" block-color="#F38A73"/>
     </view>
     <view class='timing'>
       <text class='timingDetail'>{{currentPlayTime}}</text>
-      <text class='timingDetail'>{{time}}</text>
+      <text class='timingDetail'>{{podCastInfo.totalTime}}</text>
     </view>
 
   </view>
-  <!-- ********* height: 18%; ********* -->
+
   <view class="playButtonContainer">
-    <image class="prevButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/prevplay.png"></image>
+    <image class="prevButton" bind:tap="goToPrevPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/prevplay.png"></image>
+
     <image bind:tap="speedDown30" class="back30Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/down30.png"></image>
 
     <image wx:if="{{!isPlaying}}" class="mainPlayButton" src="../../images/Podcast-icon-start play.png" bind:tap="togglePlay"></image>
+
     <image wx:else bindtap="togglePlay" class="mainPlayButton" src="../../images/Podcast-icon-pause.png"></image>
     
     <image class="speedup" bind:tap="speedUp30"  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/up30.png"></image>
 
-    <image class="nextButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/nextplay.png"></image>
+    <image class="nextButton" bind:tap="goToNextPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/nextplay.png"></image>
     
     <image class="curve" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/curveShape.png"></image>
   </view>
