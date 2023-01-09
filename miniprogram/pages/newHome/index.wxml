@@ -28,7 +28,7 @@
 
     <view class="homeMediTrack" bind:tap="jumpToCalendar">
       <view class="homeMediTrackContent">
-        <view wx:if="{{!ifMediTaken}}" class="reddot"></view>
+        <view wx:if="{{showRedDot}}" class="reddot"></view>
         <text class="homeMediTrackContentTitle">药物追踪</text> 
         <text class="homeMediTrackContentTitleSmall">本周服药天数</text> 
         <view class="homeMediTrackProgressBox"> 

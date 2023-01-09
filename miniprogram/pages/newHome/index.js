@@ -5,7 +5,7 @@ Page({
     // 本周服药天数数据
     currWeekAlreadyTaken: 1,
     // display if enter medication today
-    ifMediTaken: false,
+    showRedDot: false,
     // original data
     userInfo: {},
     hasUserInfo: false,
@@ -72,7 +72,7 @@ Page({
           let today = new Date()
           let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
           this.setData({
-            ifMediTaken: ifTodayTaken
+            showRedDot: !ifTodayTaken
           })
         },
         fail: out => {
@@ -128,19 +128,34 @@ Page({
        }
     })
     // 获取红点逻辑
-    // let today = new Date()
-    // let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
-    // console.log("lastShownModalTime", lastShownModalTime)
-    // if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
-    //   this.setData({
-    //     ifMediTaken: true
-    //   })
-    // } else {
-    //   this.setData({
-    //     ifMediTaken: false
-    //   })
-    // }
+    let today = new Date()
+    let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
+    if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
+      this.setData({
+        showRedDot: true
+      })
+    } else {
+      this.setData({
+        showRedDot: false
+      })
+    }
   },
+  onShow() {
+    console.log("check");
+    let today = new Date()
+    let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
+    console.log((lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) );
+    if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
+      this.setData({
+        showRedDot: true
+      })
+    } else {
+      this.setData({
+        showRedDot: false
+      })
+    }
+  },
+
   isSameDay(d1, d2) {
     return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
   },
