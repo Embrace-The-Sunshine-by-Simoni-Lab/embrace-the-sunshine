@@ -95,11 +95,18 @@ Page({
   // 处理bar chart的数据
   processAnalystPageData() {
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(this.data.medi_taken);
+    let today = new Date();
+    if (_medi_taken_classified_by_years[today.getFullYear()] == null) {
+      _medi_taken_classified_by_years[today.getFullYear()] = []
+    }
+    console.log(_medi_taken_classified_by_years);
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
+    
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
+    console.log(this.data.analyticsData);
     this.generateDisplayDate(this.data.analyticsData[0])
     let avg = this.calculateAverage(this.data.analyticsData)
     let compare = this.getCompareString(0)
@@ -261,8 +268,9 @@ Page({
         toggleButtonStatus: newMediStatus
       })
       // 更新分析页面的数据
-      that.processAnalystPageData()
       wx.hideLoading()
+      that.processAnalystPageData()
+      
     });
     
   },
@@ -348,8 +356,12 @@ Page({
     let _analyticsData = [];
     let _weekNumToRange = {};
     let _weekNumToCount = {};
-    console.log(this.data.medi_taken_classified_by_years);
+    // console.log(this.data.medi_taken_classified_by_years);
+    
     let this_year_medi_taken = this.data.medi_taken_classified_by_years[today.getFullYear()];
+    if (this_year_medi_taken == null) {
+      this_year_medi_taken = []
+    }
     if (this_year_medi_taken.length === 0) {
       return;
     }
