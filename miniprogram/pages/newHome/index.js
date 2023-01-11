@@ -6,44 +6,11 @@ Page({
     currWeekAlreadyTaken: 0,
     // display if enter medication today
     showRedDot: false,
-    // original data
-    userInfo: {},
-    hasUserInfo: false,
     logged: false,
     // new home data
-    background: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
     indicatorDots: true,
     vertical: false,
-    autoplay: false,
-    interval: 2000,
-    duration: 500,
-    podCastInfo: [
-      {
-        
-        episodeNum: '第一集',
-        mainTitle: '认识情绪',
-        mainContentSummary: '情绪的种类，功能，和强度',
-        imageUrl: 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png'
-      },
-      {
-        episodeNum: '第二集',
-        mainTitle: '认识情绪2',
-        mainContentSummary: '情绪的种类，功能，和强度2',
-        imageUrl: 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png'
-      },
-      {
-        episodeNum: '第三集',
-        mainTitle: '认识情绪3',
-        mainContentSummary: '情绪的种类，功能，和强度3',
-        imageUrl: 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png'
-      },
-      {
-        episodeNum: '第四集',
-        mainTitle: '认识情绪',
-        mainContentSummary: '情绪的种类，功能，和强度3',
-        imageUrl: 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/castSample.png'
-      }
-    ]
+    podCastInfo: []
   },
   onLoad: function() {
     var is_new_user = false;
@@ -62,7 +29,6 @@ Page({
               app.globalData.userData = out.result.data;
               app.globalData.logged = true;
               is_new_user = out.result.is_new_user;
-
               let medi_taken_days = app.globalData.userData.med_date
               let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
               this.setData({
@@ -74,10 +40,8 @@ Page({
           } else {
             console.log(out.errMsg);
           }
-          // 获取当天是否已经确认服药
+          // get if medi taken today
           let today = new Date()
-          console.log("today", today)
-
           let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
           this.setData({
             showRedDot: !ifTodayTaken
@@ -108,7 +72,7 @@ Page({
         })
       }
     }
-    // 获取podcast信息
+    // fetch audio info
     wx.cloud.callFunction({
       name: 'getAllPodcastAudio',
       data: {
@@ -118,11 +82,15 @@ Page({
           if (out.result.data) {
             let allPodCastData = out.result.data;
             console.log("allPodCastData", allPodCastData)
-            app.globalData.podCast = allPodCastData;
-            console.log("allPodCastData", allPodCastData)
-            // 把音频数据放进缓存
-            wx.setStorageSync('allPodCastData', allPodCastData)
-       
+            let sorted_podcast = this.sortPodCastList(allPodCastData)
+            console.log("sorted_podcast", sorted_podcast)
+
+            this.setData({
+              podCastInfo: sorted_podcast
+            })
+            // store audio in memory
+            app.globalData.podCast = sorted_podcast;
+            wx.setStorageSync('allPodCastData', sorted_podcast)
           } 
         } else {
           console.log(out.errMsg);
@@ -135,7 +103,7 @@ Page({
         wx.hideLoading()
        }
     })
-    // 获取红点逻辑
+    // logic for homepage red dot
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
     if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
@@ -164,13 +132,16 @@ Page({
     }
     return count;
   },
+  // sort all the pod cast based on the podCast_id list
+  sortPodCastList(lst) {
+    return lst.sort(function(a, b) {
+      return a.podCast_Id - b.podCast_Id;
+    });
+  },
   onShow() {
     try {
-      console.log("check");
       let medi_taken_days = app.globalData.userData.med_date
-      console.log(medi_taken_days);
       let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
-      console.log("takenInWeek", takenInWeek);
       this.setData({
         currWeekAlreadyTaken: takenInWeek
       })
@@ -179,7 +150,6 @@ Page({
 
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
-    console.log((lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) );
     if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
       this.setData({
         showRedDot: true
@@ -190,7 +160,6 @@ Page({
       })
     }
   },
-
   isSameDay(d1, d2) {
     return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
   },

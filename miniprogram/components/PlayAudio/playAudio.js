@@ -1,5 +1,6 @@
 // components/playAudio.js
 Component({
+
   // 组件的初始数据
   properties: {
     // 音频文件的临时路径
@@ -8,7 +9,7 @@ Component({
       currentPlayTime: '',
     },
     currPodCastOrder: {
-      type: Number
+      type: Number,
     }
   },
   data: {
@@ -17,17 +18,21 @@ Component({
     currentPlayTime: '00:00', // 进度条的初始值为 0
     duration: 9, // 音频的总时长（单位：秒）
     currentProgressSecond: 0,
-    podCastInfo: {}
+    podCastInfo: {},
+    allPodCastCount: -1, // to make sure when you keep pressing next podcast, it will return to the first one
+    currPodCastOrder: -1
   },
 
   ready() {
-    // fetch the index of the podcast list and assign the corresponding podcast
-    // for the podcast Player and podcast Quiz
+    let count =  wx.getStorageSync('allPodCastData').length;
     let allPodCastData =  wx.getStorageSync('allPodCastData');
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
     this.setData({
-      podCastInfo: currPodCast
+      podCastInfo: currPodCast,
+      allPodCastCount: count,
+      currPodCastOrder: this.properties.currPodCastOrder
     })
+
     this.innerAudioContext = wx.createInnerAudioContext({
       useWebAudioImplement: false
     })
@@ -50,12 +55,18 @@ Component({
       const currentSeconds = this.innerAudioContext.currentTime
     })
   },
+  
+  show() {
+
+  }, 
 
   create() {
 
   },
+
   // 组件的方法列表
   methods: {
+
     // 处理滑动进度条时的事件
     sliderChange(event) {
       // 获取用户拖动进度条的值
@@ -71,12 +82,6 @@ Component({
       })
       
       this.innerAudioContext.seek(newAudioSecond)
-      // 重要!!!!! 不可删
-      // setTimeout(() => {
-      //     // let temp = this.innerAudioContext.play
-      //     this.innerAudioContext.pause()
-      //     this.innerAudioContext.play()
-      // }, 1000)
     },
 
     togglePlay () {
@@ -105,7 +110,7 @@ Component({
         duration: 1500
       })
     },
-    // 将秒数转换为时间字符串（如 01:30）
+    // change second to a time string format（such as 01:30）
     formatTime(time) {
       // Convert seconds to minutes and seconds
       const minutes = Math.floor(time / 60)
@@ -116,7 +121,7 @@ Component({
       // Concatenate time string
       return `${formattedMinutes}:${formattedSeconds}`
     },
-    // 将数字格式化为两位数（如 5 返回 05）
+    // change single number to double numbers（如 5 返回 05）
     pad(number) {
       // 如果传入的数字小于 10，则在前面添加一个 0
       if (number < 10) {
@@ -165,11 +170,40 @@ Component({
           let temp = this.innerAudioContext.paused
       }, 1200)
     },
+    // change a pod cast
     goToPrevPodCast() {
-      this.triggerEvent("changePlayListOrder", { newPodCastNum: 1})
+      let curPodCastId = this.properties.currPodCastOrder
+      curPodCastId -= 1
+      if(curPodCastId < 0) {
+        curPodCastId = this.data.allPodCastCount - 1
+      }
+
+      this.triggerEvent("changePlayListOrder", { newPodCastNum: curPodCastId})
+      
+      // update podcaset content
+      let allPodCastData =  wx.getStorageSync('allPodCastData');
+      let currPodCast = allPodCastData[curPodCastId]
+      this.setData({
+        podCastInfo: currPodCast,
+        currPodCastOrder: curPodCastId
+      })
     },
     goToNextPodCast() {
-      this.triggerEvent("changePlayListOrder", { newPodCastNum: 1})
+      let curPodCastId = this.properties.currPodCastOrder
+      curPodCastId += 1
+      if(curPodCastId >= this.data.allPodCastCount) {
+        curPodCastId = 0
+      }
+
+      this.triggerEvent("changePlayListOrder", { newPodCastNum: curPodCastId})
+
+      // update podcaset content
+      let allPodCastData =  wx.getStorageSync('allPodCastData');
+      let currPodCast = allPodCastData[curPodCastId]
+      this.setData({
+        podCastInfo: currPodCast,
+        currPodCastOrder: curPodCastId
+      })
     }
   },
 })

@@ -11,17 +11,14 @@ Page({
 
   onLoad(options) {
     let currentPodCastOrder = options.podCastOrder;
-    console.log("currentPodCastOrder", currentPodCastOrder)
-    // let allPodCastData =  wx.getStorageSync('allPodCastData');
-    // let currPodCastInfo = allPodCastData[currentPodCastOrder]
-    // console.log("currentPodCastOrder", allPodCastData[currentPodCastOrder])
-    // console.log("currPodCastInfo", currPodCastInfo)
     this.setData({
       currPodCastOrder: currentPodCastOrder
     })
   },
+
   changePlayListOrder(e) {
     let newPodCastNum = e.detail.newPodCastNum
+    console.log('asdf', newPodCastNum)
     this.setData({
       currPodCastOrder: newPodCastNum
     })

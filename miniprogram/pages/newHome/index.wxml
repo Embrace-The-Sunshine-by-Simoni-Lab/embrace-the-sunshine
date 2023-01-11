@@ -1,7 +1,7 @@
 <!--pages/newHome/index.wxml-->
 
 <view class="homeContainer">
- <!-- 首页轮播图 -->
+ <!-- home page top -->
   <view class="page-section page-section-spacing swiper homeBanner">
     <swiper indicator-dots="{{indicatorDots}}" 	indicator-active-color="#BDBDBD"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="homeIndicator">
@@ -9,7 +9,7 @@
         <swiper-item>
           <view class="swiper-item {{item}}" data-id="0" bind:tap="jumpToPodCastPlay">
             <view class="homeBannerContent">
-              <text class="homePodNum">{{item.episodeNum}}</text>
+              <text class="homePodNum">{{item.episode}}</text>
               <text class="homePodTitle">{{item.mainTitle}}</text>
               <text class="homePodDetail">{{item.mainContentSummary}}</text>
             </view>
@@ -19,7 +19,7 @@
     </swiper>
   </view>
 
-  <!-- 首页中间导航 -->
+  <!-- Home page middle -->
   <view class="homeMiddleBox">
     <view class="homeMoodTrack" bind:tap="jumpToMoodTracking">
       <text>情绪记录</text> 
@@ -42,17 +42,17 @@
     </view>
   </view>
 
-  <!-- 首页底部播客 -->
+  <!-- Home page buttom -->
 
   <view class="homePodCast">
     <text class="homePodCastTitle">播客</text>
-    <!-- 在这里使用 wx:if 指令来控制整个 view 组件是否渲染 -->
-    <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" wx:if="{{idx < 3}}" data-id="0" bind:tap="jumpToPodCastPlay">
+
+    <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" wx:if="{{idx < 3}}" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
       <view class="castImage">
-        <image class="castImageItem" src="{{item.imageUrl}}"></image>
+        <image class="castImageItem" src="{{item.ImgURL}}"></image>
       </view>
       <view class="castContent">
-        <text>{{item.mainTitle}}</text>
+        <text class="castContent_title">{{item.mainTitle}}</text>
         <text class="castContentDetails">{{item.mainContentSummary}}</text> 
       </view>
     </view>
