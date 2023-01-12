@@ -13,6 +13,7 @@ Component({
         })
         // var that = this;
         // text === 'zhangsan' ? that.a() : that.b()
+        this.refresh();
       }
     }
   },
@@ -152,17 +153,7 @@ Component({
   },
 
   ready() {
-    let allPodCastData =  wx.getStorageSync('allPodCastData');
-    let currPodCast = allPodCastData[this.properties.currPodCastOrder]
-
-    let answerTemp = currPodCast.pod_Cast_Quiz.length
-    let answerLength = answerTemp
-    let arr = new Array(answerLength).fill(-1);
-
-    this.setData({
-      answer: arr,
-      podCastInfo: currPodCast,
-    })
+    this.refresh();
   },
 
 
@@ -170,6 +161,21 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    async refresh() {
+      let allPodCastData = await wx.getStorageSync('allPodCastData');
+      
+      let currPodCast = allPodCastData[this.properties.currPodCastOrder];
+      console.log("currPodCast", currPodCast);
+      console.log("allPodCastData", allPodCastData);
+      let answerTemp = currPodCast.pod_Cast_Quiz.length
+      let answerLength = answerTemp
+      let arr = new Array(answerLength).fill(-1);
+
+      this.setData({
+        answer: arr,
+        podCastInfo: currPodCast,
+      })
+    },
     goToOption(e) {
       this.setData({
         mode: e.currentTarget.dataset.mode
