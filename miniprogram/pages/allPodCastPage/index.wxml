@@ -3,17 +3,28 @@
   <text class="allCastHeader">全部播客</text>
 
   <view class="castList">
-    <!-- 渲染单个卡片 -->
-    <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" wx:if="{{idx < 3}}" bind:tap="jumpToPodCast" data-index="{{idx}}">
+    <!-- render single card -->
+    <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
       <view class="castImage">
-        <image class="castImageItem" src="{{item.imageUrl}}"></image>
+        <image class="castImageItem" src="{{item.ImgURL}}"></image>
       </view>
+
       <view class="castContent">
-        <text>{{item.mainTitle}}</text>
-        <text class="castContentDetails">{{item.mainContentSummary}}</text> 
+        <view class="castContent_top">
+          <view class="castContent_top_desc">
+            <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+            <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+          </view>
+          <image src="../../images/homepage/home-check.png" class="castContent_top_check">check mark</image>
+        </view>
+
+        <view class="castContent_progress">
+          <view class="castContent_progress_bar">
+            <view class="castContent_progress_bar_blue"></view>
+          </view>
+          <view class="castContent_progress_timer">10:55/{{item.totalTime}}</view>
+        </view>
       </view>
     </view>
-
-
   </view>
 </view> 

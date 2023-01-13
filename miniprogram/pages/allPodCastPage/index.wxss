@@ -37,14 +37,69 @@
   height: 100%;
 }
 .castContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 170px;
-  height: 80px;
+  box-sizing: border-box;
+  padding: 20rpx 0;
+  width: 100%;
+  height: 100%; 
 }
 .castContentDetails {
   font-size: 13px;
   padding: 12px 0;
   color: #666666
+}
+.castContent_top {
+  display: flex;
+  align-items: center;
+  height:80%;
+}
+.castContent_top_desc {
+  width: 80%;
+  height: 80%;
+}
+.castContent_top_desc_title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 14rpx;
+  color: #000000;
+}
+.castContent_progress {
+  display: flex;
+  height:80%;
+}
+.castContent_progress_bar {
+  width: 70%;
+  height: 10rpx;
+  margin-top: 10rpx;
+  background: #DADADA;
+  position: relative;
+}
+.castContent_progress_bar_blue {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 70%;
+  height: 10rpx;
+  background: #6568BC;
+}
+.castContent_top_check {
+  width: 65rpx;
+  height: 65rpx;
+}
+.castContent_top_desc_summary {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #666666;
+}
+.castContent_progress_timer {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  margin-left: 10px;
+}
+.castImage {
+  width: 260rpx;
+  height: 80px;
+  padding: 0 10rpx;
 }

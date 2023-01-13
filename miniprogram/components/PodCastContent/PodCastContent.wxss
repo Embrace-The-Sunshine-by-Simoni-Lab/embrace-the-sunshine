@@ -1,14 +1,17 @@
 /* components/singleChoice/singleChoice.wxss */
 .quiz {
   height: 100%;
-  width: 100%;
   box-sizing: border-box;
   padding: 30rpx;
+  background: #FDFBFC;
 }
 .ContentContainer {
-  overflow-y: scroll;
-  width: 100%;
-  position: relative
+  /* overflow-y: scroll;
+  width: 100%; */
+
+  overflow: auto;
+  position: relative;
+  background: #FDFBFC;
 }
 .ContentChunk {
   display: flex;
@@ -16,6 +19,7 @@
   margin-bottom: 14rpx;
 }
 .selection {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 30rpx;
@@ -90,10 +94,13 @@
   line-height: 70rpx;
 }
 .SubmitBlock {
+  position: absolute;
+  width: 80%;
+  margin-left: -40%;
+  bottom: 15px;
+  left: 50%;
   display: flex;
   justify-content: space-between;
-  margin-top: 20rpx;
-  margin-bottom: 5rpx;
   align-items: center;
 }
 .Submit_Button {
@@ -124,4 +131,21 @@
   width: 60rpx; 
   height: 55rpx;
   transform: scaleX(-1);
+}
+.open_ended_box {
+  width: 100%;
+  /* height: 200rpx; */
+  display: flex;
+  justify-content: center;
+  /* background: orange; */
+}
+.open_ended_question {
+  border: 1.5px solid #787878;
+  border-radius: 5px;
+  width: 80%;
+  height: 200rpx;
+  /* background: green; */
+}
+textarea::placeholder {
+  color: red;
 }
