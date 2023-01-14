@@ -1,6 +1,5 @@
 // components/playAudio.js
 Component({
-
   // 组件的初始数据
   properties: {
     // 音频文件的临时路径
@@ -21,6 +20,11 @@ Component({
     podCastInfo: {},
     allPodCastCount: -1, // to make sure when you keep pressing next podcast, it will return to the first one
     currPodCastOrder: -1
+  },
+
+  detached: function() {
+    // console.log("component detached check");
+    this.innerAudioContext.destroy();
   },
 
   ready() {
@@ -59,6 +63,10 @@ Component({
   show() {
 
   }, 
+  
+  hide() {
+    
+  },
 
   create() {
 
