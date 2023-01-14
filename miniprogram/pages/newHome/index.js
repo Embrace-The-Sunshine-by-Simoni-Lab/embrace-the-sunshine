@@ -81,9 +81,7 @@ Page({
         if (out.result.errCode == 0) {
           if (out.result.data) {
             let allPodCastData = out.result.data;
-            console.log("allPodCastData", allPodCastData)
             let sorted_podcast = this.sortPodCastList(allPodCastData)
-            console.log("sorted_podcast", sorted_podcast)
 
             this.setData({
               podCastInfo: sorted_podcast

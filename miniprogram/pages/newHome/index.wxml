@@ -2,7 +2,7 @@
 
 <view class="homeContainer">
  <!-- home page top -->
-  <view class="page-section page-section-spacing swiper homeBanner">
+  <view class="homeBanner">
     <swiper indicator-dots="{{indicatorDots}}" 	indicator-active-color="#BDBDBD"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="homeIndicator">
       <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < 3}}">
@@ -51,9 +51,22 @@
       <view class="castImage">
         <image class="castImageItem" src="{{item.ImgURL}}"></image>
       </view>
+
       <view class="castContent">
-        <text class="castContent_title">{{item.mainTitle}}</text>
-        <text class="castContentDetails">{{item.mainContentSummary}}</text> 
+        <view class="castContent_top">
+          <view class="castContent_top_desc">
+            <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+            <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+          </view>
+          <image src="../../images/homepage/home-check.png" class="castContent_top_check">check mark</image>
+        </view>
+
+        <view class="castContent_progress">
+          <view class="castContent_progress_bar">
+            <view class="castContent_progress_bar_blue"></view>
+          </view>
+          <view class="castContent_progress_timer">10:55/{{item.totalTime}}</view>
+        </view>
       </view>
     </view>
     <text class="checkAll" bind:tap="jumptoAllPodCastPage">查看全部</text>

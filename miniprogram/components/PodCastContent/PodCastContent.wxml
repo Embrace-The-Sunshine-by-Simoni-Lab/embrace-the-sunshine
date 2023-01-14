@@ -42,18 +42,20 @@
             <MultipleChoice reportPageClicked="{{reportPageClicked}}" option_info="{{item}}" bind:clickOption="clickOption" order="{{index}}" user_answer="{{user_answer}}"></MultipleChoice>
           </view>
           <view wx:else>
-            <view>123</view>
-           <!-- <SortChoice></SortChoice> -->
+            <view class="open_ended_box">
+              <textarea class="open_ended_question" name="userName" placeholder="在此处输入内容"
+    bindinput="userNameInput" auto-focus="true"/>
+            </view>
           </view>
         </view>
       </view>
     </view>
+  </view>
 
-    <view class="SubmitBlock">
+  <view class="SubmitBlock" wx-if="{{mode == 'Quiz'}}">
       <image class="prev_question" src="../../images/next-enable.png"  data-direction="prev" bind:tap="changeQuestion"></image>
       <view wx:if="{{allQuestionAnswered}}" class="Submit_Button">提交</view>
       <view wx:else class="Disabled_Button">提交</view>
       <image class="next_question" src="../../images/next-enable.png" data-direction="next" bind:tap="changeQuestion"></image>
     </view>
-  </view>
 </view>

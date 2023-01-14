@@ -18,7 +18,6 @@ Page({
 
   changePlayListOrder(e) {
     let newPodCastNum = e.detail.newPodCastNum
-    console.log('asdf', newPodCastNum)
     this.setData({
       currPodCastOrder: newPodCastNum
     })
