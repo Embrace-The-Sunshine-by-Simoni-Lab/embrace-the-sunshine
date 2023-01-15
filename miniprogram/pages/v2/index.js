@@ -359,6 +359,7 @@ Page({
     // console.log(this.data.medi_taken_classified_by_years);
     
     let this_year_medi_taken = this.data.medi_taken_classified_by_years[today.getFullYear()];
+    console.log("this_year_medi_taken", this_year_medi_taken);
     if (this_year_medi_taken == null) {
       this_year_medi_taken = []
     }
@@ -372,11 +373,23 @@ Page({
     // highest week number and lowest week number
     let HighestDate = new Date(this_year_medi_taken[0]);
     let HighestWeekNum = this.getWeekNum(HighestDate);
+    console.log("HighestWeekNum", HighestWeekNum);
+    
     let LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 1]);
     let LowestWeekNum = this.getWeekNum(LowestDate);
+    // 跨年
+    if (LowestWeekNum > HighestWeekNum) {
+      LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 2]);
+      LowestWeekNum = this.getWeekNum(LowestDate);
+    }
+    console.log("LowestWeekNum", LowestWeekNum);
+    
     for (let i = 0; i < this_year_medi_taken.length; i++) {
       let currDate = new Date(this_year_medi_taken[i]);
       let curr_weekNum = this.getWeekNum(currDate);
+      if (curr_weekNum > HighestWeekNum || curr_weekNum < LowestWeekNum) {
+        continue;
+      }
       if (_weekNumToCount[curr_weekNum] == null) {
         _weekNumToCount[curr_weekNum] = 0;
       }
@@ -397,6 +410,8 @@ Page({
     this.setData({
       analyticsData: _analyticsData
     });
+    console.log();
+    console.log(_analyticsData);
   },
   getDateRangeOfWeek(weekNo){
     var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
