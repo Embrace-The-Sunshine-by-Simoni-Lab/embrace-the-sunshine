@@ -32,6 +32,7 @@ Page({
   }, 
   // ******************* 日历逻辑 *******************
   onLoad() {
+    console.log("onLoad(){this.data}", this.data)
     // 弹窗
     let that = this
     let today = new Date()
@@ -92,6 +93,7 @@ Page({
       curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()}
     })
   },
+  
   // 处理bar chart的数据
   processAnalystPageData() {
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(this.data.medi_taken);
@@ -99,19 +101,20 @@ Page({
     if (_medi_taken_classified_by_years[today.getFullYear()] == null) {
       _medi_taken_classified_by_years[today.getFullYear()] = []
     }
-    console.log(_medi_taken_classified_by_years);
+    console.log("_medi_taken_classified_by_years", _medi_taken_classified_by_years);
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
-    
+    console.log("this.data.anlyticsData", this.data.analyticsData)
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
-    console.log(this.data.analyticsData);
     this.generateDisplayDate(this.data.analyticsData[0])
     let avg = this.calculateAverage(this.data.analyticsData)
     let compare = this.getCompareString(0)
     let analyticsData = this.data.analyticsData
-    analyticsData[0].opacity = 1
+    if (analyticsData.length != 0) {
+      analyticsData[0].opacity = 1
+    }
     this.setData({
       averageMediTake: avg,
       compare,
@@ -233,8 +236,6 @@ Page({
     let newMediStatus = false
     // 改变数据库的药的taken状态
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
-    console.log("223", curTapDate);
-    console.log("224", dateChange);
     if (toggleResult) newMediStatus = true
     let that = this
     wx.showLoading({
@@ -249,7 +250,6 @@ Page({
     })
     .then(res => {
       const newDateLst = res.result.data.med_date;
-      console.log("238", res)
       app.globalData.userData.med_date = newDateLst
       // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
       that.convertStringtoDateArray(newDateLst)
@@ -356,8 +356,7 @@ Page({
     let _analyticsData = [];
     let _weekNumToRange = {};
     let _weekNumToCount = {};
-    // console.log(this.data.medi_taken_classified_by_years);
-    
+    console.log("this.data.medi_taken_classified_by_years", this.data.medi_taken_classified_by_years);
     let this_year_medi_taken = this.data.medi_taken_classified_by_years[today.getFullYear()];
     console.log("this_year_medi_taken", this_year_medi_taken);
     if (this_year_medi_taken == null) {
@@ -410,7 +409,6 @@ Page({
     this.setData({
       analyticsData: _analyticsData
     });
-    console.log();
     console.log(_analyticsData);
   },
   getDateRangeOfWeek(weekNo){
@@ -435,7 +433,7 @@ Page({
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
   createMedi_taken_classified_by_years(medi_taken) {
-    console.log("400", medi_taken);
+    console.log("medi_taken", medi_taken);
     let _medi_taken_classified_by_years = {};
     for (let i = 0; i < medi_taken.length; i++) { 
       let currDate = new Date(medi_taken[i]);
@@ -474,6 +472,9 @@ Page({
   // ******************* 分析页面顶部逻辑 *******************
   // 分析页面顶部日期
   generateDisplayDate(obj) {
+    if (typeof obj === 'undefined') {
+      return;
+    }
     const start = obj.start;
     const end = obj.end;
     const start_lst = start.split(".")
@@ -487,8 +488,15 @@ Page({
   switchMode: function(event) {
     if(event.currentTarget.dataset.mode == "analyst") {
       this.processAnalystPageData()
+      if (this.data.analyticsData.length == 0
+      || this.data.medi_taken_classified_by_years[new Date().getFullYear()].length == 0) {
+        wx.showModal({
+          title: '服药记录',
+          content: '当前年份没有记录'
+        })
+        return;
+      }
     }
-
     this.setData({
       currentMode: event.currentTarget.dataset.mode
     })
