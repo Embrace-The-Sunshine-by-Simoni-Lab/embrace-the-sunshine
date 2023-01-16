@@ -59,15 +59,16 @@
               <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
               <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
             </view>
-            <image src="../../images/homepage/home-check.png" class="castContent_top_check">check mark</image>
+            <!-- <image src="../../images/homepage/home-check.png" class="castContent_top_check">check mark</image> -->
+            <image src="../../images/homepage/home-uncheck.png" class="castContent_top_check"></image>
           </view>
 
-          <view class="castContent_progress">
+          <!-- <view class="castContent_progress">
             <view class="castContent_progress_bar">
               <view class="castContent_progress_bar_blue"></view>
             </view>
             <view class="castContent_progress_timer">10:55/{{item.totalTime}}</view>
-          </view>
+          </view> -->
         </view>
       </view>
     </view>

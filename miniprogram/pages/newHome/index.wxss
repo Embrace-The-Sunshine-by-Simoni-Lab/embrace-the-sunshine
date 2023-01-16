@@ -183,7 +183,7 @@
 .castContent_top {
   display: flex;
   align-items: center;
-  height:80%;
+  height:100%;
 }
 .castContent_top_desc {
   width: 80%;
@@ -193,7 +193,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
-  margin-bottom: 14rpx;
+  margin-bottom: 18rpx;
   color: #000000;
 }
 .castContent_progress {

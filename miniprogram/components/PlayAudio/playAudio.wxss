@@ -15,7 +15,7 @@
 .curve {
   position: absolute; 
   left: 0;
-  bottom: 0;
+  bottom: -10rpx;
   width: 100%;
   height: 60%;
 }

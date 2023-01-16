@@ -43,7 +43,7 @@
           </view>
           <view wx:else>
             <view class="open_ended_box">
-              <textarea class="open_ended_question" name="userName" placeholder="在此处输入内容"
+              <textarea class="open_ended_question" name="userName" placeholder="填写您的想法"
     bindinput="userNameInput" auto-focus="true"/>
             </view>
           </view>
