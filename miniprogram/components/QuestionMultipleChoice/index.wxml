@@ -6,11 +6,11 @@
   </view>
 
   <!-- 正确答案揭晓 -->
-  <view wx:if="{{reportPageClicked}}" class="Option {{userAnswer[idx] != -1 && userAnswer[idx] != correctAnswer[idx] ? 'wrongAnswer': (correctAnswer[idx] == 1 ? 'correctAnswer': '')}}" wx:for-item="item" wx:for-index="idx" wx:for="{{option_info.options}}" wx:key="idx" data-index='{{idx}}'>
+  <view wx:if="{{reportPageClicked}}" class="Option {{userAnswer[idx] != -1 && userAnswer[idx] != correctAnswer[idx] ? 'wrongAnswer': (correctAnswer[idx] == 1 ?  (correctAnswer[idx] == userAnswer[idx] ? 'correctSelected': 'correctAnswer'): '')}}" wx:for-item="item" wx:for-index="idx" wx:for="{{option_info.options}}" wx:key="idx" data-index='{{idx}}'>
     <text>{{item.option_content}}</text>
     <view wx:if="{{explanationVisible[idx]}}" style="height: 20rpx;"></view>
     <view wx:if="{{explanationVisible[idx]}}">解释: {{item.option_explanation}}</view>
-    <text class="expandExplanation" style="text-decoration: underline; color: rgba(23, 37, 169, 0.81);" bindtap="toggleExplanation" data-index='{{idx}}'>点击选项展开解释</text>
+    <text wx:if="{{item.option_explanation}}" class="expandExplanation" style="text-decoration: underline; color: rgba(23, 37, 169, 0.81);" bindtap="toggleExplanation" data-index='{{idx}}'>{{buttonText}}</text>
   </view>
 
 

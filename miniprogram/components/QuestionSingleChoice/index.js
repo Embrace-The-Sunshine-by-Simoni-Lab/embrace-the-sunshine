@@ -18,12 +18,13 @@ Component({
   },
 
   data: {
-    userAnswer: 3, // 当前用户的选择
-    correctAnswer: -1, // 当前问题的正确答案
+    userAnswer: 3, // current user choice
+    correctAnswer: -1, // current correct answer
     explanationVisible: [],
   },
   
   attached: function() {
+    // console.log("dd", this.properties.option_info)
     let questionLength = this.properties.option_info.options.length
     let initExplanationVisible = new Array(questionLength).fill(false);
     this.setData({

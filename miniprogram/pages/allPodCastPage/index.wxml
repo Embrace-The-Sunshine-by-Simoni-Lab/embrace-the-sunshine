@@ -6,7 +6,7 @@
     <!-- render single card -->
     <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
       <view class="castImage">
-        <image class="castImageItem" src="{{item.ImgURL}}"></image>
+        <image class="castImageItem" src="{{item.podCastListURL}}"></image>
       </view>
 
       <view class="castContent">

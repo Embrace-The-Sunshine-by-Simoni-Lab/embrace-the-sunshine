@@ -3,7 +3,7 @@
 .OptionBlock {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 580rpx;
   align-items: center;
 }
 .Option {
@@ -26,6 +26,10 @@
 .correctAnswer {
   background: rgba(9, 187, 7, 0.2);
   border: 1px solid #09BB07;
+}
+.correctSelected {
+  background: rgba(9, 187, 7, 0.2);
+  border: 3px solid #09BB07;
 }
 .wrongAnswer {
   background: rgba(230, 67, 64, 0.2);

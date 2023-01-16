@@ -117,17 +117,26 @@ Page({
 
   // check how many days in a week users have taken the medicine 
   getMeditakenDayInWeek(dates) {
+    // Get today's date
+    const today = new Date();
+    // Get the start of the week (Sunday)
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay());
+    // Get the end of the week (Saturday)
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + 6);
+    // Initialize a count variable
     let count = 0;
-    let today = new Date();
-    for (let date of dates) {
-      let d = new Date(date);
-      let day = d.getDay();
-      let timestamp = d.getTime();
-    
-      if (timestamp >= today.getTime() - day * 24 * 60 * 60 * 1000 && timestamp < today.getTime() + (7 - day) * 24 * 60 * 60 * 1000) {
-        count++;
-      }
+    // Iterate over the dates
+    for (let i = 0; i < dates.length; i++) {
+        // Convert the date string to a Date object
+        const date = new Date(dates[i]);
+        // Check if the date is within the same week as today
+        if (date >= startOfWeek && date <= endOfWeek) {
+            count++;
+        }
     }
+    // Return the count
     return count;
   },
   // sort all the pod cast based on the podCast_id list

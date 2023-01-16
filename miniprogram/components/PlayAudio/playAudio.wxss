@@ -20,7 +20,6 @@
   height: 60%;
 }
 
-
 .podcast_img {
   width: 230rpx;
   height: 230rpx;

@@ -1,22 +1,32 @@
 /* components/singleChoice/singleChoice.wxss */
 .quiz {
-  height: 100%;
   box-sizing: border-box;
   padding: 30rpx;
-  background: #FDFBFC;
+  width: 100%;
+  background: #FDFBFC; 
+  /* background: orange;  */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .ContentContainer {
-  /* overflow-y: scroll;
-  width: 100%; */
-
-  overflow: auto;
+  position: relative;
+  width: 100%;
+  background: #FDFBFC;
+  overflow-y: scroll;
+}
+.QuizContainer {
   position: relative;
   background: #FDFBFC;
+  width: 100%;
+  /* background: orange; */
+  overflow-y: scroll;
 }
 .ContentChunk {
   display: flex;
   flex-direction: column;
-  margin-bottom: 14rpx;
+  /* margin-bottom: 14rpx; */
 }
 .selection {
   width: 100%;
@@ -63,6 +73,7 @@
 }
 
 .QuestionBlock {
+  /* background: rgb(21, 156, 145); */
   display: flex;
   flex-direction: column;
 }
@@ -93,18 +104,19 @@
   margin-bottom: 20rpx;
   line-height: 70rpx;
 }
+
 .SubmitBlock {
   position: absolute;
-  width: 80%;
-  margin-left: -40%;
-  bottom: 15px;
+  bottom: 18rpx;
   left: 50%;
+  margin-left: -340rpx;
+  /* background: green; */
+  width: 680rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 .Submit_Button {
-  width: 400rpx;
   height: 65rpx;
   color: #FFFFFF;
   font-size: 30rpx;

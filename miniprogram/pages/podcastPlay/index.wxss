@@ -20,6 +20,12 @@ Page{
 .gap {
   height: 1%;
 }
+.playAudio {
+  height: 38%;
+}
+.PodCastContent {
+  height: 60%;
+}
 .podcastHeader {
   /* background: blue; */
   height: 70%;

@@ -7,12 +7,14 @@
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="homeIndicator">
       <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < 3}}">
         <swiper-item>
-          <view class="swiper-item {{item}}" data-id="0" bind:tap="jumpToPodCastPlay">
+          <view class="swiper-item {{item}}" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
             <view class="homeBannerContent">
               <text class="homePodNum">{{item.episode}}</text>
               <text class="homePodTitle">{{item.mainTitle}}</text>
               <text class="homePodDetail">{{item.mainContentSummary}}</text>
             </view>
+            <!-- img -->
+            <image class="carousel_img" src="{{item.carouselImgUrl}}"></image>
           </view>
         </swiper-item>
       </block>
@@ -43,29 +45,29 @@
   </view>
 
   <!-- Home page buttom -->
-
   <view class="homePodCast">
     <text class="homePodCastTitle">播客</text>
-
-    <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" wx:if="{{idx < 3}}" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
-      <view class="castImage">
-        <image class="castImageItem" src="{{item.ImgURL}}"></image>
-      </view>
-
-      <view class="castContent">
-        <view class="castContent_top">
-          <view class="castContent_top_desc">
-            <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
-            <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
-          </view>
-          <image src="../../images/homepage/home-check.png" class="castContent_top_check">check mark</image>
+      <view class="homePodCastBox">
+        <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" wx:if="{{idx < 3}}" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
+        <view class="castImage">
+          <image class="castImageItem" src="{{item.podCastListURL}}"></image>
         </view>
 
-        <view class="castContent_progress">
-          <view class="castContent_progress_bar">
-            <view class="castContent_progress_bar_blue"></view>
+        <view class="castContent">
+          <view class="castContent_top">
+            <view class="castContent_top_desc">
+              <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+              <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+            </view>
+            <image src="../../images/homepage/home-check.png" class="castContent_top_check">check mark</image>
           </view>
-          <view class="castContent_progress_timer">10:55/{{item.totalTime}}</view>
+
+          <view class="castContent_progress">
+            <view class="castContent_progress_bar">
+              <view class="castContent_progress_bar_blue"></view>
+            </view>
+            <view class="castContent_progress_timer">10:55/{{item.totalTime}}</view>
+          </view>
         </view>
       </view>
     </view>

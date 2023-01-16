@@ -99,14 +99,12 @@ Page({
     if (_medi_taken_classified_by_years[today.getFullYear()] == null) {
       _medi_taken_classified_by_years[today.getFullYear()] = []
     }
-    console.log(_medi_taken_classified_by_years);
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
     
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
-    console.log(this.data.analyticsData);
     this.generateDisplayDate(this.data.analyticsData[0])
     let avg = this.calculateAverage(this.data.analyticsData)
     let compare = this.getCompareString(0)
@@ -233,8 +231,6 @@ Page({
     let newMediStatus = false
     // 改变数据库的药的taken状态
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
-    console.log("223", curTapDate);
-    console.log("224", dateChange);
     if (toggleResult) newMediStatus = true
     let that = this
     wx.showLoading({
@@ -249,7 +245,6 @@ Page({
     })
     .then(res => {
       const newDateLst = res.result.data.med_date;
-      console.log("238", res)
       app.globalData.userData.med_date = newDateLst
       // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
       that.convertStringtoDateArray(newDateLst)
@@ -356,10 +351,8 @@ Page({
     let _analyticsData = [];
     let _weekNumToRange = {};
     let _weekNumToCount = {};
-    // console.log(this.data.medi_taken_classified_by_years);
-    
+
     let this_year_medi_taken = this.data.medi_taken_classified_by_years[today.getFullYear()];
-    console.log("this_year_medi_taken", this_year_medi_taken);
     if (this_year_medi_taken == null) {
       this_year_medi_taken = []
     }
@@ -373,7 +366,6 @@ Page({
     // highest week number and lowest week number
     let HighestDate = new Date(this_year_medi_taken[0]);
     let HighestWeekNum = this.getWeekNum(HighestDate);
-    console.log("HighestWeekNum", HighestWeekNum);
     
     let LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 1]);
     let LowestWeekNum = this.getWeekNum(LowestDate);
@@ -382,7 +374,6 @@ Page({
       LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 2]);
       LowestWeekNum = this.getWeekNum(LowestDate);
     }
-    console.log("LowestWeekNum", LowestWeekNum);
     
     for (let i = 0; i < this_year_medi_taken.length; i++) {
       let currDate = new Date(this_year_medi_taken[i]);
@@ -410,8 +401,6 @@ Page({
     this.setData({
       analyticsData: _analyticsData
     });
-    console.log();
-    console.log(_analyticsData);
   },
   getDateRangeOfWeek(weekNo){
     var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
@@ -435,7 +424,6 @@ Page({
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
   createMedi_taken_classified_by_years(medi_taken) {
-    console.log("400", medi_taken);
     let _medi_taken_classified_by_years = {};
     for (let i = 0; i < medi_taken.length; i++) { 
       let currDate = new Date(medi_taken[i]);
