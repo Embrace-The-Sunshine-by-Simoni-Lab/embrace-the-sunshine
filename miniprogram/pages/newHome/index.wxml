@@ -32,7 +32,7 @@
         <text class="homeMediTrackContentTitle">药物追踪</text> 
         <text class="homeMediTrackContentTitleSmall">本周服药天数</text> 
         <view class="homeMediTrackProgressBox"> 
-          <view class="homeMediTrackAlreadyTaken" style="width: {{currWeekAlreadyTaken/7*100}}%;"></view>
+          <view class="homeMediTrackAlreadyTaken" style="width: {{currWeekAlreadyTaken/7*100}}"></view>
           <view class="homeMediTrackProgress"></view>
           <text class="homeMediTrackProgressText">{{currWeekAlreadyTaken}}/7</text>
         </view>

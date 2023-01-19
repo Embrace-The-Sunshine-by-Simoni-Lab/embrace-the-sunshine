@@ -1,23 +1,17 @@
 <!--pages/profileEdit/profileEdit.wxml-->
-<view>
-        <view class="pic_container">
-        </view>
-
-        <view class="text_container">
-          <text class="title">请输入您的新昵称</text>
-        </view>
-
-        <view class="form_container">
-          <form class="name_change_form" catchsubmit="runSubmitName">
-
-            <view>
-              <input class="name_input" type="text" maxlength="10" placeholder="修改昵称" name="new_name"/>
-            </view>
-
-            <view class="button_container">
-              <button class="name_submit" formType="submit">保存</button>
-            </view>
-            
-          </form>
-        </view>
+<view class="container">
+  <view class="headImg_container">
+    <image bindtap="changeHeadImg" src='{{headImg}}' style="width: 200rpx; height: 200rpx"></image> 
+    <view mode="aspecFill"  bindtap="headimage">点击更换头像</view>
+  </view>
+  <view class="form_container">
+    <form class="name_change_form" catchsubmit="runSubmitName">
+      <view>
+        <input class="name_input" type="text" maxlength="10" placeholder="请输入您的新昵称" name="new_name"/>
+      </view>
+      <view class="button_container">
+        <button class="name_submit" formType="submit"><span>保存</span></button>
+      </view>
+    </form>
+  </view>
 </view>

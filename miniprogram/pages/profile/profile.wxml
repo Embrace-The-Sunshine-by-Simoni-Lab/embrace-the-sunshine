@@ -1,50 +1,49 @@
 <!--pages/profile/profile.wxml-->
-<view class="container">、
+<view class="container">
   <view class="row_display">
-    <view class="white_bg">
-      <view class="summary-board">
-        <view class="user_container">
-          <view class="text-container">
-            <text class="greeting">您好，<text class="highlight">{{username}}</text>！</text>
-          </view>
-          <view class="name_container">
-            <button class="name_submit" bindtap="goto_profileEdit"><text class="name_submit_text">修改</text></button>
-          </view>
+    <view class="summary-board">
+      <view class="user_container">
+        <view class="text-container">
+          <text class="greeting">您好，<text class="highlight">{{username}}</text>！</text>
         </view>
-        <text class="experience_a">今天是拥抱阳光陪伴你的第 {{weeksUsed}} 周</text>
-        <text class="experience_b">您已经完成 <text class="highlight">{{num_finished_module}}</text> 个模块， 还有 <text class="highlight">{{num_finished_optional_module}}</text> 个自选模块</text>
+        <view class="name_container">
+          <button class="name_submit" bindtap="goto_profileEdit"><text class="name_submit_text">修改</text></button>
+        </view>
+        <view class="headImg"><image src='{{headImg}}' style="width: 100rpx; height: 100rpx"></image></view>
       </view>
-      <view class="sub-board">
-        <view class="sub-board-a"  bindtap="goto_save">
-          <image class="sub-board-img" src="../../images/saves.png" style="width: 80rpx; height: 80rpx"></image>
-          <view class="sub-board-vertical">
-            <text class="main-text">收藏内容</text>
-            <text class="sub-text">查看模块内容</text>
-          </view>
-        </view>
-        <view class="sub-board-b" bindtap="goto_resources">
-          <image class="sub-board-img" src="../../images/more_resources.png" style="width: 80rpx; height: 80rpx"></image>
-          <view class="sub-board-vertical">
-            <text class="main-text">更多资源</text>
-            <text class="sub-text">专业心理咨询</text>
-          </view>
+      <text class="experience_a">今天是拥抱阳光陪伴你的第{{weeksUsed}}周</text>
+      <text class="experience_b">您已经完成 <text class="highlight">{{num_finished_module}}</text> 个模块， 还有 <text class="highlight">{{num_finished_optional_module}}</text> 个自选模块</text>
+    </view>
+    <view class="sub-board">
+      <view class="sub-board-a"  bindtap="goto_save">
+        <image class="sub-board-img" src="../../images/profile/star.png" style="width: 66rpx; height: 66rpx"></image>
+        <view class="sub-board-vertical">
+          <text class="main-text">收藏内容</text>
+          <text class="sub-text">查看模块内容</text>
         </view>
       </view>
-      <view class="tool_container">
-        <text class="tool-text">工具</text>
-        <view class="buttonList-container">
-          <view class="button-container-vertical" bindtap="goto_settings">
-            <image class="button-img" src="../../images/settings.png" style="width: 80rpx; height: 80rpx"></image>
-            <text class="buttonList-text">功能反馈</text>
-          </view>
-          <view class="button-container-vertical" bindtap="goto_info">
-            <image class="button-img" src="../../images/settings.png" style="width: 80rpx; height: 80rpx"></image>
-            <text class="buttonList-text">关于我们</text>
-          </view>
-          <view class="button-container-vertical" bindtap="">
-            <image class="button-img" src="../../images/settings.png" style="width: 80rpx; height: 80rpx"></image>
-            <text class="buttonList-text">隐私政策</text>
-          </view>
+      <view class="sub-board-b" bindtap="goto_resources">
+        <image class="sub-board-img" src="../../images/profile/resource.png" style="width: 66rpx; height: 66rpx"></image>
+        <view class="sub-board-vertical">
+          <text class="main-text">更多资源</text>
+          <text class="sub-text">专业心理咨询</text>
+        </view>
+      </view>
+    </view>
+    <view class="tool_container">
+      <text class="tool-text">工具</text>
+      <view class="buttonList-container">
+        <view class="button-container-vertical" bindtap="goto_settings">
+          <image class="button-img" src="../../images/profile/功能反馈.png" style="width: 110rpx; height: 110rpx"></image>
+          <text class="buttonList-text">功能反馈</text>
+        </view>
+        <view class="button-container-vertical" bindtap="goto_info">
+          <image class="button-img" src="../../images/profile/关于我们.png" style="width: 110rpx; height: 110rpx"></image>
+          <text class="buttonList-text">关于我们</text>
+        </view>
+        <view class="button-container-vertical" bindtap="">
+          <image class="button-img" src="../../images/profile/隐私政策.png" style="width: 110rpx; height: 110rpx"></image>
+          <text class="buttonList-text">隐私政策</text>
         </view>
       </view>
     </view>

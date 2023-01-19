@@ -8,6 +8,7 @@ Page({
    */
   data: {
     username: app.globalData.userData.nickname,
+    headImg : "../../images/profile/photoId.png",
     num_finished_module: 0,
     num_finished_optional_module: 0,
     weeksUsed: 0
@@ -60,15 +61,14 @@ Page({
     const todayDate = new Date();
     const regDate = new Date(app.globalData.userData.reg_time);
     const weeksUsed = Math.round(Math.abs((todayDate - regDate) / (1000*60*60*24*7)));
-
     console.log("weeksUsed: " + weeksUsed);
     this.setData({
       username: app.globalData.userData.nickname,
       weeksUsed: weeksUsed
     })
 
-    console.log(this.data.username);
-    console.log(app.globalData.userData.nickname);
+    console.log("this.data.username", this.data.username);
+    console.log("app.globalData.userData.nickname", app.globalData.userData.nickname);
   },
 
   /**
@@ -105,18 +105,24 @@ Page({
   onShareAppMessage: function () {
 
   },
-
   setNewName: function (e) {
     let that = this;
     let newName = e.detail.value.new_name;
-    wx.cloud.callFunction({
-      name: 'nickname_edit',
-      data: {
-        nickname: newName
-      }
-    })
-    that.setData({
-      username: newName
-    })
+    console.log("newName", newName)
+    console.log(this.data)
+    if (newName != this.data.nickname) {
+      console.log("输入了新昵称")
+      wx.cloud.callFunction({
+        name: 'nickname_edit',
+        data: {
+          nickname: newName
+        }
+      })
+      that.setData({
+        username: newName
+      })
+    } else {
+      console.log("新昵称与原昵称一致")
+    }
   }
 })

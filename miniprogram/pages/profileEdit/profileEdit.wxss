@@ -8,6 +8,12 @@ body{
   flex-direction: column;
   width: 100%;
   margin: 0 auto;
+  padding-top: 8%;
+}
+
+.headImg_container {
+  justify-content: center;
+  margin-bottom: 100rpx;
 }
 
 .button_container{
@@ -41,13 +47,14 @@ body{
   background-color: #FFFFFF;
   height: 40px;
   text-align: center;
+  width: 600rpx;
 }
 
 .text_container{
   display: flex;
   flex-flow: column;
-  margin: auto;
   margin-bottom: 10%;
+  margin-top: 3%;
 }
 
 .title{
@@ -58,4 +65,9 @@ body{
   font-size: 17px;
   line-height: 24px;
   text-align: center;
+}
+
+.name_submit span{
+  display: block;
+  line-height: 38px;
 }
