@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/newHome/index",
+    "pages/profileEdit/profileEdit",
     "pages/onboarding/onboarding",
     "pages/index/index",
     "pages/questionnaire/questionnaire",
