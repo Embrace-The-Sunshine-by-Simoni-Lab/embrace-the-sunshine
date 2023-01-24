@@ -77,12 +77,43 @@ exports.main = async (event, context) => {
     data_to_return['last_sign_in'] = current_time; 
   }
 
-     
-    
+  
+  // check podcast progress database
+  var podcast_progress_info;
+  await db.collection("podcast_progress_db")
+  .where({
+    openid: wxContext.OPENID
+  })
+  .get()
+  .then(res => {
+    console.log("sucessfully check the database for user podcast information");
+    podcast_progress_info = res.data[0];
+  })
+
+  var podcast_progress_data_to_return;
+  if (podcast_progress_info == undefined) {
+    podcast_progress_data_to_insert = {
+      openid: wxContext.OPENID,
+      podcast_progress: []
+    }
+    // insert into database
+    await db.collection('podcast_progress_db')
+    .add({
+      data: podcast_progress_data_to_insert
+    })
+    .then(res => {
+      console.log("new user's podcast info added to the database");
+    });
+    podcast_progress_data_to_return = podcast_progress_data_to_insert;
+  } else {
+    podcast_progress_data_to_return = podcast_progress_info;
+  }
+
   var result = {};
   result.is_new_user = is_new_user;
   result.errCode = 0;
   result.errMsg = 'successfully return userinformation with is new user';
   result.data = data_to_return;
+  result.podcast_progress_data = podcast_progress_data_to_return;
   return result;
 }

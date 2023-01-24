@@ -27,6 +27,7 @@ Page({
           if (out.result.errCode == 0) {
             if (out.result.data) {
               app.globalData.userData = out.result.data;
+              app.globalData.podcast_progress_data = out.result.podcast_progress_data;
               app.globalData.logged = true;
               is_new_user = out.result.is_new_user;
               let medi_taken_days = app.globalData.userData.med_date
