@@ -13,7 +13,7 @@ Component({
   },
   data: {
     mode: "Quiz",
-    reportPageClicked: true,
+    reportPageClicked: false,
     allQuestionAnswered: false,
     currentDisplayQuestion: 0,
     user_answer: [],
@@ -22,6 +22,18 @@ Component({
   },
 
   ready() {
+    // const that = this
+    // wx.cloud.callFunction({
+    //   name: 'submit_podcast_quiz',
+    //   data: {
+    //       // date: today_database
+    //   }
+    // }).then(res => {
+    //   console.log("res", res)
+    // });
+
+
+
     this.refresh();
   },
 
