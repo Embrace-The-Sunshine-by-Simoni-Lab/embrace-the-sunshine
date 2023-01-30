@@ -10,7 +10,11 @@ Page({
     // new home data
     indicatorDots: true,
     vertical: false,
-    podCastInfo: []
+    podCastInfo: [], 
+    progressBarColor: "", // the color changes based on the total days of medi taken
+    podcastsAvailability: [1,-1,-1,-1],
+    podcastRegisterAvailability: [], // to decide whether user has registered long enough to see each podcast
+    podcastComplete: [1,-1,-1,-1]
   },
   onLoad: function() {
     var is_new_user = false;
@@ -30,10 +34,28 @@ Page({
               app.globalData.podcast_progress_data = out.result.podcast_progress_data;
               app.globalData.logged = true;
               is_new_user = out.result.is_new_user;
+              // change bar color based on the medi taken days
               let medi_taken_days = app.globalData.userData.med_date
               let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
+              let currentMediProgressColor = this.data.progressBarColor
+          
+              if(takenInWeek <= 1) {
+                currentMediProgressColor =  "#FA5151"
+              } else if(takenInWeek <= 3) {
+                currentMediProgressColor =  "#FFC300";
+              } else {
+                currentMediProgressColor =  "#46BA74";
+              }
+
+              // set register date
+              const user_register_date = new Date(2023, 0, 1)
+              // change each podcast's availability based on the user register time 
+              this.createPodcastRegisterAvailability(app.globalData.userData.reg_time)
+
               this.setData({
-                currWeekAlreadyTaken: takenInWeek
+                progressBarColor: currentMediProgressColor,
+                currWeekAlreadyTaken: takenInWeek,
+                userRegisterDate: user_register_date
               })
             } else {
               console.log(out.errMsg);
@@ -72,6 +94,22 @@ Page({
             selected: 1
         })
       }
+      // change progress bar color based on different medi taken days
+      let medi_taken_days = app.globalData.userData.med_date
+      let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
+      let currentMediProgressColor = this.data.progressBarColor
+      if(takenInWeek <= 1) {
+        currentMediProgressColor =  "#FA5151"
+      } else if(takenInWeek <= 3) {
+        currentMediProgressColor =  "#FFC300";
+      } else {
+        currentMediProgressColor =  "#46BA74";
+      }
+
+      this.setData({
+        progressBarColor: currentMediProgressColor,
+        currWeekAlreadyTaken: takenInWeek
+      })
     }
     // fetch audio info
     wx.cloud.callFunction({
@@ -83,10 +121,22 @@ Page({
           if (out.result.data) {
             let allPodCastData = out.result.data;
             let sorted_podcast = this.sortPodCastList(allPodCastData)
+            // update the podcast availability based on the register date, 否则当你进入一个页面,比如药物追踪, 然后又返回首页的时候, podcast的availability就不会更新
+            const date = new Date(app.globalData.userData.reg_time);
+            const today = new Date();
+            const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
+            const podcastRegisterAvailability = new Array(sorted_podcast.length);
+            for (let i = 0; i < podcastRegisterAvailability.length; i++) {
+              if (i <= inputWeek) {
+                podcastRegisterAvailability[i] = 1;
+              }
+            }
 
             this.setData({
-              podCastInfo: sorted_podcast
+              podCastInfo: sorted_podcast,
+              podcastRegisterAvailability
             })
+
             // store audio in memory
             app.globalData.podCast = sorted_podcast;
             wx.setStorageSync('allPodCastData', sorted_podcast)
@@ -116,16 +166,35 @@ Page({
     }
   },
 
+  createPodcastRegisterAvailability(dateString) {
+    const date = new Date(dateString);
+    const today = new Date();
+    const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
+    const podcastRegisterAvailability = new Array(this.data.podCastInfo.length);
+    for (let i = 0; i < podcastRegisterAvailability.length; i++) {
+      if (i <= inputWeek) {
+        podcastRegisterAvailability[i] = 1;
+      }
+    }
+    console.log("podcastRegisterAvailability", podcastRegisterAvailability)
+    this.setData({
+      podcastRegisterAvailability
+    })
+  },
+
   // check how many days in a week users have taken the medicine 
   getMeditakenDayInWeek(dates) {
     // Get today's date
     const today = new Date();
-    // Get the start of the week (Sunday)
+    // Get the start of the week (Monday)
     const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - today.getDay());
-    // Get the end of the week (Saturday)
+    startOfWeek.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1));
+    startOfWeek.setHours(0, 0, 0, 0);
+    // Get the end of the week (Sunday)
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(endOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+
     // Initialize a count variable
     let count = 0;
     // Iterate over the dates
@@ -205,5 +274,39 @@ Page({
     wx.navigateTo({
       url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
     })
+  },
+  jumpToUnAvailableNotice(e) {
+    let clickedPodCastNum = e.currentTarget.dataset.id
+    let currpodcast_finish_status = this.data.podcastsAvailability[clickedPodCastNum - 1]
+    let currpodcast_register_status = this.data.podcastRegisterAvailability[clickedPodCastNum]
+
+    if(currpodcast_finish_status == -1) {
+      wx.showModal({
+        content: '请先完成当前内容',
+        confirmText: '我知道了',
+        showCancel: false,
+        success (res) {
+          console.log("还没有完成前面的内容")
+        }
+      })
+    } else if(currpodcast_register_status == -1) {
+      wx.showModal({
+        content: '新内容下周更新',
+        confirmText: '我知道了',
+        showCancel: false,
+        success (res) {
+          console.log("还未到下一周")
+        }
+      })
+    } else {
+      wx.showModal({
+        content: '请先完成当前内容',
+        confirmText: '我知道了',
+        showCancel: false,
+        success (res) {
+          console.log("还没有完成前面的内容")
+        }
+      })
+    }
   }
 })

@@ -16,6 +16,17 @@
   width: 100%;
   height: 100%;
 }
+.podcast_lock {
+  position: absolute;
+  left: 50%;
+  margin-left: -25rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.podcast-unavailable {
+  background: rgba(0, 0, 0, 0.3) !important;
+  position: relative;
+}
 .castItem {
 
   height: 170rpx;

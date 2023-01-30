@@ -15,7 +15,9 @@
       <swiper-item class="container">
         <image src="../../images/onboarding/Group 18498.png" mode="aspectFit"></image>
         <text class="title">情绪管理技能</text>
-        <text class="body">情绪管理≠压抑情绪，跟我们一起理解情绪，学习情绪管理技巧，与情绪和平相处</text>
+        <text class="body">情绪管理≠压抑情绪，跟我们一起理解情绪，学习情绪管理技巧，与情绪和平相处
+          <text class="unlock">(新内容每周解锁) </text>
+        </text>
       </swiper-item>
       <swiper-item class="container">
         <image src="../../images/onboarding/Group 18499.png" mode="aspectFit"></image>

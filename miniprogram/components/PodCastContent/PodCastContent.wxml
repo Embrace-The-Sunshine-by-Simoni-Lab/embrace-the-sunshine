@@ -17,7 +17,7 @@
     <view class="first_level" wx:for-item="first_item" wx:for-index="idx" wx:for="{{podCastInfo.pod_Cast_Content}}" wx:key="idx">
       {{first_item.firstLevel}} {{first_item.time}}
       <view class="second_level" wx:for-item="item2" wx:for-index="idx" wx:for="{{first_item.firstLevel_content}}" wx:key="idx">
-        {{item2.second_title}}
+        {{item2.second_title}} {{item2.time}}
         <view class="third_level" wx:for-item="item3" wx:for-index="idx" wx:for="{{item2.second_title_content}}" wx:key="idx">
           • {{item3.third_title}}
         </view>
@@ -35,15 +35,22 @@
 
       <view wx:for="{{podCastInfo.pod_Cast_Quiz}}" wx:key="order">
         <view wx:if="{{index === currentDisplayQuestion}}">
+          <!-- 单选题 -->
           <view wx:if="{{item.type === '单选题'}}">
             <SingleChoice reportPageClicked="{{reportPageClicked}}" option_info="{{item}}" bind:clickOption="clickOption" order="{{index}}" user_answer="{{user_answer}}"></SingleChoice>
           </view>
+          <!-- 多选题 -->
           <view wx:elif="{{item.type === '多选题'}}">
             <MultipleChoice reportPageClicked="{{reportPageClicked}}" option_info="{{item}}" bind:clickOption="clickOption" order="{{index}}" user_answer="{{user_answer}}"></MultipleChoice>
           </view>
+          <!-- 开放式问答 -->
           <view wx:else>
-            <view class="open_ended_box">
-              <textarea class="open_ended_question" name="userName" placeholder="填写您的想法"
+            <!-- 如果还未提交那么就是一个可输入框, 否则就是一个固定的方框 -->
+            <view wx:if="{{reportPageClicked}}" class="open_ended_box">
+              {{open_ended_answer}}
+            </view>
+            <view wx:else class="open_ended_box">
+              <textarea class="open_ended_question" name="userName" placeholder="填写您的想法" value="{{open_ended_answer}}"
     bindinput="userNameInput" auto-focus="true"/>
             </view>
           </view>
@@ -52,10 +59,12 @@
     </view>
   </view>
 
+  <view class="fill-bottom-gap-box"></view>
   <!-- <view class="fillspace"></view> -->
   <view class="SubmitBlock" wx-if="{{mode == 'Quiz'}}">
     <image class="prev_question" src="../../images/next-enable.png"  data-direction="prev" bind:tap="changeQuestion"></image>
-    <view wx:if="{{allQuestionAnswered}}" class="Submit_Button">提交</view>
+
+    <view wx:if="{{allQuestionAnswered && !reportPageClicked}}" class="Submit_Button" bind:tap="submitQuiz">提交</view>
     <view wx:else class="Disabled_Button">提交</view>
     <image class="next_question" src="../../images/next-enable.png" data-direction="next" bind:tap="changeQuestion"></image>
   </view>

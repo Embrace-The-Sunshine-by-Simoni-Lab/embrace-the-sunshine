@@ -2,11 +2,21 @@
 <view class="allCastsContainer">
   <text class="allCastHeader">全部播客</text>
 
-  <view class="castList">
-    <!-- render single card -->
-    <view class="castItem" wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
+  <view class="homePodCastBox">
+    <view class="castItem {{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? '' : 'podcast-unavailable'}}" 
+      wx:for="{{podCastInfo}}" 
+      wx:for-item="item" 
+      wx:for-index="idx" 
+      wx:key="idx" 
+      data-id="{{item.podCast_Id}}" 
+      bind:tap="{{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
+      <image 
+        style="display: {{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? 'none' : 'block'}}"
+        src="../../images/homepage/LOCK.png" 
+        class="podcast_lock">
+      </image>
       <view class="castImage">
-        <image class="castImageItem" src="{{item.podCastListURL}}"></image>
+        <image class="castImageItem" style="{{idx === 1 && 'margin-left: -15rpx'}}" src="{{item.podCastListURL}}"></image>
       </view>
 
       <view class="castContent">
@@ -15,17 +25,10 @@
             <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
             <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
           </view>
-          <!-- <image src="../../images/homepage/home-check.png" class="castContent_top_check"></image> -->
           <image src="../../images/homepage/home-uncheck.png" class="castContent_top_check"></image>
         </view>
-
-        <!-- <view class="castContent_progress">
-          <view class="castContent_progress_bar">
-            <view class="castContent_progress_bar_blue"></view>
-          </view>
-          <view class="castContent_progress_timer">10:55/{{item.totalTime}}</view>
-        </view> -->
       </view>
     </view>
   </view>
+
 </view> 
