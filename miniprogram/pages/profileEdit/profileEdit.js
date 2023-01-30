@@ -1,18 +1,56 @@
 // pages/profileEdit/profileEdit.js
+const app = getApp()
 Page({
   data: {
-    headImg: "../../images/profile/photoId.png"
+    headImg: "../../images/profile/headImg.png",
+    bufferHeadImg: "",
+    nickName: "",
+    userId: ""
   },
 
   /**
    * Page initial data
    */
+  async getUserInfo() {
+    const { data } = await wx.cloud.database().collection('main_db').doc(userId)
+    console.log("data", data)
+  },
+
+  async submit() {
+    const { nickName, userId, headImg } = this.data;
+    wx.showLoading({
+      title: '修改中...',
+    })
+
+    const bufferHeadImg = wx.getFileSystemManager().readFileSync(headImg)
+    console.log(bufferHeadImg)
+    const data = await wx.cloud.callFunction({
+      name: 'patchUserInfo',
+      data: {
+        nickName,
+        userId,
+        headImg,
+        bufferHeadImg
+      }
+    })
+    wx.hideLoading()
+  },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
+    const globalUserData = app.globalData.userData
+    console.log(globalUserData)
 
+    const userInfo = wx.getStorageSync('_id')
+    if(globalUserData) {
+      this.setData({
+        userId: globalUserData._id,
+        nickName: globalUserData.nickname
+      })
+    }
+    // this.getUserInfo()
   },
 
   runSubmitName: function (e) {
@@ -22,13 +60,12 @@ Page({
     prevPage.setNewName(e);
     // console.log("page", page)
     // console.log("prevPage", prevPage)
-    this.goto_profile()
-
     wx.showToast({
       title: '保存成功',
       icon: 'success',
-      duration: 2000
+      duration: 3000
     })
+    this.goto_profile()
   },
 
   goto_profile: function() {
@@ -37,39 +74,117 @@ Page({
     })
   },
 
-  changeHeadImg: function () {
-    var  _this = this;
-     wx.chooseMedia({
+  changeHeadImg: async function () {
+    var that = this;
+     const { tempFiles } = await wx.chooseMedia({
        count: 1,
        mediaType: ['image'],
        sizeType: ['original', 'compressed'],
        sourceType: ['album', 'camera'],  
-       success: function (res) {
-        wx.showToast({
-          title: '正在上传...',
-          icon: 'loading',
-          mask: true,
-          duration: 10000
-        });
-        console.log("res", res)
-         console.log(res.tempFiles[0])
-         var headImgPath = res.tempFiles[0].tempFilePath
+      //  async success(res){
+      //     console.log(res.tempFiles)
+      //     var cloudPath = "images/profile/handImg" + new Date().getTime() + ".png";
+      //     const result = await that.uploadFile(res.tempFiles[0].tempFilePath, cloudPath, function(res){
+      //       console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)
+      //       // if(res.progress > 50){ // 测试文件上传一半就终止上传
+      //       //   return false
+      //       // }
+      //     })
+        // wx.showToast({
+        //   title: '正在上传...',
+        //   icon: 'loading',
+        //   mask: true,
+        //   duration: 10000
+        // });
+        // console.log("res", res)
+        //  console.log(res.tempFiles[0])
+        //  var headImgPath = res.tempFiles[0].tempFilePath
         // that.upImgs(res.tempFilePaths[0], 0); // 调用上传方法
         // 剪裁图片
         //  wx.cropImage({
         //   src: res.tempFiles.tempFilePath, // 图片路径
         //   cropScale: '1:1', // 裁剪比例
         // })
-         _this.setData({
-           headImg: res.tempFilePaths
+        //  _this.setData({
+        //    headImg: res.tempFilePaths
+        // })
+      // },
+      // fail: function (err) {
+      //   console.log(`请确保微信权限都已开启,不然无法正常调用相机或相册`, err)
+      // },
+      // cancel: function (res) {
+      //   console.log('取消图片选择', res)
+      // } 
+    })
+    console.log(tempFiles)
+    that.setData({
+      headImg: tempFiles[0].tempFilePath
+    })
+
+    // await wx.cloud.uploadFile({
+    //   cloudPath: 'images/profile/handImg' + 'example.png',
+    //   filePath: tempFiles[0].tempFilePath, // 文件路径
+    //   success: res => {
+    //     // get resource ID
+    //     console.log(res.fileID)
+    //   },
+    //   fail: err => {
+    //     // handle error
+    //   }
+    // })
+
+  },
+  uploadFile(file, path, onCall = () => {}) {
+    return new Promise((resolve, reject) => {
+      const task = wx.cloud.uploadFile({
+        cloudPath: path,
+        filePath: file,
+        name: "headImg" + app.globalData.userData.openid,
+        config: {
+          env: 'cloud1-2gjzvf7qc03c5783' // 需要替换成自己的微信云托管环境ID
+        },
+        success: res => {
+          console.log(res)
+          this.setData({
+            fileID: res.fileID
+          })
+          this.getImagePath(res.fileID)
+          resolve(res.fileID)
+          wx.showToast({
+            title: '头像上传成功',
+            icon: 'success',
+            duration: 2000,
+            mask: true,
+            success: res => {}
+          });
+        },
+        fail: e => {
+          const info = e.toString()
+          if (info.indexOf('abort') != -1) {
+            reject(new Error('【文件上传失败】中断上传'))
+          } else {
+            reject(new Error('【文件上传失败】网络或其他错误'))
+          }
+        }
+      })
+      task.onProgressUpdate((res) => {
+        if (onCall(res) == false) {
+          task.abort()
+        }
+      })
+    })
+  },
+  getImagePath(fileId) {
+    console.log("getImagePath", fileId)
+    wx.cloud.getTempFileURL({
+      fileList: [fileId],
+      success: res => {
+        console.log("获取url地址：", res.fileList[0].tempFileURL);
+        this.setData({
+          headImg: res.fileList[0].tempFileURL
         })
       },
-      fail: function (err) {
-        console.log(`请确保微信权限都已开启,不然无法正常调用相机或相册`, err)
-      },
-      cancel: function (res) {
-        console.log('取消图片选择', res)
-      } 
+      fail: console.error
     })
   },
   upImgs: function (imgurl, index) {

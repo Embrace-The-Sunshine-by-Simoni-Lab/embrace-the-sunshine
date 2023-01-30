@@ -144,7 +144,7 @@ Page{
 }
 
 .line_chart_y_axis {
-  width: 10%;
+  width: 9%;
   height: 360rpx;
   display: flex;
   flex-direction: column;
@@ -158,19 +158,19 @@ Page{
 }
 
 #label_1 {
-  margin-top: 20px;
+  margin-top: 34rpx;
 }
 #label_2 {
-  margin-top: 28px;
+  margin-top: 29rpx;
 }
 #label_3 {
-  margin-top: 16px;
+  margin-top: 19rpx;
 }
 #label_4 {
-  margin-top: 13px;
+  margin-top: 17rpx;
 }
 #label_5 {
-  margin-top: 11px;
+  margin-top: 15rpx;
 }
 .line_chart {
   width: 90%

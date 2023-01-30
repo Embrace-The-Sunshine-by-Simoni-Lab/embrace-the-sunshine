@@ -1,4 +1,5 @@
 {
+  "cloud": true,
   "pages": [
     "pages/newHome/index",
     "pages/profileEdit/profileEdit",

@@ -373,17 +373,27 @@ Page({
     // console.log("data", this.data)
     // console.log("global date: " + app.globalData.userData.mood_track.mood_date)
     // console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
+    var onLoadData, onLoadDataRange, onLoadScoreValue, onLoadScoreType, onLoadScoreColor;
+    if (this.data.OneMonthMoodTrackData.categories.length > 0) {
+      onLoadData = this.data.OneMonthMoodTrackData
+      onLoadDataRange = this.dateFormat(this.data.OneMonthMoodTrackData.categories)
+      onLoadScoreValue = this.data.userScoreInfo.scoreValue[this.data.userScoreInfo.scoreValue.length-1],
+      onLoadScoreType = this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
+      onLoadScoreColor = this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
+    } else {
+      onLoadDataRange = ['近一月无数据']
+    }
     this.setData({
       oneMonth: true,
       threeMonth: false,
       sixMonth: false,
       timePeriodText: '近一月',
-      timePeirodDate: this.dateFormat(this.data.OneMonthMoodTrackData.categories),
-      userScoreValue: this.data.userScoreInfo.scoreValue[this.data.userScoreInfo.scoreValue.length-1],
-      userScoreType: this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
-      userScoreColor: this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
+      timePeirodDate: onLoadDataRange,
+      userScoreValue: onLoadScoreValue,
+      userScoreType: onLoadScoreType,
+      userScoreColor: onLoadScoreColor
     })
-    this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.OneMonthMoodTrackData);
+    this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);
   },
 
   chooseOneMonth() {
@@ -394,11 +404,9 @@ Page({
         sixMonth: false,
         timePeriodText: '近一月',
         timePeirodDate: this.dateFormat(this.data.OneMonthMoodTrackData.categories)
-
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.OneMonthMoodTrackData);
-
   },
 
   chooseThreeMonth() {
