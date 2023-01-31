@@ -295,7 +295,7 @@ Page({
     let currpodcast_finish_status = this.data.podcastsAvailability[clickedPodCastNum - 1]
     let currpodcast_register_status = this.data.podcastRegisterAvailability[clickedPodCastNum]
 
-    if(!currpodcast_finish_status || currpodcast_finish_status == -1) {
+    if (currpodcast_finish_status === 1 && this.data.podcastsAvailability.length != -1) {
       wx.showModal({
         content: '请先完成当前内容',
         confirmText: '我知道了',
@@ -304,7 +304,7 @@ Page({
           console.log("还没有完成前面的内容")
         }
       })
-    } else if(!currpodcast_register_status || currpodcast_register_status == -1) {
+    } else if (currpodcast_register_status) {
       wx.showModal({
         content: '新内容下周更新',
         confirmText: '我知道了',

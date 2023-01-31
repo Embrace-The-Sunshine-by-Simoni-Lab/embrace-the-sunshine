@@ -4,8 +4,6 @@
     "pages/profileEdit/profileEdit",
     "pages/onboarding/onboarding",
     "pages/infoPage/infoPage",
-    "pages/medTracking/medTracking",
-    "pages/module/modulePage",
     "pages/moodTracking/moodTracking",
     "pages/profile/profile",
     "pages/setting/setting",

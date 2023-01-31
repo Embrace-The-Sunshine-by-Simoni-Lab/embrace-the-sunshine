@@ -60,9 +60,9 @@
         wx:key="idx" 
         wx:if="{{idx < 3}}" 
         data-id="{{item.podCast_Id}}" 
-        bind:tap="{{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
+        bind:tap="{{idx === 0 || ((podcastsAvailability.length != 1 && podcastsAvailability[idx - 1] === 1) && podcastRegisterAvailability[idx] === 1) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
         <image 
-        	style="display: {{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? 'none' : 'block'}}"
+        	style="display: {{idx === 0 || ((podcastsAvailability.length != 1 && podcastsAvailability[idx - 1] === 1) && podcastRegisterAvailability[idx] === 1) ? 'none' : 'block'}}"
           src="../../images/homepage/LOCK.png" 
           class="podcast_lock">
         </image>
