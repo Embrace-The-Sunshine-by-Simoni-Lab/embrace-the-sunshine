@@ -12,12 +12,15 @@ Page({
    * Page initial data
    */
   async getUserInfo() {
-    const { data } = await wx.cloud.database().collection('main_db').doc(userId)
+    const data = await wx.cloud.database().collection('main_db').doc(this.data.userId).get()
     console.log("data", data)
+    this.setData({
+      headImg: data.headImg,
+    })
   },
 
   async submit() {
-    const { nickName, userId, headImg } = this.data;
+    const {userId, headImg} = this.data;
     wx.showLoading({
       title: '修改中...',
     })
@@ -27,10 +30,10 @@ Page({
     const data = await wx.cloud.callFunction({
       name: 'patchUserInfo',
       data: {
-        nickName,
+        bufferHeadImg,
+        // nickName,
         userId,
         headImg,
-        bufferHeadImg
       }
     })
     wx.hideLoading()
