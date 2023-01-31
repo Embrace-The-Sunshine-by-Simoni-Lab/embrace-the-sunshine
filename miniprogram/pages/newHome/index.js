@@ -2,21 +2,26 @@ const app = getApp()
 
 Page({
   data: {
-    // days in the current week on which user has taken medicine 
-    currWeekAlreadyTaken: 0,
-    // display if enter medication today
-    showRedDot: false,
+    currWeekAlreadyTaken: 0, // days in the current week on which user has taken medicine 
+    showRedDot: false,    // display if enter medication today
     logged: false,
-    // new home data
     indicatorDots: true,
-    vertical: false,
     podCastInfo: [], 
     progressBarColor: "", // the color changes based on the total days of medi taken
-    podcastsAvailability: [],
+    podcastsAvailability: [], // decide if podcast can be click into
     podcastRegisterAvailability: [], // to decide whether user has registered long enough to see each podcast
-    podcastComplete: []
+    podcastComplete: [] // use to show check mark and uncheck mark
   },
   onLoad: function() {
+    // if there are podcast available, update
+    console.log("home onload")
+    let curr_podcast_availability = app.globalData.podcastsAvailability
+    if(curr_podcast_availability && curr_podcast_availability.length > 0) {
+      this.setData({
+        podcastsAvailability:curr_podcast_availability
+      })
+    }
+    if(app.globalData.podcastsAvailability)
     var is_new_user = false;
     let that = this;
     if (!app.globalData.logged) {
@@ -28,7 +33,7 @@ Page({
         name: 'auto_sign_in',
         data: {
         },
-        success: out => {
+        success: async out => {
           if (out.result.errCode == 0) {
             if (out.result.data) {
               app.globalData.userData = out.result.data;
@@ -37,32 +42,25 @@ Page({
               is_new_user = out.result.is_new_user;
               that.setData({
                 podcastComplete: app.globalData.userData.finished_podcasts,
-                podcastsAvailability: app.globalData.userData.finished_podcasts
               });
-              console.log(that.data.podcastsAvailability);
-              // change bar color based on the medi taken days
-              let medi_taken_days = app.globalData.userData.med_date
-              let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
-              let currentMediProgressColor = this.data.progressBarColor
-          
-              if(takenInWeek <= 1) {
-                currentMediProgressColor =  "#FA5151"
-              } else if(takenInWeek <= 3) {
-                currentMediProgressColor =  "#FFC300";
-              } else {
-                currentMediProgressColor =  "#46BA74";
-              }
-
-              // set register date
-              const user_register_date = new Date(2023, 0, 1)
-              console.log("gbgb: ", app.globalData);
+              // grant color to meditation progress bar
+              that.change_home_progress_style()
               // change each podcast's availability based on the user register time 
-              this.createPodcastRegisterAvailability(app)
+              await that.createPodcastRegisterAvailability(app)
 
+              console.log("podcastComplete", that.data.podcastComplete)
+              console.log("podcastsAvailability", that.data.podcastsAvailability)
+              console.log("podcastRegisterAvailability", that.data.podcastRegisterAvailability)
+              // 通过podcastComplete和podcastRegisterAvailability来改变podcastsAvailability的值
+              let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
+              console.log("new_podcast_availability", new_podcast_availability)
+
+              app.globalData.podcastComplete = that.data.podcastComplete
+              app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
+              app.globalData.podcastsAvailability = new_podcast_availability
+   
               this.setData({
-                progressBarColor: currentMediProgressColor,
-                currWeekAlreadyTaken: takenInWeek,
-                userRegisterDate: user_register_date
+                podcastsAvailability: new_podcast_availability
               })
             } else {
               console.log(out.errMsg);
@@ -102,21 +100,7 @@ Page({
         })
       }
       // change progress bar color based on different medi taken days
-      let medi_taken_days = app.globalData.userData.med_date
-      let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
-      let currentMediProgressColor = this.data.progressBarColor
-      if(takenInWeek <= 1) {
-        currentMediProgressColor =  "#FA5151"
-      } else if(takenInWeek <= 3) {
-        currentMediProgressColor =  "#FFC300";
-      } else {
-        currentMediProgressColor =  "#46BA74";
-      }
-
-      this.setData({
-        progressBarColor: currentMediProgressColor,
-        currWeekAlreadyTaken: takenInWeek
-      })
+      this.change_home_progress_style()
     }
     // fetch audio info
     wx.cloud.callFunction({
@@ -173,23 +157,76 @@ Page({
     }
   },
 
+  onShow() {
+    this.setData({
+      podcastComplete: app.globalData.userData.finished_podcasts
+    });
+    try {
+      let medi_taken_days = app.globalData.userData.med_date
+      let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
+      this.setData({
+        currWeekAlreadyTaken: takenInWeek
+      })
+    } catch {
+    }
+
+    let today = new Date()
+    let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
+    if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
+      this.setData({
+        showRedDot: true
+      })
+    } else {
+      this.setData({
+        showRedDot: false
+      })
+    }
+  },
+
   async createPodcastRegisterAvailability(app) {
     let allPodCastData =  await wx.getStorageSync('allPodCastData');
     const date = new Date(app.globalData.userData.reg_time);
     const today = new Date();
-    console.log("today", today);
     const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000));
     const podcastRegisterAvailability = new Array(allPodCastData.length);
-    // console.log(app.globalData.podCast);
-    // console.log("podcastRegisterAvailability 180", podcastRegisterAvailability);
-    console.log(inputWeek);
     for (let i = 0; i < podcastRegisterAvailability.length; i++) {
         podcastRegisterAvailability[i] = i <= inputWeek ? 1: -1;
     }
-    console.log("podcastRegisterAvailability", podcastRegisterAvailability)
-    console.log("podcastsAvailability", this.data.podcastsAvailability);
+
     this.setData({
       podcastRegisterAvailability
+    })
+  },
+  // generate podcast availability and on podcast complete array and register time podcast array
+  generatePodcastAvailabilityArray(podcastComplete, podcastRegisterAvailability) {
+    if(podcastComplete.length == 0) return [1]
+    let result = [1];
+    for (let i = 0; i < podcastComplete.length; i++) {
+      if (podcastComplete[i] === 1 && podcastRegisterAvailability[i] === 1) {
+        result[i] = 1;
+      }
+    }
+    if(result.length < podcastRegisterAvailability.length) {
+        result.push(1); 
+    }
+    return result
+  },
+
+  // change color of progress bar on the home page
+  change_home_progress_style() {
+    let medi_taken_days = app.globalData.userData.med_date
+    let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
+    let currentMediProgressColor = this.data.progressBarColor
+    if(takenInWeek <= 1) {
+      currentMediProgressColor =  "#FA5151"
+    } else if(takenInWeek <= 3) {
+      currentMediProgressColor =  "#FFC300";
+    } else {
+      currentMediProgressColor =  "#46BA74";
+    }
+    this.setData({
+      progressBarColor: currentMediProgressColor,
+      currWeekAlreadyTaken: takenInWeek,
     })
   },
 
@@ -225,32 +262,6 @@ Page({
     return lst.sort(function(a, b) {
       return a.podCast_Id - b.podCast_Id;
     });
-  },
-  onShow() {
-    
-    this.setData({
-      podcastComplete: app.globalData.userData.finished_podcasts
-    });
-    try {
-      let medi_taken_days = app.globalData.userData.med_date
-      let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
-      this.setData({
-        currWeekAlreadyTaken: takenInWeek
-      })
-    } catch {
-    }
-
-    let today = new Date()
-    let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
-    if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
-      this.setData({
-        showRedDot: true
-      })
-    } else {
-      this.setData({
-        showRedDot: false
-      })
-    }
   },
   isSameDay(d1, d2) {
     return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
@@ -294,8 +305,8 @@ Page({
     let clickedPodCastNum = e.currentTarget.dataset.id
     let currpodcast_finish_status = this.data.podcastsAvailability[clickedPodCastNum - 1]
     let currpodcast_register_status = this.data.podcastRegisterAvailability[clickedPodCastNum]
-
-    if (currpodcast_finish_status === 1 && this.data.podcastsAvailability.length != -1) {
+    
+    if (currpodcast_register_status === 1 && currpodcast_finish_status !== -1) {
       wx.showModal({
         content: '请先完成当前内容',
         confirmText: '我知道了',
@@ -304,22 +315,13 @@ Page({
           console.log("还没有完成前面的内容")
         }
       })
-    } else if (currpodcast_register_status) {
+    } else if (currpodcast_register_status !== 1 && currpodcast_finish_status === 1) {
       wx.showModal({
         content: '新内容下周更新',
         confirmText: '我知道了',
         showCancel: false,
         success (res) {
           console.log("还未到下一周")
-        }
-      })
-    } else {
-      wx.showModal({
-        content: '请先完成当前内容',
-        confirmText: '我知道了',
-        showCancel: false,
-        success (res) {
-          console.log("还没有完成前面的内容")
         }
       })
     }

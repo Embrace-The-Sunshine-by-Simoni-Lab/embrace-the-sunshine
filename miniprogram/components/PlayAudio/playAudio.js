@@ -41,8 +41,7 @@ Component({
     } else {
       podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
     }
-    
-    console.log("podCastEndStatus", podCastEndStatus)
+
     // change the display collect star status, 1 means collected, -1 means not collected
     let curr_podcast_fav;
     if (app.globalData.userData.fav_podcasts == undefined) {
@@ -57,7 +56,7 @@ Component({
     } else {
       curr_podcast_fav_status = false;
     }
-    console.log("podCastInfo0", this.data.podCastInfo)
+
     this.setData({
       podCastInfo: currPodCast,
       allPodCastCount: count,
@@ -65,7 +64,6 @@ Component({
       podcastCollected: curr_podcast_fav_status,
     })
 
-    console.log("podCastInfo", this.data.podCastInfo)
     this.innerAudioContext = wx.createInnerAudioContext({
       useWebAudioImplement: false
     })
@@ -86,12 +84,12 @@ Component({
     })
 
     this.innerAudioContext.onSeeked(()=> {
-      // console.log("onSeeked called")
       const currentSeconds = this.innerAudioContext.currentTime
     })
 
     this.innerAudioContext.onEnded(()=> {
-      if(podCastEndStatus === -1) {
+
+      if(!podCastEndStatus) {
         wx.cloud.callFunction({
           name: 'finish_podcast',
           data: {
@@ -258,6 +256,8 @@ Component({
       this.audioPlayerInit();
     },
     goToNextPodCast() {
+      console.log("app", app.globalData.podcastsAvailability)
+      
       this.innerAudioContext.destroy();
       let curPodCastId = this.properties.currPodCastOrder
       curPodCastId += 1
@@ -293,7 +293,6 @@ Component({
         podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
       }
       
-      console.log("podCastEndStatus", podCastEndStatus)
       // change the display collect star status, 1 means collected, -1 means not collected
       let curr_podcast_fav;
       if (app.globalData.userData.fav_podcasts == undefined) {
@@ -302,13 +301,11 @@ Component({
         curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
       }
       let curr_podcast_fav_status;
-  
       if(curr_podcast_fav === 1) {
         curr_podcast_fav_status = true
       } else {
         curr_podcast_fav_status = false;
       }
-      console.log("podCastInfo0", this.data.podCastInfo)
       this.setData({
         podCastInfo: currPodCast,
         allPodCastCount: count,
@@ -316,15 +313,12 @@ Component({
         podcastCollected: curr_podcast_fav_status,
       })
   
-      console.log("podCastInfo", this.data.podCastInfo)
       this.innerAudioContext = wx.createInnerAudioContext({
         useWebAudioImplement: false
       })
       this.innerAudioContext.src = this.data.podCastInfo.url
       let totalDuration = this.data.podCastInfo.totalTimeSecond
 
-
-  
       this.innerAudioContext.onTimeUpdate(() => {
         // console.log("on time update")
         const currentSeconds = this.innerAudioContext.currentTime
@@ -339,7 +333,6 @@ Component({
       })
       
       this.innerAudioContext.onSeeked(()=> {
-        // console.log("onSeeked called")
         const currentSeconds = this.innerAudioContext.currentTime
       })
 

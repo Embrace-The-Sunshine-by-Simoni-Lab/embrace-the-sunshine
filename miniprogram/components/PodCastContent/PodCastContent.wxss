@@ -40,6 +40,19 @@
   justify-content: center;
   align-items: center;
 }
+.podcast_meditation_img {
+  width: 450rpx;
+  height: 340rpx;
+  margin-top: 20rpx;
+  margin-bottom: 60rpx;
+}
+.podcast_meditation_content_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .quizHeader {
   font-size: 34rpx;
   padding-bottom: 14rpx;
@@ -153,17 +166,31 @@
   /* height: 200rpx; */
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   /* background: orange; */
 }
 .open_ended_question {
+  background: white;
   border: 1.5px solid #6568BC;
   box-sizing: border-box;
   padding: 20rpx;
   border-radius: 5px;
-  width: 80%;
-  height: 200rpx;
+  width: 100%;
+  height: 360rpx;
   /* background: green; */
 }
 textarea::placeholder {
   color: red;
+}
+.meditation_submit {
+  width: 350rpx;
+  height: 80rpx;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  color: #FFFFFF;
+  background: #4D50A4;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 70rpx;
 }

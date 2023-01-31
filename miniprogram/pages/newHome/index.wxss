@@ -12,6 +12,10 @@
   margin-bottom: 15px;
   position: relative;
 }
+.swipe_orange_background {
+  background: #F38A73;
+  border-radius: 10px;
+}
 .homePodCastBox {
   width: 100%;
   height: 580rpx;
@@ -88,6 +92,7 @@
   padding: 14px 16px;
   box-sizing: border-box;
 }
+
 .homePodNum {
   font-weight: 200;
   font-size: 15px;
@@ -257,8 +262,8 @@
   overflow: hidden
 }
 .castImageItem {
-  width: 195rpx;
-  height: 195rpx;
+  width: 185rpx;
+  height: 185rpx;
 }
 .checkAll {
   align-self: flex-end;

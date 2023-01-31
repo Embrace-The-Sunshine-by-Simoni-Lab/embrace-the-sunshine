@@ -11,7 +11,7 @@
   border: 1px solid #BDBDBD;
   border-radius: 4px;
   padding-left: 20rpx;
-  width: 500rpx;
+  width: 590rpx;
   box-sizing: border-box;
   padding: 13rpx;
   font-size: 28rpx;
@@ -20,7 +20,21 @@
   line-height: 40rpx;
 }
 .expandExplanation {
-  float:right
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 10rpx;
+}
+.expand_box {
+  display: flex;
+  align-items: center;
+}
+.triangle {
+  margin-left: 10rpx;
+  width: 0; 
+  height: 0; 
+  border-left: 10rpx solid transparent; 
+  border-right: 10rpx solid transparent; 
 }
 .explanationDetail {
   color: rgba(23, 37, 169, 0.81)

@@ -14,7 +14,7 @@ Component({
     }
   },
   data: {
-    mode: "Quiz",
+    mode: "Content",
     reportPageClicked: false, // 是否用户已经点了提交
     allQuestionAnswered: false, // 是否用户已经完成所有需要填完的问题
     currentDisplayQuestion: 0, // 当前问题
@@ -32,6 +32,16 @@ Component({
       let allPodCastData = await wx.getStorageSync('allPodCastData');
       let currPodCast = allPodCastData[this.properties.currPodCastOrder];
       let currUserAnswer = app.globalData.podcast_progress_data.podcast_progress[this.properties.currPodCastOrder];
+
+      // 如果有open eneded的回答那么更新
+      if(currUserAnswer) {
+        let cur_pod_cast_open_ended = currUserAnswer[currUserAnswer.length - 1]
+        if(cur_pod_cast_open_ended != -1){// 等于-1说明用户没有填开放式回答
+          this.setData({
+            open_ended_answer: cur_pod_cast_open_ended
+          })
+        } 
+      }
 
       if(!currUserAnswer) { // 用户还未提交过
         let answerTemp = currPodCast.pod_Cast_Quiz.length

@@ -44,10 +44,11 @@
   width: 100px;
   height: 80px;
   padding: 0 10rpx;
+  overflow: hidden
 }
 .castImageItem {
-  width: 90%;
-  height: 85%;
+  width: 185rpx;
+  height: 185rpx;
 }
 .castContent {
   box-sizing: border-box;

@@ -3,20 +3,21 @@
   <text class="allCastHeader">全部播客</text>
 
   <view class="homePodCastBox">
-    <view class="castItem {{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? '' : 'podcast-unavailable'}}" 
+    <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
       wx:for="{{podCastInfo}}" 
       wx:for-item="item" 
       wx:for-index="idx" 
       wx:key="idx" 
+      wx:if="{{podCastInfo[idx].podCast_Id !== 2}}"
       data-id="{{item.podCast_Id}}" 
-      bind:tap="{{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
+      bind:tap="{{(podcastsAvailability[idx] === 1) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
       <image 
-        style="display: {{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? 'none' : 'block'}}"
+        style="display: {{(podcastsAvailability[idx] === 1) ? 'none' : 'block'}}"
         src="../../images/homepage/LOCK.png" 
         class="podcast_lock">
       </image>
       <view class="castImage">
-        <image class="castImageItem" style="{{idx === 1 && 'margin-left: -15rpx'}}" src="{{item.podCastListURL}}"></image>
+        <image class="castImageItem" src="{{item.podCastListURL}}"></image>
       </view>
 
       <view class="castContent">
@@ -25,7 +26,7 @@
             <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
             <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
           </view>
-          <image src="../../images/homepage/home-uncheck.png" class="castContent_top_check"></image>
+          <image src="{{podcastComplete[idx] === 1 ? '../../images/homepage/home-check.png':'../../images/homepage/home-uncheck.png'}}" class="castContent_top_check"></image>
         </view>
       </view>
     </view>

@@ -3,7 +3,8 @@
   <view class="headerContainer">
     <view class="podcastHeader">
       <view class="headerImage">
-        <image class="podcast_img" src="{{podCastInfo.podcastPlayImgUrl}}"></image>
+        <!-- <image class="podcast_img" src="{{podCastInfo.podcastPlayImgUrl}}"></image> -->
+        <image class="podcast_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast-human.png"></image>
       </view>
       <view class="headerContent">
         <view class="headerTitle">{{podCastInfo.mainTitle}}</view>

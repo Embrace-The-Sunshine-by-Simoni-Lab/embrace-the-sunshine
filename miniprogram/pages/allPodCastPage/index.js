@@ -7,28 +7,24 @@ Page({
    */
   data: {
     podCastInfo: [],
-    podcastsAvailability: [1,-1,-1,-1],
-    podcastRegisterAvailability: [], // to decide whether user has 
+    podcastsAvailability: [],
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    // console.log("all list on load")
     let allPodCastData =  wx.getStorageSync('allPodCastData');
-    const date = new Date(app.globalData.userData.reg_time);
-    const today = new Date();
-    const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
 
-    const podcastRegisterAvailability = new Array(app.globalData.podCast.length);
-    for (let i = 0; i < podcastRegisterAvailability.length; i++) {
-      if (i <= inputWeek) {
-        podcastRegisterAvailability[i] = 1;
-      }
-    }
+    console.log("app global", app.globalData)
+    let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
+    let podcastComplete = app.globalData.podcastComplete
 
     this.setData({
       podCastInfo: allPodCastData,
-      podcastRegisterAvailability
+      podcastsAvailability: app.globalData.podcastsAvailability,
+      podcastRegisterAvailability,
+      podcastComplete
     })
   },
   jumpToPodCastPlay(e) {
