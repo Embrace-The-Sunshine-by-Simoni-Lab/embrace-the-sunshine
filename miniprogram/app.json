@@ -3,15 +3,6 @@
     "pages/newHome/index",
     "pages/profileEdit/profileEdit",
     "pages/onboarding/onboarding",
-    "pages/index/index",
-    "pages/questionnaire/questionnaire",
-    "pages/storageConsole/storageConsole",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/openapi/openapi",
-    "pages/openapi/serverapi/serverapi",
-    "pages/openapi/callback/callback",
-    "pages/openapi/cloudid/cloudid",
     "pages/infoPage/infoPage",
     "pages/medTracking/medTracking",
     "pages/module/modulePage",
@@ -39,12 +30,6 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
-      {
-        "selectedIconPath": "images/content-icon-selected.png",
-        "iconPath": "images/content-icon.png",
-        "pagePath": "pages/index/index",
-        "text": "内容"
-      },
       {
         "selectedIconPath": "images/home-icon-selected.png",
         "iconPath": "images/home-icon.png",

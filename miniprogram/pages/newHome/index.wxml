@@ -53,7 +53,7 @@
     <text class="homePodCastTitle">播客</text>
 
     <view class="homePodCastBox">
-      <view class="castItem {{idx === 0 || (podcastsAvailability[idx - 1] === 1 && podcastRegisterAvailability[idx] === 1) ? '' : 'podcast-unavailable'}}" 
+      <view class="castItem {{idx === 0 || ((podcastsAvailability.length != 1 && podcastsAvailability[idx - 1] === 1) && podcastRegisterAvailability[idx] === 1) ? '' : 'podcast-unavailable'}}" 
         wx:for="{{podCastInfo}}" 
         wx:for-item="item" 
         wx:for-index="idx" 

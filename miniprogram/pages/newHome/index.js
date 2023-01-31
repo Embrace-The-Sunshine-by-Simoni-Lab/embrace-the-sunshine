@@ -84,7 +84,7 @@ Page({
           wx.hideLoading()
           if (typeof this.getTabBar === "function" && this.getTabBar()) {
               this.getTabBar().setData({
-                  selected: 1
+                  selected: 0
               })
           }
           // start onboarding page if this is new user
