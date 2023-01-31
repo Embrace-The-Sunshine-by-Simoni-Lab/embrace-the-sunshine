@@ -35,10 +35,21 @@ Component({
     let count = allPodCastData.length
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
     // get info about if the current podcast has already been finished listening
-    let podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder]
+    let podCastEndStatus;
+    if (app.globalData.userData.finished_podcasts == undefined) {
+      podCastEndStatus = -1;
+    } else {
+      podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
+    }
+    
     console.log("podCastEndStatus", podCastEndStatus)
     // change the display collect star status, 1 means collected, -1 means not collected
-    let curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder]
+    let curr_podcast_fav;
+    if (app.globalData.userData.fav_podcasts == undefined) {
+      curr_podcast_fav = -1;
+    } else {
+      curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
+    }
     let curr_podcast_fav_status;
 
     if(curr_podcast_fav === 1) {
@@ -80,7 +91,7 @@ Component({
     })
 
     this.innerAudioContext.onEnded(()=> {
-      if(!podCastEndStatus) {
+      if(podCastEndStatus === -1) {
         wx.cloud.callFunction({
           name: 'finish_podcast',
           data: {
@@ -89,6 +100,7 @@ Component({
           success: out => {
             console.log("successfully finish podcast")
             // 提交完后更新
+            console.log("out.result: ", out.result);
             app.globalData.userData.finished_podcasts = out.result.data;
           },
           fail: out => {
@@ -223,6 +235,7 @@ Component({
     },
     // change a pod cast
     goToPrevPodCast() {
+      this.innerAudioContext.destroy();
       let curPodCastId = this.properties.currPodCastOrder
       curPodCastId -= 1
       if(curPodCastId < 0) {
@@ -236,10 +249,16 @@ Component({
       let currPodCast = allPodCastData[curPodCastId]
       this.setData({
         podCastInfo: currPodCast,
-        currPodCastOrder: curPodCastId
+        currPodCastOrder: curPodCastId,
+        isPlaying: false,
+        sliderPosition: 0,
+        currentProgressSecond: 0,
+        currentPlayTime: '00:00'
       })
+      this.audioPlayerInit();
     },
     goToNextPodCast() {
+      this.innerAudioContext.destroy();
       let curPodCastId = this.properties.currPodCastOrder
       curPodCastId += 1
       if(curPodCastId >= this.data.allPodCastCount) {
@@ -253,7 +272,97 @@ Component({
       let currPodCast = allPodCastData[curPodCastId]
       this.setData({
         podCastInfo: currPodCast,
-        currPodCastOrder: curPodCastId
+        currPodCastOrder: curPodCastId,
+        isPlaying: false,
+        sliderPosition: 0,
+        currentProgressSecond: 0,
+        currentPlayTime: '00:00'
+      })
+      this.audioPlayerInit();
+    },
+    audioPlayerInit() {
+      const app = getApp()
+      let allPodCastData =  wx.getStorageSync('allPodCastData');
+      let count = allPodCastData.length
+      let currPodCast = allPodCastData[this.properties.currPodCastOrder]
+      // get info about if the current podcast has already been finished listening
+      let podCastEndStatus;
+      if (app.globalData.userData.finished_podcasts == undefined) {
+        podCastEndStatus = -1;
+      } else {
+        podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
+      }
+      
+      console.log("podCastEndStatus", podCastEndStatus)
+      // change the display collect star status, 1 means collected, -1 means not collected
+      let curr_podcast_fav;
+      if (app.globalData.userData.fav_podcasts == undefined) {
+        curr_podcast_fav = -1;
+      } else {
+        curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
+      }
+      let curr_podcast_fav_status;
+  
+      if(curr_podcast_fav === 1) {
+        curr_podcast_fav_status = true
+      } else {
+        curr_podcast_fav_status = false;
+      }
+      console.log("podCastInfo0", this.data.podCastInfo)
+      this.setData({
+        podCastInfo: currPodCast,
+        allPodCastCount: count,
+        currPodCastOrder: this.properties.currPodCastOrder,
+        podcastCollected: curr_podcast_fav_status,
+      })
+  
+      console.log("podCastInfo", this.data.podCastInfo)
+      this.innerAudioContext = wx.createInnerAudioContext({
+        useWebAudioImplement: false
+      })
+      this.innerAudioContext.src = this.data.podCastInfo.url
+      let totalDuration = this.data.podCastInfo.totalTimeSecond
+
+
+  
+      this.innerAudioContext.onTimeUpdate(() => {
+        // console.log("on time update")
+        const currentSeconds = this.innerAudioContext.currentTime
+        const newSliderPosition = currentSeconds / totalDuration * 100
+        const format = this.formatTime(currentSeconds)
+  
+        this.setData({
+          sliderPosition: newSliderPosition,
+          currentPlayTime: format,
+          currentProgressSecond: currentSeconds
+        })
+      })
+      
+      this.innerAudioContext.onSeeked(()=> {
+        // console.log("onSeeked called")
+        const currentSeconds = this.innerAudioContext.currentTime
+      })
+
+      this.innerAudioContext.seek(0);
+  
+      this.innerAudioContext.onEnded(()=> {
+        if(podCastEndStatus === -1) {
+          wx.cloud.callFunction({
+            name: 'finish_podcast',
+            data: {
+              podcast_id: this.properties.currPodCastOrder,
+            },
+            success: out => {
+              console.log("successfully finish podcast")
+              // 提交完后更新
+              console.log("out.result: ", out.result);
+              app.globalData.userData.finished_podcasts = out.result.data;
+            },
+            fail: out => {
+              console.log('fail to finsih podcast')
+            }
+          })
+        }
       })
     }
   },

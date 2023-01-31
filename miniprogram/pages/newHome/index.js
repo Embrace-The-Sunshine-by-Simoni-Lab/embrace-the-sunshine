@@ -12,12 +12,13 @@ Page({
     vertical: false,
     podCastInfo: [], 
     progressBarColor: "", // the color changes based on the total days of medi taken
-    podcastsAvailability: [1,-1,-1,-1],
+    podcastsAvailability: [],
     podcastRegisterAvailability: [], // to decide whether user has registered long enough to see each podcast
-    podcastComplete: [1,-1,-1,-1]
+    podcastComplete: []
   },
   onLoad: function() {
     var is_new_user = false;
+    let that = this;
     if (!app.globalData.logged) {
       wx.showLoading({
         title: '加载中',
@@ -34,6 +35,11 @@ Page({
               app.globalData.podcast_progress_data = out.result.podcast_progress_data;
               app.globalData.logged = true;
               is_new_user = out.result.is_new_user;
+              that.setData({
+                podcastComplete: app.globalData.userData.finished_podcasts,
+                podcastsAvailability: app.globalData.userData.finished_podcasts
+              });
+              console.log(that.data.podcastsAvailability);
               // change bar color based on the medi taken days
               let medi_taken_days = app.globalData.userData.med_date
               let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
@@ -49,8 +55,9 @@ Page({
 
               // set register date
               const user_register_date = new Date(2023, 0, 1)
+              console.log("gbgb: ", app.globalData);
               // change each podcast's availability based on the user register time 
-              this.createPodcastRegisterAvailability(app.globalData.userData.reg_time)
+              this.createPodcastRegisterAvailability(app)
 
               this.setData({
                 progressBarColor: currentMediProgressColor,
@@ -166,17 +173,21 @@ Page({
     }
   },
 
-  createPodcastRegisterAvailability(dateString) {
-    const date = new Date(dateString);
+  async createPodcastRegisterAvailability(app) {
+    let allPodCastData =  await wx.getStorageSync('allPodCastData');
+    const date = new Date(app.globalData.userData.reg_time);
     const today = new Date();
-    const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
-    const podcastRegisterAvailability = new Array(this.data.podCastInfo.length);
+    console.log("today", today);
+    const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000));
+    const podcastRegisterAvailability = new Array(allPodCastData.length);
+    // console.log(app.globalData.podCast);
+    // console.log("podcastRegisterAvailability 180", podcastRegisterAvailability);
+    console.log(inputWeek);
     for (let i = 0; i < podcastRegisterAvailability.length; i++) {
-      if (i <= inputWeek) {
-        podcastRegisterAvailability[i] = 1;
-      }
+        podcastRegisterAvailability[i] = i <= inputWeek ? 1: -1;
     }
     console.log("podcastRegisterAvailability", podcastRegisterAvailability)
+    console.log("podcastsAvailability", this.data.podcastsAvailability);
     this.setData({
       podcastRegisterAvailability
     })
@@ -216,6 +227,10 @@ Page({
     });
   },
   onShow() {
+    
+    this.setData({
+      podcastComplete: app.globalData.userData.finished_podcasts
+    });
     try {
       let medi_taken_days = app.globalData.userData.med_date
       let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
@@ -280,7 +295,7 @@ Page({
     let currpodcast_finish_status = this.data.podcastsAvailability[clickedPodCastNum - 1]
     let currpodcast_register_status = this.data.podcastRegisterAvailability[clickedPodCastNum]
 
-    if(currpodcast_finish_status == -1) {
+    if(!currpodcast_finish_status || currpodcast_finish_status == -1) {
       wx.showModal({
         content: '请先完成当前内容',
         confirmText: '我知道了',
@@ -289,7 +304,7 @@ Page({
           console.log("还没有完成前面的内容")
         }
       })
-    } else if(currpodcast_register_status == -1) {
+    } else if(!currpodcast_register_status || currpodcast_register_status == -1) {
       wx.showModal({
         content: '新内容下周更新',
         confirmText: '我知道了',
