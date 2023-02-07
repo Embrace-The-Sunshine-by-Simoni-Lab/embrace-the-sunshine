@@ -1,4 +1,4 @@
-// pages/medicationReportUchart/index.js
+// pages/moodTrackingReport/index.js
 import * as echarts from '../../ec-canvas/echarts';
 // 6 个数据点
 let nearHalfYear = [['m1', 3], ['m2', 7], ['m3', 12], ['m4', 8], ['m5', 4], ['m6', 1]]

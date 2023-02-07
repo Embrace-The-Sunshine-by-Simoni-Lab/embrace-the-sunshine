@@ -28,24 +28,24 @@ Page({
     })
   },
   goto_resources: function() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: "../infoPage/infoPage",
     })
   },
   goto_profileEdit: function() {
     console.log(this.data.username);
     wx.navigateTo({
-      url: "../profileEdit/profileEdit",
+      url: "../../package_profile/pages/profileEdit/profileEdit",
     })
   },
-  goto_settings: function() {
+  goto_feedback: function() {
     wx.navigateTo({
-      url: "../setting/setting",
+      url: "../../package_profile/pages/feedback/feedback",
     })
   },
-  goto_info: function() {
+  goto_aboutUs: function() {
     wx.navigateTo({
-      url: "../infoPage/infoPage",
+      url: "../../package_profile/pages/aboutUs/aboutUs",
     })
   },
   /**
@@ -69,41 +69,6 @@ Page({
     })
     console.log("this.data.username", this.data.username);
     console.log("app.globalData.userData.nickname", app.globalData.userData.nickname);
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
   },
 
   setNewName: async function (e) {

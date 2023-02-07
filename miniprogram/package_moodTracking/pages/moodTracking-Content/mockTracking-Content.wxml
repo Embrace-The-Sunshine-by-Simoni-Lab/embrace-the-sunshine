@@ -5,12 +5,12 @@
 
     <view class="mood_image_box">
       <!-- go to prev question -->
-      <image class="mood_prev mood_next_left" src="../../images/next-enable.png" wx:if="{{currentQuestion > 0}}" bind:tap="goToPrevQuestion"></image>
+      <image class="mood_prev mood_next_left" src="../../../images/next-enable.png" wx:if="{{currentQuestion > 0}}" bind:tap="goToPrevQuestion"></image>
       <!-- middle image -->
       <image class="mood_content_image" src="{{questions[currentQuestion][1]}}"></image>
       <!-- go to next question -->
-      <image wx-if="{{finishStatus[currentQuestion] != -1}}" class="mood_next" src="../../images/next-enable.png" bind:tap="goToNextQuestion" wx:if="{{currentQuestion < 8}}"></image>
-      <image wx-if="{{finishStatus[currentQuestion] == -1}}" class="mood_next" src="../../images/next.png" wx:if="{{currentQuestion < 8}}"></image>
+      <image wx-if="{{finishStatus[currentQuestion] != -1}}" class="mood_next" src="../../../images/next-enable.png" bind:tap="goToNextQuestion" wx:if="{{currentQuestion < 8}}"></image>
+      <image wx-if="{{finishStatus[currentQuestion] == -1}}" class="mood_next" src="../../../images/next.png" wx:if="{{currentQuestion < 8}}"></image>
     </view>
 
     <view class="mood_gap"></view>

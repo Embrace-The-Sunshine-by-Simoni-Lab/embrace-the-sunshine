@@ -91,13 +91,13 @@ Page({
   },
   backHome() {
     wx.switchTab({
-      url: '/pages/mainpage/mainpage',
+      url: '../../../pages/newHome/index'
     })
   },
   
-  goToMedicationReport() {
+  goToMoodTrackingReport() {
     wx.redirectTo({
-      url:'/pages/medicationReportUchart/index'
+      url:'../moodTrackingReport/index'
     })
   }
 })

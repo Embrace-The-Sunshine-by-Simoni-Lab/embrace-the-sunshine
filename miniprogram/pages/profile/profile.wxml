@@ -33,11 +33,11 @@
     <view class="tool_container">
       <text class="tool-text">工具</text>
       <view class="buttonList-container">
-        <view class="button-container-vertical" bindtap="goto_settings">
+        <view class="button-container-vertical" bindtap="goto_feedback">
           <image class="button-img" src="../../images/profile/功能反馈.png" style="width: 110rpx; height: 110rpx"></image>
           <text class="buttonList-text">功能反馈</text>
         </view>
-        <view class="button-container-vertical" bindtap="goto_info">
+        <view class="button-container-vertical" bindtap="goto_aboutUs">
           <image class="button-img" src="../../images/profile/关于我们.png" style="width: 110rpx; height: 110rpx"></image>
           <text class="buttonList-text">关于我们</text>
         </view>

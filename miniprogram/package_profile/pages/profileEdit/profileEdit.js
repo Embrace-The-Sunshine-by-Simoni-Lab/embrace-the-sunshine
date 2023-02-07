@@ -2,7 +2,7 @@
 const app = getApp()
 Page({
   data: {
-    headImg: "../../images/profile/headImg.png",
+    headImg: "../../../images/profile/headImg.png",
     bufferHeadImg: "",
     nickName: "",
     userId: ""

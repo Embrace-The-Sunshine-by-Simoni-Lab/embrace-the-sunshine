@@ -14,11 +14,7 @@ Page({
       }
     }
   },
-  goToTest() {
-    wx.redirectTo({
-      url:'/pages/moodTracking-Content/mockTracking-Content'
-    })
-  },
+
   isSameWeek: function (date) {
     let today = new Date();
     let otherDate = new Date(date);
@@ -28,7 +24,7 @@ Page({
     return parseInt((old_count+4)/7) === parseInt((now_other+4)/7);
   },
 
-  goToMedicationReport() {
+  goToMoodTrackingReport() {
     if (app.globalData.userData.mood_track.mood_date.length == 0) {
       wx.showToast({
         title: '请先完成至少一次情绪测试',
@@ -37,9 +33,14 @@ Page({
       })
     } else {
       wx.redirectTo({
-        url:'/pages/medicationReportUchart/index'
+        url:'../moodTrackingReport/index'
       })
     }
-    
-  }
+  },
+  
+  goToTest() {
+    wx.redirectTo({
+      url:'../moodTracking-Content/mockTracking-Content'
+    })
+  },
 })

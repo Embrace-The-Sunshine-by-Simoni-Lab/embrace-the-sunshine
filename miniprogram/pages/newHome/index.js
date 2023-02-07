@@ -177,7 +177,7 @@ Page({
   },
   jumpToMoodTracking() {
     wx.redirectTo({
-      url: "../moodTracking/moodTracking",
+      url: "../../package_moodTracking/pages/moodTracking/moodTracking",
     })
   },
   jumptoAllPodCastPage() {
