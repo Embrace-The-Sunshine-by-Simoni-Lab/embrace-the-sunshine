@@ -2,97 +2,91 @@ const app = getApp()
 
 Page({
   data: {
-    currWeekAlreadyTaken: 0, // days in the current week on which user has taken medicine 
-    showRedDot: false,    // display if enter medication today
+    currWeekAlreadyTaken: 0, // 本周用户有多少天是已经服药的
+    showRedDot: false,    // 判断用户今日是否已经确认过服药
     logged: false,
     indicatorDots: true,
     podCastInfo: [], 
-    progressBarColor: "", // the color changes based on the total days of medi taken
-    podcastsAvailability: [], // decide if podcast can be click into
-    podcastRegisterAvailability: [], // to decide whether user has registered long enough to see each podcast
-    podcastComplete: [] // use to show check mark and uncheck mark
+    podCastInfo_remove_meditation: [],
+    progressBarColor: "", // 首页药物追踪的进度条背景
+    podcastsAvailability: [], // 综合播客的完成状态和注册时间最终确定展示的播客
+    podcastRegisterAvailability: [], // 判断用户是否发已经注册了足够多的时间来获取更新的播客
+    podcastComplete: [] // 用来设置播客已完成的未完成的打勾
   },
   onLoad: function() {
-    // if there are podcast available, update
-    console.log("home onload")
-    let curr_podcast_availability = app.globalData.podcastsAvailability
-    if(curr_podcast_availability && curr_podcast_availability.length > 0) {
-      this.setData({
-        podcastsAvailability:curr_podcast_availability
-      })
-    }
+
     if(app.globalData.podcastsAvailability)
-    var is_new_user = false;
-    let that = this;
-    if (!app.globalData.logged) {
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      })
-      wx.cloud.callFunction({
-        name: 'auto_sign_in',
-        data: {
-        },
-        success: async out => {
-          if (out.result.errCode == 0) {
-            if (out.result.data) {
-              app.globalData.userData = out.result.data;
-              app.globalData.podcast_progress_data = out.result.podcast_progress_data;
-              app.globalData.logged = true;
-              is_new_user = out.result.is_new_user;
-              that.setData({
-                podcastComplete: app.globalData.userData.finished_podcasts,
-              });
-              // grant color to meditation progress bar
-              that.change_home_progress_style()
-              // change each podcast's availability based on the user register time 
-              await that.createPodcastRegisterAvailability(app)
+      var is_new_user = false;
+      let that = this;
+      if (!app.globalData.logged) {
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        })
+        wx.cloud.callFunction({
+          name: 'auto_sign_in',
+          data: {
+          },
+          success: async out => {
+            if (out.result.errCode == 0) {
+              if (out.result.data) {
+                app.globalData.userData = out.result.data;
+                app.globalData.podcast_progress_data = out.result.podcast_progress_data;
+                app.globalData.logged = true;
+                is_new_user = out.result.is_new_user;
+                that.setData({
+                  podcastComplete: app.globalData.userData.finished_podcasts || [],
+                });
+                // grant color to meditation progress bar
+                that.change_home_progress_style()
+                // change each podcast's availability based on the user register time 
+                await that.createPodcastRegisterAvailability(app)
 
-              console.log("podcastComplete", that.data.podcastComplete)
-              console.log("podcastsAvailability", that.data.podcastsAvailability)
-              console.log("podcastRegisterAvailability", that.data.podcastRegisterAvailability)
-              // 通过podcastComplete和podcastRegisterAvailability来改变podcastsAvailability的值
-              let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
-              console.log("new_podcast_availability", new_podcast_availability)
+                console.log("podcastComplete", that.data.podcastComplete)
+                console.log("podcastsAvailability", that.data.podcastsAvailability)
+                console.log("podcastRegisterAvailability", that.data.podcastRegisterAvailability)
+                // 通过podcastComplete和podcastRegisterAvailability来改变podcastsAvailability的值
+                let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
+                console.log("new_podcast_availability", new_podcast_availability)
 
-              app.globalData.podcastComplete = that.data.podcastComplete
-              app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
-              app.globalData.podcastsAvailability = new_podcast_availability
-   
-              this.setData({
-                podcastsAvailability: new_podcast_availability
-              })
+                app.globalData.podcastComplete = that.data.podcastComplete
+                app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
+                app.globalData.podcastsAvailability = new_podcast_availability
+    
+                this.setData({
+                  podcastsAvailability: new_podcast_availability
+                })
+              } else {
+                console.log(out.errMsg);
+              }
             } else {
               console.log(out.errMsg);
             }
-          } else {
-            console.log(out.errMsg);
-          }
-          // get if medi taken today
-          let today = new Date()
-          let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
-          this.setData({
-            showRedDot: !ifTodayTaken
-          })
-        },
-        fail: out => {
-          console.log('call function failed')
-        },
-        complete: out => {
-          wx.hideLoading()
-          if (typeof this.getTabBar === "function" && this.getTabBar()) {
-              this.getTabBar().setData({
-                  selected: 0
-              })
-          }
-          // start onboarding page if this is new user
-          if (is_new_user) {
-            wx.navigateTo({
-              url: "../onboarding/onboarding",
+            // get if medi taken today
+            let today = new Date()
+            let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
+            this.setData({
+              showRedDot: !ifTodayTaken
             })
+          },
+          fail: out => {
+            console.log('call function failed')
+          },
+          complete: out => {
+            wx.hideLoading()
+            if (typeof this.getTabBar === "function" && this.getTabBar()) {
+                this.getTabBar().setData({
+                    selected: 0
+                })
+            }
+            // start onboarding page if this is new user
+            if (is_new_user) {
+              wx.navigateTo({
+                url: "../onboarding/onboarding",
+              })
+            }
           }
-         }
-      })
+        })
     } else {
       if (typeof this.getTabBar === "function" && this.getTabBar()) {
         this.getTabBar().setData({
@@ -102,7 +96,7 @@ Page({
       // change progress bar color based on different medi taken days
       this.change_home_progress_style()
     }
-    // fetch audio info
+    // 获取并且更新所有的播客内容
     wx.cloud.callFunction({
       name: 'getAllPodcastAudio',
       data: {
@@ -111,8 +105,9 @@ Page({
         if (out.result.errCode == 0) {
           if (out.result.data) {
             let allPodCastData = out.result.data;
+            // 根据播客的id进行排序
             let sorted_podcast = this.sortPodCastList(allPodCastData)
-            // update the podcast availability based on the register date, 否则当你进入一个页面,比如药物追踪, 然后又返回首页的时候, podcast的availability就不会更新
+            // 根据用户注册时间创建podcastRegisterAvailability
             const date = new Date(app.globalData.userData.reg_time);
             const today = new Date();
             const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
@@ -122,13 +117,11 @@ Page({
                 podcastRegisterAvailability[i] = 1;
               }
             }
-
             this.setData({
               podCastInfo: sorted_podcast,
-              podcastRegisterAvailability
+              podcastRegisterAvailability,
             })
-
-            // store audio in memory
+            // 把排列好的博客放进缓存
             app.globalData.podCast = sorted_podcast;
             wx.setStorageSync('allPodCastData', sorted_podcast)
           } 
@@ -143,7 +136,7 @@ Page({
         wx.hideLoading()
        }
     })
-    // logic for homepage red dot
+    // 药物追踪红点逻辑
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
     if (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime))) {
@@ -158,9 +151,13 @@ Page({
   },
 
   onShow() {
+    // 获取并且更新当前有效的博客
+    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastsAvailability || [1], this.data.podcastRegisterAvailability)
     this.setData({
-      podcastComplete: app.globalData.userData.finished_podcasts
+      podcastComplete: app.globalData.userData.finished_podcasts || [],
+      podcastsAvailability: new_podcast_availability
     });
+    // 获取并且更新首页服药天数状态
     try {
       let medi_taken_days = app.globalData.userData.med_date
       let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
@@ -301,6 +298,7 @@ Page({
       url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
     })
   },
+  // 处理当前不可用播客点击时候的弹窗逻辑内容
   jumpToUnAvailableNotice(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let currpodcast_finish_status = this.data.podcastsAvailability[clickedPodCastNum - 1]

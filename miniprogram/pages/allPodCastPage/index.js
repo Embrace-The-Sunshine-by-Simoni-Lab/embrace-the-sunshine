@@ -16,7 +16,7 @@ Page({
     // console.log("all list on load")
     let allPodCastData =  wx.getStorageSync('allPodCastData');
 
-    console.log("app global", app.globalData)
+    console.log("podcastComplete", podcastComplete)
     let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
     let podcastComplete = app.globalData.podcastComplete
 

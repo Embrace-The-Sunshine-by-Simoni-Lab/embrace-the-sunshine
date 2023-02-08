@@ -7,7 +7,7 @@
   <playAudio class="playAudio" currPodCastOrder="{{currPodCastOrder}}" bind:changePlayListOrder="changePlayListOrder"></playAudio>
 
   <!-- ********* height: 60%; ********* -->
-  <PodCastContent class="PodCastContent"id="PodCastContent" currPodCastOrder="{{currPodCastOrder}}"></PodCastContent>
+  <PodCastContent class="PodCastContent_style" id="PodCastContent" currPodCastOrder="{{currPodCastOrder}}"></PodCastContent>
 
 </view>
 

@@ -21,7 +21,6 @@ Component({
     currentProgressSecond: 0,
     podCastInfo: {},
     allPodCastCount: -1, // to make sure when you keep pressing next podcast, it will return to the first one
-    currPodCastOrder: -1,
     podcastCollected: false,
   },
 
@@ -32,7 +31,8 @@ Component({
   ready() {
     const app = getApp()
     let allPodCastData =  wx.getStorageSync('allPodCastData');
-    let count = allPodCastData.length
+    let count = app.globalData.podcastsAvailability.length
+
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
     // get info about if the current podcast has already been finished listening
     let podCastEndStatus;
@@ -88,8 +88,9 @@ Component({
     })
 
     this.innerAudioContext.onEnded(()=> {
-
-      if(!podCastEndStatus) {
+      console.log("this.innerAudioContext.currentTime", this.innerAudioContext.currentTime)
+      console.log("podCastEndStatus", podCastEndStatus)
+      if(!podCastEndStatus || podCastEndStatus == -1) {
         wx.cloud.callFunction({
           name: 'finish_podcast',
           data: {
@@ -100,6 +101,7 @@ Component({
             // 提交完后更新
             console.log("out.result: ", out.result);
             app.globalData.userData.finished_podcasts = out.result.data;
+            app.globalData.userData.podcastComplete = out.result.data;
           },
           fail: out => {
             console.log('fail to finsih podcast')
@@ -128,8 +130,6 @@ Component({
       
       this.innerAudioContext.seek(newAudioSecond)
     },
-  
-
     togglePlay () {
       // 先判断音频是否正在播放
       if (this.data.isPlaying) {
@@ -256,8 +256,6 @@ Component({
       this.audioPlayerInit();
     },
     goToNextPodCast() {
-      console.log("app", app.globalData.podcastsAvailability)
-      
       this.innerAudioContext.destroy();
       let curPodCastId = this.properties.currPodCastOrder
       curPodCastId += 1
@@ -283,7 +281,8 @@ Component({
     audioPlayerInit() {
       const app = getApp()
       let allPodCastData =  wx.getStorageSync('allPodCastData');
-      let count = allPodCastData.length
+
+      let count = app.globalData.podcastsAvailability.length
       let currPodCast = allPodCastData[this.properties.currPodCastOrder]
       // get info about if the current podcast has already been finished listening
       let podCastEndStatus;

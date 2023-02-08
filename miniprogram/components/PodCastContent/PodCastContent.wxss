@@ -180,9 +180,6 @@
   height: 360rpx;
   /* background: green; */
 }
-textarea::placeholder {
-  color: red;
-}
 .meditation_submit {
   width: 350rpx;
   height: 80rpx;
