@@ -1,13 +1,9 @@
 <!--pages/podcastPlay/index.wxml-->
 <view class="podcastContainer">
-  <!-- ********* height: 2%; ********* -->
   <view class="gap"></view>
-
-  <!-- ********* height: 38%; ********* -->
   <playAudio class="playAudio" currPodCastOrder="{{currPodCastOrder}}" bind:changePlayListOrder="changePlayListOrder"></playAudio>
+  <!-- <view class="playAudio">123</view> -->
 
-  <!-- ********* height: 60%; ********* -->
-  <PodCastContent class="PodCastContent_style" id="PodCastContent" currPodCastOrder="{{currPodCastOrder}}"></PodCastContent>
+  <PodCastContent class="PodCastContent" id="PodCastContent" currPodCastOrder="{{currPodCastOrder}}"></PodCastContent>
 
 </view>
-

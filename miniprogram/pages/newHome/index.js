@@ -9,12 +9,12 @@ Page({
     podCastInfo: [], 
     podCastInfo_remove_meditation: [],
     progressBarColor: "", // 首页药物追踪的进度条背景
-    podcastsAvailability: [], // 综合播客的完成状态和注册时间最终确定展示的播客
+    podcastsAvailability: [1], // 综合播客的完成状态和注册时间最终确定展示的播客
     podcastRegisterAvailability: [], // 判断用户是否发已经注册了足够多的时间来获取更新的播客
     podcastComplete: [] // 用来设置播客已完成的未完成的打勾
   },
   onLoad: function() {
-
+    console.log("onLoad run")
     if(app.globalData.podcastsAvailability)
       var is_new_user = false;
       let that = this;
@@ -34,25 +34,21 @@ Page({
                 app.globalData.podcast_progress_data = out.result.podcast_progress_data;
                 app.globalData.logged = true;
                 is_new_user = out.result.is_new_user;
+                // 先设置
                 that.setData({
                   podcastComplete: app.globalData.userData.finished_podcasts || [],
                 });
-                // grant color to meditation progress bar
                 that.change_home_progress_style()
-                // change each podcast's availability based on the user register time 
                 await that.createPodcastRegisterAvailability(app)
-
-                console.log("podcastComplete", that.data.podcastComplete)
-                console.log("podcastsAvailability", that.data.podcastsAvailability)
-                console.log("podcastRegisterAvailability", that.data.podcastRegisterAvailability)
                 // 通过podcastComplete和podcastRegisterAvailability来改变podcastsAvailability的值
+                console.log("podcastRegisterAvailability", that.data.podcastRegisterAvailability)
                 let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
-                console.log("new_podcast_availability", new_podcast_availability)
 
+                console.log("podcastComplete", this.data.podcastComplete)
+                console.log("new_podcast_availability", new_podcast_availability)
                 app.globalData.podcastComplete = that.data.podcastComplete
                 app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
                 app.globalData.podcastsAvailability = new_podcast_availability
-    
                 this.setData({
                   podcastsAvailability: new_podcast_availability
                 })
@@ -62,7 +58,7 @@ Page({
             } else {
               console.log(out.errMsg);
             }
-            // get if medi taken today
+            // 判断是否今天已经服药
             let today = new Date()
             let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
             this.setData({
@@ -74,11 +70,6 @@ Page({
           },
           complete: out => {
             wx.hideLoading()
-            if (typeof this.getTabBar === "function" && this.getTabBar()) {
-                this.getTabBar().setData({
-                    selected: 0
-                })
-            }
             // start onboarding page if this is new user
             if (is_new_user) {
               wx.navigateTo({
@@ -87,15 +78,9 @@ Page({
             }
           }
         })
-    } else {
-      if (typeof this.getTabBar === "function" && this.getTabBar()) {
-        this.getTabBar().setData({
-            selected: 1
-        })
-      }
-      // change progress bar color based on different medi taken days
-      this.change_home_progress_style()
-    }
+        this.change_home_progress_style()
+    } 
+
     // 获取并且更新所有的播客内容
     wx.cloud.callFunction({
       name: 'getAllPodcastAudio',
@@ -151,21 +136,32 @@ Page({
   },
 
   onShow() {
-    // 获取并且更新当前有效的博客
-    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastsAvailability || [1], this.data.podcastRegisterAvailability)
+    console.log("onshow")
+    // 实时更新首页的availability状态
+    console.log("podcastRegisterAvailability2", this.data.podcastRegisterAvailability)
+    console.log("podcastRegisterAvailability2", app.globalData.podcastRegisterAvailability)
+    console.log("podcastComplete2", app.globalData.podcastComplete)
+    console.log("podcastComplete2", this.data.podcastComplete)
+    console.log("podcastsAvailability2", this.data.podcastsAvailability)
+
+    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
     this.setData({
-      podcastComplete: app.globalData.userData.finished_podcasts || [],
+      podcastComplete: app.globalData.podcastComplete || [],
       podcastsAvailability: new_podcast_availability
-    });
+    })
+
     // 获取并且更新首页服药天数状态
     try {
       let medi_taken_days = app.globalData.userData.med_date
       let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
+      console.log("takenInWeek", takenInWeek)
       this.setData({
         currWeekAlreadyTaken: takenInWeek
       })
     } catch {
     }
+    // 需要实时更新药物追踪progress bar的颜色
+    this.change_home_progress_style()
 
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
@@ -199,20 +195,17 @@ Page({
     if(podcastComplete.length == 0) return [1]
     let result = [1];
     for (let i = 0; i < podcastComplete.length; i++) {
-      if (podcastComplete[i] === 1 && podcastRegisterAvailability[i] === 1) {
-        result[i] = 1;
+      if (podcastComplete[i] === 1 && podcastRegisterAvailability[i + 1] === 1) {
+        result[i + 1] = 1;
       }
-    }
-    if(result.length < podcastRegisterAvailability.length) {
-        result.push(1); 
     }
     return result
   },
 
-  // change color of progress bar on the home page
+  // 改变首页药物追踪进度条的逻辑
   change_home_progress_style() {
     let medi_taken_days = app.globalData.userData.med_date
-    let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
+    let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days || [])
     let currentMediProgressColor = this.data.progressBarColor
     if(takenInWeek <= 1) {
       currentMediProgressColor =  "#FA5151"

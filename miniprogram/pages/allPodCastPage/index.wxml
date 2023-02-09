@@ -16,7 +16,7 @@
         class="podcast_lock">
       </image>
       <view class="castImage">
-        <image class="castImageItem" src="{{item.podCastListURL}}"></image>
+        <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
       </view>
 
       <view class="castContent">

@@ -1,37 +1,57 @@
 /* components/singleChoice/singleChoice.wxss */
 .quiz {
   box-sizing: border-box;
-  padding: 30rpx;
+  padding: 17rpx;
   width: 100%;
-  background: #FDFBFC; 
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.ContentContainer {
-  position: relative;
-  width: 100%;
   background: #FDFBFC;
-  overflow-y: scroll;
-}
-.QuizContainer {
-  position: relative;
-  background: #FDFBFC;
-  width: 100%;
-  /* background: orange; */
-  overflow-y: scroll;
-}
-.ContentChunk {
-  display: flex;
-  flex-direction: column;
-  /* margin-bottom: 14rpx; */
 }
 .selection {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30rpx;
+  background: #e0cad5;
+  height: 10%;
+  /* background: rgb(218, 64, 218); */
+}
+.ContentContainer {
+  position: relative;
+  width: 100%;
+  background: #FDFBFC;
+  /* height: 100vh;  */
+  height: 85%;
+  overflow-y: scroll; 
+}
+.QuizContainer {
+  position: relative;
+  /* background: #FDFBFC; */
+  width: 100%;
+  background: orange;
+  /* overflow-y: scroll; */
+  height: 85%;
+}
+.QuestionBlock {
+  padding-top: 20rpx;
+  background: rgb(64, 211, 199);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 16%;
+}
+.ContentChunk {
+  display: flex;
+  flex-direction: column;
+}
+.AnswerBlock {
+  height: 10%;
+  overflow-y: scroll;
+  background: rgb(79, 98, 211);
+}
+.SingleAnswerBlock {
+  background:rgb(109, 182, 49)
 }
 .contentOpt {
   width: 48%;
@@ -39,6 +59,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: rgb(28, 163, 46);
 }
 .podcast_meditation_img {
   width: 450rpx;
@@ -58,8 +79,9 @@
   padding-bottom: 14rpx;
 }
 .bar {
-  width: 100%;
-  height: 5px;
+  /* width: 100%; */
+  width: 90%;
+  height: 20rpx;
   background: #E0E0E0;
   border-radius: 20rpx;
 }
@@ -85,13 +107,8 @@
   line-height: 200%;
 }
 
-.QuestionBlock {
-  /* background: rgb(21, 156, 145); */
-  display: flex;
-  flex-direction: column;
-}
 .QuestionOrder {
-  font-size: 35rpx;
+  font-size: 32rpx;
   line-height: 50rpx;
 }
 .QuestionContent {
@@ -120,13 +137,14 @@
 .fill-bottom-gap-box {
   width: 680rpx;
   height: 50rpx;
+  background: rgb(139, 139, 161);
 }
 .SubmitBlock {
   position: absolute;
-  bottom: 18rpx;
+  bottom: 0;
   left: 50%;
   margin-left: -340rpx;
-  /* background: green; */
+  background: green;
   width: 680rpx;
   display: flex;
   justify-content: space-around;

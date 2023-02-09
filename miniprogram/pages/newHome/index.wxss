@@ -170,6 +170,7 @@
 .homeMediImg {
   position: absolute;
   right: 0;
+  top: 0;
   width: 140rpx;
   height: 140rpx;
 }

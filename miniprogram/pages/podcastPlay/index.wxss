@@ -7,15 +7,20 @@ Page{
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  /* background: yellow; */
+  /* background: rgb(167, 115, 197); */
+}
+.gap {
+  height: 2%;
 }
 .playAudio {
-  height: 38%;
+  /* background: rgb(137, 187, 148); */
+  height: 38%; 
+  width: 100%;
 }
-.PodCastContent_style {
-  height: 60%;
+.PodCastContent {
+  height: 60%; 
+  /* background: yellow; */
 }
-
 
 
 

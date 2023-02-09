@@ -100,8 +100,8 @@ Component({
             console.log("successfully finish podcast")
             // 提交完后更新
             console.log("out.result: ", out.result);
-            app.globalData.userData.finished_podcasts = out.result.data;
-            app.globalData.userData.podcastComplete = out.result.data;
+            app.globalData.finished_podcasts = out.result.data;
+            app.globalData.podcastComplete = out.result.data;
           },
           fail: out => {
             console.log('fail to finsih podcast')
