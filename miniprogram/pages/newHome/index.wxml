@@ -27,7 +27,6 @@
       <text>情绪记录</text> 
       <image class="homeMoodImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/smileCloud.png"></image>
     </view>
-
     <view class="homeMediTrack" bind:tap="jumpToCalendar">
       <view class="homeMediTrackContent">
         <view wx:if="{{showRedDot}}" class="reddot"></view>
@@ -36,7 +35,7 @@
 
         <view class="homeMediTrackProgressBox"> 
           <view class="homeMediTrackProgress">
-            <view class="homeMediTrackAlreadyTaken" style="width: {{currWeekAlreadyTaken/7*100}}%; background:{{progressBarColor}}">
+            <view class="homeMediTrackAlreadyTaken" style="width: {{currWeekAlreadyTaken/7*100}} + '%'; background:{{progressBarColor}}">
             </view>
           </view>
         
