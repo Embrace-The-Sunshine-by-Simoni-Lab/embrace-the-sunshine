@@ -54,16 +54,16 @@
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/content-icon-selected.png",
-        "iconPath": "images/content-icon.png",
-        "pagePath": "pages/infoPage/infoPage",
-        "text": "内容"
-      },
-      {
         "selectedIconPath": "images/navigationBar/home_icon_selected.png",
         "iconPath": "images/home-icon.png",
         "pagePath": "pages/newHome/index",
         "text": "主页"
+      },
+      {
+        "selectedIconPath": "images/content-icon-selected.png",
+        "iconPath": "images/content-icon.png",
+        "pagePath": "pages/infoPage/infoPage",
+        "text": "更多资源"
       },
       {
         "selectedIconPath": "images/selected-profile2.png",
