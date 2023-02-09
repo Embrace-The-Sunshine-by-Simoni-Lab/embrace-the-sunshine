@@ -4,8 +4,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 520rpx;
+  height: 580rpx;
   overflow: auto;
+  /* background: rgba(174, 72, 194, 0.308); */
 }
 .Option {
   background: #FFFFFF;
@@ -23,10 +24,20 @@
 .expandExplanation {
   float:right
 }
-
+.down_triangle {
+  width: 50rpx;
+  height: 50rpx;
+}
+.explanationDetail {
+  color: rgba(23, 37, 169, 0.81)
+}
 .correctAnswer {
   background: rgba(9, 187, 7, 0.2);
   border: 1px solid #09BB07;
+}
+.correctSelected {
+  background: rgba(9, 187, 7, 0.2);
+  border: 3px solid #09BB07;
 }
 .wrongAnswer {
   background: rgba(230, 67, 64, 0.2);

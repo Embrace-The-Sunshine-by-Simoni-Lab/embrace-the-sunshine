@@ -52,6 +52,7 @@ Page({
     let oneMonthScore = [];
     // console.log(userScoreDate);
     // console.log(userScore);
+    
     for (let i = 0; i < userScoreDate.length; i++) {
       let curr_date = userScoreDate[i];
       let curr_score = userScore[i];
@@ -163,6 +164,8 @@ Page({
 
   drawCharts(id,data){
     const ctx = wx.createCanvasContext(id, this);
+    console.log("this.data.categories", this.data.categories);
+
     uChartsInstance[id] = new uCharts({
         type: "line",
         context: ctx,
@@ -368,6 +371,7 @@ Page({
   },
 
   onLoad(options) {
+    
     this.getUserScoreLevel();
     this.getUserScoreDate();
     // console.log("data", this.data)
@@ -397,6 +401,12 @@ Page({
   },
 
   chooseOneMonth() {
+    let empty_one_month = false;
+    let empty_data_placeholder = "";
+    if (this.data.OneMonthMoodTrackData.categories.length == 0) {
+      empty_one_month = true;
+      empty_data_placeholder = "近一个月无数据，请参与情绪记录"
+    }
     this.setData(
       {
         oneMonth: true,
@@ -410,26 +420,40 @@ Page({
   },
 
   chooseThreeMonth() {
+    let empty_three_month = false;
+    let empty_data_placeholder = "";
+    if (this.data.ThreeMonthMoodTrackData.categories.length == 0) {
+      empty_three_month = true;
+      empty_data_placeholder = "近3个月无数据，请参与情绪记录"
+    }
     this.setData(
       {
         oneMonth: false,
         threeMonth: true,
         sixMonth: false,
         timePeriodText: '近三月',
-        timePeirodDate: this.dateFormat(this.data.ThreeMonthMoodTrackData.categories)
+        timePeirodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat(this.data.ThreeMonthMoodTrackData.categories))
       }
     ),
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.ThreeMonthMoodTrackData);
   },
 
   chooseSixMonth() {
+    let empty_six_month = false;
+    let empty_data_placeholder = "";
+    if (this.data.SixMonthMoodTrackData.categories.length == 0) {
+      empty_six_month = true;
+      empty_data_placeholder = "近6个月无数据，请参与情绪记录"
+    }
+    console.log("length: ", this.data.SixMonthMoodTrackData.categories.length);
+    console.log("sixmonth data categories:", this.data.SixMonthMoodTrackData);
     this.setData(
       {
         oneMonth: false,
         threeMonth: false,
         sixMonth: true,
         timePeriodText: '近六月',
-        timePeirodDate: this.dateFormat(this.data.SixMonthMoodTrackData.categories)
+        timePeirodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat(this.data.SixMonthMoodTrackData.categories))
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.SixMonthMoodTrackData);

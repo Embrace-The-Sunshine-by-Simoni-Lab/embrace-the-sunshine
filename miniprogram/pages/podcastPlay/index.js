@@ -21,7 +21,9 @@ Page({
     this.setData({
       currPodCastOrder: newPodCastNum
     })
-  }
+  },
+
+
 })
 
 

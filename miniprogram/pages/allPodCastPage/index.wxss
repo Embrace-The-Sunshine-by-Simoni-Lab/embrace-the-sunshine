@@ -16,10 +16,23 @@
   width: 100%;
   height: 100%;
 }
+.podcast_lock {
+  position: absolute;
+  left: 50%;
+  margin-left: -25rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.podcast-unavailable {
+  background: rgba(0, 0, 0, 0.3) !important;
+  position: relative;
+}
 .castItem {
+
   height: 170rpx;
   border-radius: 10px;
   background: #FDFBFC;
+  /* background: green; */
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   display: flex;
@@ -33,8 +46,8 @@
   padding: 0 10rpx;
 }
 .castImageItem {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 85%;
 }
 .castContent {
   box-sizing: border-box;
@@ -42,25 +55,21 @@
   width: 100%;
   height: 100%; 
 }
-.castContentDetails {
-  font-size: 13px;
-  padding: 12px 0;
-  color: #666666
-}
 .castContent_top {
   display: flex;
   align-items: center;
-  height:80%;
+  height:100%;
 }
 .castContent_top_desc {
   width: 80%;
   height: 80%;
+  /* background: green */
 }
 .castContent_top_desc_title {
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
-  margin-bottom: 14rpx;
+  margin-bottom: 18rpx;
   color: #000000;
 }
 .castContent_progress {
@@ -73,6 +82,7 @@
   margin-top: 10rpx;
   background: #DADADA;
   position: relative;
+  border-radius: 25rpx;
 }
 .castContent_progress_bar_blue {
   position: absolute;
@@ -81,20 +91,21 @@
   width: 70%;
   height: 10rpx;
   background: #6568BC;
+  border-radius: 25rpx;
 }
 .castContent_top_check {
   width: 65rpx;
   height: 65rpx;
 }
 .castContent_top_desc_summary {
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: 300;
+  font-size: 25rpx;
   line-height: 20px;
   color: #666666;
 }
 .castContent_progress_timer {
   font-weight: 400;
-  font-size: 12px;
+  font-size: 21rpx;
   line-height: 14px;
   margin-left: 10px;
 }

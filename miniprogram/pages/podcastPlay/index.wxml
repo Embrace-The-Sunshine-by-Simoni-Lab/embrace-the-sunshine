@@ -3,10 +3,11 @@
   <!-- ********* height: 2%; ********* -->
   <view class="gap"></view>
 
-  <playAudio currPodCastOrder="{{currPodCastOrder}}" bind:changePlayListOrder="changePlayListOrder"></playAudio>
-  <!-- ********* height: 52%; ********* -->
+  <!-- ********* height: 38%; ********* -->
+  <playAudio class="playAudio" currPodCastOrder="{{currPodCastOrder}}" bind:changePlayListOrder="changePlayListOrder"></playAudio>
 
-  <PodCastContent id="PodCastContent" currPodCastOrder="{{currPodCastOrder}}"></PodCastContent>
+  <!-- ********* height: 60%; ********* -->
+  <PodCastContent class="PodCastContent"id="PodCastContent" currPodCastOrder="{{currPodCastOrder}}"></PodCastContent>
 
 </view>
 

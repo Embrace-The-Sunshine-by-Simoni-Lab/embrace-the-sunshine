@@ -101,7 +101,6 @@ Page({
     if (_medi_taken_classified_by_years[today.getFullYear()] == null) {
       _medi_taken_classified_by_years[today.getFullYear()] = []
     }
-    console.log("_medi_taken_classified_by_years", _medi_taken_classified_by_years);
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
@@ -356,9 +355,7 @@ Page({
     let _analyticsData = [];
     let _weekNumToRange = {};
     let _weekNumToCount = {};
-    console.log("this.data.medi_taken_classified_by_years", this.data.medi_taken_classified_by_years);
     let this_year_medi_taken = this.data.medi_taken_classified_by_years[today.getFullYear()];
-    console.log("this_year_medi_taken", this_year_medi_taken);
     if (this_year_medi_taken == null) {
       this_year_medi_taken = []
     }
@@ -372,7 +369,6 @@ Page({
     // highest week number and lowest week number
     let HighestDate = new Date(this_year_medi_taken[0]);
     let HighestWeekNum = this.getWeekNum(HighestDate);
-    console.log("HighestWeekNum", HighestWeekNum);
     
     let LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 1]);
     let LowestWeekNum = this.getWeekNum(LowestDate);
@@ -381,7 +377,6 @@ Page({
       LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 2]);
       LowestWeekNum = this.getWeekNum(LowestDate);
     }
-    console.log("LowestWeekNum", LowestWeekNum);
     
     for (let i = 0; i < this_year_medi_taken.length; i++) {
       let currDate = new Date(this_year_medi_taken[i]);
@@ -409,7 +404,6 @@ Page({
     this.setData({
       analyticsData: _analyticsData
     });
-    console.log(_analyticsData);
   },
   getDateRangeOfWeek(weekNo){
     var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
@@ -433,7 +427,6 @@ Page({
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
   createMedi_taken_classified_by_years(medi_taken) {
-    console.log("medi_taken", medi_taken);
     let _medi_taken_classified_by_years = {};
     for (let i = 0; i < medi_taken.length; i++) { 
       let currDate = new Date(medi_taken[i]);
