@@ -4,10 +4,9 @@
  <!-- home page top -->
   <view class="homeBanner">
     <swiper indicator-dots="{{indicatorDots}}" 	indicator-active-color="#BDBDBD"
-      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="homeIndicator">
-      <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < podcastsAvailability.length && idx < 3}}">
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper">
+      <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < podcastsAvailability.length && idx < 3}}" class="block">
         <swiper-item class="{{item.episode === '冥想' ? 'swipe_orange_background' : ''}}">
-          <!-- blue card -->
           <view class="swiper-item {{item}}" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
             <view class="homeBannerContent">
               <text class="homePodNum">{{item.episode}}</text>

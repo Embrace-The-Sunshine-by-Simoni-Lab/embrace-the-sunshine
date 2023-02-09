@@ -1,41 +1,47 @@
 /* components/singleChoice/singleChoice.wxss */
 .quiz {
   box-sizing: border-box;
-  padding: 17rpx;
+  padding: 28rpx;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #FDFBFC;
+  /* background: #FDFBFC; */
+  padding-top: 0;
 }
 .selection {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background: #e0cad5;
   height: 10%;
-  /* background: rgb(218, 64, 218); */
 }
 .ContentContainer {
   position: relative;
   width: 100%;
   background: #FDFBFC;
   /* height: 100vh;  */
-  height: 85%;
+  padding-top: 20rpx;
+  height: 90%;
   overflow-y: scroll; 
 }
 .QuizContainer {
   position: relative;
   /* background: #FDFBFC; */
   width: 100%;
-  background: orange;
+  /* background: orange; */
   /* overflow-y: scroll; */
-  height: 85%;
+  height: 90%;
 }
+.QuizContainer_inner {
+  width: 100%;
+  height: 90%;
+  /* background: rgb(125, 119, 202); */
+}
+
 .QuestionBlock {
   padding-top: 20rpx;
-  background: rgb(64, 211, 199);
+  /* background: rgb(64, 211, 199); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,12 +52,12 @@
   flex-direction: column;
 }
 .AnswerBlock {
-  height: 10%;
+  height: 80%;
   overflow-y: scroll;
-  background: rgb(79, 98, 211);
+  /* background: rgb(79, 98, 211); */
 }
 .SingleAnswerBlock {
-  background:rgb(109, 182, 49)
+  /* background:rgb(109, 182, 49) */
 }
 .contentOpt {
   width: 48%;
@@ -59,7 +65,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(28, 163, 46);
+  /* background: rgb(28, 163, 46); */
 }
 .podcast_meditation_img {
   width: 450rpx;
@@ -80,8 +86,8 @@
 }
 .bar {
   /* width: 100%; */
-  width: 90%;
-  height: 20rpx;
+  width: 100%;
+  height: 10rpx;
   background: #E0E0E0;
   border-radius: 20rpx;
 }
@@ -144,7 +150,7 @@
   bottom: 0;
   left: 50%;
   margin-left: -340rpx;
-  background: green;
+  /* background: green; */
   width: 680rpx;
   display: flex;
   justify-content: space-around;

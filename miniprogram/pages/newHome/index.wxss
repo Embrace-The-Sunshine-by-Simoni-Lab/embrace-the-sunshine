@@ -1,7 +1,7 @@
 /* pages/newHome/index.wxss */
 
 .homeContainer {
-  padding: 15px;
+  padding: 30rpx;
   display: flex;
   flex-direction: column;
 }
@@ -15,31 +15,39 @@
 .swipe_orange_background {
   background: #F38A73;
   border-radius: 10px;
+  height: 100%;
 }
 .homePodCastBox {
   width: 100%;
   height: 580rpx;
 }
+
+.swiper {
+  border-radius: 10px;
+  overflow: hidden
+}
 .swiper-item {
-  height: 100px;
+  height: 100%;
   position: relative;
+  border-radius: 10px;
+  /* background: green; */
 }
 .carousel_img {
   position: absolute;
   right: 10rpx;
-  bottom: -90rpx;
+  bottom: 0; 
   width: 240rpx;
   height: 240rpx;
 }
 .homeMiddleBox {
   width: 100%;
+  height: 250rpx;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30rpx;
 }
 .homeMoodTrack {
-  height: 100px;
+  height: 210rpx;
   width: 35%;
   background: #FDFBFC;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
@@ -62,7 +70,7 @@
   height: 50rpx;
 }
 .homeMediTrack {
-  height: 100px;
+  height: 210rpx;
   width: 60%;
   background: #FDFBFC;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
@@ -75,39 +83,46 @@
   width: 18rpx;
   height: 18rpx;
   position: absolute;
-  left: 150rpx;
+  left: 135rpx;
   top: 0;
   z-index: 200;
   border-radius: 50%;
   background:#FA5151;
 }
 .homeMoodImg {
-  height: 50px;
-  width: 90px;
+  height: 120rpx;
+  width: 180rpx;
+  margin-top: 10rpx;
+}
+.swiper {
+  height: 260rpx;
 }
 .homeBannerContent {
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
-  padding: 14px 16px;
+  padding: 37rpx 43rpx;
   box-sizing: border-box;
+  /* background: blue; */
+  height: 90%;
+  justify-content: center;
 }
 
 .homePodNum {
   font-weight: 200;
-  font-size: 15px;
+  font-size: 32rpx;
 }
 .homePodTitle {
   padding: 10px 0;
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 400;
-  font-size: 17px;
-  line-height: 24px;
+  font-size: 36rpx;
+  line-height: 36rpx;
 }
 .homePodDetail {
   font-weight: 200;
-  font-size: 12px;
+  font-size: 29rpx;
 }
 .homeBannerIndicator {
   position: absolute;
@@ -129,28 +144,28 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  height: 100%;
 }
 .homeMediTrackContentTitle {
   font-weight: 400;
-  margin-bottom: 15px;
+  margin-bottom: 35rpx;
 }
 
 .homeMediTrackContentTitleSmall {
   font-weight: 300;
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
 }
 .homeMediTrackProgressBox {
-  width: 150px;
-  max-width: 150px;
+  width: 290rpx;
+  max-width: 290rpx;
   display: flex;
   height: 10px;
   justify-content: flex-start;
   align-items: center;
-  /* background: purple */
 }
 .homeMediTrackProgress {
-  width: 85px;
+  width: 200rpx;
   margin-right: 8px;
   height: 10px;
   border-radius: 8px;
@@ -171,8 +186,8 @@
   position: absolute;
   right: 0;
   top: 0;
-  width: 140rpx;
-  height: 140rpx;
+  width: 160rpx;
+  height: 160rpx;
 }
 .homePodCast {
   display: flex;
