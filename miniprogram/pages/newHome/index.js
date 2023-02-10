@@ -297,6 +297,9 @@ Page({
     let currpodcast_finish_status = this.data.podcastsAvailability[clickedPodCastNum - 1]
     let currpodcast_register_status = this.data.podcastRegisterAvailability[clickedPodCastNum]
     
+    console.log("currpodcast_register_status", currpodcast_register_status)
+    console.log("currpodcast_finish_status", currpodcast_finish_status)
+
     if (currpodcast_register_status === 1 && currpodcast_finish_status !== -1) {
       wx.showModal({
         content: '请先完成当前内容',
