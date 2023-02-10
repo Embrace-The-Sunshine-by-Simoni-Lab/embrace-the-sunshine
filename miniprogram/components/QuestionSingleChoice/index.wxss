@@ -13,7 +13,7 @@
   border: 1px solid #BDBDBD;
   border-radius: 4px;
   padding-left: 20rpx;
-  width: 550rpx;
+  width: 590rpx;
   box-sizing: border-box;
   padding: 13rpx;
   font-size: 28rpx;

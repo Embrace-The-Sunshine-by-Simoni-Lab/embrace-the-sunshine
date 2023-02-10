@@ -1,11 +1,21 @@
 /* components/playAudio.wxss */
-
+.podcastPlayContainer {
+  /* background: green; */
+  height: 100%; 
+  width: 100%;
+}
 .headerContainer {
   display: flex;
-  height: 28%;
   flex-direction: column;
   justify-items: center;
   align-items: center;
+  height: 65%;
+}
+.playButtonContainer {
+  /* height: 160rpx; */
+  position: relative; 
+  height: 35%;
+  width: 100%;
 }
 
 .podcastHeader {
@@ -15,14 +25,14 @@
 .curve {
   position: absolute; 
   left: 0;
-  bottom: -10rpx;
+  bottom: 0;
   width: 100%;
-  height: 60%;
+  height: 120rpx;
 }
 
 .podcast_img {
-  width: 230rpx;
-  height: 230rpx;
+  width: 220rpx;
+  height: 220rpx;
   border-radius: 20rpx;
 }
 .podcast_star {
@@ -36,6 +46,9 @@
   padding-top: 20rpx;
   box-sizing: border-box;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: rgb(201, 62, 92); */
 }
 .headerTitle {
   font-size: 38rpx;
@@ -43,7 +56,6 @@
 }
 .headerContentBox {
   display: flex;
-
 }
 .headerDetail {
   font-size: 26rpx;
@@ -64,54 +76,23 @@
 }
 .headerContent {
   width: 70%;
+  height: 100%;
   display: flex;
   box-sizing: border-box;
   padding: 20rpx;
   flex-direction: column;
   /* background: grey; */
+  /* background: rgb(143, 18, 95); */
 }
 .podcastHeader {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.playButtonContainer {
-  /* margin-top: 90px; */
-  height: 170rpx;
-  position: relative; 
-  /* background:  purple; */
-}
-.back30Button {
-  width: 60rpx;
-  height: 60rpx;
-  margin-right: -30rpx;
-  position: absolute;
-  left: 20%;
-  bottom: 38%;
-  z-index: 100;
-}
-.mainPlayButton {
-  width: 210rpx;
-  height: 210rpx;
-  position: absolute;
-  left: 50%;
-  margin-left: -105rpx;
-  bottom: 5%;
-  z-index: 99;
-}
-.speedup {
-  width: 60rpx;
-  height: 60rpx;
-  margin-left: -30rpx;
-  position: absolute;
-  left: 75%;
-  bottom: 38%;
-  z-index: 100;
+  height: 67%;
 }
 .slider {
-  padding-top: 20rpx;
-  /* background: yellow; */
-  width: 95%;
+  /* padding-top: 17rpx; */
+  width: 100%;
   height: 15%;
 }
 .timing {
@@ -122,6 +103,33 @@
   /* background: orange; */
   box-sizing: border-box;
   padding: 0 30rpx;
+}
+.back30Button {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: -25rpx;
+  position: absolute;
+  left: 20%;
+  bottom: 54%;
+  z-index: 100;
+}
+.mainPlayButton {
+  width: 190rpx;
+  height:190rpx;
+  position: absolute;
+  left: 50%;
+  margin-left: -95rpx;
+  bottom: 15%;
+  z-index: 99;
+}
+.speedup {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: -25rpx;
+  position: absolute;
+  left: 75%;
+  bottom: 54%;
+  z-index: 100;
 }
 .timingDetail {
   font-size: 25rpx;

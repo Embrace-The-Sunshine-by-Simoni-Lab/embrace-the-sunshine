@@ -14,9 +14,10 @@ Component({
     }
   },
   data: {
-    mode: "Quiz",
-    reportPageClicked: false, // 是否用户已经点了提交
+    mode: "Content",
+    submitClicked: false, // 是否用户已经点了提交
     allQuestionAnswered: false, // 是否用户已经完成所有需要填完的问题
+    checkResultClicked: false,
     currentDisplayQuestion: 0, // 当前问题
     user_answer: [], // 所有问题用户的答案
     currPodcastOrder: -1, // 当前是哪个podcast
@@ -33,17 +34,27 @@ Component({
       let currPodCast = allPodCastData[this.properties.currPodCastOrder];
       let currUserAnswer = app.globalData.podcast_progress_data.podcast_progress[this.properties.currPodCastOrder];
 
+      // 如果有open eneded的回答那么更新
+      if(currUserAnswer) {
+        let cur_pod_cast_open_ended = currUserAnswer[currUserAnswer.length - 1]
+        if(cur_pod_cast_open_ended != -1){// 等于-1说明用户没有填开放式回答
+          this.setData({
+            open_ended_answer: cur_pod_cast_open_ended
+          })
+        } 
+      }
+
       if(!currUserAnswer) { // 用户还未提交过
         let answerTemp = currPodCast.pod_Cast_Quiz.length
         let answerLength = answerTemp
         currUserAnswer = new Array(answerLength).fill(-1);
         this.setData({
-          reportPageClicked: false
+          submitClicked: false
         })
       } else { // 如果已经有提交过的数据了
         currUserAnswer = app.globalData.podcast_progress_data.podcast_progress[this.properties.currPodCastOrder];
         this.setData({
-          reportPageClicked: true
+          submitClicked: true
         })
       }
 
@@ -123,12 +134,18 @@ Component({
 
           that.setData({
             currentDisplayQuestion: 0,
-            reportPageClicked: true
+            submitClicked: true
           })
         },
         fail: out => {
           console.log('call function failed')
         }
       })
-  }
+  },
+    // 点击查看结果按钮
+    checkResult() {
+      this.setData({
+        checkResultClicked: true
+      })
+    }
 }})

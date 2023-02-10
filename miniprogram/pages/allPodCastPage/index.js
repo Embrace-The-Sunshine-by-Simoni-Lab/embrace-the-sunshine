@@ -7,29 +7,52 @@ Page({
    */
   data: {
     podCastInfo: [],
-    podcastsAvailability: [1,-1,-1,-1],
-    podcastRegisterAvailability: [], // to decide whether user has 
+    podcastsAvailability: [],
+    podcastComplete: []
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    // console.log("all list on load")
     let allPodCastData =  wx.getStorageSync('allPodCastData');
-    const date = new Date(app.globalData.userData.reg_time);
-    const today = new Date();
-    const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
 
-    const podcastRegisterAvailability = new Array(app.globalData.podCast.length);
-    for (let i = 0; i < podcastRegisterAvailability.length; i++) {
-      if (i <= inputWeek) {
-        podcastRegisterAvailability[i] = 1;
-      }
-    }
+    let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
+    let podcastComplete = app.globalData.podcastComplete
+    let podcastsAvailability = app.globalData.podcastsAvailability
 
+    console.log("podcastRegisterAvailability11", podcastRegisterAvailability)
+    console.log("podcastComplete11", podcastComplete)
+    console.log("podcastsAvailability11", podcastsAvailability)
+    
     this.setData({
       podCastInfo: allPodCastData,
-      podcastRegisterAvailability
+      podcastsAvailability: app.globalData.podcastsAvailability,
+      podcastRegisterAvailability,
+      podcastComplete
     })
+  },
+
+  onShow() {
+    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
+    let new_podcast_complete = app.globalData.finished_podcasts
+    app.globalData.podcastsAvailability = new_podcast_availability
+    // console.log("podcastRegisterAvailability123", this.data.podcastRegisterAvailability)
+    this.setData({
+      podcastsAvailability: new_podcast_availability,
+      podcastComplete: new_podcast_complete
+    })
+  },
+  // generate podcast availability and on podcast complete array and register time podcast array
+  generatePodcastAvailabilityArray(podcastComplete, podcastRegisterAvailability) {
+    if(podcastComplete.length == 0) return [1]
+    let result = [1];
+    for (let i = 0; i < podcastComplete.length; i++) {
+      if (podcastComplete[i] === 1 && podcastRegisterAvailability[i + 1] === 1) {
+        result[i + 1] = 1;
+      }
+    }
+    return result
   },
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id

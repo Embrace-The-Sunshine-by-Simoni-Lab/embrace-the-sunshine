@@ -21,7 +21,6 @@ Component({
     currentProgressSecond: 0,
     podCastInfo: {},
     allPodCastCount: -1, // to make sure when you keep pressing next podcast, it will return to the first one
-    currPodCastOrder: -1,
     podcastCollected: false,
   },
 
@@ -32,7 +31,8 @@ Component({
   ready() {
     const app = getApp()
     let allPodCastData =  wx.getStorageSync('allPodCastData');
-    let count = allPodCastData.length
+    let count = app.globalData.podcastsAvailability.length
+
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
     // get info about if the current podcast has already been finished listening
     let podCastEndStatus;
@@ -41,8 +41,7 @@ Component({
     } else {
       podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
     }
-    
-    console.log("podCastEndStatus", podCastEndStatus)
+
     // change the display collect star status, 1 means collected, -1 means not collected
     let curr_podcast_fav;
     if (app.globalData.userData.fav_podcasts == undefined) {
@@ -57,7 +56,7 @@ Component({
     } else {
       curr_podcast_fav_status = false;
     }
-    console.log("podCastInfo0", this.data.podCastInfo)
+
     this.setData({
       podCastInfo: currPodCast,
       allPodCastCount: count,
@@ -65,7 +64,6 @@ Component({
       podcastCollected: curr_podcast_fav_status,
     })
 
-    console.log("podCastInfo", this.data.podCastInfo)
     this.innerAudioContext = wx.createInnerAudioContext({
       useWebAudioImplement: false
     })
@@ -86,12 +84,13 @@ Component({
     })
 
     this.innerAudioContext.onSeeked(()=> {
-      // console.log("onSeeked called")
       const currentSeconds = this.innerAudioContext.currentTime
     })
 
     this.innerAudioContext.onEnded(()=> {
-      if(podCastEndStatus === -1) {
+      console.log("this.innerAudioContext.currentTime", this.innerAudioContext.currentTime)
+      console.log("podCastEndStatus", podCastEndStatus)
+      if(!podCastEndStatus || podCastEndStatus == -1) {
         wx.cloud.callFunction({
           name: 'finish_podcast',
           data: {
@@ -101,7 +100,8 @@ Component({
             console.log("successfully finish podcast")
             // 提交完后更新
             console.log("out.result: ", out.result);
-            app.globalData.userData.finished_podcasts = out.result.data;
+            app.globalData.finished_podcasts = out.result.data;
+            app.globalData.podcastComplete = out.result.data;
           },
           fail: out => {
             console.log('fail to finsih podcast')
@@ -130,8 +130,6 @@ Component({
       
       this.innerAudioContext.seek(newAudioSecond)
     },
-  
-
     togglePlay () {
       // 先判断音频是否正在播放
       if (this.data.isPlaying) {
@@ -283,7 +281,8 @@ Component({
     audioPlayerInit() {
       const app = getApp()
       let allPodCastData =  wx.getStorageSync('allPodCastData');
-      let count = allPodCastData.length
+
+      let count = app.globalData.podcastsAvailability.length
       let currPodCast = allPodCastData[this.properties.currPodCastOrder]
       // get info about if the current podcast has already been finished listening
       let podCastEndStatus;
@@ -293,7 +292,6 @@ Component({
         podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
       }
       
-      console.log("podCastEndStatus", podCastEndStatus)
       // change the display collect star status, 1 means collected, -1 means not collected
       let curr_podcast_fav;
       if (app.globalData.userData.fav_podcasts == undefined) {
@@ -302,13 +300,11 @@ Component({
         curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
       }
       let curr_podcast_fav_status;
-  
       if(curr_podcast_fav === 1) {
         curr_podcast_fav_status = true
       } else {
         curr_podcast_fav_status = false;
       }
-      console.log("podCastInfo0", this.data.podCastInfo)
       this.setData({
         podCastInfo: currPodCast,
         allPodCastCount: count,
@@ -316,15 +312,12 @@ Component({
         podcastCollected: curr_podcast_fav_status,
       })
   
-      console.log("podCastInfo", this.data.podCastInfo)
       this.innerAudioContext = wx.createInnerAudioContext({
         useWebAudioImplement: false
       })
       this.innerAudioContext.src = this.data.podCastInfo.url
       let totalDuration = this.data.podCastInfo.totalTimeSecond
 
-
-  
       this.innerAudioContext.onTimeUpdate(() => {
         // console.log("on time update")
         const currentSeconds = this.innerAudioContext.currentTime
@@ -339,7 +332,6 @@ Component({
       })
       
       this.innerAudioContext.onSeeked(()=> {
-        // console.log("onSeeked called")
         const currentSeconds = this.innerAudioContext.currentTime
       })
 
