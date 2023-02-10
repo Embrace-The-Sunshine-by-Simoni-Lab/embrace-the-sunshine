@@ -180,7 +180,7 @@
   /* background: #46BA74; */
 }
 .homeMediTrackProgressText {
-  font-size: 12px;
+  font-size: 25rpx;
 }
 .homeMediImg {
   position: absolute;

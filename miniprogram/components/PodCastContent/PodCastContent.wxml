@@ -29,49 +29,57 @@
 
   <!-- ****** PodCast Quiz的内容 ****** -->
   <view class="QuizContainer" wx-if="{{mode == 'Quiz'}}">
-   <view class="QuizContainer_inner">
-    <view wx:for="{{podCastInfo.pod_Cast_Quiz}}" wx:key="order" wx:if="{{index === currentDisplayQuestion}}" class="QuestionBlock">
-      <text class="QuestionOrder">{{item.order}}</text>
-      <text class="QuestionContent">{{item.question}}</text>
-    </view>
-     
-    <view class="AnswerBlock">
-      <view wx:for="{{podCastInfo.pod_Cast_Quiz}}" wx:key="order">
-      <view wx:if="{{index === currentDisplayQuestion}}">
-        <!-- 单选题 -->
-        <view wx:if="{{item.type === '单选题'}}">
-          <SingleChoice reportPageClicked="{{reportPageClicked}}" option_info="{{item}}" bind:clickOption="clickOption" order="{{index}}" user_answer="{{user_answer}}"></SingleChoice>
-        </view>
-        <!-- 多选题 -->
-        <view wx:elif="{{item.type === '多选题'}}">
-          <MultipleChoice reportPageClicked="{{reportPageClicked}}" option_info="{{item}}" bind:clickOption="clickOption" order="{{index}}" user_answer="{{user_answer}}"></MultipleChoice>
-        </view>
-        <!-- 开放式问答 -->
-        <view wx:else>
-          <!-- 如果还未提交那么就是一个可输入框, 否则就是一个固定的方框 -->
-          <view wx:if="{{reportPageClicked}}" class="open_ended_box">
-            {{open_ended_answer}}
+    <view class="QuizContainer_inner">
+      <view wx:for="{{podCastInfo.pod_Cast_Quiz}}" wx:key="order" wx:if="{{index === currentDisplayQuestion}}" class="QuestionBlock">
+        <text class="QuestionOrder">{{item.order}}</text>
+        <text class="QuestionContent">{{item.question}}</text>
+      </view>
+   
+      <view class="AnswerBlock">
+        <view wx:for="{{podCastInfo.pod_Cast_Quiz}}" wx:key="order">
+        <view wx:if="{{index === currentDisplayQuestion}}">
+          <!-- 单选题 -->
+          <view wx:if="{{item.type === '单选题'}}">
+            <SingleChoice reportPageClicked="{{submitClicked}}" option_info="{{item}}" bind:clickOption="clickOption" order="{{index}}" user_answer="{{user_answer}}"></SingleChoice>
           </view>
-          <view wx:else class="open_ended_box">
-            <textarea class="open_ended_question" name="userName" placeholder="{{podCastInfo.episode === '冥想' ? '填写您的对于本集冥想的反馈' : '填写您的想法'}}" value="{{open_ended_answer}}"
-  bindinput="userNameInput" auto-focus="true"/>
-            <view wx:if="{{podCastInfo.episode === '冥想'}}" class="meditation_submit" bind:tap="submitQuiz">提交</view>
+          <!-- 多选题 -->
+          <view wx:elif="{{item.type === '多选题'}}">
+            <MultipleChoice reportPageClicked="{{submitClicked}}" option_info="{{item}}" bind:clickOption="clickOption" order="{{index}}" user_answer="{{user_answer}}"></MultipleChoice>
           </view>
+          <!-- 开放式问答 -->
+          <view wx:else>
+            <!-- 如果还未提交那么就是一个可输入框, 否则就是一个固定的方框 -->
+            <view wx:if="{{submitClicked}}" class="open_ended_box">
+              {{open_ended_answer}}
+            </view>
+            <view wx:else class="open_ended_box">
+              <textarea class="open_ended_question" name="userName" placeholder="{{podCastInfo.episode === '冥想' ? '填写您的对于本集冥想的反馈' : '填写您的想法'}}" value="{{open_ended_answer}}"
+    bindinput="userNameInput" auto-focus="true"/>
+              <view wx:if="{{podCastInfo.episode === '冥想'}}" class="meditation_submit" bind:tap="submitQuiz">提交</view>
+            </view>
       
+          </view>
         </view>
       </view>
-    </view>
 
-    </view>
+  <view class="SubmitBlock" wx-if="{{mode == 'Quiz' && podCastInfo.episode !== '冥想'}}">
+    <image class="prev_question" src="../../images/next-enable.png"  data-direction="prev" bind:tap="changeQuestion"></image>
 
-    <view class="SubmitBlock" wx-if="{{mode == 'Quiz' && podCastInfo.episode !== '冥想'}}">
-      <image class="prev_question" src="../../images/next-enable.png"  data-direction="prev" bind:tap="changeQuestion"></image>
-      <view wx:if="{{allQuestionAnswered && !reportPageClicked}}" class="Submit_Button" bind:tap="submitQuiz">提交</view>
-      <view wx:else class="Disabled_Button">提交</view>
-      <image class="next_question" src="../../images/next-enable.png" data-direction="next" bind:tap="changeQuestion"></image>
-    </view>
-   </view>
- </view>
+    <view wx:if="{{allQuestionAnswered && !submitClicked}}" class="Submit_Button" bind:tap="submitQuiz">提交</view>
+    <view wx:else class="Disabled_Button">提交</view>
+    <image class="next_question" src="../../images/next-enable.png" data-direction="next" bind:tap="changeQuestion"></image>
+  </view>
+
+      </view>
+<!-- 
+      <view class="Quiz_finish_container" wx-if="{{submitClicked && !checkResultClicked}}">
+      <image class="Quiz_finish_image" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/mood-finish-1.png"></image>
+      <text>恭喜您完成了本次测试!</text>
+      <text class="Quiz_finish_continue">请再接再厉!</text>
+      <view class="Quiz_finish_check_answer_button">查看结果</view> -->
+    <!-- </view> -->
+  </view>
+  </view>
 </view>
 
 

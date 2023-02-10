@@ -15,8 +15,9 @@ Component({
   },
   data: {
     mode: "Content",
-    reportPageClicked: false, // 是否用户已经点了提交
+    submitClicked: false, // 是否用户已经点了提交
     allQuestionAnswered: false, // 是否用户已经完成所有需要填完的问题
+    checkResultClicked: false,
     currentDisplayQuestion: 0, // 当前问题
     user_answer: [], // 所有问题用户的答案
     currPodcastOrder: -1, // 当前是哪个podcast
@@ -48,12 +49,12 @@ Component({
         let answerLength = answerTemp
         currUserAnswer = new Array(answerLength).fill(-1);
         this.setData({
-          reportPageClicked: false
+          submitClicked: false
         })
       } else { // 如果已经有提交过的数据了
         currUserAnswer = app.globalData.podcast_progress_data.podcast_progress[this.properties.currPodCastOrder];
         this.setData({
-          reportPageClicked: true
+          submitClicked: true
         })
       }
 
@@ -133,12 +134,18 @@ Component({
 
           that.setData({
             currentDisplayQuestion: 0,
-            reportPageClicked: true
+            submitClicked: true
           })
         },
         fail: out => {
           console.log('call function failed')
         }
       })
-  }
+  },
+    // 点击查看结果按钮
+    checkResult() {
+      this.setData({
+        checkResultClicked: true
+      })
+    }
 }})
