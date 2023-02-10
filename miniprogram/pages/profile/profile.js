@@ -1,6 +1,5 @@
-const app = getApp()
-
 // pages/profile/profile.js
+const app = getApp()
 Page({
   
   /**
@@ -14,14 +13,6 @@ Page({
     num_finished_optional_module: 0,
     weeksUsed: 0
   },
-
-  /**
-   * Lifecycle function--Called when page load
-   */
-  onShow: function (options) {
-
-  },
-
   goto_save: function() {
     wx.navigateTo({
       url: "../save/save",
@@ -33,7 +24,6 @@ Page({
     })
   },
   goto_profileEdit: function() {
-    console.log(this.data.username);
     wx.navigateTo({
       url: "../../package_profile/pages/profileEdit/profileEdit",
     })
@@ -48,16 +38,6 @@ Page({
       url: "../../package_profile/pages/aboutUs/aboutUs",
     })
   },
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-    
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
   onLoad: function () {
     const todayDate = new Date();
     const regDate = new Date(app.globalData.userData.reg_time);

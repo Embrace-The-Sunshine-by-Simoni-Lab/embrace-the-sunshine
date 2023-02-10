@@ -1,5 +1,4 @@
-// import * as ucharts from '@qiun/ucharts/';
-import uCharts from '../../../miniprogram_npm/@qiun/ucharts/index';
+import uCharts from '../../npm/@qiun/ucharts/index';
 
 const app = getApp()
 var uChartsInstance = {};
