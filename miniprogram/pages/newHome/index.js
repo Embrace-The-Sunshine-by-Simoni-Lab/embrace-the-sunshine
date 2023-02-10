@@ -9,7 +9,7 @@ Page({
     podCastInfo: [], 
     podCastInfo_remove_meditation: [],
     progressBarColor: "", // 首页药物追踪的进度条背景
-    podcastsAvailability: [1], // 综合播客的完成状态和注册时间最终确定展示的播客
+    podcastsAvailability: [], // 综合播客的完成状态和注册时间最终确定展示的播客
     podcastRegisterAvailability: [], // 判断用户是否发已经注册了足够多的时间来获取更新的播客
     podcastComplete: [] // 用来设置播客已完成的未完成的打勾
   },
@@ -294,10 +294,10 @@ Page({
   // 处理当前不可用播客点击时候的弹窗逻辑内容
   jumpToUnAvailableNotice(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
-    let currpodcast_finish_status = this.data.podcastsAvailability[clickedPodCastNum - 1]
+    let currpodcast_finish_status = this.data.podcastComplete[clickedPodCastNum - 1]
     let currpodcast_register_status = this.data.podcastRegisterAvailability[clickedPodCastNum]
-    
-    if (currpodcast_register_status === 1 && currpodcast_finish_status !== -1) {
+    console.log(this.data.podcastsAvailability);
+    if (currpodcast_finish_status === -1 || this.data.podcastComplete.length == 0 || clickedPodCastNum - 1 >= app.globalData.podcastComplete.length) {
       wx.showModal({
         content: '请先完成当前内容',
         confirmText: '我知道了',
@@ -306,7 +306,7 @@ Page({
           console.log("还没有完成前面的内容")
         }
       })
-    } else if (currpodcast_register_status !== 1 && currpodcast_finish_status === 1) {
+    } else {
       wx.showModal({
         content: '新内容下周更新',
         confirmText: '我知道了',
