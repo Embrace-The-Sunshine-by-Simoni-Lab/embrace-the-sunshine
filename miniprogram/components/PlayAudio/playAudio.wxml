@@ -1,0 +1,39 @@
+<!--components/playAudio.wxml-->
+<view class="podcastPlayContainer">
+  <view class="headerContainer">
+    <view class="podcastHeader">
+      <view class="headerImage">
+        <image class="podcast_img" src="{{podCastInfo.podcastPlayImgUrl}}"></image>
+      </view>
+      <view class="headerContent">
+        <view class="headerTitle">{{podCastInfo.mainTitle}}</view>
+        <view class="headerDate">{{podCastInfo.author}}</view>
+        <view class="headerContentBox">
+          <text class="headerDetail">{{podCastInfo.mainContentSummary}}</text>
+          <view class="headerMark">
+            <image wx:if="{{podcastCollected}}" class="podcast_star" src="../../images/Podcast-icon-favorite-click.png" bind:tap="changeCollectStatus"></image>
+            <image wx:if="{{!podcastCollected}}" class="podcast_star" src="../../images/Podcast-icon-favorite-unclick.png" bind:tap="changeCollectStatus"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class='slider'>
+      <slider bindchange="sliderChange" value="{{ sliderPosition }}" activeColor='red' block-size="10" color="#959695" block-color="#F38A73"/>
+    </view>
+    <view class='timing'>
+      <text class='timingDetail'>{{currentPlayTime}}</text>
+      <text class='timingDetail'>{{podCastInfo.totalTime}}</text>
+    </view>
+  </view>
+
+  <view class="playButtonContainer">
+    <image class="prevButton" bind:tap="goToPrevPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/prevplay.png"></image>
+    <image bind:tap="speedDown30" class="back30Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/down30.png"></image>
+    <image wx:if="{{!isPlaying}}" class="mainPlayButton" src="../../images/Podcast-icon-start play.png" bind:tap="togglePlay"></image>
+    <image wx:else bindtap="togglePlay" class="mainPlayButton" src="../../images/Podcast-icon-pause.png"></image>
+    <image class="speedup" bind:tap="speedUp30"  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/up30.png"></image>
+    <image class="nextButton" bind:tap="goToNextPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/nextplay.png"></image>
+    <image class="curve" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/curveShape.png"></image>
+  </view>
+</view>

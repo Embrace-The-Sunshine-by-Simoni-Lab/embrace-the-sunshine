@@ -78,21 +78,31 @@ Page({
               that.changeCalendarBoxStyle(that.data.LastClick, "box-selected-taken")
             });
           }
+          try {
+            wx.setStorageSync('NotificationLastShownTime', today)
+          } catch (e) {
+            console.log(e);
+          }
         }
       })
-      try {
-        wx.setStorageSync('NotificationLastShownTime', today)
-      } catch (e) {
-        console.log(e);
-      }
+   
     }
+    
+    this.setData({
+      curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()}
+    })
   },
   // 处理bar chart的数据
   processAnalystPageData() {
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(this.data.medi_taken);
+    let today = new Date();
+    if (_medi_taken_classified_by_years[today.getFullYear()] == null) {
+      _medi_taken_classified_by_years[today.getFullYear()] = []
+    }
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
+    
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
     this.generateDisplayDate(this.data.analyticsData[0])
@@ -165,12 +175,13 @@ Page({
     let tap_year = e.detail.year
     let tap_month = e.detail.month
     let tap_day = e.detail.date
-    this.setData({
-      curTapDate: {year: tap_year, month: tap_month, date: tap_day}
-    })
+
     const tap_date = new Date(tap_year, tap_month - 1, tap_day)
     // 只允许用户点击早于今天的日期
     if(tap_date < today) {
+      this.setData({
+        curTapDate: {year: tap_year, month: tap_month, date: tap_day}
+      })
       // 给当前点击的方框加入深色边框(需要判断是否taken)
       if(this.checkIfTapDateTaken(this.data.curTapDate)) {
         this.changeCalendarBoxStyle(this.data.curTapDate, "box-selected-taken")
@@ -221,7 +232,7 @@ Page({
     // 改变数据库的药的taken状态
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
     if (toggleResult) newMediStatus = true
-  
+    let that = this
     wx.showLoading({
       title: '加载中',
       mask: true
@@ -233,27 +244,30 @@ Page({
       }
     })
     .then(res => {
-      wx.hideLoading()
       const newDateLst = res.result.data.med_date;
       app.globalData.userData.med_date = newDateLst
       // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
-      this.convertStringtoDateArray(newDateLst)
-      this.setData({
+      that.convertStringtoDateArray(newDateLst)
+      that.setData({
         medi_taken: newDateLst,
       })
-      this.renderMediTaken()
+      that.renderMediTaken()
       
       if(toggleResult) {
-        this.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
+        that.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
       } else {
-        this.changeCalendarBoxStyle(curTapDate, "box-selected")
+        that.changeCalendarBoxStyle(curTapDate, "box-selected")
       }
+
+      that.setData({
+        toggleButtonStatus: newMediStatus
+      })
+      // 更新分析页面的数据
+      wx.hideLoading()
+      that.processAnalystPageData()
+      
     });
-    this.setData({
-      toggleButtonStatus: newMediStatus
-    })
-    // 更新分析页面的数据
-    this.processAnalystPageData()
+    
   },
   // 把所有已经服药过的日期渲染成红色
   renderMediTaken() {
@@ -337,7 +351,11 @@ Page({
     let _analyticsData = [];
     let _weekNumToRange = {};
     let _weekNumToCount = {};
+
     let this_year_medi_taken = this.data.medi_taken_classified_by_years[today.getFullYear()];
+    if (this_year_medi_taken == null) {
+      this_year_medi_taken = []
+    }
     if (this_year_medi_taken.length === 0) {
       return;
     }
@@ -348,11 +366,21 @@ Page({
     // highest week number and lowest week number
     let HighestDate = new Date(this_year_medi_taken[0]);
     let HighestWeekNum = this.getWeekNum(HighestDate);
+    
     let LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 1]);
     let LowestWeekNum = this.getWeekNum(LowestDate);
+    // 跨年
+    if (LowestWeekNum > HighestWeekNum) {
+      LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 2]);
+      LowestWeekNum = this.getWeekNum(LowestDate);
+    }
+    
     for (let i = 0; i < this_year_medi_taken.length; i++) {
       let currDate = new Date(this_year_medi_taken[i]);
       let curr_weekNum = this.getWeekNum(currDate);
+      if (curr_weekNum > HighestWeekNum || curr_weekNum < LowestWeekNum) {
+        continue;
+      }
       if (_weekNumToCount[curr_weekNum] == null) {
         _weekNumToCount[curr_weekNum] = 0;
       }

@@ -1,35 +1,19 @@
 {
   "pages": [
-    "pages/mainpage/mainpage",
+    "pages/newHome/index",
+    "pages/profileEdit/profileEdit",
     "pages/onboarding/onboarding",
-    "pages/index/index",
-    "pages/calendar/calendar",
-    "pages/questionnaire/questionnaire",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
-    "pages/openapi/openapi",
-    "pages/openapi/serverapi/serverapi",
-    "pages/openapi/callback/callback",
-    "pages/openapi/cloudid/cloudid",
-    "pages/im/im",
-    "pages/im/room/room",
     "pages/infoPage/infoPage",
-    "pages/medTracking/medTracking",
-    "pages/module/modulePage",
     "pages/moodTracking/moodTracking",
-    "pages/demo/demo",
     "pages/profile/profile",
     "pages/setting/setting",
-    "pages/save/save",
     "pages/feedback/feedback",
     "pages/v2/index",
     "pages/medicationReportUchart/index",
     "pages/moodTracking-Content/mockTracking-Content",
-    "pages/moodtrack-finish/moodtrack-finish"
+    "pages/moodtrack-finish/moodtrack-finish",
+    "pages/allPodCastPage/index",
+    "pages/podcastPlay/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -45,15 +29,9 @@
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/content-icon-selected.png",
-        "iconPath": "images/content-icon.png",
-        "pagePath": "pages/index/index",
-        "text": "内容"
-      },
-      {
         "selectedIconPath": "images/home-icon-selected.png",
         "iconPath": "images/home-icon.png",
-        "pagePath": "pages/mainpage/mainpage",
+        "pagePath": "pages/newHome/index",
         "text": "主页"
       },
       {

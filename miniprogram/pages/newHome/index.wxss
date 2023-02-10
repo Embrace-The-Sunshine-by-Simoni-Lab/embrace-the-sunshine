@@ -1,0 +1,286 @@
+/* pages/newHome/index.wxss */
+
+.homeContainer {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+.homeBanner {
+  width: 100%;
+  border-radius: 10px;
+  background: #4D50A4;
+  margin-bottom: 15px;
+  position: relative;
+}
+.swipe_orange_background {
+  background: #F38A73;
+  border-radius: 10px;
+  height: 100%;
+}
+.homePodCastBox {
+  width: 100%;
+  height: 580rpx;
+}
+
+.swiper {
+  border-radius: 10px;
+  overflow: hidden
+}
+.swiper-item {
+  height: 100%;
+  position: relative;
+  border-radius: 10px;
+  /* background: green; */
+}
+.carousel_img {
+  position: absolute;
+  right: 10rpx;
+  bottom: 0; 
+  width: 240rpx;
+  height: 240rpx;
+}
+.homeMiddleBox {
+  width: 100%;
+  height: 250rpx;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.homeMoodTrack {
+  height: 210rpx;
+  width: 35%;
+  background: #FDFBFC;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+/* podcast lock style */
+.podcast-unavailable {
+  background: rgba(0, 0, 0, 0.3) !important;
+  position: relative;
+}
+.podcast_lock {
+  position: absolute;
+  left: 50%;
+  margin-left: -25rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.homeMediTrack {
+  height: 210rpx;
+  width: 60%;
+  background: #FDFBFC;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  box-sizing: border-box;
+  position: relative;
+}
+.reddot {
+  width: 18rpx;
+  height: 18rpx;
+  position: absolute;
+  left: 135rpx;
+  top: 0;
+  z-index: 200;
+  border-radius: 50%;
+  background:#FA5151;
+}
+.homeMoodImg {
+  height: 120rpx;
+  width: 180rpx;
+  margin-top: 10rpx;
+}
+.swiper {
+  height: 260rpx;
+}
+.homeBannerContent {
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding: 37rpx 43rpx;
+  box-sizing: border-box;
+  /* background: blue; */
+  height: 90%;
+  justify-content: center;
+}
+
+.homePodNum {
+  font-weight: 200;
+  font-size: 32rpx;
+}
+.homePodTitle {
+  padding: 10px 0;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36rpx;
+  line-height: 36rpx;
+}
+.homePodDetail {
+  font-weight: 200;
+  font-size: 29rpx;
+}
+.homeBannerIndicator {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  width: 20px;
+  margin-left: -10px;
+
+  display: flex;
+}
+.homeBannerCircle {
+  height: 5px;
+  width: 5px;
+  background: white;
+  margin: 0 5px;
+  border-radius: 50%;
+}
+.homeMediTrackContent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+}
+.homeMediTrackContentTitle {
+  font-weight: 400;
+  margin-bottom: 35rpx;
+}
+
+.homeMediTrackContentTitleSmall {
+  font-weight: 300;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+}
+.homeMediTrackProgressBox {
+  width: 290rpx;
+  max-width: 290rpx;
+  display: flex;
+  height: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.homeMediTrackProgress {
+  width: 200rpx;
+  margin-right: 8px;
+  height: 10px;
+  border-radius: 8px;
+  background: #D9D9D9;
+  position: relative
+}
+.homeMediTrackAlreadyTaken {
+  position: absolute; 
+  left: 0;
+  height: 10px;
+  border-radius: 8px;
+  /* background: #46BA74; */
+}
+.homeMediTrackProgressText {
+  font-size: 25rpx;
+}
+.homeMediImg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 160rpx;
+  height: 160rpx;
+}
+.homePodCast {
+  display: flex;
+  flex-direction: column;
+}
+.homePodCastTitle {
+  font-size: 35rpx;
+  padding-bottom: 15rpx;
+}
+.castItem {
+  height: 170rpx;
+  border-radius: 10px;
+  background: #FDFBFC;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 5rpx;
+  margin-bottom: 18rpx;
+}
+.castContent {
+  /* background: green; */
+  box-sizing: border-box;
+  padding: 20rpx 0;
+  width: 100%;
+  height: 100%; 
+}
+.castContent_top {
+  display: flex;
+  align-items: center;
+  height:100%;
+}
+.castContent_top_desc {
+  width: 80%;
+  height: 80%;
+}
+.castContent_top_desc_title {
+  font-weight: 400;
+  font-size: 35rpx;
+  line-height: 35rpx;
+  margin-bottom: 27rpx;
+  color: #000000;
+}
+.castContent_progress {
+  display: flex;
+  height:80%;
+}
+.castContent_progress_bar {
+  width: 70%;
+  height: 10rpx;
+  margin-top: 10rpx;
+  background: #DADADA;
+  position: relative;
+  border-radius: 25rpx;
+}
+.castContent_progress_bar_blue {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 70%;
+  height: 10rpx;
+  background: #6568BC;
+  border-radius: 25rpx;
+}
+.castContent_top_check {
+  width: 60rpx;
+  height: 60rpx;
+}
+.castContent_top_desc_summary {
+  font-weight: 400;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #666666;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.castContent_progress_timer {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  margin-left: 10px;
+}
+.castImage {
+  width: 260rpx;
+  height: 80px;
+  padding: 0 10rpx;
+  overflow: hidden
+}
+.castImageItem {
+  width: 185rpx;
+  height: 185rpx;
+}
+.checkAll {
+  align-self: flex-end;
+}

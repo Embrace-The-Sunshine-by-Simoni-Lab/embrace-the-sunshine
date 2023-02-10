@@ -1,0 +1,117 @@
+/* pages/allPodCastPage/index.wxss */
+.allCastHeader {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+.allCastsContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* background: orange; */
+}
+.castList {
+  /* background: green; */
+  width: 100%;
+  height: 100%;
+}
+.podcast_lock {
+  position: absolute;
+  left: 50%;
+  margin-left: -25rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.podcast-unavailable {
+  background: rgba(0, 0, 0, 0.3) !important;
+  position: relative;
+}
+.castItem {
+
+  height: 170rpx;
+  border-radius: 10px;
+  background: #FDFBFC;
+  /* background: green; */
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rpx;
+  margin-bottom: 18rpx;
+}
+.castImage {
+  width: 100px;
+  height: 80px;
+  padding: 0 10rpx;
+  overflow: hidden
+}
+.castImageItem {
+  width: 185rpx;
+  height: 185rpx;
+}
+.castContent {
+  box-sizing: border-box;
+  padding: 20rpx 0;
+  width: 100%;
+  height: 100%; 
+}
+.castContent_top {
+  display: flex;
+  align-items: center;
+  height:100%;
+}
+.castContent_top_desc {
+  width: 80%;
+  height: 80%;
+  /* background: green */
+}
+.castContent_top_desc_title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 18rpx;
+  color: #000000;
+}
+.castContent_progress {
+  display: flex;
+  height:80%;
+}
+.castContent_progress_bar {
+  width: 70%;
+  height: 10rpx;
+  margin-top: 10rpx;
+  background: #DADADA;
+  position: relative;
+  border-radius: 25rpx;
+}
+.castContent_progress_bar_blue {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 70%;
+  height: 10rpx;
+  background: #6568BC;
+  border-radius: 25rpx;
+}
+.castContent_top_check {
+  width: 65rpx;
+  height: 65rpx;
+}
+.castContent_top_desc_summary {
+  font-weight: 300;
+  font-size: 25rpx;
+  line-height: 20px;
+  color: #666666;
+}
+.castContent_progress_timer {
+  font-weight: 400;
+  font-size: 21rpx;
+  line-height: 14px;
+  margin-left: 10px;
+}
+.castImage {
+  width: 260rpx;
+  height: 80px;
+  padding: 0 10rpx;
+}

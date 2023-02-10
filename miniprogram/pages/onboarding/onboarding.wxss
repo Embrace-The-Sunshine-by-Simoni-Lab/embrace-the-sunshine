@@ -8,7 +8,6 @@
 }
 
 
-
 .swiper {
   display: contents;
   height: 100vh;
@@ -39,10 +38,18 @@ image {
 
 .body{
   margin: 27.5rem 2rem 10rem 2rem;
-  position: absolute;
   color: #8b8b8b;
   font-size: 1.2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* position: relative; */
+}
+
+.unlock {
+  padding-top: 10px;
 }
 
 mainButton{

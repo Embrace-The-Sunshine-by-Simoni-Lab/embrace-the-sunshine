@@ -8,7 +8,7 @@ module.exports = {
 }
 
 function getAllPodcastAudioInfo() {
-    var podcasts_info;
+    let podcasts_info;
     wx.showLoading({
       title: '加载中',
     })
@@ -34,6 +34,7 @@ function getAllPodcastAudioInfo() {
         console.log(podcasts_info);
       }
     })
+    console.log("podcasts_info", podcasts_info)
 }
 
 // load audio file

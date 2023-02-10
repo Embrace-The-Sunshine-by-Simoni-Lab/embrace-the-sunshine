@@ -1,0 +1,29 @@
+/* pages/podcastPlay/index.wxss */
+Page{
+  background:white !important;
+}
+.podcastContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  /* background: rgb(167, 115, 197); */
+}
+.gap {
+  height: 2%;
+}
+.playAudio {
+  /* background: rgb(137, 187, 148); */
+  height: 38%; 
+  width: 100%;
+}
+.PodCastContent {
+  height: 60%; 
+  /* background: yellow; */
+}
+
+
+
+
+
+
