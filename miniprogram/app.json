@@ -5,7 +5,6 @@
     "pages/profileEdit/profileEdit",
     "pages/onboarding/onboarding",
     "pages/infoPage/infoPage",
-    "pages/medTracking/medTracking",
     "pages/module/modulePage",
     "pages/v2/index",
     "pages/allPodCastPage/index",

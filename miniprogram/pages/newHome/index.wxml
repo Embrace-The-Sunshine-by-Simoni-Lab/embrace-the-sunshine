@@ -34,7 +34,7 @@
 
         <view class="homeMediTrackProgressBox"> 
           <view class="homeMediTrackProgress">
-            <view class="homeMediTrackAlreadyTaken" style="width: {{currWeekAlreadyTaken/7*100}} + '%'; background:{{progressBarColor}}">
+            <view class="homeMediTrackAlreadyTaken" style="width: {{currWeekAlreadyTaken/7*100}}%; background:{{progressBarColor}}">
             </view>
           </view>
         
