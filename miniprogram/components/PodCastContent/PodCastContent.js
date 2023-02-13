@@ -57,7 +57,6 @@ Component({
           submitClicked: true
         })
       }
-
       this.setData({
         user_answer: currUserAnswer,
         podCastInfo: currPodCast,

@@ -95,6 +95,7 @@ Page({
   // 处理bar chart的数据
   processAnalystPageData() {
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(this.data.medi_taken);
+
     let today = new Date();
     if (_medi_taken_classified_by_years[today.getFullYear()] == null) {
       _medi_taken_classified_by_years[today.getFullYear()] = []
@@ -102,9 +103,13 @@ Page({
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
-    
+    console.log("_medi_taken_classified_by_years", _medi_taken_classified_by_years)
+
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
+
+    // console.log("after", this.data.analyticsData)
+
     this.generateDisplayDate(this.data.analyticsData[0])
     let avg = this.calculateAverage(this.data.analyticsData)
     let compare = this.getCompareString(0)
@@ -356,9 +361,11 @@ Page({
     if (this_year_medi_taken == null) {
       this_year_medi_taken = []
     }
+
     if (this_year_medi_taken.length === 0) {
       return;
     }
+    
     // generate week range from whole year
     for (let i = 1; i <= 53; i++) {
       _weekNumToRange[i] = this.getDateRangeOfWeek(i);
@@ -398,6 +405,8 @@ Page({
       }
       _analyticsData.push(analytics_data_element);
     }
+
+    console.log("_analyticsData", _analyticsData)
     this.setData({
       analyticsData: _analyticsData
     });
@@ -473,6 +482,7 @@ Page({
   },
   // 切换记录和分析模式
   switchMode: function(event) {
+
     if(event.currentTarget.dataset.mode == "analyst") {
       this.processAnalystPageData()
     }
