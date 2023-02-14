@@ -26,7 +26,6 @@
       <text>情绪记录</text> 
       <image class="homeMoodImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/smileCloud.png"></image>
     </view>
-
     <view class="homeMediTrack" bind:tap="jumpToCalendar">
       <view class="homeMediTrackContent">
         <view wx:if="{{showRedDot}}" class="reddot"></view>
@@ -75,7 +74,6 @@
               <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
               <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
             </view>
-
             <image src="{{podcastComplete[idx] === 1 ? '../../images/homepage/home-check.png':'../../images/homepage/home-uncheck.png'}}" class="castContent_top_check"></image>
           </view>
         </view>

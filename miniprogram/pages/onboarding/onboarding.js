@@ -12,7 +12,7 @@ Page({
   toMainPage: function() {
     console.log("toMainPage")
     wx.switchTab({
-      url: "../mainpage/mainpage",
+      url: "../newHome/index",
     })
   },
 
