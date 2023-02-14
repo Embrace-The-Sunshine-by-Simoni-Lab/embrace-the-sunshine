@@ -20,6 +20,7 @@
 
 .podcastHeader {
   height: 70%;
+  width: 100%;
 }
 
 .curve {
@@ -56,6 +57,7 @@
 }
 .headerContentBox {
   display: flex;
+  justify-content: space-between;
 }
 .headerDetail {
   font-size: 26rpx;
