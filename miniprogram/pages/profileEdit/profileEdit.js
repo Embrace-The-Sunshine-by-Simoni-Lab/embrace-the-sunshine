@@ -2,63 +2,75 @@
 Page({
 
   /**
-   * 页面的初始数据
+   * Page initial data
    */
-  data: {
-
-  },
 
   /**
-   * 生命周期函数--监听页面加载
+   * Lifecycle function--Called when page load
    */
   onLoad(options) {
 
   },
 
+  runSubmitName: function (e) {
+
+    console.log(e);
+
+    var page = getCurrentPages();
+    var prevPage = page[page.length - 2];
+    prevPage.setNewName(e);
+
+    wx.showToast({
+      title: '保存成功',
+      icon: 'success',
+      duration: 2000
+    })
+  },
+
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * Lifecycle function--Called when page is initially rendered
    */
   onReady() {
 
   },
 
   /**
-   * 生命周期函数--监听页面显示
+   * Lifecycle function--Called when page show
    */
   onShow() {
 
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   * Lifecycle function--Called when page hide
    */
   onHide() {
 
   },
 
   /**
-   * 生命周期函数--监听页面卸载
+   * Lifecycle function--Called when page unload
    */
   onUnload() {
 
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * Page event handler function--Called when user drop down
    */
   onPullDownRefresh() {
 
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * Called when page reach bottom
    */
   onReachBottom() {
 
   },
 
   /**
-   * 用户点击右上角分享
+   * Called when user click on the top right corner to share
    */
   onShareAppMessage() {
 

@@ -33,8 +33,7 @@
         <image class="img5" src="../../images/onboarding/Group 18501.png" mode="aspectFit"></image>
         <text class="title">服药记录</text>
         <text class="body">以日历的方式呈现您当月的药物依从情况以及每周的平均服药天数。</text>
-        <!-- <mainButton title='开启使用' type="mainButton" bindtap="toMainPage" class="begin_use"></mainButton> -->
-        <view bindtap="toMainPage" class="begin_use">开启使用</view>
+        <mainButton title='开启使用' type="mainButton" bindtap="toMainPage"></mainButton>
       </swiper-item>
   </swiper>
 </view>

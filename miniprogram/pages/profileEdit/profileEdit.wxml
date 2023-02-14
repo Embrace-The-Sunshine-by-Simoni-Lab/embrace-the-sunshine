@@ -1,2 +1,23 @@
 <!--pages/profileEdit/profileEdit.wxml-->
-<text>pages/profileEdit/profileEdit.wxml</text>
+<view>
+        <view class="pic_container">
+        </view>
+
+        <view class="text_container">
+          <text class="title">请输入您的新昵称</text>
+        </view>
+
+        <view class="form_container">
+          <form class="name_change_form" catchsubmit="runSubmitName">
+
+            <view>
+              <input class="name_input" type="text" maxlength="10" placeholder="修改昵称" name="new_name"/>
+            </view>
+
+            <view class="button_container">
+              <button class="name_submit" formType="submit">保存</button>
+            </view>
+            
+          </form>
+        </view>
+</view>

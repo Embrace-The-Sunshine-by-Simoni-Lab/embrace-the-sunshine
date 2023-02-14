@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "SingleChoice":"/components/QuestionSingleChoice/index",
-    "MultipleChoice":"/components/QuestionMultipleChoice/index"
+    "MultipleChoice":"/components/QuestionMultipleChoice/index",
+    "SortChoice":"/components/QuestionSort/index"
   }
 }

@@ -1,0 +1,30 @@
+<view class="outer">
+  <view class="mood_container">
+    <text class="mood_notice">在过去的七天, 您受以下问题困扰的频率如何?</text>
+    <text class="mood_main_question">{{questions[currentQuestion][0]}}</text>
+
+    <view class="mood_image_box">
+      <!-- go to prev question -->
+      <image class="mood_prev mood_next_left" src="../../images/next-enable.png" wx:if="{{currentQuestion > 0}}" bind:tap="goToPrevQuestion"></image>
+      <!-- middle image -->
+      <image class="mood_content_image" src="{{questions[currentQuestion][1]}}"></image>
+      <!-- go to next question -->
+      <image wx-if="{{finishStatus[currentQuestion] != -1}}" class="mood_next" src="../../images/next-enable.png" bind:tap="goToNextQuestion" wx:if="{{currentQuestion < 8}}"></image>
+      <image wx-if="{{finishStatus[currentQuestion] == -1}}" class="mood_next" src="../../images/next.png" wx:if="{{currentQuestion < 8}}"></image>
+    </view>
+
+    <view class="mood_gap"></view>
+    <view class="moodtrack_options">
+      <view class="moodtrack_option {{finishStatus[currentQuestion] == '0' && 'option_active'}}" data-option-id="0" bind:tap="pickOption">不到一天</view> 
+      <view class="moodtrack_option {{finishStatus[currentQuestion] == '1' && 'option_active'}}" data-option-id="1" bind:tap="pickOption">1-2天</view> 
+      <view class="moodtrack_option {{finishStatus[currentQuestion] == '2' && 'option_active'}}" data-option-id="2" bind:tap="pickOption">3-4天</view> 
+      <view class="moodtrack_option {{finishStatus[currentQuestion] == '3' && 'option_active'}}" data-option-id="3" bind:tap="pickOption">5-7天</view> 
+    </view>
+  </view>
+
+  <view class="submit_box">
+    <view class="mood_submit_notice" wx:if="{{warningStatus == true && currentQuestion == 8}}">需要做完所有题目才能提交哦</view>
+    <mainButton title="提交" type="mainButton" wx:if="{{currentQuestion == 8}}" bind:tap="submit"></mainButton>
+    <progress class="progress-box" percent="{{questionProgress}}" stroke-width="3" color="#6568BC"/>
+  </view>
+</view>

@@ -80,10 +80,9 @@
   overflow-y: scroll;
   /* background: rgb(79, 98, 211); */
 }
- /*.SingleAnswerBlock {
-  background:rgb(109, 182, 49) 
-}*/
-
+.SingleAnswerBlock {
+  /* background:rgb(109, 182, 49) */
+}
 .contentOpt {
   width: 48%;
   display: flex;

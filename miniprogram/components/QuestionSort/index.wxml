@@ -1,0 +1,11 @@
+<!--components/QuestionSort/index.wxml-->
+<template>
+  <view class="container">
+    <view class="Question">{{question.question}}</view>
+    <view class="Options">
+      <view class="Option" wx:for="{{question.options}}" wx:for-index="idx" bind:tap="clickOption" bind:touchmove="moveOption" data-index="{{idx}}" style="{{userAnswer[idx] == 1 ? 'background: #DCD6F7;' : ''}}" catchtouchmove="preventTouchMove">
+        {{item.option_content}}
+      </view>
+    </view>
+  </view>
+</template>

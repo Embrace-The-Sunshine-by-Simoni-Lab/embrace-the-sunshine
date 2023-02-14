@@ -272,7 +272,7 @@ Page({
   },
   jumpToMoodTracking() {
     wx.redirectTo({
-      url: "../../package_moodTracking/pages/moodTracking/moodTracking",
+      url: "../moodTracking/moodTracking",
     })
   },
   jumptoAllPodCastPage() {
@@ -296,6 +296,7 @@ Page({
     let clickedPodCastNum = e.currentTarget.dataset.id
     let currpodcast_finish_status = this.data.podcastComplete[clickedPodCastNum - 1]
     let currpodcast_register_status = this.data.podcastRegisterAvailability[clickedPodCastNum]
+    console.log(this.data.podcastsAvailability);
     if (currpodcast_finish_status === -1 || this.data.podcastComplete.length == 0 || clickedPodCastNum - 1 >= app.globalData.podcastComplete.length) {
       wx.showModal({
         content: '请先完成当前内容',
