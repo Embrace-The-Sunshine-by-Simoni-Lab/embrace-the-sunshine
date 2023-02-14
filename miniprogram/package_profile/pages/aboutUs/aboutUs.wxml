@@ -1,0 +1,26 @@
+<!--package_profile/pages/aboutUs.wxml-->
+<view class="background">
+  <view class="content">
+    <view class="title">拥抱阳光turn to sunshine</view>
+    <view class="sub_title">拥抱阳光小程序的功能目的？</view>
+    <view class="text">
+      <view>结合认知行为疗法（CBT）与辩证行为疗法（DBT），教你如何应对诊断后复杂的情绪，积极面对挑战，关照身心健康，创造有价值的生活。小程序将内容以文字，音频，以及视频的内容呈现给用户，每一位用户将同时与一位上海心生的工作人员组队，在工作人员的指导下探讨学习心理应对技巧、追踪情绪状态及服药依从性。</view>
+    </view>
+    <view class="sub_title">信息安全保障？</view>
+    <view class="text">
+      <view>我们致力于保护您的隐私与数据安全。小程序不需要您的任何个人信息。所有的数据都经过加密后储存在云端。</view>
+    </view>
+    <view class="sub_title">拥抱阳光的内容是来源于哪里？</view>
+    <view class="text">
+      <view>拥抱阳光的内容来自于CBT与DBT，设计者与临床心理学家和经验丰富的心理咨询师一起，共同将CBT与DBT中的心理技巧针对用户的需求进行改编设计。如果您有严重的心理疾病，请及时向精神科或心理咨询师寻求诊断与治疗。拥抱阳光不提供医学诊断与治疗。</view>
+    </view>
+    <view class="sub_title">如果您有以下需求，拥抱阳光可以帮到您</view>
+    <view class="text">
+        <view>- 如果您想对自己的情绪有进一步的掌控，想要通过一些技巧积极有效地管理情绪，学会与情绪和平共处</view>
+        <view>- 如果您需要社会支持，想要与上海心生的工作人员共同沟通探讨心理技巧</view>
+        <view>- 如果您想知道自己过去一段时间的情绪变化状况</view>
+        <view>- 如果您有时忘记自己是否已经服药，需要工具帮助您记录每天的服药情况</view>
+    </view>
+  </view> 
+</view>
+
