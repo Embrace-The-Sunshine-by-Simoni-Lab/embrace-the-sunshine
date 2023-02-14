@@ -9,14 +9,14 @@
       wx:for-index="idx" 
       wx:key="idx" 
       data-id="{{item.podCast_Id}}" 
-      bind:tap="{{(podcastsAvailability[idx] === 1) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
+      bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
       <image 
-        style="display: {{(podcastsAvailability[idx] === 1) ? 'none' : 'block'}}"
+        style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
         src="../../images/homepage/LOCK.png" 
         class="podcast_lock">
       </image>
       <view class="castImage">
-        <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
+        <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
       </view>
 
       <view class="castContent">

@@ -62,10 +62,11 @@ Page({
   },
   jumpToUnAvailableNotice(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
-    let currpodcast_finish_status = this.data.podcastsAvailability[clickedPodCastNum - 1]
-    let currpodcast_register_status = this.data.podcastRegisterAvailability[clickedPodCastNum]
-
-    if(currpodcast_finish_status == -1) {
+    let prev_podcast_finish_status = app.globalData.podcastComplete[clickedPodCastNum - 1]
+    let currpodcast_register_status = app.globalData.podcastRegisterAvailability[clickedPodCastNum]
+    console.log("global podcastComplete", app.globalData.podcastComplete);
+    // console.log(" podcastsAvailability", this.data.podcastComplete);
+    if(prev_podcast_finish_status == -1 || app.globalData.podcastComplete.length == 0 || clickedPodCastNum - 1 >= app.globalData.podcastComplete.length) {
       wx.showModal({
         content: '请先完成当前内容',
         confirmText: '我知道了',
@@ -81,15 +82,6 @@ Page({
         showCancel: false,
         success (res) {
           console.log("还未到下一周")
-        }
-      })
-    } else {
-      wx.showModal({
-        content: '请先完成当前内容',
-        confirmText: '我知道了',
-        showCancel: false,
-        success (res) {
-          console.log("还没有完成前面的内容")
         }
       })
     }
