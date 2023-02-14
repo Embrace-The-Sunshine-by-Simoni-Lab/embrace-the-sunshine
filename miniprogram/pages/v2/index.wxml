@@ -19,7 +19,7 @@
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
     <view wx-if="{{currentMode=='analyst'}}" class="calendar_datepicker">
       <image class="calendar_arrow_left" src="../../images/calendar/rightArrow.png" bind:tap="clickLeftArrow" />
-      <view wx-if="{{currentMode=='analyst'}}" class="calendar_dateRange">{{displayedDate[0]}}月{{displayedDate[1]}}日-{{displayedDate[2]}}月{{displayedDate[3]}}日</view>
+      <view wx-if="{{currentMode=='analyst'}}" class="calendar_dateRange">{{displayedDate[0]}}月{{displayedDate[1]}}日-{{displayedDate[2]}}月{{displayedDate[3]}}日</view>
       <image class="calendar_arrow_right" src="../../images/calendar/rightArrow.png" bind:tap="clickRightArrow"/>
     </view>
   </view>
@@ -88,7 +88,7 @@
         <l-circle wx-if="{{currentMode != 'record'}}"  percent='{{analyticsData[currentClickedBar].count / 7 * 100}}' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{analyticsData[currentClickedBar].color}}"></l-circle>
         <view class="calendar_circle_text_container">
           <view class="calendar_circle_big_num">{{analyticsData[currentClickedBar].count}}</view> 
-          <view class="calendar_circle_small_text">本周已服药天数</view>
+          <view class="calendar_circle_small_text">本周已服药天数</view>
         </view>
       </view>
       <view class="calendar_summary">

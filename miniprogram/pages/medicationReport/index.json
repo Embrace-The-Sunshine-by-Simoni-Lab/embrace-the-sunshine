@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "l-circle":"/components/circle/index",
-    "ec-canvas": "../../ec-canvas/ec-canvas"
-    
-  }
-}
