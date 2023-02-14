@@ -56,6 +56,12 @@ Page({
     // this.getUserInfo()
   },
 
+  goto_profile: function() {
+    wx.redirectTo({
+      url: "../../../pages/profile/profile",
+    })
+  },
+
   runSubmitName: function (e) {
     console.log(e);
     var page = getCurrentPages();
@@ -69,12 +75,6 @@ Page({
       duration: 3000
     })
     this.goto_profile()
-  },
-
-  goto_profile: function() {
-    wx.switchTab({
-      url: "../profile/profile",
-    })
   },
 
   changeHeadImg: async function () {
