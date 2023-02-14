@@ -24,6 +24,7 @@ Component({
     userAnswer: -1, // current user choice
     correctAnswer: -1, // current correct answer
     explanationVisible: [],
+    buttonText: '展开解释'
   },
   
   attached: function() {
@@ -75,8 +76,17 @@ Component({
       const newExplanationVisible = this.data.explanationVisible.map((visible, index) => {
         return index === optionIndex ? !visible : visible;
       });
+      //修改 buttonText 的值
+      let newButtonText = '';
+      if(this.data.explanationVisible[optionIndex]) {
+          newButtonText = '展开解释';
+      } else {
+          newButtonText = '关闭解释';
+      }
+
       this.setData({
-        explanationVisible: newExplanationVisible
+        explanationVisible: newExplanationVisible,
+        buttonText: newButtonText
       });
     }
   }

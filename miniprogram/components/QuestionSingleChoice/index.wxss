@@ -22,11 +22,17 @@
   line-height: 40rpx;
 }
 .expandExplanation {
-  float:right
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 10rpx;
 }
-.down_triangle {
-  width: 50rpx;
-  height: 50rpx;
+.triangle {
+  margin-left: 10rpx;
+  width: 0; 
+  height: 0; 
+  border-left: 10rpx solid transparent; 
+  border-right: 10rpx solid transparent; 
 }
 .explanationDetail {
   color: rgba(23, 37, 169, 0.81)
