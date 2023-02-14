@@ -1,72 +1,97 @@
 /**index.wxss**/
 .container{
-  background-color: white;
-  display:flex;
-  flex-direction: column;
   height: 100vh;
-  padding-bottom: 1rem;
+  width: 100%;
+  position: relative;
+  /* background: green; */
 }
-
-
 .swiper {
   display: contents;
   height: 100vh;
 }
-
-image {
-  display:flex;
-  height: 35rem;
-  width: 100%;
-  overflow: hidden;
+.first_orange {
   position: absolute;
+  right: 0;
+  top: 18%;
+  width: 390rpx;
+  height: 380rpx;
+}
+.second_orange {
+  position: absolute;
+  left: 0;
+  top: 5%;
+  width: 390rpx;
+  height: 380rpx;
+}
+.container {
+  position: relative;
+  /* background: orange !important; */
+}
+.open_title {
+  font-size: 36rpx;
+  font-weight: 300;
+  margin-bottom: 70rpx;
+}
+.title {
+  margin-bottom: 70rpx;
+  font-size: 36rpx;
+  font-weight: 300;
+}
+.open_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 70%;
+  top: 40%;
+}
+
+.open_container2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 70%;
+  top: 60%;
+}
+.second_image {
+  position: absolute;
+  width: 100%;
+  height: 1000rpx;
+  top: 3%;
 }
 .begin_use {
   width: 300rpx;
-  height: 80rpx;
-  line-height:80rpx;
+  height: 60rpx;
+  line-height:60rpx;
   text-align: center;
   background: #4D50A4;
   color: #FFFFFF;
-  border-radius: 8px;
+  border-radius: 16rpx;
   z-index: 100%;
+  margin-top: 90rpx;
+  font-size: 30rpx;
 }
 
-
 .img4 {
-  height: 42rem;
+  position: absolute;
+  width: 100%;
+  height: 1000rpx;
+  top: 10%;
 }
 
 .img5 {
-  height: 31rem;
-}
-
-.title{
-  margin: 25rem 3rem 10rem 3rem ;
   position: absolute;
-  color: black;
-  font-size: 1.3rem;
+  width: 100%;
+  height: 900rpx;
+  top: -65rpx;
 }
 
-.body{
-  margin: 27.5rem 2rem 10rem 2rem;
-  color: #8b8b8b;
-  font-size: 1.2rem;
+.small_text{
+  font-size: 30rpx;
+  font-weight: 300;
+  color: #636161;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* position: relative; */
-}
-
-.unlock {
-  padding-top: 10px;
-}
-
-mainButton{
-  margin: 36rem 2rem 10rem 2rem;
-}
-
-.wx-swiper-dots{
-  color: #FEA28D;
 }
