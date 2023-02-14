@@ -1,4 +1,4 @@
-// pages/profileEdit/profileEdit.js
+// package_profile/pages/aboutUs.js
 Page({
 
   /**

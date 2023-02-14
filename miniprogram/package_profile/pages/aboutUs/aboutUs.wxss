@@ -1,0 +1,46 @@
+/* package_profile/pages/aboutUs.wxss */
+/* pages/infoPage/infoPage.wxss */
+.background {
+  background-color: #F6F6F6;
+}
+
+.content {
+  background-color: #ffffff;
+  margin-top: 8%;
+  margin-left: 8%;
+  margin-right: 8%;
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-top: 4%;
+  padding-bottom: 5%;
+  border-radius: 10px;
+}
+
+.content > .title {
+  padding-bottom: 1%;
+}
+
+.content > .sub_title {
+  padding-top: 3%;
+}
+
+.content > .text {
+  line-height: 25px;
+  color: #888888;
+  font-size: 15px;
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 30px;
+  margin-bottom: 5px;
+  letter-spacing: 0px;
+}
+
+.sub_title {
+  margin-top: 20px;
+  line-height: 30px;
+  font-size: 20px;
+  color: black;
+}

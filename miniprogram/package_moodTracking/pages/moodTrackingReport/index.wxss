@@ -1,0 +1,181 @@
+Page{
+  background:#FFFFFF;
+}
+.medicineContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 0 0;
+}
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(139,128,188,0.5) 0%, rgba(221,147,144,0.5) 100%);
+  box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  -webkit-box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  -moz-box-shadow: -1px 11px 22px -1px rgba(0,0,0,0.11);
+  border-radius: 13px;
+  width: 92%;
+  height: 12rem;
+  margin-bottom: 10rpx;
+}
+.medicineRecord {
+  font-size: 23px;
+  padding-top: 45px;
+  color: #4D50A4;
+}
+.medicineRecord_date {
+  padding-top: 40px;
+  font-size: 17px;
+  /* background: green; */
+  color: #4D50A4;
+}
+.calendar_circle {
+  width: 51%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.calendar_circle_text_container {
+  z-index: 100;
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  margin-top: -70px;
+  margin-left: -70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
+  color: #7B7B7B;
+}
+
+.calendar_summary_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 0 10px;  */
+  border-left: 2px solid#E5E5E5;
+  height: 40px;
+  margin-left: 20px;
+}
+.calendar_summary_container_circle {
+  width: 25px;
+  height: 25px;
+  margin: 0 10px;
+  /* background: #91D300; */
+  border-radius: 50%;
+}
+.calendar_circle_text {
+  font-size: 95rpx;
+  font-weight: 320;
+}
+.calendar_summary_container_text {
+  color: #7B7B7B;
+  font-size: 40rpx;
+  font-weight: 360;
+}
+.charts-box {
+  width: 700rpx;
+  height: 360rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.line_chart_container {
+  width: 92%;
+  height: 550rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.calendar_circle_container {
+  margin-top: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ec-canvas {
+  width: 300px;
+  height: 270px;
+} */
+
+.scrollable-element {
+  scrollbar-color: red yellow;
+}
+
+/* ==========Line Chart Heading=========== */
+.line_chart_heading {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.btnBox {
+  position: relative;
+  display: flex;
+  bottom: 2rpx;
+}
+
+.line_chart_tittle_container {
+  margin-right: 46rpx;
+}
+
+.tittle_text {
+  font-size: 34rpx;
+  color: #2E317D;
+}
+
+
+/* ============ Line Chart Body = y_axis + uchart  ================*/
+.line_chart_body {
+  display: flex;
+  margin-top: 5rpx;
+}
+
+.line_chart_y_axis {
+  width: 9%;
+  height: 360rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.line_chart_y_axis_label {
+  color: hsl(0, 0%, 48%);
+  font-size: 14px;
+  /* padding: 9.2px 0; */
+}
+
+#label_1 {
+  margin-top: 34rpx;
+}
+#label_2 {
+  margin-top: 29rpx;
+}
+#label_3 {
+  margin-top: 19rpx;
+}
+#label_4 {
+  margin-top: 17rpx;
+}
+#label_5 {
+  margin-top: 15rpx;
+}
+.line_chart {
+  width: 90%
+}
+.charts {
+  width: 600rpx;
+  height: 440rpx;
+}

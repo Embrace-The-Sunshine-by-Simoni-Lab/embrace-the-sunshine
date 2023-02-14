@@ -1,19 +1,35 @@
 {
+  "cloud": true,
   "pages": [
     "pages/newHome/index",
     "pages/profileEdit/profileEdit",
     "pages/onboarding/onboarding",
     "pages/infoPage/infoPage",
-    "pages/moodTracking/moodTracking",
-    "pages/profile/profile",
-    "pages/setting/setting",
-    "pages/feedback/feedback",
+    "pages/module/modulePage",
     "pages/v2/index",
-    "pages/medicationReportUchart/index",
-    "pages/moodTracking-Content/mockTracking-Content",
-    "pages/moodtrack-finish/moodtrack-finish",
     "pages/allPodCastPage/index",
-    "pages/podcastPlay/index"
+    "pages/podcastPlay/index",
+    "pages/profile/profile"
+  ],
+  "subpackages": [
+    {
+      "root": "package_moodTracking",
+      "pages": [
+        "pages/moodTracking/moodTracking",
+        "pages/moodTrackingReport/index",
+        "pages/moodTracking-Content/mockTracking-Content",
+        "pages/moodtrack-finish/moodtrack-finish"
+      ]
+    },
+    {
+      "root": "package_profile",
+      "pages": [
+        "pages/profileEdit/profileEdit",
+        "pages/setting/setting",
+        "pages/aboutUs/aboutUs",
+        "pages/feedback/feedback"
+      ]
+    }
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -24,19 +40,25 @@
   },
   "tabBar": {
     "color": "#959494",
-    "selectedColor": "#1C6DCD",
+    "selectedColor": "#4D50A4",
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/home-icon-selected.png",
-        "iconPath": "images/home-icon.png",
+        "selectedIconPath": "images/navigationBar/Home-Selected.png",
+        "iconPath": "images/navigationBar/Home-Default.png",
         "pagePath": "pages/newHome/index",
         "text": "主页"
       },
       {
-        "selectedIconPath": "images/selected-profile2.png",
-        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/navigationBar/Additional Resources-Selected.png",
+        "iconPath": "images/navigationBar/Additional Resources-Default.png",
+        "pagePath": "pages/infoPage/infoPage",
+        "text": "更多资源"
+      },
+      {
+        "selectedIconPath": "images/navigationBar/Profile-Selected.png",
+        "iconPath": "images/navigationBar/Profile-Default.png",
         "pagePath": "pages/profile/profile",
         "text": "我的"
       }
@@ -49,5 +71,6 @@
       "version": "1.1.3",
       "provider": "wx92c68dae5a8bb046"
     }
-  }
+  },
+  "lazyCodeLoading": "requiredComponents"
 }
