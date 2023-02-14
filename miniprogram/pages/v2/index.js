@@ -103,7 +103,6 @@ Page({
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
-    console.log("_medi_taken_classified_by_years", _medi_taken_classified_by_years)
 
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)

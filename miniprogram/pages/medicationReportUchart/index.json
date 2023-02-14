@@ -2,5 +2,6 @@
   "usingComponents": {
     "mainButton":"/components/mainButton/index",
     "l-circle":"/components/circle/index"
+
   }
 }
