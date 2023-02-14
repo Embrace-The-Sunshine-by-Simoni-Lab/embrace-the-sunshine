@@ -52,23 +52,23 @@
             <view wx:if="{{submitClicked}}" class="open_ended_box">
               {{open_ended_answer}}
             </view>
+            <!-- textarea此时的podcast如果说是没有quiz的话那么这一块需要隐藏掉 -->
             <view wx:else class="open_ended_box">
               <textarea class="open_ended_question" name="userName" placeholder="{{podCastInfo.episode === '冥想' ? '填写您的对于本集冥想的反馈' : '填写您的想法'}}" value="{{open_ended_answer}}"
     bindinput="userNameInput" auto-focus="true"/>
               <view wx:if="{{podCastInfo.episode === '冥想'}}" class="meditation_submit" bind:tap="submitQuiz">提交</view>
             </view>
-      
           </view>
         </view>
       </view>
 
-  <view class="SubmitBlock" wx-if="{{mode == 'Quiz' && podCastInfo.episode !== '冥想'}}">
-    <image class="prev_question" src="../../images/next-enable.png"  data-direction="prev" bind:tap="changeQuestion"></image>
+      <view class="SubmitBlock" wx-if="{{mode == 'Quiz' && podCastInfo.pod_Cast_Quiz.length !== 0}}">
+        <image class="prev_question" src="../../images/next-enable.png"  data-direction="prev" bind:tap="changeQuestion"></image>
 
-    <view wx:if="{{allQuestionAnswered && !submitClicked}}" class="Submit_Button" bind:tap="submitQuiz">提交</view>
-    <view wx:else class="Disabled_Button">提交</view>
-    <image class="next_question" src="../../images/next-enable.png" data-direction="next" bind:tap="changeQuestion"></image>
-  </view>
+        <view wx:if="{{allQuestionAnswered && !submitClicked}}" class="Submit_Button" bind:tap="submitQuiz">提交</view>
+        <view wx:else class="Disabled_Button">提交</view>
+        <image class="next_question" src="../../images/next-enable.png" data-direction="next" bind:tap="changeQuestion"></image>
+      </view>
 
       </view>
 <!-- 

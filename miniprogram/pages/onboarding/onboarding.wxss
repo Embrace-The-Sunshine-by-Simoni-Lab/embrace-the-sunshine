@@ -20,17 +20,6 @@ image {
   overflow: hidden;
   position: absolute;
 }
-.begin_use {
-  width: 300rpx;
-  height: 80rpx;
-  line-height:80rpx;
-  text-align: center;
-  background: #4D50A4;
-  color: #FFFFFF;
-  border-radius: 8px;
-  z-index: 100%;
-}
-
 
 .img4 {
   height: 42rem;

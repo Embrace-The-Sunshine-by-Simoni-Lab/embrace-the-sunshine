@@ -11,6 +11,9 @@ Page({
 
   onLoad(options) {
     let currentPodCastOrder = options.podCastOrder;
+
+    console.log()
+    
     this.setData({
       currPodCastOrder: currentPodCastOrder
     })
