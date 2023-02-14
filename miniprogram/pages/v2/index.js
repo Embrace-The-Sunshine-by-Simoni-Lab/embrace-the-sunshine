@@ -32,7 +32,6 @@ Page({
   }, 
   // ******************* 日历逻辑 *******************
   onLoad() {
-    console.log("onLoad(){this.data}", this.data)
     // 弹窗
     let that = this
     let today = new Date()
@@ -93,7 +92,6 @@ Page({
       curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()}
     })
   },
-  
   // 处理bar chart的数据
   processAnalystPageData() {
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(this.data.medi_taken);
@@ -104,16 +102,14 @@ Page({
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
-    console.log("this.data.anlyticsData", this.data.analyticsData)
+    
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
     this.generateDisplayDate(this.data.analyticsData[0])
     let avg = this.calculateAverage(this.data.analyticsData)
     let compare = this.getCompareString(0)
     let analyticsData = this.data.analyticsData
-    if (analyticsData.length != 0) {
-      analyticsData[0].opacity = 1
-    }
+    analyticsData[0].opacity = 1
     this.setData({
       averageMediTake: avg,
       compare,
@@ -355,6 +351,7 @@ Page({
     let _analyticsData = [];
     let _weekNumToRange = {};
     let _weekNumToCount = {};
+
     let this_year_medi_taken = this.data.medi_taken_classified_by_years[today.getFullYear()];
     if (this_year_medi_taken == null) {
       this_year_medi_taken = []
@@ -465,9 +462,6 @@ Page({
   // ******************* 分析页面顶部逻辑 *******************
   // 分析页面顶部日期
   generateDisplayDate(obj) {
-    if (typeof obj === 'undefined') {
-      return;
-    }
     const start = obj.start;
     const end = obj.end;
     const start_lst = start.split(".")
@@ -481,15 +475,8 @@ Page({
   switchMode: function(event) {
     if(event.currentTarget.dataset.mode == "analyst") {
       this.processAnalystPageData()
-      if (this.data.analyticsData.length == 0
-      || this.data.medi_taken_classified_by_years[new Date().getFullYear()].length == 0) {
-        wx.showModal({
-          title: '服药记录',
-          content: '当前年份没有记录'
-        })
-        return;
-      }
     }
+
     this.setData({
       currentMode: event.currentTarget.dataset.mode
     })

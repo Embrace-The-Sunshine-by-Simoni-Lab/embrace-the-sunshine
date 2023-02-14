@@ -1,1 +1,61 @@
 /* pages/profileEdit/profileEdit.wxss */
+body{
+  background-color: #FDFBFC;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.button_container{
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+  margin-top: 10%;
+}
+
+.name_submit{
+  width: 184px;
+  height: 40px;
+  background: #4D50A4;
+  border-radius: 8px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.input_container {
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+}
+
+.name_input{
+  background-color: #FFFFFF;
+  height: 40px;
+  text-align: center;
+}
+
+.text_container{
+  display: flex;
+  flex-flow: column;
+  margin: auto;
+  margin-bottom: 10%;
+}
+
+.title{
+  color: #7b7b7b;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  text-align: center;
+}

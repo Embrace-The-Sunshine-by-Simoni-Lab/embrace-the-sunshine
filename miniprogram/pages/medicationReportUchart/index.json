@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "mainButton":"/components/mainButton/index",
+    "l-circle":"/components/circle/index",
+    "ec-canvas": "../../ec-canvas/ec-canvas",
+    "qiun-wx-ucharts": "../../miniprogram_npm/@qiun/wx-ucharts/index"
+  }
+}

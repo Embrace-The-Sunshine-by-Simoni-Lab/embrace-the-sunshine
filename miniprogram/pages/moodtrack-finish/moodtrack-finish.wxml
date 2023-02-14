@@ -1,0 +1,13 @@
+<!--pages/moodtrack-finish/moodtrack-finish.wxml-->
+<view class="mood_finish_container">
+  <text class="mood_finish_title">本周的问卷已完成</text>
+  <image class="mood_finish_image" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/mood-finish-1.png"></image>
+  <view class="mood_gap"></view>
+  <view class="mood_score">总分
+    <text class="{{category}}">{{score}}</text> 分,
+  </view>
+  <view wx:if="{{score < 5}}" class="mood_summary">您最近一周状态不错！</view>
+  <view wx:if="{{score > 4}}" class="mood_summary">您近一周情绪状态为<text>{{type}}</text>!</view>
+  <mainButton title="查看报告" type="mainButton" bind:tap="goToMedicationReport"></mainButton>
+  <mainButton title="返回首页" type="mainButton" class="mood_back_home" bind:tap="backHome"></mainButton>
+</view>
