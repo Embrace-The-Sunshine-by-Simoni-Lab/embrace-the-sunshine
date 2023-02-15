@@ -9,6 +9,7 @@ Page{
   margin: 15px 0 0 0;
 }
 .infoBox {
+  justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +24,6 @@ Page{
 }
 .medicineRecord {
   font-size: 23px;
-  padding-top: 45px;
   color: #4D50A4;
 }
 .medicineRecord_date {

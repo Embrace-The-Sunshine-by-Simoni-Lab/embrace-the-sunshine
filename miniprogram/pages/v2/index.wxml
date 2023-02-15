@@ -39,8 +39,7 @@
   </view> 
 
   <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
-      <text wx-if="{{!toggleButtonStatus}}" class="toggleButton-text">未服药</text>
-      <text wx-if="{{toggleButtonStatus}}" class="toggleButton-text">已服药</text>
+      <text class="toggleButton-text">已服药</text>
       <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
       <text class="toggleButton-notice-on">是</text> 
       <text class="toggleButton-notice-off">否</text> 

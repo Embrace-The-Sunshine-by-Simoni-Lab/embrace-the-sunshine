@@ -23,7 +23,7 @@ Page({
           mask: true
         })
         wx.cloud.callFunction({
-          name: 'auto_sign_in',
+          name: 'auto_sign_in_fake_data',
           data: {
           },
           success: async out => {

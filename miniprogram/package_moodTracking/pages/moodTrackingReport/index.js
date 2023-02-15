@@ -14,7 +14,7 @@ Page({
     threeMonth: '',
     sixMonth: '',
     timePeriodText: '',
-    timePeirodDate: '',
+    timePeriodDate: '',
     OneMonthMoodTrackData: {},
     ThreeMonthMoodTrackData: {},
     SixMonthMoodTrackData: {},
@@ -279,7 +279,7 @@ Page({
       } else if (score <= 19) {
         currLevel = "4"
         currCategory = "moder-severe-depress"
-        currType = "中重度抑郁"
+        currType = "高度抑郁"
         typeColor = '#F48657'
       } else {
         currLevel = "5"
@@ -390,7 +390,7 @@ Page({
       onLoadScoreType = this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
       onLoadScoreColor = this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
     } else {
-      onLoadDataRange = ['近一月无数据']
+      onLoadDataRange = ['近30天无数据']
     }
     
     console.log("onLoadDataRange", onLoadDataRange)
@@ -398,8 +398,8 @@ Page({
       oneMonth: true,
       threeMonth: false,
       sixMonth: false,
-      timePeriodText: '近一月',
-      timePeirodDate: onLoadDataRange,
+      timePeriodText: '近30天',
+      timePeriodDate: onLoadDataRange,
       userScoreValue: onLoadScoreValue,
       userScoreType: onLoadScoreType,
       userScoreColor: onLoadScoreColor
@@ -412,14 +412,14 @@ Page({
     let empty_data_placeholder = "";
     if (this.data.OneMonthMoodTrackData.categories.length == 0) {
       empty_one_month = true;
-      empty_data_placeholder = "近一个月无数据，请参与情绪记录"
+      empty_data_placeholder = "近30天无数据，请参与情绪记录"
     }
     this.setData(
       {
         oneMonth: true,
         threeMonth: false,
         sixMonth: false,
-        timePeriodText: '近一月',
+        timePeriodText: '近30天',
         timePeirodDate: this.dateFormat("oneMonth")
       }
     )
@@ -438,7 +438,7 @@ Page({
         oneMonth: false,
         threeMonth: true,
         sixMonth: false,
-        timePeriodText: '近三月',
+        timePeriodText: '近90天',
         timePeirodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat("threeMonth"))
       }
     ),
@@ -458,7 +458,7 @@ Page({
         oneMonth: false,
         threeMonth: false,
         sixMonth: true,
-        timePeriodText: '近六月',
+        timePeriodText: '近180天',
         timePeirodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat("sixMonth"))
       }
     )
