@@ -14,7 +14,7 @@ Page({
     threeMonth: '',
     sixMonth: '',
     timePeriodText: '',
-    timePeirodDate: '',
+    timePeriodDate: '',
     OneMonthMoodTrackData: {},
     ThreeMonthMoodTrackData: {},
     SixMonthMoodTrackData: {},
@@ -292,7 +292,7 @@ Page({
       } else if (score <= 19) {
         currLevel = "4"
         currCategory = "moder-severe-depress"
-        currType = "中重度抑郁"
+        currType = "高度抑郁"
         typeColor = '#F48657'
       } else {
         currLevel = "5"
@@ -391,7 +391,7 @@ Page({
       threeMonth: false,
       sixMonth: false,
       timePeriodText: '近一月',
-      timePeirodDate: onLoadDataRange,
+      timePeriodDate: onLoadDataRange,
       userScoreValue: onLoadScoreValue,
       userScoreType: onLoadScoreType,
       userScoreColor: onLoadScoreColor
@@ -412,7 +412,7 @@ Page({
         threeMonth: false,
         sixMonth: false,
         timePeriodText: '近一月',
-        timePeirodDate: this.dateFormat(this.data.OneMonthMoodTrackData.categories)
+        timePeriodDate: this.dateFormat(this.data.OneMonthMoodTrackData.categories)
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.OneMonthMoodTrackData);
@@ -431,7 +431,7 @@ Page({
         threeMonth: true,
         sixMonth: false,
         timePeriodText: '近三月',
-        timePeirodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat(this.data.ThreeMonthMoodTrackData.categories))
+        timePeriodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat(this.data.ThreeMonthMoodTrackData.categories))
       }
     ),
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.ThreeMonthMoodTrackData);
@@ -452,7 +452,7 @@ Page({
         threeMonth: false,
         sixMonth: true,
         timePeriodText: '近六月',
-        timePeirodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat(this.data.SixMonthMoodTrackData.categories))
+        timePeriodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat(this.data.SixMonthMoodTrackData.categories))
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.SixMonthMoodTrackData);
