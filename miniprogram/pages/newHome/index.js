@@ -14,7 +14,6 @@ Page({
     podcastComplete: [] // 用来设置播客已完成的未完成的打勾
   },
   onLoad: function() {
-    console.log("onLoad run")
     if(app.globalData.podcastsAvailability)
       var is_new_user = false;
       let that = this;
@@ -41,11 +40,8 @@ Page({
                 that.change_home_progress_style()
                 await that.createPodcastRegisterAvailability(app)
                 // 通过podcastComplete和podcastRegisterAvailability来改变podcastsAvailability的值
-                console.log("podcastRegisterAvailability", that.data.podcastRegisterAvailability)
                 let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
 
-                console.log("podcastComplete", this.data.podcastComplete)
-                console.log("new_podcast_availability", new_podcast_availability)
                 app.globalData.podcastComplete = that.data.podcastComplete
                 app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
                 app.globalData.podcastsAvailability = new_podcast_availability
@@ -136,13 +132,7 @@ Page({
   },
 
   onShow() {
-    console.log("onshow")
     // 实时更新首页的availability状态
-    console.log("podcastRegisterAvailability2", this.data.podcastRegisterAvailability)
-    console.log("podcastRegisterAvailability2", app.globalData.podcastRegisterAvailability)
-    console.log("podcastComplete2", app.globalData.podcastComplete)
-    console.log("podcastComplete2", this.data.podcastComplete)
-    console.log("podcastsAvailability2", this.data.podcastsAvailability)
 
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
     this.setData({

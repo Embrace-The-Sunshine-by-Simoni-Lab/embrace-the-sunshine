@@ -62,13 +62,12 @@ Page({
     })
   },
 
-  runSubmitName: function (e) {
+  runSubmitName: async function (e) {
     console.log(e);
     var page = getCurrentPages();
     var prevPage = page[page.length - 2];
-    prevPage.setNewName(e);
-    // console.log("page", page)
-    // console.log("prevPage", prevPage)
+    await prevPage.setNewName(e);
+
     wx.showToast({
       title: '保存成功',
       icon: 'success',
@@ -84,57 +83,11 @@ Page({
        mediaType: ['image'],
        sizeType: ['original', 'compressed'],
        sourceType: ['album', 'camera'],  
-      //  async success(res){
-      //     console.log(res.tempFiles)
-      //     var cloudPath = "images/profile/handImg" + new Date().getTime() + ".png";
-      //     const result = await that.uploadFile(res.tempFiles[0].tempFilePath, cloudPath, function(res){
-      //       console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)
-      //       // if(res.progress > 50){ // 测试文件上传一半就终止上传
-      //       //   return false
-      //       // }
-      //     })
-        // wx.showToast({
-        //   title: '正在上传...',
-        //   icon: 'loading',
-        //   mask: true,
-        //   duration: 10000
-        // });
-        // console.log("res", res)
-        //  console.log(res.tempFiles[0])
-        //  var headImgPath = res.tempFiles[0].tempFilePath
-        // that.upImgs(res.tempFilePaths[0], 0); // 调用上传方法
-        // 剪裁图片
-        //  wx.cropImage({
-        //   src: res.tempFiles.tempFilePath, // 图片路径
-        //   cropScale: '1:1', // 裁剪比例
-        // })
-        //  _this.setData({
-        //    headImg: res.tempFilePaths
-        // })
-      // },
-      // fail: function (err) {
-      //   console.log(`请确保微信权限都已开启,不然无法正常调用相机或相册`, err)
-      // },
-      // cancel: function (res) {
-      //   console.log('取消图片选择', res)
-      // } 
     })
     console.log(tempFiles)
     that.setData({
       headImg: tempFiles[0].tempFilePath
     })
-
-    // await wx.cloud.uploadFile({
-    //   cloudPath: 'images/profile/handImg' + 'example.png',
-    //   filePath: tempFiles[0].tempFilePath, // 文件路径
-    //   success: res => {
-    //     // get resource ID
-    //     console.log(res.fileID)
-    //   },
-    //   fail: err => {
-    //     // handle error
-    //   }
-    // })
 
   },
   uploadFile(file, path, onCall = () => {}) {
@@ -241,53 +194,5 @@ Page({
         });
       }
     });
-  },
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady() {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow() {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide() {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage() {
-
   }
 })

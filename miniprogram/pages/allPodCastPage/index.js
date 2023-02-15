@@ -21,10 +21,6 @@ Page({
     let podcastComplete = app.globalData.podcastComplete
     let podcastsAvailability = app.globalData.podcastsAvailability
 
-    console.log("podcastRegisterAvailability11", podcastRegisterAvailability)
-    console.log("podcastComplete11", podcastComplete)
-    console.log("podcastsAvailability11", podcastsAvailability)
-    
     this.setData({
       podCastInfo: allPodCastData,
       podcastsAvailability: app.globalData.podcastsAvailability,
@@ -37,7 +33,7 @@ Page({
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
     let new_podcast_complete = app.globalData.finished_podcasts
     app.globalData.podcastsAvailability = new_podcast_availability
-    // console.log("podcastRegisterAvailability123", this.data.podcastRegisterAvailability)
+
     this.setData({
       podcastsAvailability: new_podcast_availability,
       podcastComplete: new_podcast_complete

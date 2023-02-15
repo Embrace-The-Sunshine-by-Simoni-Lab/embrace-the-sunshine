@@ -42,15 +42,17 @@ Page({
     const todayDate = new Date();
     const regDate = new Date(app.globalData.userData.reg_time);
     const weeksUsed = Math.round(Math.abs((todayDate - regDate) / (1000*60*60*24*7)));
-    console.log("weeksUsed: " + weeksUsed);
     this.setData({
       username: app.globalData.userData.nickname,
       weeksUsed: weeksUsed
     })
-    console.log("this.data.username", this.data.username);
-    console.log("app.globalData.userData.nickname", app.globalData.userData.nickname);
   },
 
+  onShow: function() {
+    this.setData({
+      username: app.globalData.userData.nickname
+    })
+  }, 
   setNewName: async function (e) {
     let that = this;
     let newName = e.detail.value.new_name;
@@ -64,6 +66,8 @@ Page({
           nickname: newName
         }
       })
+      app.globalData.userData.nickname = newName
+      console.log("newname", newName)
       that.setData({
         username: newName
       })
