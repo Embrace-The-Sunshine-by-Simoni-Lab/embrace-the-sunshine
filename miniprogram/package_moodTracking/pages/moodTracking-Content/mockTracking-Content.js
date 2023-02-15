@@ -12,7 +12,7 @@ Page({
     finishStatus: [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     questions: [
       ["1.没有兴趣或不乐意做事情", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack1.png"],
-      ["2.感到情绪低落,沮丧或绝望", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack2.png"],
+      ["2.感到情绪低落,沮丧或绝望", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack2.png"],
       ["3.入睡或保持睡眠有困难", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack3.png"],
       ["4.感到疲劳或没有精神", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack4.png"],
       ["5.胃口不好或者饮食过度", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack5.png"],
