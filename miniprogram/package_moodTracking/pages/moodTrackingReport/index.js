@@ -158,13 +158,9 @@ Page({
     // Adjust to Thursday in week 1 and count number of weeks from date to week1.
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
-
-
-
   drawCharts(id,data){
     const ctx = wx.createCanvasContext(id, this);
     console.log("this.data.categories", this.data.categories);
-
     uChartsInstance[id] = new uCharts({
         type: "line",
         context: ctx,
@@ -172,15 +168,6 @@ Page({
         height: this.data.cHeight,
         categories: data.categories,
         series: data.series,
-        // categories: ['1', '2', '3'],
-        // series: [
-        //   {
-        //     color: this.data.userScoreInfo.scoreColor,
-        //     connectNulls: true,
-        //     data: this.data.userScoreInfo.scoreValue,
-        //     linearIndex: 3,
-        //   }
-        // ],
         dataLabel: false,
         animation: false,
         background: "#FFFFFF",
@@ -343,9 +330,6 @@ Page({
       } else {
         console.error("no category chosen");
       }
-      // console.log(tapObj.index);
-      // console.log(this.data.userScoreInfo.scoreType);
-      // console.log(this.data.userScoreInfo.scoreValue);
       this.setData({
         userScoreValue: this.data.userScoreInfo.scoreValue[tapObj.index + (total_len - category_len)],
         userScoreType: this.data.userScoreInfo.scoreType[tapObj.index + (total_len - category_len)],
@@ -362,11 +346,33 @@ Page({
     return date_month + "月" + date_date + "日"
   },
 
-  dateFormat(dateCategory) {
-    var length = dateCategory.length
-    var start = dateCategory[0]
-    var end = dateCategory[length-1]
-    return this.reconstruct(start) + '-' + this.reconstruct(end)
+  dateFormat(type) {
+    // Calculate the start and end dates based on the provided type
+    let startDate, endDate;
+    const today = new Date();
+    switch (type) {
+      case "oneMonth":
+        startDate = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+        endDate = today;
+        break;
+      case "threeMonth":
+        startDate = new Date(today.getFullYear(), today.getMonth() - 3, today.getDate());
+        endDate = today;
+        break;
+      case "sixMonth":
+        startDate = new Date(today.getFullYear(), today.getMonth() - 6, today.getDate());
+        endDate = today;
+        break;
+      default:
+        throw new Error(`Invalid type: ${type}`);
+    }
+  
+    // Format the start and end dates as strings in the desired format
+    const startString = `${("0" + (startDate.getMonth() + 1)).slice(-2)}月${("0" + startDate.getDate()).slice(-2)}日`;
+    const endString = `${("0" + (endDate.getMonth() + 1)).slice(-2)}月${("0" + endDate.getDate()).slice(-2)}日`;
+  
+    // Return the final formatted string
+    return `${startString}-${endString}`;
   },
 
   onLoad(options) {
@@ -379,13 +385,15 @@ Page({
     var onLoadData, onLoadDataRange, onLoadScoreValue, onLoadScoreType, onLoadScoreColor;
     if (this.data.OneMonthMoodTrackData.categories.length > 0) {
       onLoadData = this.data.OneMonthMoodTrackData
-      onLoadDataRange = this.dateFormat(this.data.OneMonthMoodTrackData.categories)
+      onLoadDataRange = this.dateFormat("oneMonth")
       onLoadScoreValue = this.data.userScoreInfo.scoreValue[this.data.userScoreInfo.scoreValue.length-1],
       onLoadScoreType = this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
       onLoadScoreColor = this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
     } else {
       onLoadDataRange = ['近一月无数据']
     }
+    
+    console.log("onLoadDataRange", onLoadDataRange)
     this.setData({
       oneMonth: true,
       threeMonth: false,
@@ -412,7 +420,7 @@ Page({
         threeMonth: false,
         sixMonth: false,
         timePeriodText: '近一月',
-        timePeriodDate: this.dateFormat(this.data.OneMonthMoodTrackData.categories)
+        timePeriodDate: this.dateFormat("oneMonth")
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.OneMonthMoodTrackData);
@@ -431,7 +439,7 @@ Page({
         threeMonth: true,
         sixMonth: false,
         timePeriodText: '近三月',
-        timePeriodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat(this.data.ThreeMonthMoodTrackData.categories))
+        timePeriodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat("threeMonth"))
       }
     ),
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.ThreeMonthMoodTrackData);
@@ -444,15 +452,14 @@ Page({
       empty_six_month = true;
       empty_data_placeholder = "近6个月无数据，请参与情绪记录"
     }
-    console.log("length: ", this.data.SixMonthMoodTrackData.categories.length);
-    console.log("sixmonth data categories:", this.data.SixMonthMoodTrackData);
+
     this.setData(
       {
         oneMonth: false,
         threeMonth: false,
         sixMonth: true,
         timePeriodText: '近六月',
-        timePeriodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat(this.data.SixMonthMoodTrackData.categories))
+        timePeriodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat("sixMonth"))
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.SixMonthMoodTrackData);

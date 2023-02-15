@@ -66,6 +66,8 @@ Page({
       const totalScore  = numberArray.reduce((accumulator, value) => {
         return accumulator + value;
       }, 0);
+
+
       wx.cloud.callFunction({
         name: 'mood_tracking_submit',
         data: {
@@ -81,6 +83,7 @@ Page({
           })
         }
       })
+
       wx.redirectTo({
         url: '../moodtrack-finish/moodtrack-finish?score=' + totalScore
       })
