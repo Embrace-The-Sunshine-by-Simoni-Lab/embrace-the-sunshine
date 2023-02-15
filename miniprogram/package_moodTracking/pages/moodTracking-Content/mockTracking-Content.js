@@ -19,7 +19,7 @@ Page({
       ["6.对自己感到难过过,感觉自己是个失败者或让自己或家人失望", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack6.png"],
       ["7.做事不能集中注意力,如读报纸或看电视", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack7.png"],
       ["8.走路或说话很慢,慢到引人注意(或者相反,坐立不安或好动,比通常情况下走动的时间多)", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack8.png"],
-      ["9.想到自己最好去死或者以某种方式伤害自己", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack9.png"]
+      ["9.有想要伤害自己或一死了之的想法", "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/moodtrack9.png"]
     ]
   },
   goToNextQuestion() {

@@ -278,8 +278,10 @@ Page{
 .calendar_circle_container {
   margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  /* background: green; */
+  width: 100%;
 }
 .calendar_summary {
   display: flex;

@@ -1,40 +1,46 @@
 <view class="container">
-  <swiper indicator-dots="{{indicatorDots}}" class="swiper for" indicator-active-color="#FEA28D">
-    <!--<block wx:for="{{background}}" wx:key="*this">
-      <swiper-item>
-        <view class="swiper-item">{{item}}</view>
-      </swiper-item>
-    </block>-->
+  <swiper indicator-dots="{{indicatorDots}}" class="swiper for" indicator-active-color="#FEA28D" 	indicator-color="#FFE8E3">
       <swiper-item class="container">
-        <image src="../../images/onboarding/Vector.png" mode="aspectFit"></image>
-        <text class="title">拥抱阳光小程序的功能目的</text>
-        <text class="body">使用专业科学的方法，帮助您应对常见的情绪问题
-        
-        通过学习基于辩证行为疗法（DBT）的心理技能，积极应对负面情绪，改善心理健康，创造有价值的生活</text>
-      </swiper-item>
-      <swiper-item class="container">
-        <image src="../../images/onboarding/Group 18498.png" mode="aspectFit"></image>
-        <text class="title">情绪管理技能</text>
-        <text class="body">情绪管理≠压抑情绪，跟我们一起理解情绪，学习情绪管理技巧，与情绪和平相处
-          <text class="unlock">(新内容每周解锁) </text>
-        </text>
+        <image src="../../images/onboarding/Vector.png" class="first_orange"></image>
+        <image src="../../images/onboarding/Vector2.png" class="second_orange"></image>
+        <view class="open_container">
+          <text class="open_title">拥抱阳光小程序的功能目的</text>
+          <text class="small_text">使用专业科学的方法，帮助您应对常见的情绪问题</text>
+          <text class="small_text">
+            通过学习基于辩证行为疗法（DBT）的心理技能，积极应对负面情绪，改善心理健康，创造有价值的生活
+          </text>
+        </view>
       </swiper-item>
       <swiper-item class="container">
-        <image src="../../images/onboarding/Group 18499.png" mode="aspectFit"></image>
-        <text class="title">社会支持</text>
-        <text class="body">与上海心生的工作人员共同学习探讨心理健康技能.</text>
+        <image src="../../images/onboarding/Group 18498.png" class="second_image"></image>
+        <view class="open_container2">
+          <text class="title">情绪管理技能</text>
+          <text class="small_text">情绪管理≠压抑情绪，跟我们一起理解情绪，学习情绪管理技巧，与情绪和平相处
+            <text class="unlock">(新内容每周解锁) </text>
+          </text>
+        </view>
+      </swiper-item>
+      <swiper-item class="container">
+        <image src="../../images/onboarding/Group 18499.png" class="second_image"></image>
+        <view class="open_container2">
+          <text class="title">社会支持</text>
+          <text class="small_text">与上海心生的工作人员共同学习探讨心理健康技能.</text>
+        </view>
       </swiper-item>
       <swiper-item class="container">
         <image class="img4" src="../../images/onboarding/Group 18500.png" mode="aspectFit"></image>
-        <text class="title">情绪记录</text>
-        <text class="body">关注心理健康从情绪记录开始，追踪情绪波动，揭示情绪触发因素，反映情绪管理技能提升情况。</text>
+        <view class="open_container2">
+          <text class="title">情绪记录</text>
+          <text class="small_text">关注心理健康从情绪记录开始，追踪情绪波动，揭示情绪触发因素，反映情绪管理技能提升情况。</text>
+        </view>
       </swiper-item>
       <swiper-item class="container">
-        <image class="img5" src="../../images/onboarding/Group 18501.png" mode="aspectFit"></image>
-        <text class="title">服药记录</text>
-        <text class="body">以日历的方式呈现您当月的药物依从情况以及每周的平均服药天数。</text>
-        <!-- <mainButton title='开启使用' type="mainButton" bindtap="toMainPage" class="begin_use"></mainButton> -->
-        <view bindtap="toMainPage" class="begin_use">开启使用</view>
+        <image class="img5" src="../../images/onboarding/Group 18501.png" ></image>
+        <view class="open_container2">
+          <text class="title">服药记录</text>
+          <text class="small_text">以日历的方式呈现您当月的药物依从情况以及每周的平均服药天数。</text>
+          <view bindtap="toMainPage" class="begin_use">开启使用</view>
+        </view>
       </swiper-item>
   </swiper>
 </view>
