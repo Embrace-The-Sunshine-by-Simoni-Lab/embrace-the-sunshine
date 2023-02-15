@@ -12,7 +12,7 @@
         <input class="name_input" type="text" maxlength="7" placeholder="请输入您的新昵称" name="new_name"/>
       </view>
       <view class="button_container"><!--  bindtap="submit"   -->
-        <button class="name_submit" formType="submit"><span>保存</span></button>
+        <button class="name_submit" formType="submit" ><span>保存</span></button>
       </view>
     </form>
   </view>
