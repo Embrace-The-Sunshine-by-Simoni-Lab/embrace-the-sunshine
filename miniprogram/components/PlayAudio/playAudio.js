@@ -190,10 +190,10 @@ Component({
       }
       return number
     },
-    speedDown30() {
+    speedDown10() {
       let totalSeconds = this.data.podCastInfo.totalTimeSecond
       let currentProgressSecond = this.data.currentProgressSecond
-      currentProgressSecond -= 30
+      currentProgressSecond -= 10
       if(currentProgressSecond <= 0) {
         currentProgressSecond = 0
       }
@@ -210,10 +210,10 @@ Component({
         let temp = this.innerAudioContext.paused
     }, 1200)
     },
-    speedUp30() {
+    speedUp10() {
       let totalSeconds = this.data.podCastInfo.totalTimeSecond
       let currentProgressSecond = this.data.currentProgressSecond
-      currentProgressSecond += 30
+      currentProgressSecond += 10
 
       if(currentProgressSecond >= totalSeconds) {
         currentProgressSecond = totalSeconds
