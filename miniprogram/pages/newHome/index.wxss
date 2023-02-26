@@ -283,4 +283,5 @@
 }
 .checkAll {
   align-self: flex-end;
+  font-size: 35rpx;
 }

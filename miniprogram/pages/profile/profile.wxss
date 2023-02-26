@@ -25,7 +25,7 @@ body{
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 40rpx;
   line-height: 1.5%;
   text-align: center;
   padding-top: 5%;
@@ -74,7 +74,7 @@ body{
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 28rpx;
   line-height: 20px;
   text-align: center;
   color: #191919;
@@ -136,7 +136,7 @@ body{
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-left: 20rpx;
+  margin-left: 10rpx;
 }
 
 .main-text {
@@ -147,7 +147,7 @@ body{
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 28rpx;
   line-height: 21px;
 
   display: flex;
@@ -165,7 +165,7 @@ body{
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 24rpx;
   line-height: 20px;
 
   display: flex;
@@ -176,6 +176,7 @@ body{
 
 .sub-board-img {
   margin: 15rpx -2rpx 3rpx 10rpx;
+  width: 40rpx;
 }
 
 .tool_container {
@@ -193,7 +194,7 @@ body{
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 35rpx;
   line-height: 24px;
 
   color: #000000;
@@ -225,7 +226,7 @@ body{
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 30rpx;
   line-height: 20px;
 
   display: flex;
