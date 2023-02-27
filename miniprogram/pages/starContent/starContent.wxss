@@ -98,7 +98,7 @@
 }
 .castContent_top_desc_summary {
   font-weight: 300;
-  font-size: 28rpx;
+  font-size: 27rpx;
   line-height: 20px;
   color: #666666;
 }

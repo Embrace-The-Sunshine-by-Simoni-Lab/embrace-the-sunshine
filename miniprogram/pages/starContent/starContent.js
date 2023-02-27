@@ -22,15 +22,15 @@ Page({
     let podcastsAvailability = app.globalData.podcastsAvailability
     let fav_podcastsIdx = app.globalData.userData.fav_podcasts
     console.log("fav_podcastsIdx", fav_podcastsIdx)
-
     let fav_podcasts = [];
-    fav_podcastsIdx.forEach((element, index) => {
-      if(element == 1) {
-        fav_podcasts.push(allPodCastData[index])
-      }
-    });
-    console.log(fav_podcasts)
-
+    if (typeof fav_podcastsIdx !== 'undefined') {
+      fav_podcastsIdx.forEach((element, index) => {
+        if(element == 1) {
+          fav_podcasts.push(allPodCastData[index])
+        }
+      });
+      console.log(fav_podcasts)
+    }
     this.setData({
       podCastInfo: allPodCastData,
       podcastsAvailability: podcastsAvailability,

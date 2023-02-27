@@ -76,7 +76,6 @@ body{
   font-weight: 400;
   font-size: 28rpx;
   line-height: 20px;
-  text-align: center;
   color: #191919;
   padding-top: 0.5%;
 }

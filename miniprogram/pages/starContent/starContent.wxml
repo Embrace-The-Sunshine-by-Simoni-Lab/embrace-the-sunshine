@@ -1,6 +1,6 @@
 <view class="allCastsContainer">
   <text class="allCastHeader">收藏播客</text>
-
+  <text>{{(fav_podcasts.length == 0) ? '暂无收藏' : '' }}</text>
   <view class="homePodCastBox">
     <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
       wx:for="{{fav_podcasts}}" 
