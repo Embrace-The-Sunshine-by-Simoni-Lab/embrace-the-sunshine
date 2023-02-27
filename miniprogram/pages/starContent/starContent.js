@@ -20,24 +20,7 @@ Page({
     let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
     let podcastComplete = app.globalData.podcastComplete
     let podcastsAvailability = app.globalData.podcastsAvailability
-    let fav_podcastsIdx = app.globalData.userData.fav_podcasts
-    console.log("fav_podcastsIdx", fav_podcastsIdx)
-    let fav_podcasts = [];
-    if (typeof fav_podcastsIdx !== 'undefined') {
-      fav_podcastsIdx.forEach((element, index) => {
-        if (element == 1) {
-          fav_podcasts.push(allPodCastData[index])
-        }
-      });
-      console.log(fav_podcasts)
-    }
-    // // make podcastComplete and fav_podcasts same length
-    // while (podcastComplete.length < fav_podcasts.length) {
-    //   podcastComplete.push(-1);
-    // }
-    console.log("fav_podcasts", fav_podcasts);
-    console.log("podcastComplete", podcastComplete)
-
+    let fav_podcasts = this.getFavPodcasts();
 
     this.setData({
       podCastInfo: allPodCastData,
@@ -52,12 +35,33 @@ Page({
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
     let new_podcast_complete = app.globalData.finished_podcasts
     app.globalData.podcastsAvailability = new_podcast_availability
-
+    let fav_podcasts = this.getFavPodcasts();
+    
     this.setData({
       podcastsAvailability: new_podcast_availability,
-      podcastComplete: new_podcast_complete
+      podcastComplete: new_podcast_complete,
+      fav_podcasts: fav_podcasts
     })
   },
+
+  getFavPodcasts() {
+    let allPodCastData =  wx.getStorageSync('allPodCastData');
+    let fav_podcastsIdx = app.globalData.userData.fav_podcasts
+    let fav_podcasts = [];
+    if (typeof fav_podcastsIdx !== 'undefined') {
+      fav_podcastsIdx.forEach((element, index) => {
+        if (element == 1) {
+          fav_podcasts.push(allPodCastData[index])
+        }
+      });
+    }
+    // // make podcastComplete and fav_podcasts same length
+    // while (podcastComplete.length < fav_podcasts.length) {
+    //   podcastComplete.push(-1);
+    // }
+    return fav_podcasts;
+  },
+
   // generate podcast availability and on podcast complete array and register time podcast array
   generatePodcastAvailabilityArray(podcastComplete, podcastRegisterAvailability) {
     if(podcastComplete.length == 0) return [1]
