@@ -24,7 +24,7 @@
             <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
             <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
           </view>
-          <image src="{{podcastComplete[idx] === 1 ? '../../images/homepage/home-check.png':'../../images/homepage/home-uncheck.png'}}" class="castContent_top_check"></image>
+          <image src="{{(podcastComplete[idx] === 1) && item.podCast_Id < podcastComplete.length ? '../../images/homepage/home-check.png':'../../images/homepage/home-uncheck.png'}}" class="castContent_top_check"></image>
         </view>
       </view>
     </view>

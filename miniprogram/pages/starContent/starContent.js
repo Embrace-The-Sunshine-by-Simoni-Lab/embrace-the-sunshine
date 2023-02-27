@@ -25,12 +25,20 @@ Page({
     let fav_podcasts = [];
     if (typeof fav_podcastsIdx !== 'undefined') {
       fav_podcastsIdx.forEach((element, index) => {
-        if(element == 1) {
+        if (element == 1) {
           fav_podcasts.push(allPodCastData[index])
         }
       });
       console.log(fav_podcasts)
     }
+    // // make podcastComplete and fav_podcasts same length
+    // while (podcastComplete.length < fav_podcasts.length) {
+    //   podcastComplete.push(-1);
+    // }
+    console.log("fav_podcasts", fav_podcasts);
+    console.log("podcastComplete", podcastComplete)
+
+
     this.setData({
       podCastInfo: allPodCastData,
       podcastsAvailability: podcastsAvailability,
