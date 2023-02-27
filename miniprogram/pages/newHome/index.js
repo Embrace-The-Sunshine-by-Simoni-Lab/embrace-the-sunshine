@@ -117,6 +117,38 @@ Page({
         wx.hideLoading()
        }
     })
+
+    // 获取并且更新所有的Meditation内容
+    wx.cloud.callFunction({
+      name: 'getAllMeditationAudio',
+      data: {
+      },
+      success: out => {
+        console.log(234, out.result.errCode)
+        if (out.result.errCode == 0) {
+          console.log(7788)
+          if (out.result.data) {
+            let allMeditationData = out.result.data;
+            console.log("allMeditationData", allMeditationData)
+            this.setData({
+              podCastInfo: sorted_podcast,
+            })
+            // 把排列好的博客放进缓存
+            app.globalData.podCast = sorted_podcast;
+            wx.setStorageSync('allPodCastData', sorted_podcast)
+          } 
+        } else {
+          console.log(out.errMsg);
+        }
+      },
+      fail: out => {
+        console.log('call function failed')
+      },
+      complete: out => {
+        wx.hideLoading()
+        }
+    })
+
     // 药物追踪红点逻辑
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
@@ -268,6 +300,11 @@ Page({
   jumptoAllPodCastPage() {
     wx.redirectTo({
       url: "../allPodCastPage/index",
+    })
+  },
+  jumptoAllMeditationPage() {
+    wx.redirectTo({
+      url: "../allMeditationPage/index",
     })
   },
   jumpToCalendar() {

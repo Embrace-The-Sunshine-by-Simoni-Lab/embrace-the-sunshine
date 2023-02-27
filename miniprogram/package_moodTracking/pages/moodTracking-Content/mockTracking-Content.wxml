@@ -24,7 +24,7 @@
 
   <view class="submit_box">
     <view class="mood_submit_notice" wx:if="{{warningStatus == true && currentQuestion == 8}}">需要做完所有题目才能提交哦</view>
-    <mainButton title="提交" type="mainButton" wx:if="{{currentQuestion == 8}}" bind:tap="submit"></mainButton>
+    <mainButton title="提交" type="mainButton" wx:if="{{currentQuestion === 8}}" bind:tap="submit" class="submit_button"></mainButton>
     <progress class="progress-box" percent="{{questionProgress}}" stroke-width="3" color="#6568BC"/>
   </view>
 </view>

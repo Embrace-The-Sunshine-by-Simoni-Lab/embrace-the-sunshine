@@ -1,8 +1,7 @@
 <view class="container">
   <swiper indicator-dots="{{indicatorDots}}" class="swiper for" indicator-active-color="#FEA28D" 	indicator-color="#FFE8E3">
       <swiper-item class="container">
-        <image src="../../images/onboarding/Vector.png" class="first_orange"></image>
-        <image src="../../images/onboarding/Vector2.png" class="second_orange"></image>
+        <image src="../../images/onboarding/vector.svg" class="second_orange"></image>
         <view class="open_container">
           <text class="open_title">拥抱阳光小程序的功能目的</text>
           <text class="small_text">使用专业科学的方法，帮助您应对常见的情绪问题</text>
@@ -12,7 +11,7 @@
         </view>
       </swiper-item>
       <swiper-item class="container">
-        <image src="../../images/onboarding/Group 18498.png" class="second_image"></image>
+        <image src="../../images/onboarding/onboarding_second.svg" class="second_image"></image>
         <view class="open_container2">
           <text class="title">情绪管理技能</text>
           <text class="small_text">情绪管理≠压抑情绪，跟我们一起理解情绪，学习情绪管理技巧，与情绪和平相处
@@ -21,21 +20,21 @@
         </view>
       </swiper-item>
       <swiper-item class="container">
-        <image src="../../images/onboarding/Group 18499.png" class="second_image"></image>
+        <image src="../../images/onboarding/onboarding_third.svg" class="third_image"></image>
         <view class="open_container2">
           <text class="title">社会支持</text>
           <text class="small_text">与上海心生的工作人员共同学习探讨心理健康技能.</text>
         </view>
       </swiper-item>
       <swiper-item class="container">
-        <image class="img4" src="../../images/onboarding/Group 18500.png" mode="aspectFit"></image>
+        <image class="img4" src="../../images/onboarding/onboarding_fourth.svg"></image>
         <view class="open_container2">
           <text class="title">情绪记录</text>
           <text class="small_text">关注心理健康从情绪记录开始，追踪情绪波动，揭示情绪触发因素，反映情绪管理技能提升情况。</text>
         </view>
       </swiper-item>
       <swiper-item class="container">
-        <image class="img5" src="../../images/onboarding/Group 18501.png" ></image>
+        <image class="img5" src="../../images/onboarding/onboarding_fifth.svg" ></image>
         <view class="open_container2">
           <text class="title">服药记录</text>
           <text class="small_text">以日历的方式呈现您当月的药物依从情况以及每周的平均服药天数。</text>

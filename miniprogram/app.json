@@ -9,7 +9,8 @@
     "pages/v2/index",
     "pages/allPodCastPage/index",
     "pages/podcastPlay/index",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/allMeditationPage/index"
   ],
   "subpackages": [
     {
