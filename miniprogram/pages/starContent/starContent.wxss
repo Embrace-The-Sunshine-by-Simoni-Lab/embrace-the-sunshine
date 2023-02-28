@@ -1,15 +1,38 @@
-.allCastHeader {
-  font-size: 37rpx;
-  font-weight: 400;
-  margin-bottom: 15px;
-}
 .allCastsContainer {
-  padding: 20px;
+  /* padding: 20px; */
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /* background: orange; */
+  background: #F6F6F6;
 }
+
+.headerTabs{
+  display: flex;
+  margin-left: 40rpx;
+  margin-top: 40rpx;
+}
+
+.header {
+  font-size: 37rpx;
+  font-weight: 400;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+
+.content {
+  background-color: #ffffff;
+  margin-top: 3%;
+  /* margin-left: 8%;
+  margin-right: 8%; */
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-top: 7%;
+  padding-bottom: 100%;
+  border-radius: 40px;
+  box-shadow: 0 3px 20px 10px #EFEFEF;
+}
+
 .castList {
   /* background: green; */
   width: 100%;
