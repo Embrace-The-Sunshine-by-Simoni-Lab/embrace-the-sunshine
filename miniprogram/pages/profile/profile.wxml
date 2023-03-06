@@ -12,18 +12,18 @@
         <view class="headImg"><image src='{{headImg}}' style="width: 100rpx; height: 100rpx"></image></view>
       </view>
       <text class="experience_a">今天是拥抱阳光陪伴你的第{{weeksUsed}}周</text>
-      <text class="experience_b">您已经完成 <text class="highlight">{{num_finished_module}}</text> 个模块， 还有 <text class="highlight">{{num_finished_optional_module}}</text> 个自选模块</text>
+      <!-- <text class="experience_b">您已经完成 <text class="highlight">{{num_finished_module}}</text> 个模块， 还有 <text class="highlight">{{num_finished_optional_module}}</text> 个自选模块</text> -->
     </view>
     <view class="sub-board">
       <view class="sub-board-a"  bindtap="goto_save">
-        <image class="sub-board-img" src="../../images/profile/star.png" style="width: 66rpx; height: 66rpx"></image>
+        <image class="sub-board-img" src="../../images/profile/star.svg" style="width: 66rpx; height: 66rpx"></image>
         <view class="sub-board-vertical">
           <text class="main-text">收藏内容</text>
-          <text class="sub-text">查看模块内容</text>
+          <text class="sub-text">查看收藏播客</text>
         </view>
       </view>
       <view class="sub-board-b" bindtap="goto_resources">
-        <image class="sub-board-img" src="../../images/profile/resource.png" style="width: 66rpx; height: 66rpx"></image>
+        <image class="sub-board-img" src="../../images/profile/resource.svg" style="width: 66rpx; height: 66rpx"></image>
         <view class="sub-board-vertical">
           <text class="main-text">更多资源</text>
           <text class="sub-text">专业心理咨询</text>
