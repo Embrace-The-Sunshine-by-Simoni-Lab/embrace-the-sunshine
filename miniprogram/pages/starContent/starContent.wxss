@@ -10,6 +10,8 @@
   display: flex;
   margin-left: 40rpx;
   margin-top: 40rpx;
+  position: relative;
+  bottom: 2rpx;
 }
 
 .header {
@@ -22,7 +24,7 @@
 
 .content {
   background-color: #ffffff;
-  margin-top: 3%;
+  margin-top: 5%;
   /* margin-left: 8%;
   margin-right: 8%; */
   padding-right: 5%;
@@ -30,7 +32,7 @@
   padding-top: 7%;
   padding-bottom: 100%;
   border-radius: 40px;
-  box-shadow: 0 3px 20px 10px #EFEFEF;
+  box-shadow: 0 10px 20px 2px #cecece;
 }
 
 .castList {

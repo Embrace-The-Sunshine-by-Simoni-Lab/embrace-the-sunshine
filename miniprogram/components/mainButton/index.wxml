@@ -30,5 +30,10 @@
   <!-- six month period button -->
   <text wx-if="{{type=='sixMonth-fill' || type=='sixMonth-empty'}}" >近6月</text>
 
+  <!-- star content podcast button -->
+  <text wx-if="{{type=='podcast-fill' || type=='podcast-empty'}}" >模拟心理咨询室</text>
+  
+  <!-- star content meditation button -->
+  <text wx-if="{{type=='meditation-fill' || type=='meditation-empty'}}" >冥想练习</text>
 
 </view>

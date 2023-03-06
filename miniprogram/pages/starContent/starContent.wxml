@@ -1,7 +1,7 @@
 <view class="allCastsContainer">
   <view class="headerTabs">
-    <view class="header">模拟心理咨询室</view>
-    <view class="header">冥想练习</view>
+    <mainButton type="{{podcastBtn? 'podcast-empty' : 'podcast-fill'}}" class="madicineBtn" bindtap="choosePodcasts"></mainButton>
+    <mainButton type="{{meditationBtn? 'meditation-empty' : 'meditation-fill'}}" class="madicineBtn" bindtap="chooseMeditation"></mainButton>
   </view>
   <text>{{(fav_podcasts.length == 0) ? '暂无收藏' : '' }}</text>
   <view class="content"> 

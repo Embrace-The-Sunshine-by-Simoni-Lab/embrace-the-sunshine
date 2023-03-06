@@ -9,6 +9,8 @@ Page({
     podCastInfo: [],
     podcastsAvailability: [],
     podcastComplete: [],
+    podcastBtn: false,
+    meditationBtn: true,
     fav_podcasts: []
   },
   /**
@@ -27,7 +29,9 @@ Page({
       podcastsAvailability: podcastsAvailability,
       podcastRegisterAvailability: podcastRegisterAvailability,
       podcastComplete: podcastComplete,
-      fav_podcasts: fav_podcasts
+      fav_podcasts: fav_podcasts,
+      // podcastBtn: false,
+      // meditationBtn: true,
     })
   },
 
@@ -40,7 +44,9 @@ Page({
     this.setData({
       podcastsAvailability: new_podcast_availability,
       podcastComplete: new_podcast_complete,
-      fav_podcasts: fav_podcasts
+      fav_podcasts: fav_podcasts,
+      // meditationBtn: true,
+      // podcastBtn: true
     })
   },
 
