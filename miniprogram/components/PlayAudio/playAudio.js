@@ -11,6 +11,9 @@ Component({
     },
     currPodCastOrder: {
       type: Number,
+    },
+    podCastType: {
+      type: String
     }
   },
   data: {
@@ -29,9 +32,17 @@ Component({
   },
 
   ready() {
+    // 这里要要根据podcast的类型(是普通podcast还是meditation)设置allPodCastData,然后也要根据type来设置count, count的作用是去上一个博客或者下一个博客的时候, 不会超出范围
     const app = getApp()
-    let allPodCastData =  wx.getStorageSync('allPodCastData');
-    let count = app.globalData.podcastsAvailability.length
+    let allPodCastData;
+    let count;
+    if(this.properties.podCastType !== '冥想') {
+      allPodCastData =  wx.getStorageSync('allPodCastData');
+      count = app.globalData.podcastsAvailability.length
+    } else {
+      allPodCastData =  wx.getStorageSync('allMeditationData');
+      count = allPodCastData.length
+    }
 
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
     // get info about if the current podcast has already been finished listening
@@ -88,8 +99,6 @@ Component({
     })
 
     this.innerAudioContext.onEnded(()=> {
-      console.log("this.innerAudioContext.currentTime", this.innerAudioContext.currentTime)
-      console.log("podCastEndStatus", podCastEndStatus)
       if(!podCastEndStatus || podCastEndStatus == -1) {
         wx.cloud.callFunction({
           name: 'finish_podcast',
@@ -243,8 +252,16 @@ Component({
       this.triggerEvent("changePlayListOrder", { newPodCastNum: curPodCastId})
       
       // update podcaset content
-      let allPodCastData =  wx.getStorageSync('allPodCastData');
-      let currPodCast = allPodCastData[curPodCastId]
+      let allPodCastData;
+      let currPodCast;
+      if(this.properties.podCastType !== '冥想') {
+        allPodCastData =  wx.getStorageSync('allPodCastData');
+        currPodCast = allPodCastData[curPodCastId]
+      } else {
+        allPodCastData =  wx.getStorageSync('allMeditationData');
+        currPodCast = allPodCastData[curPodCastId]
+      }
+
       this.setData({
         podCastInfo: currPodCast,
         currPodCastOrder: curPodCastId,
@@ -265,9 +282,17 @@ Component({
 
       this.triggerEvent("changePlayListOrder", { newPodCastNum: curPodCastId})
 
-      // update podcaset content
-      let allPodCastData =  wx.getStorageSync('allPodCastData');
-      let currPodCast = allPodCastData[curPodCastId]
+      // update podcaset content(取决于现在是meditation还是普通的podcast)
+      let allPodCastData;
+      let currPodCast;
+      if(this.properties.podCastType !== '冥想') {
+        allPodCastData =  wx.getStorageSync('allPodCastData');
+        currPodCast = allPodCastData[curPodCastId]
+      } else {
+        allPodCastData =  wx.getStorageSync('allMeditationData');
+        currPodCast = allPodCastData[curPodCastId]
+      }
+      
       this.setData({
         podCastInfo: currPodCast,
         currPodCastOrder: curPodCastId,
@@ -278,84 +303,97 @@ Component({
       })
       this.audioPlayerInit();
     },
+
     audioPlayerInit() {
-      const app = getApp()
-      let allPodCastData =  wx.getStorageSync('allPodCastData');
+      // 这里要要根据podcast的类型(是普通podcast还是meditation)设置allPodCastData,然后也要根据type来设置count, count的作用是去上一个博客或者下一个博客的时候, 不会超出范围
+    const app = getApp()
+    let allPodCastData;
+    let count;
+    if(this.properties.podCastType !== '冥想') {
+      console.log("execute podcast")
+      allPodCastData =  wx.getStorageSync('allPodCastData');
+      count = app.globalData.podcastsAvailability.length
+    } else {
+      console.log("execute medi")
+      allPodCastData =  wx.getStorageSync('allMeditationData');
+      count = allPodCastData.length
+    }
 
-      let count = app.globalData.podcastsAvailability.length
-      let currPodCast = allPodCastData[this.properties.currPodCastOrder]
-      // get info about if the current podcast has already been finished listening
-      let podCastEndStatus;
-      if (app.globalData.userData.finished_podcasts == undefined) {
-        podCastEndStatus = -1;
-      } else {
-        podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
-      }
-      
-      // change the display collect star status, 1 means collected, -1 means not collected
-      let curr_podcast_fav;
-      if (app.globalData.userData.fav_podcasts == undefined) {
-        curr_podcast_fav = -1;
-      } else {
-        curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
-      }
-      let curr_podcast_fav_status;
-      if(curr_podcast_fav === 1) {
-        curr_podcast_fav_status = true
-      } else {
-        curr_podcast_fav_status = false;
-      }
+    let currPodCast = allPodCastData[this.properties.currPodCastOrder]
+    // get info about if the current podcast has already been finished listening
+    let podCastEndStatus;
+    if (app.globalData.userData.finished_podcasts == undefined) {
+      podCastEndStatus = -1;
+    } else {
+      podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
+    }
+
+    // change the display collect star status, 1 means collected, -1 means not collected
+    let curr_podcast_fav;
+    if (app.globalData.userData.fav_podcasts == undefined) {
+      curr_podcast_fav = -1;
+    } else {
+      curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
+    }
+    let curr_podcast_fav_status;
+
+    if(curr_podcast_fav === 1) {
+      curr_podcast_fav_status = true
+    } else {
+      curr_podcast_fav_status = false;
+    }
+
+    this.setData({
+      podCastInfo: currPodCast,
+      allPodCastCount: count,
+      currPodCastOrder: this.properties.currPodCastOrder,
+      podcastCollected: curr_podcast_fav_status,
+    })
+
+    this.innerAudioContext = wx.createInnerAudioContext({
+      useWebAudioImplement: false
+    })
+    this.innerAudioContext.src = this.data.podCastInfo.url
+    let totalDuration = this.data.podCastInfo.totalTimeSecond
+
+    this.innerAudioContext.onTimeUpdate(() => {
+      // console.log("on time update")
+      const currentSeconds = this.innerAudioContext.currentTime
+      const newSliderPosition = currentSeconds / totalDuration * 100
+      const format = this.formatTime(currentSeconds)
+
       this.setData({
-        podCastInfo: currPodCast,
-        allPodCastCount: count,
-        currPodCastOrder: this.properties.currPodCastOrder,
-        podcastCollected: curr_podcast_fav_status,
+        sliderPosition: newSliderPosition,
+        currentPlayTime: format,
+        currentProgressSecond: currentSeconds
       })
-  
-      this.innerAudioContext = wx.createInnerAudioContext({
-        useWebAudioImplement: false
-      })
-      this.innerAudioContext.src = this.data.podCastInfo.url
-      let totalDuration = this.data.podCastInfo.totalTimeSecond
+    })
 
-      this.innerAudioContext.onTimeUpdate(() => {
-        // console.log("on time update")
-        const currentSeconds = this.innerAudioContext.currentTime
-        const newSliderPosition = currentSeconds / totalDuration * 100
-        const format = this.formatTime(currentSeconds)
-  
-        this.setData({
-          sliderPosition: newSliderPosition,
-          currentPlayTime: format,
-          currentProgressSecond: currentSeconds
+    this.innerAudioContext.onSeeked(()=> {
+      const currentSeconds = this.innerAudioContext.currentTime
+    })
+
+    this.innerAudioContext.onEnded(()=> {
+      if(!podCastEndStatus || podCastEndStatus == -1) {
+        wx.cloud.callFunction({
+          name: 'finish_podcast',
+          data: {
+            podcast_id: this.properties.currPodCastOrder,
+          },
+          success: out => {
+            console.log("successfully finish podcast")
+            // 提交完后更新
+            console.log("out.result: ", out.result);
+            app.globalData.finished_podcasts = out.result.data;
+            app.globalData.podcastComplete = out.result.data;
+          },
+          fail: out => {
+            console.log('fail to finsih podcast')
+          }
         })
-      })
-      
-      this.innerAudioContext.onSeeked(()=> {
-        const currentSeconds = this.innerAudioContext.currentTime
-      })
+      }
+    })
 
-      this.innerAudioContext.seek(0);
-  
-      this.innerAudioContext.onEnded(()=> {
-        if(podCastEndStatus === -1) {
-          wx.cloud.callFunction({
-            name: 'finish_podcast',
-            data: {
-              podcast_id: this.properties.currPodCastOrder,
-            },
-            success: out => {
-              console.log("successfully finish podcast")
-              // 提交完后更新
-              console.log("out.result: ", out.result);
-              app.globalData.userData.finished_podcasts = out.result.data;
-            },
-            fail: out => {
-              console.log('fail to finsih podcast')
-            }
-          })
-        }
-      })
     }
   },
 })

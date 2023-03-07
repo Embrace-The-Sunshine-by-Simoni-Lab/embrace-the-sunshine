@@ -7,12 +7,17 @@ Page({
     playStatus: false,
     isPlaying: false,
     currPodCastOrder: -1, 
+    podCastType: ""
   },
 
   onLoad(options) {
     let currentPodCastOrder = options.podCastOrder;
+    // 用来分辨podcast play需要渲染的是普通podcast还是meditation
+    let podCastType = options.type
+
     this.setData({
-      currPodCastOrder: currentPodCastOrder
+      currPodCastOrder: currentPodCastOrder,
+      podCastType
     })
   },
 

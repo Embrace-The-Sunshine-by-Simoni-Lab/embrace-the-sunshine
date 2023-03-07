@@ -11,6 +11,9 @@ Component({
         })
         this.refresh();
       }
+    },
+    podCastType: {
+      type: String,
     }
   },
   data: {
@@ -23,16 +26,33 @@ Component({
     currPodcastOrder: -1, // 当前是哪个podcast
     podCastInfo: {}, // 当前podcast的内容
     open_ended_answer: "", // 开放式问题用户的答案
+    podCastType: "" // 判断当前podcast是不是冥想
   },
   ready() {
+    // 同时更新当前podcast是不是冥想
+    let currentPodcastType = this.properties.podCastType
+    this.setData({
+      podCastType: currentPodcastType
+    })
     this.refresh();
   },
 
   methods: {
     async refresh() {
-      let allPodCastData = await wx.getStorageSync('allPodCastData');
+      // 这里要要根据podcast的类型(是普通podcast还是meditation)设置allPodCastData
+      let allPodCastData;
+      if(this.properties.podCastType !== '冥想') {
+        allPodCastData =  await wx.getStorageSync('allPodCastData');
+      } else {
+        allPodCastData =  await wx.getStorageSync('allMeditationData');
+      }
+
+      // let allPodCastData = await wx.getStorageSync('allPodCastData');
       let currPodCast = allPodCastData[this.properties.currPodCastOrder];
       let currUserAnswer = app.globalData.podcast_progress_data.podcast_progress[this.properties.currPodCastOrder];
+      let curr_Podcast_quiz_length = currPodCast.pod_Cast_Quiz.length
+      console.log("podcast_progress_data", app.globalData.podcast_progress_data)
+      console.log("currUserAnswer", currUserAnswer)
 
       // 如果有open eneded的回答那么更新
       if(currUserAnswer) {
@@ -59,6 +79,7 @@ Component({
       }
 
       this.setData({
+        curr_Podcast_quiz_length,
         user_answer: currUserAnswer,
         podCastInfo: currPodCast,
       })

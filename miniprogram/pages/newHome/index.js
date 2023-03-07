@@ -7,6 +7,7 @@ Page({
     logged: false,
     indicatorDots: true,
     podCastInfo: [], 
+    meditationInfo: [],
     podCastInfo_remove_meditation: [],
     progressBarColor: "", // 首页药物追踪的进度条背景
     podcastsAvailability: [], // 综合播客的完成状态和注册时间最终确定展示的播客
@@ -125,17 +126,17 @@ Page({
       },
       success: out => {
         console.log(234, out.result.errCode)
-        if (out.result.errCode == 0) {
+        if (out.result.errcode == 0) {
           console.log(7788)
           if (out.result.data) {
             let allMeditationData = out.result.data;
             console.log("allMeditationData", allMeditationData)
             this.setData({
-              podCastInfo: sorted_podcast,
+              meditationInfo: allMeditationData,
             })
             // 把排列好的博客放进缓存
-            app.globalData.podCast = sorted_podcast;
-            wx.setStorageSync('allPodCastData', sorted_podcast)
+            app.globalData.meditation = allMeditationData;
+            wx.setStorageSync('allMeditationData', allMeditationData)
           } 
         } else {
           console.log(out.errMsg);
@@ -165,7 +166,6 @@ Page({
 
   onShow() {
     // 实时更新首页的availability状态
-
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
     this.setData({
       podcastComplete: app.globalData.podcastComplete || [],
@@ -196,6 +196,7 @@ Page({
         showRedDot: false
       })
     }
+
   },
 
   async createPodcastRegisterAvailability(app) {
@@ -314,8 +315,9 @@ Page({
   },
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
+    let type = e.currentTarget.dataset.podcasttype
     wx.navigateTo({
-      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
+      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })
   },
   // 处理当前不可用播客点击时候的弹窗逻辑内容

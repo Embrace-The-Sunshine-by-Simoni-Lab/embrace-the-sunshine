@@ -1,5 +1,4 @@
 /* pages/newHome/index.wxss */
-
 .homeContainer {
   padding: 30rpx;
   display: flex;

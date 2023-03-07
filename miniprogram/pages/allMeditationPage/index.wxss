@@ -95,8 +95,9 @@
   border-radius: 25rpx;
 }
 .castContent_top_check {
-  width: 65rpx;
-  height: 65rpx;
+  width: 90rpx;
+  height: 90rpx;
+  margin-bottom: -10rpx;
 }
 .castContent_top_desc_summary {
   font-weight: 300;

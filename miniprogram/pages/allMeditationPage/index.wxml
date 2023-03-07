@@ -3,20 +3,16 @@
   <text class="allCastHeader">冥想</text>
 
   <view class="homePodCastBox">
-    <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
-      wx:for="{{podCastInfo}}" 
+    <view class="castItem" 
+      wx:for="{{meditationInfo}}" 
       wx:for-item="item" 
       wx:for-index="idx" 
       wx:key="idx" 
-      data-id="{{item.podCast_Id}}" 
-      bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
-      <image 
-        style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
-        src="../../images/homepage/LOCK.png" 
-        class="podcast_lock">
-      </image>
+      data-id="{{item.meditation_Id}}" 
+      data-podcastType="{{item.episode}}"
+      bind:tap="jumpToPodCastPlay">
       <view class="castImage">
-        <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
+        <image class="castImageItem" src="{{item.podCastListURL}}"></image>
       </view>
 
       <view class="castContent">
@@ -25,7 +21,7 @@
             <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
             <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
           </view>
-          <image src="{{podcastComplete[idx] === 1 ? '../../images/homepage/home-check.png':'../../images/homepage/home-uncheck.png'}}" class="castContent_top_check"></image>
+          <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg" class="castContent_top_check"></image>
         </view>
       </view>
     </view>
