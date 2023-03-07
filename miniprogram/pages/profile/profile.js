@@ -7,7 +7,7 @@ Page({
    */
   data: {
     username: app.globalData.userData.nickname,
-    headImg : "../../images/profile/headImg.png",
+    headImg : "../../images/profile/headImg.svg",
     fileID: "",
     num_finished_module: 0,
     num_finished_optional_module: 0,
@@ -15,7 +15,7 @@ Page({
   },
   goto_save: function() {
     wx.navigateTo({
-      url: "../save/save",
+      url: "../starContent/starContent",
     })
   },
   goto_resources: function() {

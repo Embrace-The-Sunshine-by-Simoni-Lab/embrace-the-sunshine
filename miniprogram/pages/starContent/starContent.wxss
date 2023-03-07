@@ -1,4 +1,3 @@
-/* pages/allPodCastPage/index.wxss */
 .allCastHeader {
   font-size: 37rpx;
   font-weight: 400;
@@ -28,7 +27,6 @@
   position: relative;
 }
 .castItem {
-
   height: 170rpx;
   border-radius: 10px;
   background: #FDFBFC;
