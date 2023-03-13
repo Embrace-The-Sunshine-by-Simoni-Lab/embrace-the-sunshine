@@ -209,6 +209,17 @@
   border-radius: 4px;
   text-align: center;
 }
+.meditation_disable_button {
+  width: 350rpx;
+  height: 80rpx;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  color: rgba(0, 0, 0, 0.1);
+  background: #F2F2F2;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 70rpx;
+}
 .next_question {
   width: 60rpx; 
   height: 55rpx;

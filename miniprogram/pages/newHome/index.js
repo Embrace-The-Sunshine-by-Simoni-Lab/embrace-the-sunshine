@@ -24,7 +24,7 @@ Page({
           mask: true
         })
         wx.cloud.callFunction({
-          name: 'auto_sign_in_fake_data',
+          name: 'auto_sign_in',
           data: {
           },
           success: async out => {
@@ -33,6 +33,7 @@ Page({
                 app.globalData.userData = out.result.data;
                 app.globalData.podcast_progress_data = out.result.podcast_progress_data;
                 app.globalData.meditation_progress_data = out.result.meditation_progress_data;
+
                 app.globalData.logged = true;
                 is_new_user = out.result.is_new_user;
                 // 先设置

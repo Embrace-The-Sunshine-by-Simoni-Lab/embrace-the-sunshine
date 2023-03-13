@@ -23,13 +23,13 @@
   <!-- Home page middle -->
   <view class="homeMiddleBox">
     <view class="homeMoodTrack" bind:tap="jumpToMoodTracking">
-      <text>情绪记录</text> 
+      <text class="mood_text">情绪状态评估</text> 
       <image class="homeMoodImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/cloud.svg"></image>
     </view>
     <view class="homeMediTrack" bind:tap="jumpToCalendar">
       <view class="homeMediTrackContent">
         <view wx:if="{{showRedDot}}" class="reddot"></view>
-        <text class="homeMediTrackContentTitle">药物追踪</text> 
+        <text class="homeMediTrackContentTitle">药物依从记录</text> 
         <text class="homeMediTrackContentTitleSmall">本周服药天数</text> 
 
         <view class="homeMediTrackProgressBox"> 
@@ -50,7 +50,7 @@
   <view class="homePodCast">
     <!-- 播客 -->
     <view class="homePodCastBox">
-      <text class="homePodCastTitle">模拟咨询室</text>
+      <text class="homePodCastTitle">模拟心理咨询室</text>
       <view class="innerContentBox">
         <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
           wx:for="{{podCastInfo}}" 
@@ -84,7 +84,7 @@
     </view>
     <!-- 冥想 -->
     <view class="meditationBox">
-      <text class="homePodCastTitle">冥想</text>
+      <text class="homePodCastTitle">冥想练习</text>
       <view class="innerContentBox">
         <view class="castItem" 
           wx:for="{{meditationInfo}}" 
