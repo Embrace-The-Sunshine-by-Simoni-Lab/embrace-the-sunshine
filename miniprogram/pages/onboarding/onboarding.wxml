@@ -4,40 +4,44 @@
         <image src="../../images/onboarding/vector.svg" class="second_orange"></image>
         <view class="open_container">
           <text class="open_title">拥抱阳光小程序的功能目的</text>
-          <text class="small_text">使用专业科学的方法，帮助您应对常见的情绪问题</text>
+          <text class="small_text">走过风雨和黑夜，我们是冬日的暖阳，陪你一起，呵护心理健康，拥抱阳光洒满心房的日子。
+          </text>
           <text class="small_text">
-            通过学习基于辩证行为疗法（DBT）的心理技能，积极应对负面情绪，改善心理健康，创造有价值的生活
+            我们的情绪管理技巧来自于辩证行为疗法（Dialecitical Behavior Therapy, DBT），为您介绍科学专业的方法，积极应对情绪挑战，维护心理健康，创造有价值的生活。
           </text>
         </view>
       </swiper-item>
       <swiper-item class="container">
         <image src="../../images/onboarding/onboarding_second.svg" class="second_image"></image>
         <view class="open_container2">
-          <text class="title">情绪管理技能</text>
-          <text class="small_text">情绪管理≠压抑情绪，跟我们一起理解情绪，学习情绪管理技巧，与情绪和平相处
-            <text class="unlock">(新内容每周解锁) </text>
-          </text>
+          <text class="title">这些关于情绪的误解，你中了几个?</text>
+          <view class="open_container2_list">
+            <text>•“感受情绪意味着让情绪失控”</text>
+            <text>•“我心情不好是软弱的表现”</text>
+            <text>•“痛苦的情绪不重要，应该被忽视”</text>
+          </view>
+          <text class="small_text">情绪可以是你的朋友。跟我们一起认识情绪，学习如何与情绪相处。</text>
         </view>
       </swiper-item>
       <swiper-item class="container">
         <image src="../../images/onboarding/onboarding_third.svg" class="third_image"></image>
         <view class="open_container2">
-          <text class="title">社会支持</text>
-          <text class="small_text">与上海心生的工作人员共同学习探讨心理健康技能.</text>
+          <text class="title">每周的小组学习</text>
+          <text class="small_text">与上海心生的工作人员和其他伙伴们一起练习情绪管理和心理健康技能。</text>
         </view>
       </swiper-item>
       <swiper-item class="container">
         <image class="img4" src="../../images/onboarding/onboarding_fourth.svg"></image>
         <view class="open_container2">
           <text class="title">情绪记录</text>
-          <text class="small_text">关注心理健康从情绪记录开始，追踪情绪波动，揭示情绪触发因素，反映情绪管理技能提升情况。</text>
+          <text class="small_text">专注心理健康从记录开始。我们帮您记录每周情绪状况，用图表帮助您回顾情绪波动，放映情绪管理结果。</text>
         </view>
       </swiper-item>
       <swiper-item class="container">
         <image class="img5" src="../../images/onboarding/onboarding_fifth.svg" ></image>
         <view class="open_container2">
           <text class="title">服药记录</text>
-          <text class="small_text">以日历的方式呈现您当月的药物依从情况以及每周的平均服药天数。</text>
+          <text class="small_text">坚持服药对您的长期身体健康非常重要。我们用日历帮您记录每天的药物状况，并且用图表帮您总结回顾每周服药天数。</text>
           <view bindtap="toMainPage" class="begin_use">开启使用</view>
         </view>
       </swiper-item>

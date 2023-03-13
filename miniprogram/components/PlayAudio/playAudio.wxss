@@ -37,9 +37,7 @@
   border-radius: 20rpx;
 }
 .podcast_star {
-  width: 100rpx;
-  height: 100rpx;
-  /* background: green; */
+  height: 80rpx;
 }
 .headerImage {
   width: 38%;
@@ -73,7 +71,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: blue; */
 }
 .headerDate {
   font-size: 30rpx;
@@ -97,7 +94,7 @@
 }
 .slider {
   /* padding-top: 17rpx; */
-  width: 100%;
+  width: 94%;
   height: 15%;
 }
 .timing {

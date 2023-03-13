@@ -1,4 +1,5 @@
 const app = getApp();
+
 Page({
   data: {
     // ******************* 分析页面顶部逻辑 *******************
@@ -32,7 +33,6 @@ Page({
   }, 
   // ******************* 日历逻辑 *******************
   onLoad() {
-    console.log("onLoad(){this.data}", this.data)
     // 弹窗
     let that = this
     let today = new Date()

@@ -11,8 +11,8 @@
         <view class="headerContentBox">
           <text class="headerDetail">{{podCastInfo.mainContentSummary}}</text>
           <view class="headerMark">
-            <image wx:if="{{podcastCollected}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/pageElement/podcast-filledstar.svg" bind:tap="changeCollectStatus"></image>
-            <image wx:if="{{!podcastCollected}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/pageElement/podcast-unfilledstar.svg" bind:tap="changeCollectStatus"></image>
+            <image wx:if="{{podcastCollected}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/pageElement/podcast-filled star.svg" bind:tap="changeCollectStatus"></image>
+            <image wx:if="{{!podcastCollected}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/pageElement/podcast-unfilled star.svg" bind:tap="changeCollectStatus"></image>
           </view>
         </view>
       </view>

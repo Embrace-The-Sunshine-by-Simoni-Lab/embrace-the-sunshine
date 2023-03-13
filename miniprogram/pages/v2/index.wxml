@@ -1,4 +1,5 @@
 <view class="medicineContainer">
+
   <!-- **** purple square on top **** -->
   <view class="infoBox">
     <view class="btnBox">

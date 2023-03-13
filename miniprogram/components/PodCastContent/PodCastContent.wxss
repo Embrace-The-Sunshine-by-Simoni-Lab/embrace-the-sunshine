@@ -93,18 +93,26 @@
   /* background: rgb(28, 163, 46); */
 }
 .podcast_meditation_img {
-  width: 450rpx;
-  height: 340rpx;
+  width: 470rpx;
+  height: 370rpx;
   margin-top: 20rpx;
   margin-bottom: 60rpx;
+  /* background: green; */
 }
 .podcast_meditation_content_container {
   display: flex;
+  width: 100%;
+  height: 100%; 
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* background: green; */
 }
-
+.SubmitBlock_meditation {
+  background: green;
+  width: 100%;
+  height: 100%;
+}
 .quizHeader {
   font-size: 34rpx;
   padding-bottom: 14rpx;
@@ -173,10 +181,9 @@
 }
 .SubmitBlock {
   position: absolute;
-  bottom: 0;
+  bottom: 10rpx;
   left: 50%;
   margin-left: -340rpx;
-  /* background: green; */
   width: 680rpx;
   display: flex;
   justify-content: space-around;
@@ -201,6 +208,17 @@
   background: #F2F2F2;
   border-radius: 4px;
   text-align: center;
+}
+.meditation_disable_button {
+  width: 350rpx;
+  height: 80rpx;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  color: rgba(0, 0, 0, 0.1);
+  background: #F2F2F2;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 70rpx;
 }
 .next_question {
   width: 60rpx; 
@@ -229,6 +247,15 @@
   width: 100%;
   height: 360rpx;
   /* background: green; */
+}
+.open_ended_question_meditation {
+  background: white;
+  border: 1.5px solid #6568BC;
+  box-sizing: border-box;
+  padding: 20rpx;
+  border-radius: 5px;
+  width: 100%;
+  height: 360rpx;
 }
 .meditation_submit {
   width: 350rpx;
