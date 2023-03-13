@@ -43,21 +43,23 @@ Component({
       // 这里要要根据podcast的类型(是普通podcast还是meditation)设置allPodCastData以及对应的问题答案
       let allPodCastData;
       let currUserAnswer;
+      console.log("type", this.properties.podCastType)
       if(this.properties.podCastType !== '冥想') {
         allPodCastData =  await wx.getStorageSync('allPodCastData');
         currUserAnswer = app.globalData.podcast_progress_data.podcast_progress[this.properties.currPodCastOrder];
       } else {
         allPodCastData =  await wx.getStorageSync('allMeditationData');
-        console.log("123allPodCastData", app.globalData.meditation_progress_data)
         currUserAnswer = app.globalData.meditation_progress_data.meditation_progress[this.properties.currPodCastOrder];
       }
 
+      console.log("global meditation", app.globalData.meditation_progress_data.meditation_progress)
+      console.log("allPodCastData",allPodCastData)
       let currPodCast = allPodCastData[this.properties.currPodCastOrder];
       let curr_Podcast_quiz_length = currPodCast.pod_Cast_Quiz.length
-
       console.log("currUserAnswer", currUserAnswer)
+
       // 如果有open eneded的回答那么更新
-      if(currUserAnswer && currUserAnswer.length !== 0) {// currUserAnswer.length !== 0是因为冥想没提交的时候currUserAnswer为空的[]
+      if(currUserAnswer) {// currUserAnswer.length !== 0是因为冥想没提交的时候currUserAnswer为空的[]
         let cur_pod_cast_open_ended = currUserAnswer[currUserAnswer.length - 1]
         if(cur_pod_cast_open_ended && cur_pod_cast_open_ended != -1){// 不等于-1说明用户填了开放式回答
           this.setData({
@@ -66,6 +68,7 @@ Component({
           })
         } 
       } else {// 用户还未提交过,此时没有useranswer
+        console.log("secondddd")
         let answerTemp = currPodCast.pod_Cast_Quiz.length
         let answerLength = answerTemp
         currUserAnswer = new Array(answerLength).fill(-1);
@@ -73,6 +76,9 @@ Component({
           submitClicked: false,
         })
       }
+
+      console.log("cur_pod_cast_open_ended", this.data.open_ended_answer)
+
       this.setData({
         curr_Podcast_quiz_length,
         user_answer: currUserAnswer,
@@ -143,13 +149,14 @@ Component({
       // 用来判断是meditation的提交, 还是普通的quiz提交
       let currentSubmitType = e.currentTarget.dataset.type
       let that = this
+      console.log("submittt", that.data.user_answer)
       // 如果是冥想的提交
       if(currentSubmitType === '冥想') {
         wx.cloud.callFunction({
           name: 'submit_meditation_quiz',
           data: {
             meditation_id: that.properties.currPodCastOrder,
-            user_answer: that.data.user_answer[0] // 这里0的位置肯定有值不然不给提交
+            user_answers: that.data.user_answer // 这里0的位置肯定有值不然不给提交
           },
           success: out => {
             console.log("successfully update", out.result)
