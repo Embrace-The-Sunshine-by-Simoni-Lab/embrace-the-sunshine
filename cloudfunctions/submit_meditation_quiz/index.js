@@ -45,12 +45,34 @@ exports.main = async (event, context) => {
     meditation_progress_data = res.data[0];
   })
   
+  if (meditation_progress_data == null) {
+    // data new data entry to dataset
+    var data_to_insert = {};
+    data_to_insert.openid = wxContext.OPENID;
+    data_to_insert.meditation_progress = [];
+    data_to_insert.meditation_progress[event.meditation_id] = event.user_answer
+    await db.collection("meditation_progress_db")
+    .add({
+      data: data_to_insert
+    }).then(res => {
+      console.log(res);
+    })
+    return {
+      data: data_to_insert.meditation_progress,
+      event,
+      openid: wxContext.OPENID,
+      appid: wxContext.APPID,
+      unionid: wxContext.UNIONID,
+    }
+  }
+  
   let meditation_progress_list = meditation_progress_data.meditation_progress;
   // if (podcast_progress_list.length <= event.podcast_id) {
   //   for (let i = 0; i < event.podcast_id - podcast_progress_list.length + 1; i++) {
   //     podcast_progress_list.push([]);
   //   }
   // }
+  
 
   meditation_progress_list[event.meditation_id] = event.user_answer;
 
