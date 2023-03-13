@@ -44,12 +44,19 @@ Component({
       let allPodCastData;
       let currUserAnswer;
       console.log("type", this.properties.podCastType)
+      if (this.properties.podCastType == "") {
+        return;
+      }
       if(this.properties.podCastType !== '冥想') {
+        console.log("-----------------1------------------");
         allPodCastData =  await wx.getStorageSync('allPodCastData');
         currUserAnswer = app.globalData.podcast_progress_data.podcast_progress[this.properties.currPodCastOrder];
       } else {
+        console.log("-----------------2------------------");
         allPodCastData =  await wx.getStorageSync('allMeditationData');
         currUserAnswer = app.globalData.meditation_progress_data.meditation_progress[this.properties.currPodCastOrder];
+        console.log("allPodCastData", allPodCastData);
+        console.log("currUserAnswer", currUserAnswer);
       }
 
       console.log("global meditation", app.globalData.meditation_progress_data.meditation_progress)
