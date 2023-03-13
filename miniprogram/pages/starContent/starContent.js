@@ -22,7 +22,7 @@ Page({
     let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
     let podcastComplete = app.globalData.podcastComplete
     let podcastsAvailability = app.globalData.podcastsAvailability
-    let fav_podcasts = this.getFavPodcasts();
+    let fav_podcasts = this.getFavList();
 
     this.setData({
       podCastInfo: allPodCastData,
@@ -39,7 +39,7 @@ Page({
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
     let new_podcast_complete = app.globalData.finished_podcasts
     app.globalData.podcastsAvailability = new_podcast_availability
-    let fav_podcasts = this.getFavPodcasts();
+    let fav_podcasts = this.getFavList()
     
     this.setData({
       podcastsAvailability: new_podcast_availability,
@@ -50,7 +50,7 @@ Page({
     })
   },
 
-  getFavPodcasts() {
+  getFavList() {
     let allPodCastData =  wx.getStorageSync('allPodCastData');
     let fav_podcastsIdx = app.globalData.userData.fav_podcasts
     let fav_podcasts = [];
@@ -66,6 +66,10 @@ Page({
     //   podcastComplete.push(-1);
     // }
     return fav_podcasts;
+  },
+
+  choosePodcasts(){
+
   },
 
   // generate podcast availability and on podcast complete array and register time podcast array

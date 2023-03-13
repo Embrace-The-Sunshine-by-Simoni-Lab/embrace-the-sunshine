@@ -10,6 +10,7 @@ Page({
   },
 
   onLoad(options) {
+    console.log("podcast options:", options)
     let currentPodCastOrder = options.podCastOrder;
     this.setData({
       currPodCastOrder: currentPodCastOrder

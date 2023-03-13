@@ -117,6 +117,46 @@ Page({
         wx.hideLoading()
        }
     })
+
+    wx.cloud.callFunction({
+      name: 'getAllMeditationAudio',
+      data: {
+      },
+      success: out => {
+        if (out.result.errCode == 0) {
+          if (out.result.data) {
+            let allMediData = out.result.data;
+            // 根据播客的id进行排序
+            let sorted_medi = this.sortPodCastList(allMediData)
+            // 根据用户注册时间创建podcastRegisterAvailability
+            // const date = new Date(app.globalData.userData.reg_time);
+            // const today = new Date();
+            // const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
+            // const podcastRegisterAvailability = new Array(sorted_podcast.length);
+            // for (let i = 0; i < podcastRegisterAvailability.length; i++) {
+            //   if (i <= inputWeek) {
+            //     podcastRegisterAvailability[i] = 1;
+            //   }
+            // }
+            this.setData({
+              podCastInfo: sorted_medi,
+            })
+            // 把排列好的博客放进缓存
+            app.globalData.podCast = sorted_medi;
+            wx.setStorageSync('allMediData', sorted_medi)
+          } 
+        } else {
+          console.log(out.errMsg);
+        }
+      },
+      fail: out => {
+        console.log('call function failed')
+      },
+      complete: out => {
+        wx.hideLoading()
+       }
+    })
+
     // 药物追踪红点逻辑
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
@@ -277,6 +317,7 @@ Page({
   },
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
+    console.log(e)
     wx.navigateTo({
       url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
     })

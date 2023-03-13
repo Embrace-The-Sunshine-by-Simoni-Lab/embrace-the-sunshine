@@ -31,9 +31,11 @@ Component({
   ready() {
     const app = getApp()
     let allPodCastData =  wx.getStorageSync('allPodCastData');
+    console.log('allpdDB', allPodCastData)
     let count = app.globalData.podcastsAvailability.length
-
+    console.log(app.globalData)
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
+    
     // get info about if the current podcast has already been finished listening
     let podCastEndStatus;
     if (app.globalData.userData.finished_podcasts == undefined) {
@@ -41,8 +43,9 @@ Component({
     } else {
       podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
     }
-
+    console.log(app.globalData.userData)
     // change the display collect star status, 1 means collected, -1 means not collected
+    // Podcast Favorite
     let curr_podcast_fav;
     if (app.globalData.userData.fav_podcasts == undefined) {
       curr_podcast_fav = -1;
@@ -57,11 +60,26 @@ Component({
       curr_podcast_fav_status = false;
     }
 
+    // Meditation Favorite
+    // let curr_medi_fav;
+    // if (app.globalData.userData.fav_medi == undefined) {
+    //   curr_medi_fav = -1;
+    // } else {
+    //   curr_medi_fav = app.globalData.userData.fav_medi[this.properties.currPodCastOrder];
+    // }
+    // let curr_medi_fav_status;
+
+    // if(curr_medi_fav === 1) {
+    //   curr_medi_fav_status = true
+    // } else {
+    //   curr_medi_fav_status = false;
+    // }
     this.setData({
       podCastInfo: currPodCast,
       allPodCastCount: count,
       currPodCastOrder: this.properties.currPodCastOrder,
       podcastCollected: curr_podcast_fav_status,
+      mediCollected: curr_medi_fav_status
     })
 
     this.innerAudioContext = wx.createInnerAudioContext({
@@ -148,9 +166,12 @@ Component({
     },
     changeCollectStatus() {
       let currentCollectStatus = this.data.podcastCollected
+      console.log('this.properties', this.properties)
+      let mediaType = this.data.podCastInfo.pod_Cast_Quiz.length > 1 ? 'podcast' : 'meditation';
       wx.cloud.callFunction({
         name: 'toggle_podcast_star_status',
         data: {
+          type: mediaType,
           podcast_id: this.properties.currPodCastOrder
         },
         success: out => {
