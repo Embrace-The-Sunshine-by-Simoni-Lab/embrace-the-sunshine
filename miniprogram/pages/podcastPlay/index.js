@@ -27,8 +27,6 @@ Page({
       currPodCastOrder: newPodCastNum
     })
   },
-
-
 })
 
 
