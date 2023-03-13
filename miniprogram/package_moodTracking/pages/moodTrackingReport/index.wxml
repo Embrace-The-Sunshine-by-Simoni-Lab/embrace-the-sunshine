@@ -2,7 +2,7 @@
   <!-- **** purple square on top **** -->
   <view class="infoBox">
     <text class="medicineRecord">{{timePeriodText}}情绪记录</text>
-    <view class="medicineRecord_date">{{timePeriodDate}}</view>
+    <!-- <view class="medicineRecord_date">{{timePeriodDate}}</view> -->
   </view>
   <!-- line graph -->
   <view class="line_chart_container">

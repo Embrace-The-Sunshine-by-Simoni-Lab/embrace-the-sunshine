@@ -390,7 +390,7 @@ Page({
       onLoadScoreType = this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
       onLoadScoreColor = this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
     } else {
-      onLoadDataRange = ['近一月无数据']
+      onLoadDataRange = ['近30天无数据']
     }
     
     console.log("onLoadDataRange", onLoadDataRange)
@@ -398,7 +398,7 @@ Page({
       oneMonth: true,
       threeMonth: false,
       sixMonth: false,
-      timePeriodText: '近一月',
+      timePeriodText: '近30天',
       timePeriodDate: onLoadDataRange,
       userScoreValue: onLoadScoreValue,
       userScoreType: onLoadScoreType,
@@ -412,15 +412,15 @@ Page({
     let empty_data_placeholder = "";
     if (this.data.OneMonthMoodTrackData.categories.length == 0) {
       empty_one_month = true;
-      empty_data_placeholder = "近一个月无数据，请参与情绪记录"
+      empty_data_placeholder = "近30天无数据，请参与情绪记录"
     }
     this.setData(
       {
         oneMonth: true,
         threeMonth: false,
         sixMonth: false,
-        timePeriodText: '近一月',
-        timePeriodDate: this.dateFormat("oneMonth")
+        timePeriodText: '近30天',
+        timePeirodDate: this.dateFormat("oneMonth")
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.OneMonthMoodTrackData);
@@ -438,8 +438,8 @@ Page({
         oneMonth: false,
         threeMonth: true,
         sixMonth: false,
-        timePeriodText: '近三月',
-        timePeriodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat("threeMonth"))
+        timePeriodText: '近90天',
+        timePeirodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat("threeMonth"))
       }
     ),
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.ThreeMonthMoodTrackData);
@@ -458,8 +458,8 @@ Page({
         oneMonth: false,
         threeMonth: false,
         sixMonth: true,
-        timePeriodText: '近六月',
-        timePeriodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat("sixMonth"))
+        timePeriodText: '近180天',
+        timePeirodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat("sixMonth"))
       }
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.SixMonthMoodTrackData);

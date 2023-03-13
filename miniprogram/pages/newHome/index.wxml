@@ -24,7 +24,7 @@
   <view class="homeMiddleBox">
     <view class="homeMoodTrack" bind:tap="jumpToMoodTracking">
       <text>情绪记录</text> 
-      <image class="homeMoodImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/smileCloud.png"></image>
+      <image class="homeMoodImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/cloud.svg"></image>
     </view>
     <view class="homeMediTrack" bind:tap="jumpToCalendar">
       <view class="homeMediTrackContent">
@@ -41,45 +41,80 @@
           <text class="homeMediTrackProgressText">{{currWeekAlreadyTaken}}/7</text>
         </view>
 
-        <image class="homeMediImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/homeMedi.png"></image>
+        <image class="homeMediImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home_medication.svg"></image>
       </view>
     </view>
   </view>
 
   <!-- Home page buttom -->
   <view class="homePodCast">
-    <text class="homePodCastTitle">播客</text>
-
+    <!-- 播客 -->
     <view class="homePodCastBox">
-      <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
-        wx:for="{{podCastInfo}}" 
-        wx:for-item="item" 
-        wx:for-index="idx" 
-        wx:key="idx" 
-        wx:if="{{idx < 3}}" 
-        data-id="{{item.podCast_Id}}" 
-        bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
-        <image 
-        	style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
-          src="../../images/homepage/LOCK.png" 
-          class="podcast_lock">
-        </image>
-        <view class="castImage">
-          <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
-        </view>
+      <text class="homePodCastTitle">模拟咨询室</text>
+      <view class="innerContentBox">
+        <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
+          wx:for="{{podCastInfo}}" 
+          wx:for-item="item" 
+          wx:for-index="idx" 
+          wx:key="idx" 
+          wx:if="{{idx < 2}}" 
+          data-id="{{item.podCast_Id}}" 
+          bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
+          <image 
+            style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
+            src="../../images/homepage/LOCK.png" 
+            class="podcast_lock">
+          </image>
+          <view class="castImage">
+            <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
+          </view>
 
-        <view class="castContent">
-          <view class="castContent_top">
-            <view class="castContent_top_desc">
-              <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
-              <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+          <view class="castContent">
+            <view class="castContent_top">
+              <view class="castContent_top_desc">
+                <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+                <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+              </view>
+              <image src="{{podcastComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
             </view>
-            <image src="{{podcastComplete[idx] === 1 ? '../../images/homepage/home-check.png':'../../images/homepage/home-uncheck.png'}}" class="castContent_top_check"></image>
           </view>
         </view>
-      </view>
+      </view> 
+      <text class="checkAll" bind:tap="jumptoAllPodCastPage">查看全部</text>
     </view>
+    <!-- 冥想 -->
+    <view class="meditationBox">
+      <text class="homePodCastTitle">冥想</text>
+      <view class="innerContentBox">
+        <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
+          wx:for="{{podCastInfo}}" 
+          wx:for-item="item" 
+          wx:for-index="idx" 
+          wx:key="idx" 
+          wx:if="{{idx < 1}}" 
+          data-id="{{item.podCast_Id}}" 
+          bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
+          <image 
+            style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
+            src="../../images/homepage/LOCK.png" 
+            class="podcast_lock">
+          </image>
+          <view class="castImage">
+            <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
+          </view>
 
-    <text class="checkAll" bind:tap="jumptoAllPodCastPage">查看全部</text>
+          <view class="castContent">
+            <view class="castContent_top">
+              <view class="castContent_top_desc">
+                <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+                <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+              </view>
+              <image src="{{podcastComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
+            </view>
+          </view>
+        </view>
+      </view> 
+      <text class="checkAll" bind:tap="jumptoAllMeditationPage">查看全部</text>
+    </view>
   </view>
 </view> 

@@ -37,8 +37,9 @@
   border-radius: 20rpx;
 }
 .podcast_star {
-  width: 50rpx;
-  height: 50rpx;
+  width: 100rpx;
+  height: 100rpx;
+  /* background: green; */
 }
 .headerImage {
   width: 38%;
@@ -58,15 +59,17 @@
 .headerContentBox {
   display: flex;
   justify-content: space-between;
+  /* background: yellow; */
 }
 .headerDetail {
   font-size: 26rpx;
+  /* background: orange; */
 }
 .headerMark {
-  width: 90rpx;
-  height: 90rpx;
-  padding-left: 50rpx;
-  padding-right: 30rpx;
+  width: 110rpx;
+  height: 110rpx;
+  /* padding-left: 50rpx;
+  padding-right: 30rpx; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,13 +109,22 @@
   box-sizing: border-box;
   padding: 0 30rpx;
 }
-.back30Button {
-  width: 50rpx;
-  height: 50rpx;
+.back10Button {
+  width: 60rpx;
+  height: 60rpx;
   margin-right: -25rpx;
   position: absolute;
   left: 20%;
-  bottom: 54%;
+  bottom: 52%;
+  z-index: 100;
+}
+.up10Button {
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: -25rpx;
+  position: absolute;
+  left: 75%;
+  bottom: 52%;
   z-index: 100;
 }
 .mainPlayButton {
@@ -123,15 +135,6 @@
   margin-left: -95rpx;
   bottom: 15%;
   z-index: 99;
-}
-.speedup {
-  width: 50rpx;
-  height: 50rpx;
-  margin-left: -25rpx;
-  position: absolute;
-  left: 75%;
-  bottom: 54%;
-  z-index: 100;
 }
 .timingDetail {
   font-size: 25rpx;

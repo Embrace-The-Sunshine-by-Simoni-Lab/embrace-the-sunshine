@@ -45,8 +45,9 @@ exports.main = async (event, context) => {
       mood_track: {
         // fixed size: 4
         // only record last 4 weeks
-        mood_date: [],
-        mood_score: []
+        mood_date: ["2023-02-07T23:16:49.612Z", "2023-01-31T23:16:49.612Z", "2023-01-24T01:19:56.134Z", "2023-01-17T01:19:56.134Z"
+      ],
+        mood_score: [7, 15, 7, 4]
       },
       med_date: []
     }
@@ -109,45 +110,11 @@ exports.main = async (event, context) => {
     podcast_progress_data_to_return = podcast_progress_info;
   }
 
-
-
-  // check meditation progress database
-  var meditation_progress_info;
-  await db.collection("meditation_progress_db")
-  .where({
-    openid: wxContext.OPENID
-  })
-  .get()
-  .then(res => {
-    console.log("sucessfully check the database for user meditation information");
-    meditation_progress_info = res.data[0];
-  })
-
-  var meditation_progress_data_to_return;
-  if (meditation_progress_info == undefined) {
-    meditation_progress_data_to_insert = {
-      openid: wxContext.OPENID,
-      meditation_progress: []
-    }
-    // insert into database
-    await db.collection('meditation_progress_db')
-    .add({
-      data: meditation_progress_data_to_insert
-    })
-    .then(res => {
-      console.log("new user's meditation info added to the database");
-    });
-    meditation_progress_data_to_return = meditation_progress_data_to_insert;
-  } else {
-    meditation_progress_data_to_return = meditation_progress_info;
-  }
-
   var result = {};
   result.is_new_user = is_new_user;
   result.errCode = 0;
   result.errMsg = 'successfully return userinformation with is new user';
   result.data = data_to_return;
   result.podcast_progress_data = podcast_progress_data_to_return;
-  result.meditation_progress_data = meditation_progress_data_to_return;
   return result;
 }

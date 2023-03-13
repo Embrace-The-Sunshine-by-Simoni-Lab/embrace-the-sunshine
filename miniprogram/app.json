@@ -10,6 +10,7 @@
     "pages/allPodCastPage/index",
     "pages/podcastPlay/index",
     "pages/profile/profile",
+    "pages/allMeditationPage/index",
     "pages/starContent/starContent"
   ],
   "subpackages": [

@@ -1,6 +1,6 @@
 <!--pages/allPodCastPage/index.wxml-->
 <view class="allCastsContainer">
-  <text class="allCastHeader">模拟咨询室</text>
+  <text class="allCastHeader">冥想</text>
 
   <view class="homePodCastBox">
     <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 

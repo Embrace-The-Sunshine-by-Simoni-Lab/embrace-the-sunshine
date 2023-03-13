@@ -23,7 +23,7 @@ Page({
           mask: true
         })
         wx.cloud.callFunction({
-          name: 'auto_sign_in',
+          name: 'auto_sign_in_fake_data',
           data: {
           },
           success: async out => {
@@ -31,6 +31,7 @@ Page({
               if (out.result.data) {
                 app.globalData.userData = out.result.data;
                 app.globalData.podcast_progress_data = out.result.podcast_progress_data;
+                app.globalData.meditation_progress_data = out.result.meditation_progress_data;
                 app.globalData.logged = true;
                 is_new_user = out.result.is_new_user;
                 // 先设置
@@ -118,32 +119,24 @@ Page({
        }
     })
 
+    // 获取并且更新所有的Meditation内容
     wx.cloud.callFunction({
       name: 'getAllMeditationAudio',
       data: {
       },
       success: out => {
+        console.log(234, out.result.errCode)
         if (out.result.errCode == 0) {
+          console.log(7788)
           if (out.result.data) {
-            let allMediData = out.result.data;
-            // 根据播客的id进行排序
-            let sorted_medi = this.sortPodCastList(allMediData)
-            // 根据用户注册时间创建podcastRegisterAvailability
-            // const date = new Date(app.globalData.userData.reg_time);
-            // const today = new Date();
-            // const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
-            // const podcastRegisterAvailability = new Array(sorted_podcast.length);
-            // for (let i = 0; i < podcastRegisterAvailability.length; i++) {
-            //   if (i <= inputWeek) {
-            //     podcastRegisterAvailability[i] = 1;
-            //   }
-            // }
+            let allMeditationData = out.result.data;
+            console.log("allMeditationData", allMeditationData)
             this.setData({
-              podCastInfo: sorted_medi,
+              podCastInfo: sorted_podcast,
             })
             // 把排列好的博客放进缓存
-            app.globalData.podCast = sorted_medi;
-            wx.setStorageSync('allMediData', sorted_medi)
+            app.globalData.podCast = sorted_podcast;
+            wx.setStorageSync('allPodCastData', sorted_podcast)
           } 
         } else {
           console.log(out.errMsg);
@@ -154,7 +147,7 @@ Page({
       },
       complete: out => {
         wx.hideLoading()
-       }
+        }
     })
 
     // 药物追踪红点逻辑
@@ -308,6 +301,11 @@ Page({
   jumptoAllPodCastPage() {
     wx.redirectTo({
       url: "../allPodCastPage/index",
+    })
+  },
+  jumptoAllMeditationPage() {
+    wx.redirectTo({
+      url: "../allMeditationPage/index",
     })
   },
   jumpToCalendar() {

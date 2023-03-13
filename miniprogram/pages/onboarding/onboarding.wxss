@@ -18,10 +18,13 @@
 }
 .second_orange {
   position: absolute;
+  right: 0;
   left: 0;
   top: 5%;
-  width: 390rpx;
-  height: 380rpx;
+  /* background: green; */
+
+  /* width: 390rpx;
+  height: 380rpx; */
 }
 .container {
   position: relative;
@@ -60,7 +63,13 @@
   position: absolute;
   width: 100%;
   height: 1000rpx;
-  top: 3%;
+  top: 7%;
+}
+.third_image {
+  position: absolute;
+  width: 100%;
+  height: 1000rpx;
+  top: 10%;
 }
 .begin_use {
   width: 300rpx;
@@ -79,14 +88,14 @@
   position: absolute;
   width: 100%;
   height: 1000rpx;
-  top: 10%;
+  top: 13%;
 }
 
 .img5 {
   position: absolute;
   width: 100%;
   height: 900rpx;
-  top: -65rpx;
+  top: 5%;
 }
 
 .small_text{
