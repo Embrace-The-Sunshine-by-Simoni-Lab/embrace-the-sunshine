@@ -9,29 +9,28 @@ Page({
     podCastInfo: [],
     podcastsAvailability: [],
     podcastComplete: [],
-    podcastBtn: false,
-    meditationBtn: true,
-    fav_podcasts: []
+    podcastBtn: '',
+    meditationBtn: '',
+    favList: []
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     let allPodCastData =  wx.getStorageSync('allPodCastData');
-    console.log(app.globalData.podcastComplete)
     let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
     let podcastComplete = app.globalData.podcastComplete
     let podcastsAvailability = app.globalData.podcastsAvailability
-    let fav_podcasts = this.getFavList();
+    let favList = this.getFavList('podcast');
 
     this.setData({
       podCastInfo: allPodCastData,
       podcastsAvailability: podcastsAvailability,
       podcastRegisterAvailability: podcastRegisterAvailability,
       podcastComplete: podcastComplete,
-      fav_podcasts: fav_podcasts,
-      // podcastBtn: false,
-      // meditationBtn: true,
+      favList: favList,
+      podcastBtn: true,
+      meditationBtn: false,
     })
   },
 
@@ -39,37 +38,63 @@ Page({
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
     let new_podcast_complete = app.globalData.finished_podcasts
     app.globalData.podcastsAvailability = new_podcast_availability
-    let fav_podcasts = this.getFavList()
+    let favList = this.getFavList('podcast')
     
     this.setData({
       podcastsAvailability: new_podcast_availability,
       podcastComplete: new_podcast_complete,
-      fav_podcasts: fav_podcasts,
-      // meditationBtn: true,
-      // podcastBtn: true
+      favList: favList,
+      podcastBtn: true,
+      meditationBtn: false
     })
   },
 
-  getFavList() {
-    let allPodCastData =  wx.getStorageSync('allPodCastData');
-    let fav_podcastsIdx = app.globalData.userData.fav_podcasts
-    let fav_podcasts = [];
-    if (typeof fav_podcastsIdx !== 'undefined') {
-      fav_podcastsIdx.forEach((element, index) => {
-        if (element == 1) {
-          fav_podcasts.push(allPodCastData[index])
-        }
-      });
+  getFavList(mediatType) {
+    let favList = []
+    if (mediatType == 'podcast') {
+      let allPodCastData = wx.getStorageSync('allPodCastData');
+      console.log("app.globalData.userData", app.globalData.userData)
+      let favListIdx = app.globalData.userData.fav_podcasts
+      console.log(favListIdx)
+      if (typeof favListIdx !== 'undefined') {
+        favListIdx.forEach((element, index) => {
+          console.log(favListIdx)
+          if (element == 1) {
+            favList.push(allPodCastData[index])
+          }
+        });
+      }
+    } else {
+      let allMeditationData = wx.getStorageSync('allMeditationData');
+      let favListIdx = app.globalData.userData.fav_medi
+      if (typeof favListIdx !== 'undefined') {
+        favListIdx.forEach((element, index) => {
+          if (element == 1) {
+            favList.push(allMeditationData[index])
+          }
+        });
+      }
     }
-    // // make podcastComplete and fav_podcasts same length
-    // while (podcastComplete.length < fav_podcasts.length) {
-    //   podcastComplete.push(-1);
-    // }
-    return fav_podcasts;
+    console.log(favList)
+    return favList;
   },
 
-  choosePodcasts(){
+  choosePodcasts() {
+    let favList = this.getFavList('podcast');
+    this.setData ({
+      favList : favList,
+      podcastBtn: true,
+      meditationBtn: false
+    })
+  },
 
+  chooseMeditation() {
+    let favList = this.getFavList('meditation');
+    this.setData ({
+      favList : favList,
+      podcastBtn: false,
+      meditationBtn: true
+    })
   },
 
   // generate podcast availability and on podcast complete array and register time podcast array
@@ -83,11 +108,17 @@ Page({
     }
     return result
   },
+
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
-    console.log(clickedPodCastNum)
+    let meditNum = e.currentTarget.dataset.mediId
+    let type = e.currentTarget.dataset.podcasttype
+    console.log(e.currentTarget.dataset)
+    console.log("type", type)
+    console.log("clickedPodCastNum", clickedPodCastNum)
+    console.log("mediNum", meditNum)
     wx.navigateTo({
-      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
+      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })
   },
 })

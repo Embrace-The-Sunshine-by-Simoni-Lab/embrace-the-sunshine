@@ -157,16 +157,19 @@ Component({
     },
     changeCollectStatus() {
       let currentCollectStatus = this.data.podcastCollected
+      let mediaType = this.properties.podCastType == '冥想' ? 'meditation' : 'podcast';
+      console.log(mediaType)
       wx.cloud.callFunction({
         name: 'toggle_podcast_star_status',
         data: {
+          mediaType: mediaType,
           podcast_id: this.properties.currPodCastOrder
         },
         success: out => {
           console.log("successfully update")
           // // 提交完后更新
           app.globalData.userData.fav_podcasts = out.result.data;
-
+          console.log('out.result.data', out.result.data)
           wx.showToast({
             title: this.data.podcastCollected?'取消收藏':'收藏成功',
             duration: 1500

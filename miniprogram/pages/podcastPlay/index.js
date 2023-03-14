@@ -11,11 +11,10 @@ Page({
   },
 
   onLoad(options) {
-    console.log("podcast options:", options)
+    console.log("options", options)
     let currentPodCastOrder = options.podCastOrder;
     // 用来分辨podcast play需要渲染的是普通podcast还是meditation
     let podCastType = options.type
-    console.log("options",options)
     this.setData({
       currPodCastOrder: currentPodCastOrder,
       podCastType

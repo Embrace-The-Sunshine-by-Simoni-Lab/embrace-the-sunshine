@@ -44,16 +44,16 @@ exports.main = async (event, context) => {
   }
 
   if (event.mediaType == 'podcast') {
-    if (userData.fav_podcasts[event.podcast_id] == undefined || userData.fav_podcasts[event.podcast_id] === -1) {
+    if (userData.fav_podcasts[event.podcast_id] == undefined) {
       userData.fav_podcasts[event.podcast_id] = 1;
     } else if (userData.fav_podcasts[event.podcast_id] === 1) {
-      userData.fav_podcasts[event.podcast_id] = -1;
+      userData.fav_podcasts[event.podcast_id] = null;
     }
   } else {
-    if (userData.fav_medi[event.podcast_id] == undefined || userData.fav_medi[event.podcast_id] === -1) {
+    if (userData.fav_medi[event.podcast_id] == undefined) {
       userData.fav_medi[event.podcast_id] = 1;
     } else if (userData.fav_medi[event.podcast_id] === 1) {
-      userData.fav_medi[event.podcast_id] = -1;
+      userData.fav_medi[event.podcast_id] = null;
     }
   }
 
@@ -68,9 +68,17 @@ exports.main = async (event, context) => {
       fav_medi : userData.fav_medi
     }
   })
-
+  const db = cloud.database();
+  await db.collection("main_db")
+  .where({
+    openid: wxContext.OPENID
+  })
+  .get()
+  .then(res => {
+    userData = res.data[0];
+  });
   return {
-    data: [userData.fav_podcasts, userData.fav_medi],
+    data: userData,
     event,
     openid: wxContext.OPENID,
     appid: wxContext.APPID,
