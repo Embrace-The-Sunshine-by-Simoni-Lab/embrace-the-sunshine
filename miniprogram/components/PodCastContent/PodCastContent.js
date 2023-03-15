@@ -92,7 +92,15 @@ Component({
         user_answer: currUserAnswer
       })
     },
-
+    
+    jumpToPodCastPlay(e) {
+      let clickedPodCastNum = e.currentTarget.dataset.id
+      let type = e.currentTarget.dataset.podcasttype
+      wx.navigateTo({
+        url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
+      })
+    },
+  
     goToOption(e) {
       this.setData({
         mode: e.currentTarget.dataset.mode
