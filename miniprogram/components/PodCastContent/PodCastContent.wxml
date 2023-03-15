@@ -60,8 +60,8 @@
           <!-- 开放式问答 -->
           <view wx:else>
             <!-- 如果用户已经提交,那么现实已经过的答案 -->
-            <view wx:if="{{!cur_pod_cast_open_ended || cur_pod_cast_open_ended === -1}}" class="open_ended_box">
-              {{open_ended_answer}}
+            <view wx:if="{{submitClicked}}" class="open_ended_box">
+              {{open_ended_answer === -1 ? "" : open_ended_answer}}
             </view>
             <!-- 如果还未提交那么就是一个可输入框, 否则就是一个固定的方框 -->
             <view wx:else class="open_ended_box">
