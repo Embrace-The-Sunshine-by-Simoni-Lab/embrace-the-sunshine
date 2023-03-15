@@ -142,7 +142,7 @@
   font-weight: 500;
   font-size: 30rpx;
   line-height: 24px;
-  margin-bottom: 20rpx;
+  margin-bottom: 25rpx;
   color: #2E317D;
 }
 .second_level {
@@ -151,12 +151,14 @@
   color: #666666;
   line-height: 200%;
   margin-top: 10rpx;
+  margin-left: 20rpx;
 }
 .third_level {
   font-size: 28rpx;
   font-weight: 400;
   color: #666666;
   line-height: 200%;
+  margin-left: 40rpx;
 }
 
 .QuestionOrder {
