@@ -19,9 +19,16 @@
     <view wx:if="{{podCastInfo.episode !== '冥想'}}" class="first_level" wx:for-item="first_item" wx:for-index="idx" wx:for="{{podCastInfo.pod_Cast_Content}}" wx:key="idx">
       {{first_item.firstLevel}} {{first_item.time}}
       <view class="second_level" wx:for-item="item2" wx:for-index="idx" wx:for="{{first_item.firstLevel_content}}" wx:key="idx">
-        {{item2.second_title}} {{item2.time}}
+        • {{item2.second_title}} {{item2.time}}
         <view class="third_level" wx:for-item="item3" wx:for-index="idx" wx:for="{{item2.second_title_content}}" wx:key="idx">
-          • {{item3.third_title}}
+          <!-- 第二个podcast的渐进式肌肉放松需要特殊处理, 因为能跳转到meitation -->
+          <!-- 这是普通的渲染 -->
+          <view wx-if="{{item3.third_title !== '渐进式肌肉放松'}}">• {{item3.third_title}} {{item3.time}}</view>
+          <!-- 这个可以跳转的专属渲染 -->
+          <view wx:else class="meditation_transit" data-podcastType="冥想" data-id="{{0}}" bind:tap="jumpToPodCastPlay">
+            <view>•{{item3.third_title}} {{item3.time}}</view>
+            <image class="meditation_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/meditation.svg"></image>
+          </view>
         </view>
       </view>
     </view>
@@ -61,7 +68,7 @@
           <view wx:else>
             <!-- 如果用户已经提交,那么现实已经过的答案 -->
             <view wx:if="{{submitClicked}}" class="open_ended_box">
-              {{open_ended_answer}}
+              {{open_ended_answer === -1 ? "" : open_ended_answer}}
             </view>
             <!-- 如果还未提交那么就是一个可输入框, 否则就是一个固定的方框 -->
             <view wx:else class="open_ended_box">

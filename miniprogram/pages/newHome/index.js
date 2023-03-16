@@ -127,9 +127,7 @@ Page({
       data: {
       },
       success: out => {
-        console.log(234, out.result.errCode)
         if (out.result.errcode == 0) {
-          console.log(7788)
           if (out.result.data) {
             let allMeditationData = out.result.data;
             console.log("allMeditationData", allMeditationData)
@@ -178,7 +176,6 @@ Page({
     try {
       let medi_taken_days = app.globalData.userData.med_date
       let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
-      console.log("takenInWeek", takenInWeek)
       this.setData({
         currWeekAlreadyTaken: takenInWeek
       })

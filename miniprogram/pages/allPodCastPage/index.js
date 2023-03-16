@@ -19,8 +19,7 @@ Page({
 
     let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
     let podcastComplete = app.globalData.podcastComplete
-    let podcastsAvailability = app.globalData.podcastsAvailability
-
+    
     this.setData({
       podCastInfo: allPodCastData,
       podcastsAvailability: app.globalData.podcastsAvailability,
@@ -52,8 +51,9 @@ Page({
   },
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
+    let type = e.currentTarget.dataset.podcasttype
     wx.navigateTo({
-      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
+      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })
   },
   jumpToUnAvailableNotice(e) {

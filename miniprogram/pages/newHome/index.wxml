@@ -58,6 +58,7 @@
           wx:for-index="idx" 
           wx:key="idx" 
           wx:if="{{idx < 2}}" 
+          data-podcastType="播客"
           data-id="{{item.podCast_Id}}" 
           bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
           <image 

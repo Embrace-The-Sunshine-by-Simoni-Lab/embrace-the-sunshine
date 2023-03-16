@@ -24,13 +24,16 @@ exports.main = async (event, context) => {
   }
 
   
+  
   // answer content check
-  if (event.user_answer == undefined) {
+  if (event.user_answers == undefined || event.user_answers.length != 1) {
     result.errCode = 2;
-    result.errMsg = "no user_answers found";
+    result.errMsg = "no user_answers found or user_answers contains more than 1 answer";
     result.data = {};
     return result;
   }
+
+
 
   const db = cloud.database();
   var meditation_progress_data;
@@ -45,36 +48,9 @@ exports.main = async (event, context) => {
     meditation_progress_data = res.data[0];
   })
   
-  if (meditation_progress_data == null) {
-    // data new data entry to dataset
-    var data_to_insert = {};
-    data_to_insert.openid = wxContext.OPENID;
-    data_to_insert.meditation_progress = [];
-    data_to_insert.meditation_progress[event.meditation_id] = event.user_answer
-    await db.collection("meditation_progress_db")
-    .add({
-      data: data_to_insert
-    }).then(res => {
-      console.log(res);
-    })
-    return {
-      data: data_to_insert.meditation_progress,
-      event,
-      openid: wxContext.OPENID,
-      appid: wxContext.APPID,
-      unionid: wxContext.UNIONID,
-    }
-  }
-  
   let meditation_progress_list = meditation_progress_data.meditation_progress;
-  // if (podcast_progress_list.length <= event.podcast_id) {
-  //   for (let i = 0; i < event.podcast_id - podcast_progress_list.length + 1; i++) {
-  //     podcast_progress_list.push([]);
-  //   }
-  // }
-  
 
-  meditation_progress_list[event.meditation_id] = event.user_answer;
+  meditation_progress_list[event.meditation_id] = event.user_answers;
 
   // UPDATE
   await db.collection("meditation_progress_db")
