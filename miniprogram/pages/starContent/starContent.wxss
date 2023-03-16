@@ -24,6 +24,7 @@
 
 .content {
   background-color: #ffffff;
+  height: 650rpx;
   margin-top: 5%;
   /* margin-left: 8%;
   margin-right: 8%; */

@@ -77,6 +77,7 @@ exports.main = async (event, context) => {
   .then(res => {
     userData = res.data[0];
   });
+
   return {
     data: userData,
     event,

@@ -158,7 +158,11 @@ Component({
     changeCollectStatus() {
       let currentCollectStatus = this.data.podcastCollected
       let mediaType = this.properties.podCastType == '冥想' ? 'meditation' : 'podcast';
-      console.log(mediaType)
+
+      console.log("currentCollectStatus:", currentCollectStatus)
+      console.log("this.properties.podCastType:", this.properties.podCastType)
+      console.log("mediaType:", mediaType)
+
       wx.cloud.callFunction({
         name: 'toggle_podcast_star_status',
         data: {

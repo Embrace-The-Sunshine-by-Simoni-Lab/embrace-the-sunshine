@@ -111,12 +111,10 @@ Page({
 
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
-    let meditNum = e.currentTarget.dataset.mediId
     let type = e.currentTarget.dataset.podcasttype
-    console.log(e.currentTarget.dataset)
-    console.log("type", type)
-    console.log("clickedPodCastNum", clickedPodCastNum)
-    console.log("mediNum", meditNum)
+    // console.log(e.currentTarget.dataset)
+    // console.log("type", type)
+    // console.log("clickedPodCastNum", clickedPodCastNum)
     wx.navigateTo({
       url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })

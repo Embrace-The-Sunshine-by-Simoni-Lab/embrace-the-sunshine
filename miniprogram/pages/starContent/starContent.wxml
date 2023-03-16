@@ -40,7 +40,7 @@
         wx:for-index="idx" 
         wx:key="idx"
         data-id="{{item.podCast_Id || item.meditation_Id}}"
-        data-podcastType="{{item.episode}}"
+        data-podcastType="{{item.episode == '冥想'? '冥想' : '播客'}}"
         bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
         <image 
           style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
