@@ -11,7 +11,8 @@ Page({
     podcastComplete: [],
     podcastBtn: '',
     meditationBtn: '',
-    favList: []
+    favList: [],
+    typeBeforeJump: ''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -29,6 +30,7 @@ Page({
       podcastRegisterAvailability: podcastRegisterAvailability,
       podcastComplete: podcastComplete,
       favList: favList,
+      jumpToPodCastPlay: 'podcast',
       podcastBtn: true,
       meditationBtn: false,
     })
@@ -38,14 +40,15 @@ Page({
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
     let new_podcast_complete = app.globalData.finished_podcasts
     app.globalData.podcastsAvailability = new_podcast_availability
-    let favList = this.getFavList('podcast')
+    if (this.data.typeBeforeJump == '播客' || this.data.typeBeforeJump == '') {
+      this.choosePodcasts()
+    } else {
+      this.chooseMeditation()
+    }
     
     this.setData({
       podcastsAvailability: new_podcast_availability,
       podcastComplete: new_podcast_complete,
-      favList: favList,
-      podcastBtn: true,
-      meditationBtn: false
     })
   },
 
@@ -53,12 +56,9 @@ Page({
     let favList = []
     if (mediatType == 'podcast') {
       let allPodCastData = wx.getStorageSync('allPodCastData');
-      console.log("app.globalData.userData", app.globalData.userData)
       let favListIdx = app.globalData.userData.fav_podcasts
-      console.log(favListIdx)
       if (typeof favListIdx !== 'undefined') {
         favListIdx.forEach((element, index) => {
-          console.log(favListIdx)
           if (element == 1) {
             favList.push(allPodCastData[index])
           }
@@ -75,7 +75,6 @@ Page({
         });
       }
     }
-    console.log(favList)
     return favList;
   },
 
@@ -112,6 +111,9 @@ Page({
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.podcasttype
+    this.setData ({
+      typeBeforeJump: type
+    })
     // console.log(e.currentTarget.dataset)
     // console.log("type", type)
     // console.log("clickedPodCastNum", clickedPodCastNum)
