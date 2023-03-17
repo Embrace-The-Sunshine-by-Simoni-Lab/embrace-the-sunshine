@@ -36,12 +36,36 @@ Component({
     const app = getApp()
     let allPodCastData;
     let count;
+    let curr_podcast_fav;
+    let curr_podcast_fav_status;
     if(this.properties.podCastType !== '冥想') {
+      // The media type is podcast
       allPodCastData =  wx.getStorageSync('allPodCastData');
       count = app.globalData.podcastsAvailability.length
+      if (app.globalData.userData.fav_podcasts == undefined) {
+        curr_podcast_fav = -1;
+      } else {
+        curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
+      }
+      if(curr_podcast_fav === 1) {
+        curr_podcast_fav_status = true
+      } else {
+        curr_podcast_fav_status = false;
+      }
     } else {
+      // The media type is meditation
       allPodCastData =  wx.getStorageSync('allMeditationData');
       count = allPodCastData.length
+      if (app.globalData.userData.fav_medi == undefined) {
+        curr_podcast_fav = -1;
+      } else {
+        curr_podcast_fav = app.globalData.userData.fav_medi[this.properties.currPodCastOrder];
+      }
+      if(curr_podcast_fav === 1) {
+        curr_podcast_fav_status = true
+      } else {
+        curr_podcast_fav_status = false;
+      }
     }
 
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
@@ -54,19 +78,19 @@ Component({
     }
 
     // change the display collect star status, 1 means collected, -1 means not collected
-    let curr_podcast_fav;
-    if (app.globalData.userData.fav_podcasts == undefined) {
-      curr_podcast_fav = -1;
-    } else {
-      curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
-    }
-    let curr_podcast_fav_status;
+    // let curr_podcast_fav;
+    // if (app.globalData.userData.fav_podcasts == undefined) {
+    //   curr_podcast_fav = -1;
+    // } else {
+    //   curr_podcast_fav = app.globalData.userData.fav_podcasts[this.properties.currPodCastOrder];
+    // }
+    // let curr_podcast_fav_status;
 
-    if(curr_podcast_fav === 1) {
-      curr_podcast_fav_status = true
-    } else {
-      curr_podcast_fav_status = false;
-    }
+    // if(curr_podcast_fav === 1) {
+    //   curr_podcast_fav_status = true
+    // } else {
+    //   curr_podcast_fav_status = false;
+    // }
 
     this.setData({
       podCastInfo: currPodCast,

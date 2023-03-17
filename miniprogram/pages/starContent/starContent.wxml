@@ -3,7 +3,6 @@
     <mainButton type="{{podcastBtn? 'podcast-fill' : 'podcast-empty'}}" class="madicineBtn" bindtap="choosePodcasts"></mainButton>
     <mainButton type="{{meditationBtn? 'meditation-fill' : 'meditation-empty' }}" class="madicineBtn" bindtap="chooseMeditation"></mainButton>
   </view>
-  <text>{{(favList.length == 0) ? '暂无收藏' : '' }}</text>
   <view class="content"> 
     <!-- <view class="homePodCastBox">
       <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
