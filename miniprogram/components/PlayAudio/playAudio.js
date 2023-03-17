@@ -156,13 +156,15 @@ Component({
       }
     },
     changeCollectStatus() {
+      
       let currentCollectStatus = this.data.podcastCollected
       let mediaType = this.properties.podCastType == '冥想' ? 'meditation' : 'podcast';
-
+      console.log("------before cloud function-------")
+      console.log(this.data)
       console.log("currentCollectStatus:", currentCollectStatus)
       console.log("this.properties.podCastType:", this.properties.podCastType)
       console.log("mediaType:", mediaType)
-
+      console.log("-------------")
       wx.cloud.callFunction({
         name: 'toggle_podcast_star_status',
         data: {
@@ -172,8 +174,8 @@ Component({
         success: out => {
           console.log("successfully update")
           // // 提交完后更新
-          app.globalData.userData.fav_podcasts = out.result.data;
-          console.log('out.result.data', out.result.data)
+          app.globalData.userData = out.result.data;
+          // console.log('out.result.data', out.result.data)
           wx.showToast({
             title: this.data.podcastCollected?'取消收藏':'收藏成功',
             duration: 1500
@@ -181,6 +183,11 @@ Component({
           this.setData({
             podcastCollected: !currentCollectStatus
           })
+          console.log("-----after cloud function--------")
+          console.log("currentCollectStatus:", currentCollectStatus)
+          console.log("this.properties.podCastType:", this.properties.podCastType)
+          console.log("mediaType:", mediaType)
+          console.log("-------------")
         },
         fail: out => {
           console.log('fail to collect')

@@ -54,6 +54,7 @@ Page({
 
   getFavList(mediatType) {
     let favList = []
+    // console.log("app.globalData.userData", app.globalData.userData)
     if (mediatType == 'podcast') {
       let allPodCastData = wx.getStorageSync('allPodCastData');
       let favListIdx = app.globalData.userData.fav_podcasts

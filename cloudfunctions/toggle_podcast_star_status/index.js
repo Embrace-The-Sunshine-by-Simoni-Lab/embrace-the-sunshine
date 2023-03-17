@@ -68,7 +68,7 @@ exports.main = async (event, context) => {
       fav_medi : userData.fav_medi
     }
   })
-  const db = cloud.database();
+
   await db.collection("main_db")
   .where({
     openid: wxContext.OPENID
