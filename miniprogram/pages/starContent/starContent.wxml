@@ -33,21 +33,21 @@
       </view>
     </view> -->
     <view class="homePodCastBox">
-      <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
+      <view class="castItem" 
         wx:for="{{favList}}" 
         wx:for-item="item" 
         wx:for-index="idx" 
         wx:key="idx"
         data-id="{{item.podCast_Id || item.meditation_Id}}"
         data-podcastType="{{item.episode == '冥想'? '冥想' : '播客'}}"
-        bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
-        <image 
+        bind:tap="jumpToPodCastPlay">
+        <!-- <image 
           style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
           src="../../images/homepage/LOCK.png" 
           class="podcast_lock">
-        </image>
+        </image> -->
         <view class="castImage">
-          <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
+          <image class="castImageItem" src="{{item.podCastListURL}}"></image>
         </view>
         <view class="castContent">
           <view class="castContent_top">

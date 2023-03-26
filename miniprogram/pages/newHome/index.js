@@ -43,7 +43,9 @@ Page({
                 that.change_home_progress_style()
                 await that.createPodcastRegisterAvailability(app)
                 // 通过podcastComplete和podcastRegisterAvailability来改变podcastsAvailability的值
-                let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
+                // let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
+
+                let new_podcast_availability = Array(app.globalData.podCast.length).fill(1);
 
                 app.globalData.podcastComplete = that.data.podcastComplete
                 app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
@@ -167,6 +169,7 @@ Page({
   onShow() {
     // 实时更新首页的availability状态
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
+    
     this.setData({
       podcastComplete: app.globalData.podcastComplete || [],
       podcastsAvailability: new_podcast_availability
@@ -195,7 +198,6 @@ Page({
         showRedDot: false
       })
     }
-
   },
 
   async createPodcastRegisterAvailability(app) {
@@ -207,7 +209,6 @@ Page({
     for (let i = 0; i < podcastRegisterAvailability.length; i++) {
         podcastRegisterAvailability[i] = i <= inputWeek ? 1: -1;
     }
-
     this.setData({
       podcastRegisterAvailability
     })
@@ -221,6 +222,7 @@ Page({
         result[i + 1] = 1;
       }
     }
+    
     return result
   },
 
@@ -315,6 +317,7 @@ Page({
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.podcasttype
+    // url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     wx.navigateTo({
       url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })

@@ -3,21 +3,21 @@
   <text class="allCastHeader">模拟咨询室</text>
 
   <view class="homePodCastBox">
-    <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
+    <view class="castItem" 
       wx:for="{{podCastInfo}}" 
       wx:for-item="item" 
       wx:for-index="idx" 
       wx:key="idx" 
       data-podcastType="播客"
       data-id="{{item.podCast_Id}}" 
-      bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
-      <image 
+      bind:tap="jumpToPodCastPlay">
+      <!-- <image 
         style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
         src="../../images/homepage/LOCK.png" 
         class="podcast_lock">
-      </image>
+      </image> -->
       <view class="castImage">
-        <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
+        <image class="castImageItem" src="{{item.podCastListURL}}"></image>
       </view>
 
       <view class="castContent">

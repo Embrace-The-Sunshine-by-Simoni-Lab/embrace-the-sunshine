@@ -1,7 +1,7 @@
 <view class="container">
   <swiper indicator-dots="{{indicatorDots}}" class="swiper for" indicator-active-color="#FEA28D" 	indicator-color="#FFE8E3">
       <swiper-item class="container">
-        <image src="../../images/onboarding/vector.svg" class="second_orange"></image>
+        <image src="../../images/onboarding/onboarding-circles.svg" class="first_image"></image>
         <view class="open_container">
           <text class="open_title">拥抱阳光小程序的功能目的</text>
           <text class="small_text">走过风雨和黑夜，我们是冬日的暖阳，陪你一起，呵护心理健康，拥抱阳光洒满心房的日子。

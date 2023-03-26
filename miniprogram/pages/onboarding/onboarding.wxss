@@ -61,6 +61,7 @@
   position: absolute;
   width: 70%;
   top: 53%;
+  /* background: green; */
 }
 .open_container2_list {
   display: flex;
@@ -72,6 +73,12 @@
   margin-top: -20rpx;
   margin-bottom: 50rpx;
 }
+.first_image {
+  position: absolute;
+  width: 100%;
+  height: 1000rpx;
+}
+
 .second_image {
   position: absolute;
   width: 100%;

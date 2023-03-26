@@ -112,14 +112,12 @@ Page({
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.podcasttype
+    
     this.setData ({
       typeBeforeJump: type
     })
-    // console.log(e.currentTarget.dataset)
-    // console.log("type", type)
-    // console.log("clickedPodCastNum", clickedPodCastNum)
     wx.navigateTo({
-      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
+      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}&enterFromCollection=${true}`
     })
   },
 })
