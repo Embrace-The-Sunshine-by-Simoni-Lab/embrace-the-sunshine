@@ -7,11 +7,13 @@ Page({
     logged: false,
     indicatorDots: true,
     podCastInfo: [], 
+    meditationInfo: [],
     podCastInfo_remove_meditation: [],
     progressBarColor: "", // 首页药物追踪的进度条背景
     podcastsAvailability: [], // 综合播客的完成状态和注册时间最终确定展示的播客
     podcastRegisterAvailability: [], // 判断用户是否发已经注册了足够多的时间来获取更新的播客
-    podcastComplete: [] // 用来设置播客已完成的未完成的打勾
+    podcastComplete: [], // 用来设置播客已完成的未完成的打勾
+    meditationComplete: []
   },
   onLoad: function() {
     if(app.globalData.podcastsAvailability)
@@ -23,7 +25,7 @@ Page({
           mask: true
         })
         wx.cloud.callFunction({
-          name: 'auto_sign_in_fake_data',
+          name: 'auto_sign_in',
           data: {
           },
           success: async out => {
@@ -31,18 +33,26 @@ Page({
               if (out.result.data) {
                 app.globalData.userData = out.result.data;
                 app.globalData.podcast_progress_data = out.result.podcast_progress_data;
+                app.globalData.meditation_progress_data = out.result.meditation_progress_data;
+
                 app.globalData.logged = true;
                 is_new_user = out.result.is_new_user;
-                // 先设置
+
+                console.log("dddd global data", app.globalData.userData)
+                // 先设置podcast和meditation的完成情况
                 that.setData({
                   podcastComplete: app.globalData.userData.finished_podcasts || [],
+                  meditationComplete: app.globalData.userData.finished_meditations || []
                 });
                 that.change_home_progress_style()
                 await that.createPodcastRegisterAvailability(app)
                 // 通过podcastComplete和podcastRegisterAvailability来改变podcastsAvailability的值
-                let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
+                // let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
 
+                let new_podcast_availability = Array(app.globalData.podCast.length).fill(1);
                 app.globalData.podcastComplete = that.data.podcastComplete
+                app.globalData.meditationComplete = that.data.meditationComplete
+
                 app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
                 app.globalData.podcastsAvailability = new_podcast_availability
                 this.setData({
@@ -117,6 +127,36 @@ Page({
         wx.hideLoading()
        }
     })
+
+    // 获取并且更新所有的Meditation内容
+    wx.cloud.callFunction({
+      name: 'getAllMeditationAudio',
+      data: {
+      },
+      success: out => {
+        if (out.result.errcode == 0) {
+          if (out.result.data) {
+            let allMeditationData = out.result.data;
+            console.log("allMeditationData", allMeditationData)
+            this.setData({
+              meditationInfo: allMeditationData,
+            })
+            // 把排列好的博客放进缓存
+            app.globalData.meditation = allMeditationData;
+            wx.setStorageSync('allMeditationData', allMeditationData)
+          } 
+        } else {
+          console.log(out.errMsg);
+        }
+      },
+      fail: out => {
+        console.log('call function failed')
+      },
+      complete: out => {
+        wx.hideLoading()
+        }
+    })
+
     // 药物追踪红点逻辑
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
@@ -133,10 +173,12 @@ Page({
 
   onShow() {
     // 实时更新首页的availability状态
-
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
+    
+    console.log("home on show", app.globalData.userData.finished_podcasts)
     this.setData({
-      podcastComplete: app.globalData.podcastComplete || [],
+      podcastComplete: app.globalData.userData.finished_podcasts || [],
+      meditationComplete: app.globalData.userData.finished_meditations || [],
       podcastsAvailability: new_podcast_availability
     })
 
@@ -144,7 +186,6 @@ Page({
     try {
       let medi_taken_days = app.globalData.userData.med_date
       let takenInWeek = this.getMeditakenDayInWeek(medi_taken_days)
-      console.log("takenInWeek", takenInWeek)
       this.setData({
         currWeekAlreadyTaken: takenInWeek
       })
@@ -175,7 +216,6 @@ Page({
     for (let i = 0; i < podcastRegisterAvailability.length; i++) {
         podcastRegisterAvailability[i] = i <= inputWeek ? 1: -1;
     }
-
     this.setData({
       podcastRegisterAvailability
     })
@@ -189,6 +229,7 @@ Page({
         result[i + 1] = 1;
       }
     }
+    
     return result
   },
 
@@ -270,6 +311,11 @@ Page({
       url: "../allPodCastPage/index",
     })
   },
+  jumptoAllMeditationPage() {
+    wx.redirectTo({
+      url: "../allMeditationPage/index",
+    })
+  },
   jumpToCalendar() {
     wx.redirectTo({
       url: "../v2/index",
@@ -277,8 +323,10 @@ Page({
   },
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
+    let type = e.currentTarget.dataset.podcasttype
+    // url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     wx.navigateTo({
-      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
+      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })
   },
   // 处理当前不可用播客点击时候的弹窗逻辑内容

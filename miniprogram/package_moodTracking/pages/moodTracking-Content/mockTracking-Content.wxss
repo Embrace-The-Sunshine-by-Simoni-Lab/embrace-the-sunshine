@@ -28,7 +28,7 @@
   height: 13%;
 }
 .mood_content_image {
-  width: 600rpx;
+  width: 700rpx;
 }
 .mood_notice {
   font-size: 14px;
@@ -70,19 +70,21 @@
   border-radius: 4px;
   margin-bottom: 1.4rem;
 }
+.submit_button {
+  padding-top: 40rpx;
+}
 .submit_box {
   height: 10%;
   width: 640rpx;
-  /* position: absolute;
-  bottom: 40rpx;
-  left: 50%;
-  margin-left: -320rpx; */
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .mood_submit_notice {
+  position: absolute;
+  top: -30rpx;
   color: red !important;
   font-size: 14px !important;
   margin: 3px;

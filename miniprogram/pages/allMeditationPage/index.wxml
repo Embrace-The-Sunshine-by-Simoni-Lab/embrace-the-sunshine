@@ -1,0 +1,30 @@
+<!--pages/allPodCastPage/index.wxml-->
+<view class="allCastsContainer">
+  <text class="allCastHeader">冥想</text>
+
+  <view class="homePodCastBox">
+    <view class="castItem" 
+      wx:for="{{meditationInfo}}" 
+      wx:for-item="item" 
+      wx:for-index="idx" 
+      wx:key="idx" 
+      data-id="{{item.meditation_Id}}" 
+      data-podcastType="{{item.episode}}"
+      bind:tap="jumpToPodCastPlay">
+      <view class="castImage">
+        <image class="castImageItem" src="{{item.podCastListURL}}"></image>
+      </view>
+
+      <view class="castContent">
+        <view class="castContent_top">
+          <view class="castContent_top_desc">
+            <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+            <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+          </view>
+          <image src="{{meditationComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view> 

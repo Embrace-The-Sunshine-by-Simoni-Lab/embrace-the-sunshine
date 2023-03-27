@@ -11,8 +11,8 @@
         <view class="headerContentBox">
           <text class="headerDetail">{{podCastInfo.mainContentSummary}}</text>
           <view class="headerMark">
-            <image wx:if="{{podcastCollected}}" class="podcast_star" src="../../images/Podcast-icon-favorite-click.png" bind:tap="changeCollectStatus"></image>
-            <image wx:if="{{!podcastCollected}}" class="podcast_star" src="../../images/Podcast-icon-favorite-unclick.png" bind:tap="changeCollectStatus"></image>
+            <image wx:if="{{podcastCollected}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/pageElement/podcast-filled star.svg" bind:tap="changeCollectStatus"></image>
+            <image wx:if="{{!podcastCollected}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/pageElement/podcast-unfilled star.svg" bind:tap="changeCollectStatus"></image>
           </view>
         </view>
       </view>
@@ -28,12 +28,18 @@
   </view>
 
   <view class="playButtonContainer">
-    <image class="prevButton" bind:tap="goToPrevPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/prevplay.png"></image>
-    <image bind:tap="speedDown30" class="back30Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/down30.png"></image>
-    <image wx:if="{{!isPlaying}}" class="mainPlayButton" src="../../images/Podcast-icon-start play.png" bind:tap="togglePlay"></image>
-    <image wx:else bindtap="togglePlay" class="mainPlayButton" src="../../images/Podcast-icon-pause.png"></image>
-    <image class="speedup" bind:tap="speedUp30"  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/up30.png"></image>
-    <image class="nextButton" bind:tap="goToNextPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/nextplay.png"></image>
+    <image class="prevButton" bind:tap="goToPrevPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/prevPlay.svg"></image>
+
+    <image bind:tap="speedDown10" class="back10Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/down10.svg"></image>
+
+    <image wx:if="{{!isPlaying}}" class="mainPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/mainPlayButton.svg" bind:tap="togglePlay"></image>
+
+    <image wx:else bindtap="togglePlay" class="mainPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/stopButton.svg"></image>
+
+    <image class="up10Button" bind:tap="speedUp10"  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/up10.svg"></image>
+
+    <image class="nextButton" bind:tap="goToNextPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/nextPlay.svg"></image>
+
     <image class="curve" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/curveShape.png"></image>
   </view>
 </view>

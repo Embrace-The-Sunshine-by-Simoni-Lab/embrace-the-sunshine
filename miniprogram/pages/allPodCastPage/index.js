@@ -19,8 +19,7 @@ Page({
 
     let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
     let podcastComplete = app.globalData.podcastComplete
-    let podcastsAvailability = app.globalData.podcastsAvailability
-
+    
     this.setData({
       podCastInfo: allPodCastData,
       podcastsAvailability: app.globalData.podcastsAvailability,
@@ -30,7 +29,9 @@ Page({
   },
 
   onShow() {
-    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
+    // let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
+    let new_podcast_availability = Array(app.globalData.podCast.length).fill(1);
+    
     let new_podcast_complete = app.globalData.finished_podcasts
     app.globalData.podcastsAvailability = new_podcast_availability
 
@@ -52,8 +53,9 @@ Page({
   },
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
+    let type = e.currentTarget.dataset.podcasttype
     wx.navigateTo({
-      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
+      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })
   },
   jumpToUnAvailableNotice(e) {

@@ -1,6 +1,6 @@
 /* pages/allPodCastPage/index.wxss */
 .allCastHeader {
-  font-size: 20px;
+  font-size: 37rpx;
   font-weight: 400;
   margin-bottom: 15px;
 }
@@ -68,7 +68,7 @@
 }
 .castContent_top_desc_title {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 35rpx;
   line-height: 24px;
   margin-bottom: 18rpx;
   color: #000000;
@@ -100,7 +100,7 @@
 }
 .castContent_top_desc_summary {
   font-weight: 300;
-  font-size: 25rpx;
+  font-size: 27rpx;
   line-height: 20px;
   color: #666666;
 }

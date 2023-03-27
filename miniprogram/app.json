@@ -9,7 +9,9 @@
     "pages/v2/index",
     "pages/allPodCastPage/index",
     "pages/podcastPlay/index",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/allMeditationPage/index",
+    "pages/starContent/starContent"
   ],
   "subpackages": [
     {
@@ -45,16 +47,16 @@
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/navigationBar/Home-Selected.png",
-        "iconPath": "images/navigationBar/Home-Default.png",
-        "pagePath": "pages/newHome/index",
-        "text": "主页"
-      },
-      {
         "selectedIconPath": "images/navigationBar/Additional Resources-Selected.png",
         "iconPath": "images/navigationBar/Additional Resources-Default.png",
         "pagePath": "pages/infoPage/infoPage",
         "text": "更多资源"
+      },
+      {
+        "selectedIconPath": "images/navigationBar/Home-Selected.png",
+        "iconPath": "images/navigationBar/Home-Default.png",
+        "pagePath": "pages/newHome/index",
+        "text": "主页"
       },
       {
         "selectedIconPath": "images/navigationBar/Profile-Selected.png",

@@ -1,7 +1,7 @@
 <!--pages/moodtrack-finish/moodtrack-finish.wxml-->
 <view class="mood_finish_container">
   <text class="mood_finish_title">本周的问卷已完成</text>
-  <image class="mood_finish_image" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/moodtrack/mood-finish-1.png"></image>
+  <image class="mood_finish_image" src="{{imageUrl}}"></image>
   <view class="mood_gap"></view>
   <view class="mood_score">总分
     <text class="{{category}}">{{score}}</text> 分,
