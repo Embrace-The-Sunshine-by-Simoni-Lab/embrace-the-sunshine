@@ -7,19 +7,26 @@ Page({
    */
   data: {
     meditationInfo: [],
+    meditationComplete: []
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     let allMeditationData =  wx.getStorageSync('allMeditationData');
+    let meditationComplete = app.globalData.meditationComplete
     this.setData({
       meditationInfo: allMeditationData,
+      meditationComplete
     })
   },
 
   onShow() {
-
+    let new_meditation_complete = app.globalData.finished_meditations
+    console.log("new_meditation_completeaa", new_meditation_complete)
+    this.setData({
+      meditationComplete: new_meditation_complete
+    })
   },
 
   jumpToPodCastPlay(e) {

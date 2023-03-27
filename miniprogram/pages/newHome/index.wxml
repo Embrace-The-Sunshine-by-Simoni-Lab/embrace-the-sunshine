@@ -7,7 +7,7 @@
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper">
       <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < podcastsAvailability.length && idx < 3}}" class="block">
         <swiper-item class="{{item.episode === '冥想' ? 'swipe_orange_background' : ''}}">
-          <view class="swiper-item {{item}}" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
+          <view class="swiper-item {{item}}" data-id="{{item.podCast_Id}}" data-podcastType="播客"bind:tap="jumpToPodCastPlay">
             <view class="homeBannerContent">
               <text class="homePodNum">{{item.episode}}</text>
               <text class="homePodTitle">{{item.mainTitle}}</text>
@@ -106,7 +106,7 @@
                 <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
                 <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
               </view>
-              <image src="{{podcastComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
+              <image src="{{meditationComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
             </view>
           </view>
         </view>

@@ -12,7 +12,8 @@ Page({
     progressBarColor: "", // 首页药物追踪的进度条背景
     podcastsAvailability: [], // 综合播客的完成状态和注册时间最终确定展示的播客
     podcastRegisterAvailability: [], // 判断用户是否发已经注册了足够多的时间来获取更新的播客
-    podcastComplete: [] // 用来设置播客已完成的未完成的打勾
+    podcastComplete: [], // 用来设置播客已完成的未完成的打勾
+    meditationComplete: []
   },
   onLoad: function() {
     if(app.globalData.podcastsAvailability)
@@ -36,9 +37,12 @@ Page({
 
                 app.globalData.logged = true;
                 is_new_user = out.result.is_new_user;
-                // 先设置
+
+                console.log("dddd global data", app.globalData.userData)
+                // 先设置podcast和meditation的完成情况
                 that.setData({
                   podcastComplete: app.globalData.userData.finished_podcasts || [],
+                  meditationComplete: app.globalData.userData.finished_meditations || []
                 });
                 that.change_home_progress_style()
                 await that.createPodcastRegisterAvailability(app)
@@ -46,8 +50,9 @@ Page({
                 // let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
 
                 let new_podcast_availability = Array(app.globalData.podCast.length).fill(1);
-
                 app.globalData.podcastComplete = that.data.podcastComplete
+                app.globalData.meditationComplete = that.data.meditationComplete
+
                 app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
                 app.globalData.podcastsAvailability = new_podcast_availability
                 this.setData({
@@ -170,8 +175,10 @@ Page({
     // 实时更新首页的availability状态
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
     
+    console.log("home on show", app.globalData.userData.finished_podcasts)
     this.setData({
-      podcastComplete: app.globalData.podcastComplete || [],
+      podcastComplete: app.globalData.userData.finished_podcasts || [],
+      meditationComplete: app.globalData.userData.finished_meditations || [],
       podcastsAvailability: new_podcast_availability
     })
 

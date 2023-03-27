@@ -47,7 +47,9 @@ Component({
       // The media type is podcast
       allPodCastData =  wx.getStorageSync('allPodCastData');
       count = app.globalData.podcastsAvailability.length
-      
+      console.log("-----------", allPodCastData)
+      console.log("-----------", allPodCastData.length)
+
       if (!app.globalData.userData.fav_podcasts) {
         curr_podcast_fav = -1;
       } else {
@@ -77,12 +79,27 @@ Component({
 
     let currPodCast = allPodCastData[this.properties.currPodCastOrder]
     // get info about if the current podcast has already been finished listening
-    let podCastEndStatus;
-    if (app.globalData.userData.finished_podcasts === undefined) {
-      podCastEndStatus = -1;
-    } else {
-      podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
-    }
+    // 这个podCastEndStatus主要是用作下面来判断当播客播完的时候,是否要给数据库记录该播客是否已经完成
+    // 需要按照当前播客是否为冥想播客分开判断
+
+    const { podCastType, currPodCastOrder } = this.properties;
+    const { finished_podcasts, meditation_podcasts } = app.globalData.userData;
+    const podcast_finish_list = podCastType !== '冥想' ? finished_podcasts : meditation_podcasts;
+    const podCastEndStatus = podcast_finish_list ? podcast_finish_list[currPodCastOrder] || -1 : -1;
+    // let podCastEndStatus;
+    // if(this.properties.podCastType !== '冥想') {
+    //   if (app.globalData.userData.finished_podcasts === undefined) {
+    //     podCastEndStatus = -1;
+    //   } else {
+    //     podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
+    //   }
+    // } else {
+    //   if (app.globalData.userData.finished_podcasts === undefined) {
+    //     podCastEndStatus = -1;
+    //   } else {
+    //     podCastEndStatus = app.globalData.userData.meditation_podcasts[this.properties.currPodCastOrder];
+    //   }
+    // }
 
     this.setData({
       podCastInfo: currPodCast,
@@ -116,22 +133,44 @@ Component({
 
     this.innerAudioContext.onEnded(()=> {
       if(!podCastEndStatus || podCastEndStatus == -1) {
-        wx.cloud.callFunction({
-          name: 'finish_podcast',
-          data: {
-            podcast_id: this.properties.currPodCastOrder,
-          },
-          success: out => {
-            console.log("successfully finish podcast")
-            // 提交完后更新
-            console.log("out.result: ", out.result);
-            app.globalData.finished_podcasts = out.result.data;
-            app.globalData.podcastComplete = out.result.data;
-          },
-          fail: out => {
-            console.log('fail to finsih podcast')
-          }
-        })
+        // 触发属于博客的podcast
+        if(this.properties.podCastType !== '冥想') {
+          wx.cloud.callFunction({
+            name: 'finish_podcast',
+            data: {
+              podcast_id: this.properties.currPodCastOrder,
+            },
+            success: out => {
+              console.log("successfully finish podcast")
+              // 提交完后更新
+              console.log("out.result: ", out.result);
+              app.globalData.finished_podcasts = out.result.data;
+              // app.globalData.podcastComplete = out.result.data;
+            },
+            fail: out => {
+              console.log('fail to finsih podcast')
+            }
+          })
+        } else {
+        console.log("meditation parameter", this.properties.currPodCastOrder)
+        // 触发属于冥想的podcast
+          wx.cloud.callFunction({
+            name: 'finish_meditation',
+            data: {
+              meditation_id: this.properties.currPodCastOrder,
+            },
+            success: out => {
+              console.log("successfully finish podcast")
+              // 提交完后更新
+              console.log("out.result: ", out.result);
+              app.globalData.finished_meditations = out.result.data;
+              // app.globalData.podcastComplete = out.result.data;
+            },
+            fail: out => {
+              console.log('fail to finsih podcast')
+            }
+          })
+        }
       }
     })
   },
@@ -452,13 +491,18 @@ Component({
       }
 
       let currPodCast = allPodCastData[this.properties.currPodCastOrder]
+      const { podCastType, currPodCastOrder } = this.properties;
+      const { finished_podcasts, meditation_podcasts } = app.globalData.userData;
+      const podcast_finish_list = podCastType !== '冥想' ? finished_podcasts : meditation_podcasts;
+      const podCastEndStatus = podcast_finish_list ? podcast_finish_list[currPodCastOrder] || -1 : -1;
+
       // get info about if the current podcast has already been finished listening
-      let podCastEndStatus;
-      if (app.globalData.userData.finished_podcasts === undefined) {
-        podCastEndStatus = -1;
-      } else {
-        podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
-      }
+      // let podCastEndStatus;
+      // if (app.globalData.userData.finished_podcasts === undefined) {
+      //   podCastEndStatus = -1;
+      // } else {
+      //   podCastEndStatus = app.globalData.userData.finished_podcasts[this.properties.currPodCastOrder];
+      // }
 
       this.setData({
         podCastInfo: currPodCast,
@@ -492,22 +536,48 @@ Component({
 
       this.innerAudioContext.onEnded(()=> {
         if(!podCastEndStatus || podCastEndStatus == -1) {
-          wx.cloud.callFunction({
-            name: 'finish_podcast',
-            data: {
-              podcast_id: this.properties.currPodCastOrder,
-            },
-            success: out => {
-              console.log("successfully finish podcast")
-              // 提交完后更新
-              console.log("out.result: ", out.result);
-              app.globalData.finished_podcasts = out.result.data;
-              app.globalData.podcastComplete = out.result.data;
-            },
-            fail: out => {
-              console.log('fail to finsih podcast')
-            }
-          })
+          console.log("podcast parameter", this.properties.currPodCastOrder)
+          // 触发属于博客的podcast
+          if(this.properties.podCastType !== '冥想') {
+            wx.cloud.callFunction({
+              name: 'finish_podcast',
+              data: {
+                podcast_id: this.properties.currPodCastOrder,
+              },
+              success: out => {
+                console.log("successfully finish podcast")
+                // 提交完后更新
+                console.log("out.result: ", out.result);
+                app.globalData.finished_podcasts = out.result.data;
+                // app.globalData.podcastComplete = out.result.data;
+              },
+              fail: out => {
+                console.log('fail to finsih podcast')
+              }
+            })
+          } else {
+          // 触发属于冥想的podcast
+
+            console.log("meditation parameter", this.properties.currPodCastOrder)
+            wx.cloud.callFunction({
+              name: 'finish_meditation',
+              data: {
+                meditation_id: this.properties.currPodCastOrder,
+              },
+              success: out => {
+                console.log("successfully finish podcast")
+                // 提交完后更新
+                console.log("out.result: ", out.result);
+
+                
+                app.globalData.finished_meditations = out.result.data;
+                // app.globalData.podcastComplete = out.result.data;
+              },
+              fail: out => {
+                console.log('fail to finsih podcast')
+              }
+            })
+          }
         }
       })
     }
