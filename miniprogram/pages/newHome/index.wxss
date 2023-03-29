@@ -16,6 +16,18 @@
   border-radius: 10px;
   height: 100%;
 }
+.castContent_title_box {
+  display: flex;
+  align-items: center;
+  /* background: green; */
+  margin-bottom: 27rpx;
+}
+.meditation_img {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 20rpx;
+  margin-top: -7rpx;
+}
 .homePodCastBox {
   width: 100%;
   display: flex;
@@ -251,7 +263,6 @@
   font-weight: 400;
   font-size: 35rpx;
   line-height: 35rpx;
-  margin-bottom: 27rpx;
   color: #000000;
 }
 .castContent_progress {
