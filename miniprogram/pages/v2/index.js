@@ -528,5 +528,38 @@ Page({
       currentClickedBar,
       analyticsData: curAnalyticsData,
     })
+  },
+
+  subscribe() {
+    let tmplIds = 'Ytm-8gB2TQ5YcBCBh4dCCbykl8F4ppG6hhGfl70dSPo';
+    console.log("trigger subscribe()")
+    wx.requestSubscribeMessage({
+      tmplIds: [tmplIds],
+      success (res) { 
+        console.log("res", res)
+        // 如果用户点击允许
+        if(res[tmplIds] == 'accept'){
+          console.log('点击了允许')
+          // wx.cloud.callFunction({
+          //     name:'sendMessage',
+          //     data:{
+          //         templateId,
+          //         content: this.data.textContent,
+          //         blogId: this.properties.blogid,
+          //     }
+          // }).then(res => {                      
+          //     this.setData({
+          //         textContent:''
+          //     })
+          // })
+        } else {
+            console.log('点击了取消')
+        }
+      },
+      fail (res) { 
+        console.log(error)
+      }
+    })
   }
+
 })

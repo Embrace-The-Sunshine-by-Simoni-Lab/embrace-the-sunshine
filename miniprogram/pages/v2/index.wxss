@@ -586,3 +586,10 @@ Page{
   border-radius: 10rpx;
   text-align: center;
  }
+
+ .subscribeBtn {
+   width: 300rpx;
+   height: 100rpx;
+   background-color: #4D50A4;
+   color: white;
+}

@@ -40,11 +40,16 @@
   </view> 
 
   <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
-      <text class="toggleButton-text">已服药</text>
-      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
-      <text class="toggleButton-notice-on">是</text> 
-      <text class="toggleButton-notice-off">否</text> 
-    </view>
+    <text class="toggleButton-text">已服药</text>
+    <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
+    <text class="toggleButton-notice-on">是</text> 
+    <text class="toggleButton-notice-off">否</text> 
+
+  </view>
+
+  <view class="subscribeBtn" bindtap="subscribe">
+    <view>开启服药提醒</view>
+  </view>
 
   <!-- **** calendar content -- the data visu **** -->
   <view wx-if="{{currentMode != 'record'}}" class="calendar_content_container">
@@ -104,4 +109,5 @@
       </view>
     </view>
   </view>
+
 </view>
