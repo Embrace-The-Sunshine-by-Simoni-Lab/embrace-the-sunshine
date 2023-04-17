@@ -4,6 +4,15 @@
   display: flex;
   flex-direction: column;
 }
+
+.confetti {
+  z-index: 500;
+  width: 100%;
+  height: 500px;
+  position:absolute;
+  top:0;
+}
+
 .homeBanner {
   width: 100%;
   border-radius: 10px;
