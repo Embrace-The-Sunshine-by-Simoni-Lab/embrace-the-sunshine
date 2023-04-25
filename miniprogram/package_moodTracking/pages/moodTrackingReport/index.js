@@ -10,6 +10,7 @@ Page({
     userScoreValue: '',
     userScoreType: '情绪状况',
     userScoreColor: '#7B7B7B',
+    moodDescription: '情绪状况详情',
     oneMonth: '',
     threeMonth: '',
     sixMonth: '',
@@ -158,10 +159,12 @@ Page({
     // Adjust to Thursday in week 1 and count number of weeks from date to week1.
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
-  drawCharts(id,data){
+
+  drawCharts(id, data){
     const ctx = wx.createCanvasContext(id, this);
-    console.log("this.data.categories", this.data.categories);
-    uChartsInstance[id] = new uCharts({
+    console.log("data.categories", data.categories);
+    if(data.categories != undefined) {
+      uChartsInstance[id] = new uCharts({
         type: "line",
         context: ctx,
         width: this.data.cWidth,
@@ -245,6 +248,8 @@ Page({
           },
         },
       });
+    }
+
   },
 
   // ['#46BA74', '#91D300', '#FFC300', '#F48657', '#FA5151']
@@ -300,8 +305,24 @@ Page({
     userScoreInfo["scoreType"] = scoreType,
     userScoreInfo['scoreColor'] = scoreColor,
     this.setData({"userScoreInfo": userScoreInfo})
-    // console.log(userScoreInfo);
+    console.log(userScoreInfo);
     return userScoreInfo.scoreValue;
+  },
+
+  getMoodDescription(score){
+    let moodDescription = ""
+    if(score > 0 & score <= 4) {
+      moodDescription = "情绪正常详情"
+    } else if (score <= 9) {
+      moodDescription = "轻度抑郁详情"
+    } else if (score <= 14) {
+      moodDescription = "中度抑郁详情"
+    } else if (score <= 19) {
+      moodDescription = "高度抑郁详情"
+    } else {
+      moodDescription = "重度抑郁详情"
+    }
+    return moodDescription;
   },
   
   touchstart(e){
@@ -318,7 +339,7 @@ Page({
     uChartsInstance[e.target.id].showToolTip(e);
     var tapObj = uChartsInstance[e.target.id].getCurrentDataIndex(e);
     console.log(tapObj)
-    if (tapObj.index != -1) {
+    if (tapObj.index != -1 & this.data.userScoreInfo.scoreValue != undefined) {
       let total_len = this.data.userScoreInfo.scoreValue.length;
       let category_len = 0;
       if (this.data.oneMonth) {
@@ -330,10 +351,12 @@ Page({
       } else {
         console.error("no category chosen");
       }
+      let userScoreValue = this.data.userScoreInfo.scoreValue[tapObj.index + (total_len - category_len)]
       this.setData({
-        userScoreValue: this.data.userScoreInfo.scoreValue[tapObj.index + (total_len - category_len)],
+        userScoreValue: userScoreValue,
         userScoreType: this.data.userScoreInfo.scoreType[tapObj.index + (total_len - category_len)],
-        userScoreColor: this.data.userScoreInfo.scoreColor[tapObj.index + (total_len - category_len)]
+        userScoreColor: this.data.userScoreInfo.scoreColor[tapObj.index + (total_len - category_len)],
+        moodDescription: this.getMoodDescription(userScoreValue)
       })
       
     }
@@ -376,23 +399,23 @@ Page({
   },
 
   onLoad(options) {
-    
     this.getUserScoreLevel();
     this.getUserScoreDate();
-    // console.log("data", this.data)
+    console.log("data", this.data)
     // console.log("global date: " + app.globalData.userData.mood_track.mood_date)
     // console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
     var onLoadData, onLoadDataRange, onLoadScoreValue, onLoadScoreType, onLoadScoreColor;
-    if (this.data.OneMonthMoodTrackData.categories.length > 0) {
+    if (this.data.OneMonthMoodTrackData.categories.length > 0 & this.data.OneMonthMoodTrackData.categories != undefined) {
       onLoadData = this.data.OneMonthMoodTrackData
       onLoadDataRange = this.dateFormat("oneMonth")
       onLoadScoreValue = this.data.userScoreInfo.scoreValue[this.data.userScoreInfo.scoreValue.length-1],
       onLoadScoreType = this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
       onLoadScoreColor = this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
+      this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);
     } else {
-      onLoadDataRange = ['近30天无数据']
+      onLoadDataRange = "近1个月无数据，请参与情绪记录"
+      // this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);
     }
-    
     console.log("onLoadDataRange", onLoadDataRange)
     this.setData({
       oneMonth: true,
@@ -404,15 +427,15 @@ Page({
       userScoreType: onLoadScoreType,
       userScoreColor: onLoadScoreColor
     })
-    this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);
   },
 
   chooseOneMonth() {
     let empty_one_month = false;
     let empty_data_placeholder = "";
+    console.log(this.data.OneMonthMoodTrackData.categories)
     if (this.data.OneMonthMoodTrackData.categories.length == 0) {
       empty_one_month = true;
-      empty_data_placeholder = "近30天无数据，请参与情绪记录"
+      empty_data_placeholder = "近1个月无数据，请参与情绪记录"
     }
     this.setData(
       {

@@ -59,8 +59,8 @@ Page{
   display: flex;
   justify-content: center;
   align-items: center;
+  /* border-left: 2px solid#E5E5E5; */
   /* padding: 0 10px;  */
-  border-left: 2px solid#E5E5E5;
   height: 40px;
   margin-left: 20px;
 }
@@ -99,7 +99,6 @@ Page{
 
 .calendar_circle_container {
   margin-top: 60rpx;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
