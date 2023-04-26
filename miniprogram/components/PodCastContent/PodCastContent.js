@@ -85,7 +85,7 @@ Component({
           open_ended_answer: submmitted_open_end_question
         })
       }
-      
+      console.log("user_answer", this.data.user_answer)
       this.setData({
         curr_Podcast_quiz_length,
         podCastInfo: currPodCast,

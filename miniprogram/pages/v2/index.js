@@ -30,6 +30,8 @@ Page({
     // ******************* 分析页面底部逻辑 *******************
     compare: "",  // 底部跟上周比的值
     averageMediTake: 0, // 底部的平均值
+
+    time: '00:00am',
   }, 
   // ******************* 日历逻辑 *******************
   onLoad() {
@@ -89,9 +91,30 @@ Page({
    
     }
     
+    let currentTime = this.getCurrentTime()
     this.setData({
-      curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()}
+      curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()},
+      time: currentTime
     })
+  },
+  
+  getCurrentTime: function() {
+    var now = new Date(); // create a new Date object with the current date and time
+    var hours = now.getHours(); // get the current hour (0-23)
+    var minutes = now.getMinutes(); // get the current minute (0-59)
+    // Determine whether the time is AM or PM
+    var amOrPm = hours >= 12 ? "pm" : "am";
+    // Convert the hours to 12-hour format
+    if (hours > 12) {
+      hours -= 12;
+    } else if (hours === 0) {
+      hours = 12;
+    }
+    // Pad the minutes with leading zeros if necessary
+    minutes = minutes.toString().padStart(2, '0');
+    // Construct the time string
+    var timeString = hours.toString().padStart(2, '0') + ':' + minutes + amOrPm;
+    return timeString
   },
   
   // 处理bar chart的数据
@@ -207,6 +230,78 @@ Page({
         })
       }
     } 
+
+    console.log("用户点击完方块")
+    this.showModal();
+  },
+  bindTimeChange: function(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    let temp = this.changeTimeFormat(e.detail.value)
+    this.setData({
+      time: temp
+    })
+  },
+  changeTimeFormat: function(timeString) {
+    // Split the time string into hours and minutes
+    var parts = timeString.split(":");
+    var hours = parseInt(parts[0]);
+    var minutes = parseInt(parts[1]);
+    // Determine whether the time is AM or PM
+    var amOrPm = hours >= 12 ? "pm" : "am";
+    // Convert the hours to 12-hour format
+    if (hours > 12) {
+      hours -= 12;
+    } else if (hours === 0) {
+      hours = 12;
+    }
+    // Construct the new time string
+    var newTime = hours.toString() + ":" + minutes.toString().padStart(2, "0") + " " + amOrPm;
+    return newTime;
+  }, 
+  //显示对话框
+  showModal: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+  //隐藏对话框
+  hideModal: function () {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false
+      })
+    }.bind(this), 200)
+  },
+  pickCurrTime: function() {
+    console.log("users pick curr time")
   },
   // 改变格子颜色
   changeCalendarBoxStyle(dateObj, styleName) {
