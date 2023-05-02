@@ -38,7 +38,6 @@ Page({
                 app.globalData.logged = true;
                 is_new_user = out.result.is_new_user;
 
-                console.log("dddd global data", app.globalData.userData)
                 // 先设置podcast和meditation的完成情况
                 that.setData({
                   podcastComplete: app.globalData.userData.finished_podcasts || [],
@@ -137,7 +136,6 @@ Page({
         if (out.result.errcode == 0) {
           if (out.result.data) {
             let allMeditationData = out.result.data;
-            console.log("allMeditationData", allMeditationData)
             this.setData({
               meditationInfo: allMeditationData,
             })
@@ -175,7 +173,6 @@ Page({
     // 实时更新首页的availability状态
     let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
     
-    console.log("home on show", app.globalData.userData.finished_podcasts)
     this.setData({
       podcastComplete: app.globalData.userData.finished_podcasts || [],
       meditationComplete: app.globalData.userData.finished_meditations || [],

@@ -1,8 +1,73 @@
 <!--pages/podcastPlay/index.wxml-->
 <view class="podcastContainer">
   <view class="gap"></view>
-  <playAudio class="playAudio" podCastType="{{podCastType}}" currPodCastOrder="{{currPodCastOrder}}" bind:changePlayListOrder="changePlayListOrder" ifEnterFromCollection="{{ifEnterFromCollection}}"></playAudio>
+
+  <view class="podcastPlayContainer">
+    <view class="headerContainer">
+      <view class="podcastHeader">
+        <view class="headerImage">
+          <image class="podcast_img" src="{{podCastInfo.podcastPlayImgUrl}}"></image>
+        </view>
+        <view class="headerContent">
+          <view class="headerTitle">{{podCastInfo.mainTitle}}</view>
+          <view class="headerDate">{{podCastInfo.author}}</view>
+          <view class="headerContentBox">
+            <text class="headerDetail">{{podCastInfo.mainContentSummary}}</text>
+            <view class="headerMark">
+              <image wx:if="{{podcastCollected}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/pageElement/podcast-filled star.svg" bind:tap="changeCollectStatus"></image>
+              <image wx:if="{{!podcastCollected}}" class="podcast_star" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/pageElement/podcast-unfilled star.svg" bind:tap="changeCollectStatus"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="audio-item">
+      <view class="slider-container">
+        <slider class="audio-slider" activeColor="#F38A73" block-size="16"  value="{{current}}" max="{{duration}}" block-color="#F38A73" backgroundColor="#D0D0D0"  step="0.01" bindchanging="audioChanging" bindchange="audioChange"></slider>
+        <view class="audio-time-container">
+          <view class="audio-number">{{forNowTime?forNowTime:0}}</view>
+          <view class="audio-number">{{forAllTime?forAllTime:podCastInfo.totalTime}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="playButtonContainer">
+    <image class="prevButton" bind:tap="goToPrevPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/prevPlay.svg"></image>
+
+    <image bind:tap="backwardTenSeconds" class="back10Button" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/down10.svg"></image>
+
+    <image wx:if="{{paused && !loading}}" class="mainPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/mainPlayButton.svg" bind:tap="audioPlay" data-info="{{audios}}"></image>
+
+    <image wx:if="{{!paused && !loading}}" bindtap="audioPause" class="mainPlayButton" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/stopButton.svg"></image>
+
+    <!-- loading animation -->
+    <view wx:if="{{loading}}" class="loading-container-outside">
+      <view class="lds-spinner">
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+      </view>
+    </view>
+
+
+    <image class="up10Button" bind:tap="forwardUpTenSeconds"  src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/up10.svg"></image>
+
+    <image class="nextButton" bind:tap="goToNextPodCast" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/nextPlay.svg"></image>
+
+    <image class="curve" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/curveShape.png"></image>
+  </view>
+
 
   <PodCastContent class="PodCastContent" id="PodCastContent" currPodCastOrder="{{currPodCastOrder}}" podCastType="{{podCastType}}" ></PodCastContent>
-
 </view>

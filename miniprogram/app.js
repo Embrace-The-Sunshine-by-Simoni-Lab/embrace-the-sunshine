@@ -1,6 +1,14 @@
 //app.js
 App({
   globalData: {
+    userInfo: null,
+    global_bac_audio_manager: {
+      manage: wx.getBackgroundAudioManager(),
+      is_play: false,
+      id: '',
+      play_time: '',
+      article_id: '',
+    },
     userData: {},
     logged: false,
     ifCalendarModalShow: false

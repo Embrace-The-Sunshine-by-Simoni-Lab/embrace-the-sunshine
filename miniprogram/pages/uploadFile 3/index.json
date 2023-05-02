@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "生成小程序码",
+  "navigationBarTitleText": "上传文件",
   "usingComponents": {
     "cloud-tip-modal": "/components/cloudTipModal/index"
   }

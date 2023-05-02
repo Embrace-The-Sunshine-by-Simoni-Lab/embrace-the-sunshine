@@ -91,6 +91,8 @@
         <view wx:else class="Disabled_Button">提交</view>
         <image class="next_question" src="../../images/next-enable.png" data-direction="next" bind:tap="changeQuestion"></image>
       </view>
+
+
       </view>
     </view>
   </view>

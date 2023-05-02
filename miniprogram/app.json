@@ -74,5 +74,6 @@
       "provider": "wx92c68dae5a8bb046"
     }
   },
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "requiredBackgroundModes": ["audio", "location"]
 }
