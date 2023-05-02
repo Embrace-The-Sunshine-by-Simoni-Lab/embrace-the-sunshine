@@ -3,8 +3,6 @@
 <view class="homeContainer">
  <!-- home page top -->
 
-  <!-- <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/confetti.gif" class="confetti"></image> -->
-
   <view class="homeBanner">
     <swiper indicator-dots="{{indicatorDots}}" 	indicator-active-color="#BDBDBD"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper">
@@ -65,15 +63,9 @@
           data-id="{{item.podCast_Id}}"
           bind:tap="jumpToPodCastPlay"
         >
-          <!-- <image
-            style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
-            src="../../images/homepage/LOCK.png"
-            class="podcast_lock">
-          </image> -->
           <view class="castImage">
             <image class="castImageItem" src="{{item.podCastListURL}}"></image>
           </view>
-
           <view class="castContent">
             <view class="castContent_top">
               <view class="castContent_top_desc">
@@ -81,7 +73,6 @@
                   <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
                   <image wx-if="{{item.mainTitle === '承受痛苦'}}" class="meditation_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/meditation.svg"></image>
                 </view>
-
                 <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view>
               </view>
               <image src="{{podcastComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>

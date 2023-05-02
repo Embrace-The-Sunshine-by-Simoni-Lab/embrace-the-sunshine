@@ -103,7 +103,7 @@ Page{
   color: #4D50A4;
 }
 .toggleButton {
-  background: green;
+  /* background: green; */
   width: 200px;
   height: 50px;
   display: flex;

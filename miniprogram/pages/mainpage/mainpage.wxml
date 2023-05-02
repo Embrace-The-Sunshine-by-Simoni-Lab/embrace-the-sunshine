@@ -1,5 +1,4 @@
 <view class="container">
-  <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/confetti.gif" class="confetti"></image>
   <!-- <mainButton title="sdfsf" type="help-empty"></mainButton> -->
   <view class="small_moduel_container">
     <view class="small_module" bindtap="toMoodTracking">
