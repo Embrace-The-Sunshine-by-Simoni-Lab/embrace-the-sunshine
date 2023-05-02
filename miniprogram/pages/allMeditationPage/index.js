@@ -14,7 +14,7 @@ Page({
    */
   onLoad(options) {
     let allMeditationData =  wx.getStorageSync('allMeditationData');
-    let meditationComplete = app.globalData.meditationComplete
+    let meditationComplete = app.globalData.userData.finished_meditations;
     this.setData({
       meditationInfo: allMeditationData,
       meditationComplete
@@ -22,7 +22,7 @@ Page({
   },
 
   onShow() {
-    let new_meditation_complete = app.globalData.finished_meditations
+    let new_meditation_complete = app.globalData.userData.finished_meditations
     console.log("new_meditation_completeaa", new_meditation_complete)
     this.setData({
       meditationComplete: new_meditation_complete

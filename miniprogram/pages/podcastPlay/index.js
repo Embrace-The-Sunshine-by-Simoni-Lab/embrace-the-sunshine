@@ -21,9 +21,12 @@ Page({
     loading: false,
   },
   onLoad(options) {
+    const app = getApp()
+    // console.log(app.globalData);
+    app.globalData.audio_unload = false;
     console.log("触发onload")
     // 这里要要根据podcast的类型(是普通podcast还是meditation)设置allPodCastData,然后也要根据type来设置count, count的作用是去上一个博客或者下一个博客的时候, 不会超出范围
-    const app = getApp()
+    
     let allPodCastData;
     let count;
     let curr_podcast_fav; // [1, 1, 1, null], 列举了每个podcast的收藏情况, 1为收藏
@@ -104,15 +107,39 @@ Page({
     myAudio.playbackRate = 1.0
 
     myAudio.onError((res) => {
+      console.log("onError");
       console.log('An error occurred during audio playback:', res.errMsg);
       // Handle the error or perform any necessary actions
     });
 
     // 暂停监听
     myAudio.onPause(() => {
+      console.log("onPause");
+    })
+
+    myAudio.onSeeking(() => {
+      console.log("onSeeking");
+      console.log("音频加载中, 还不能播放")
+      this.setData({
+        loading: true
+      })
+    })
+
+    myAudio.onSeeked(() => {
+      console.log("onSeeked");
+      if (this.data.pause) {
+        return;
+      }
+      console.log("init能够播放")
+      myAudio.duration
+      this.setData({
+        loading: false
+      })
+      myAudio.play();
     })
 
     myAudio.onWaiting(() => {
+      console.log("onWaiting");
       console.log("音频加载中, 还不能播放")
       this.setData({
         loading: true
@@ -121,6 +148,10 @@ Page({
 
     // 监听音频进入可以播放状态的事件。但不保证后面可以流畅播放，必须要这个监听，不然播放时长更新监听不会生效，不能给进度条更新值
     myAudio.onCanplay(() => {
+      console.log("onCanPlay");
+      if (this.data.pause) {
+        return;
+      }
       console.log("init能够播放")
       myAudio.duration
       this.setData({
@@ -131,6 +162,10 @@ Page({
 
     // 播放监听
     myAudio.onPlay(() => {
+      console.log("onPlay");
+      if (app.globalData.audio_unload) {
+        return;
+      }
       this.setData({
         paused: false,
         loading: false
@@ -173,7 +208,7 @@ Page({
             success: out => {
               // 提交完后更新
               console.log("out.result: ", out.result);
-              app.globalData.finished_podcasts = out.result.data;
+              app.globalData.userData.finished_podcasts = out.result.data;
               // app.globalData.podcastComplete = out.result.data;
             },
             fail: out => {
@@ -190,8 +225,9 @@ Page({
               console.log("successfully finish podcast")
               // 提交完后更新
               console.log("out.result: ", out.result);
-              app.globalData.finished_meditations = out.result.data;
+              app.globalData.userData.finished_meditations = out.result.data;
               // app.globalData.podcastComplete = out.result.data;
+              
             },
             fail: out => {
               console.log('fail to finsih podcast')
@@ -294,10 +330,18 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+onUnload: function () {
     // 停止播放
+    console.log("audio onUnload")
+    // myAudio.pause()
+    // myAudio.stop()
+    app.globalData.audio_unload = true;
+    this.setData({
+      paused: true
+    })
+    // 暂停
     myAudio.pause()
-    myAudio.stop()
+    // myAudio.destroy()
   },
 
   goToNextPodCast() {

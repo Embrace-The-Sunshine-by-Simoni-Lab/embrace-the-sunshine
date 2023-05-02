@@ -18,7 +18,7 @@ Page({
     let allPodCastData =  wx.getStorageSync('allPodCastData');
 
     let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
-    let podcastComplete = app.globalData.podcastComplete
+    let podcastComplete = app.globalData.userData.finished_podcasts
     
     this.setData({
       podCastInfo: allPodCastData,
@@ -32,7 +32,7 @@ Page({
     // let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
     let new_podcast_availability = Array(app.globalData.podCast.length).fill(1);
     
-    let new_podcast_complete = app.globalData.finished_podcasts
+    let new_podcast_complete = app.globalData.userData.finished_podcasts
     app.globalData.podcastsAvailability = new_podcast_availability
 
     this.setData({
@@ -60,11 +60,11 @@ Page({
   },
   jumpToUnAvailableNotice(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
-    let prev_podcast_finish_status = app.globalData.podcastComplete[clickedPodCastNum - 1]
+    let prev_podcast_finish_status = app.globalData.userData.finished_podcasts[clickedPodCastNum - 1]
     let currpodcast_register_status = app.globalData.podcastRegisterAvailability[clickedPodCastNum]
-    console.log("global podcastComplete", app.globalData.podcastComplete);
+    console.log("global finished podcasts", app.globalData.userData.finished_podcasts);
     // console.log(" podcastsAvailability", this.data.podcastComplete);
-    if(prev_podcast_finish_status == -1 || app.globalData.podcastComplete.length == 0 || clickedPodCastNum - 1 >= app.globalData.podcastComplete.length) {
+    if(prev_podcast_finish_status == -1 || app.globalData.userData.finished_podcasts.length == 0 || clickedPodCastNum - 1 >= app.globalData.userData.finished_podcasts.length) {
       wx.showModal({
         content: '请先完成当前内容',
         confirmText: '我知道了',

@@ -49,8 +49,8 @@ Page({
                 // let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
 
                 let new_podcast_availability = Array(app.globalData.podCast.length).fill(1);
-                app.globalData.podcastComplete = that.data.podcastComplete
-                app.globalData.meditationComplete = that.data.meditationComplete
+                // app.globalData.podcastComplete = that.data.podcastComplete
+                // app.globalData.meditationComplete = that.data.meditationComplete
 
                 app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
                 app.globalData.podcastsAvailability = new_podcast_availability
@@ -171,13 +171,15 @@ Page({
 
   onShow() {
     // 实时更新首页的availability状态
-    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
+    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.userData.finished_podcasts|| [],app.globalData.podcastRegisterAvailability)
     
     this.setData({
       podcastComplete: app.globalData.userData.finished_podcasts || [],
       meditationComplete: app.globalData.userData.finished_meditations || [],
       podcastsAvailability: new_podcast_availability
     })
+
+    console.log("finished_meditations: " + app.globalData.userData.finished_meditations);
 
     // 获取并且更新首页服药天数状态
     try {
@@ -330,7 +332,7 @@ Page({
   jumpToUnAvailableNotice(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let currpodcast_finish_status = this.data.podcastComplete[clickedPodCastNum - 1]
-    if (currpodcast_finish_status === -1 || this.data.podcastComplete.length == 0 || clickedPodCastNum - 1 >= app.globalData.podcastComplete.length) {
+    if (currpodcast_finish_status === -1 || this.data.podcastComplete.length == 0 || clickedPodCastNum - 1 >= app.globalData.userData.finished_podcasts.length) {
       wx.showModal({
         content: '请先完成当前内容',
         confirmText: '我知道了',

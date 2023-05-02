@@ -11,7 +11,8 @@ App({
     },
     userData: {},
     logged: false,
-    ifCalendarModalShow: false
+    ifCalendarModalShow: false,
+    audio_unload: false
   },
 
   onLaunch: function () {
