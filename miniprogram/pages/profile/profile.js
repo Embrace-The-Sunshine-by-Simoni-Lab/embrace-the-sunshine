@@ -11,7 +11,8 @@ Page({
     fileID: "",
     num_finished_module: 0,
     num_finished_optional_module: 0,
-    weeksUsed: 0
+    weeksUsed: 0,
+    openid: ""
   },
   goto_save: function() {
     wx.navigateTo({
@@ -44,7 +45,8 @@ Page({
     const weeksUsed = Math.round(Math.abs((todayDate - regDate) / (1000*60*60*24*7)));
     this.setData({
       username: app.globalData.userData.nickname,
-      weeksUsed: weeksUsed
+      weeksUsed: weeksUsed,
+      openid: app.globalData.userData.openid
     })
   },
 

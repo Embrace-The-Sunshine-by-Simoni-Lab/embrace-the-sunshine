@@ -47,6 +47,7 @@
         </view>
       </view>
     </view>
+    <text user-select="{{true}}" >openid:{{openid}}</text>
   </view>
 </view>
 
