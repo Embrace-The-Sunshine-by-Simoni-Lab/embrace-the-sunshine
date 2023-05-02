@@ -6,47 +6,85 @@
   background: green;
 }
 
-.confetti {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ff6699;
-  animation: confetti-fall 2s linear infinite;
+/*使屏幕变暗  */
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
 }
-
-.confetti:nth-child(2) {
-  width: 12px;
-  height: 12px;
-  background-color: #ffcc66;
-  animation-duration: 5s;
+.note_take_title {
+  margin-bottom: 10px;
+  font-weight: 500;
 }
-
-.confetti:nth-child(3) {
-  width: 8px;
-  height: 8px;
-  background-color: #66ccff;
-  animation-duration: 3s;
+.note_take_title_time {
+  font-weight: 500;
 }
-
-.confetti:nth-child(4) {
-  width: 14px;
-  height: 14px;
-  background-color: #99cc66;
-  animation-duration: 6s;
+.time_save {
+  position:absolute;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -200rpx;
+  margin-top: 60rpx;
+  width: 400rpx;
+  height: 80rpx;
+  background: #4D50A4;
+  border-radius: 8px;
+  color: white;
+  line-height: 80rpx;
+  text-align: center;
 }
-
-@keyframes confetti-fall {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
+.medication_note {
+  background: white;
+  border: 1px solid #4D50A4;
+  border-radius: 5px;
+  width: 100%;
+  height: 300rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  margin-bottom: 20px;
 }
-
-
-
+.edit_button {
+  width: 140rpx;
+  border-radius: 5px;
+  font-weight: 400;
+  background: #F2F2F2;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+}
+/*对话框 */
+.commodity_attr_box {
+  padding: 50rpx;
+  background: #FDFBFC;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 700rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  background: #fff;
+}
+.time_edit_header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.medi_exact_time {
+  font-size: 18px;
+  font-weight: 500;
+}
 
 Page{
   background:#FFFFFF !important;
@@ -65,6 +103,7 @@ Page{
   color: #4D50A4;
 }
 .toggleButton {
+  /* background: green; */
   width: 200px;
   height: 50px;
   display: flex;

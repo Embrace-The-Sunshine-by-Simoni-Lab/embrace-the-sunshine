@@ -85,7 +85,7 @@ Component({
           open_ended_answer: submmitted_open_end_question
         })
       }
-      
+
       this.setData({
         curr_Podcast_quiz_length,
         podCastInfo: currPodCast,
@@ -113,7 +113,6 @@ Component({
       let newClickedAnswerList = e.detail
       let newAllQuestionAnswered = false;
 
-      console.log("newClickedAnswerList", newClickedAnswerList)
       // 当所有问题(除了最后一个开放式问答)都被回答完毕
       if(!newClickedAnswerList.slice(0,-1).includes(-1)) {
         newAllQuestionAnswered = true
@@ -165,7 +164,6 @@ Component({
       // 用来判断是meditation的提交, 还是普通的quiz提交
       let currentSubmitType = e.currentTarget.dataset.type
       let that = this
-      console.log("submittt", that.data.user_answer)
       // 如果是冥想的提交
       if(currentSubmitType === '冥想') {
         wx.cloud.callFunction({
