@@ -366,6 +366,7 @@ onUnload: function () {
         curPodCastId = 0
       }
     }
+    console.log('cur podcast id', curPodCastId)
     let allPodCastData;
     let currPodCast;
 
@@ -388,8 +389,6 @@ onUnload: function () {
     myAudio.stop()
     myAudio.seek(0);
     myAudio.src = currPodCast.url
-
-
 
     myAudio.onCanplay(() => {
       myAudio.play();
@@ -450,27 +449,34 @@ onUnload: function () {
   // 这个方程是专门用来处理收藏情况下的prev button的, 由于fav_list的格式为[1,1,null, 1];
   // 该函数首先将i设置为前一个索引。如果在索引0，则将其设置为列表的末尾。然后它进入一个循环，在循环中，它会检查索引i的值是否是1，如果是，则返回该索引。否则，它会将i设置为前一个索引，并继续搜索前一个索引，或将其包装到列表的末尾。当i等于原始索引时，循环将结束，函数返回null，表示找不到满足条件的索引
   getPrevIndex(list, index) {
-    let i = (index - 1 + list.length) % list.length; // 将i设置为前一个索引，如果在索引0，则将其设置为列表的末尾
-    while (i !== index) { // 当i不等于原始索引时，进入循环
-      if (list[i] === 1) { // 如果找到了一个非空值为1的索引，则返回该索引
-        return i;
+    // Get the length of the list
+    const length = list.length;
+    // Decrement the index until a non-null value is found
+    while (true) {
+      // Decrement the index
+      index = (index - 1 + length) % length;
+      // Check if the value at the new index is not null
+      if (list[index] !== null) {
+        return index; // Return the new index
       }
-      i = (i - 1 + list.length) % list.length; // 继续搜索前一个索引，或将其包装到列表的末尾
     }
-    return null; // 如果没有找到满足条件的索引，则返回null
   },
   // 这个方程是专门用来处理收藏情况下的next button的, 由于fav_list的格式为[1,1,null, 1];
   // Overall, this function is designed to find the next index in a list after a given index where the value is not null and equal to 1. It handles cases where the search needs to wrap around to the beginning of the list and returns null if no such value is found.
   getNextIndex(list, index) {
-    let i = (index + 1) % list.length; // start from next index or 0 if at end of list
-    while (i !== index) {
-      if (list[i] === 1) {
-        return i;
+    console.log("next click", list, index)
+    // Get the length of the list
+    const length = list.length;
+    // Increment the index until a non-null value is found
+    while (true) {
+      // Increment the index
+      index = (index + 1) % length;
+      // Check if the value at the new index is not null
+      if (list[index] !== null) {
+        return index; // Return the new index
       }
-      i = (i + 1) % list.length; // continue to next index or wrap around to start of list
     }
-    return null; // no non-null value of 1 found
-  },
+  }
 })
 
 
