@@ -33,8 +33,8 @@
   </view>
   <view class="calendar_circle_container">
       <view class="calendar_circle">
-        <l-circle percent='100' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{userScoreColor}}"
-        ></l-circle>
+        <!-- <l-circle percent='100' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{userScoreColor}}"
+        ></l-circle> -->
         <view class="calendar_circle_text_container">
           <view class="calendar_circle_text">{{userScoreValue}}分</view>
         </view>
@@ -44,5 +44,43 @@
         <text class="calendar_summary_container_text" style="color: {{userScoreColor}};">{{userScoreType}}</text>
       </view>
   </view> 
+  <view class="pdrecommend" bindtap="handlePdrecommend">
+    <view>播客推荐:认识情绪</view>
+    <view class="innerContentBox">
+      <view class="castItem" 
+        wx:for="{{podCastInfo}}" 
+        wx:for-item="item" 
+        wx:for-index="idx" 
+        wx:key="idx" 
+        wx:if="{{idx < 2}}" 
+        data-podcastType="播客"
+        data-id="{{item.podCast_Id}}" 
+        bind:tap="jumpToPodCastPlay"
+      >
+        <!-- <image 
+          style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
+          src="../../images/homepage/LOCK.png" 
+          class="podcast_lock">
+        </image> -->
+        <view class="castImage">
+          <image class="castImageItem" src="{{item.podCastListURL}}"></image>
+        </view>
+
+        <view class="castContent">
+          <view class="castContent_top">
+            <view class="castContent_top_desc">
+              <view class="castContent_title_box">
+                <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+                <image wx-if="{{item.mainTitle === '承受痛苦'}}" class="meditation_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/meditation.svg"></image>
+              </view>
+              
+              <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+            </view>
+            <image src="{{podcastComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
+          </view>
+        </view>
+      </view>
+    </view> 
+  </view>
 </view>
 

@@ -19,6 +19,38 @@ Page({
     ThreeMonthMoodTrackData: {},
     SixMonthMoodTrackData: {},
   },
+
+  onLoad(options) {
+    this.getUserScoreLevel();
+    this.getUserScoreDate();
+    // console.log("data", this.data)
+    // console.log("global date: " + app.globalData.userData.mood_track.mood_date)
+    // console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
+    var onLoadData, onLoadDataRange, onLoadScoreValue, onLoadScoreType, onLoadScoreColor;
+    if (this.data.OneMonthMoodTrackData.categories.length > 0) {
+      onLoadData = this.data.OneMonthMoodTrackData
+      onLoadDataRange = this.dateFormat("oneMonth")
+      onLoadScoreValue = this.data.userScoreInfo.scoreValue[this.data.userScoreInfo.scoreValue.length-1],
+      onLoadScoreType = this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
+      onLoadScoreColor = this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
+    } else {
+      onLoadDataRange = ['近30天无数据']
+    }
+    
+    console.log("onLoadDataRange", onLoadDataRange)
+    this.setData({
+      oneMonth: true,
+      threeMonth: false,
+      sixMonth: false,
+      timePeriodText: '近30天',
+      timePeriodDate: onLoadDataRange,
+      userScoreValue: onLoadScoreValue,
+      userScoreType: onLoadScoreType,
+      userScoreColor: onLoadScoreColor
+    })
+    this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);
+  },
+
   onReady() {
     let cWidth = this.data.cWidth;
     let cHeight = this.data.cHeight;
@@ -158,6 +190,7 @@ Page({
     // Adjust to Thursday in week 1 and count number of weeks from date to week1.
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
+
   drawCharts(id,data){
     const ctx = wx.createCanvasContext(id, this);
     console.log("this.data.categories", this.data.categories);
@@ -375,38 +408,6 @@ Page({
     return `${startString}-${endString}`;
   },
 
-  onLoad(options) {
-    
-    this.getUserScoreLevel();
-    this.getUserScoreDate();
-    // console.log("data", this.data)
-    // console.log("global date: " + app.globalData.userData.mood_track.mood_date)
-    // console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
-    var onLoadData, onLoadDataRange, onLoadScoreValue, onLoadScoreType, onLoadScoreColor;
-    if (this.data.OneMonthMoodTrackData.categories.length > 0) {
-      onLoadData = this.data.OneMonthMoodTrackData
-      onLoadDataRange = this.dateFormat("oneMonth")
-      onLoadScoreValue = this.data.userScoreInfo.scoreValue[this.data.userScoreInfo.scoreValue.length-1],
-      onLoadScoreType = this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
-      onLoadScoreColor = this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
-    } else {
-      onLoadDataRange = ['近30天无数据']
-    }
-    
-    console.log("onLoadDataRange", onLoadDataRange)
-    this.setData({
-      oneMonth: true,
-      threeMonth: false,
-      sixMonth: false,
-      timePeriodText: '近30天',
-      timePeriodDate: onLoadDataRange,
-      userScoreValue: onLoadScoreValue,
-      userScoreType: onLoadScoreType,
-      userScoreColor: onLoadScoreColor
-    })
-    this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);
-  },
-
   chooseOneMonth() {
     let empty_one_month = false;
     let empty_data_placeholder = "";
@@ -464,4 +465,16 @@ Page({
     )
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.SixMonthMoodTrackData);
   },
+
+  handlePdrecommend() {
+    console.log('bindtap function runs')
+    // let clickedPodCastNum = e.currentTarget.dataset.id
+    // let type = e.currentTarget.dataset.podcasttype
+    let clickedPodCastNum = 0
+    let type = "播客"
+    // /podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
+    wx.navigateTo({
+      url: `../../../pages/podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
+    })
+  }
 })

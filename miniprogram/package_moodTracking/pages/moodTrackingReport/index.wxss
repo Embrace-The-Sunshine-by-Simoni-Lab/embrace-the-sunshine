@@ -113,6 +113,13 @@ Page{
   scrollbar-color: red yellow;
 }
 
+.pdrecommend {
+  margin-top: 50rpx;
+  height: 100rpx;
+  width: 300rpx;
+  background-color: lightgrey;
+}
+
 /* ==========Line Chart Heading=========== */
 .line_chart_heading {
   display: flex;

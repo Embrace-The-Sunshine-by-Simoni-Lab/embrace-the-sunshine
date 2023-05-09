@@ -2,6 +2,7 @@ const app = getApp();
 
 Page({
   data: {
+    displayConfetti: "display:none",
     // ******************* 分析页面顶部逻辑 *******************
     currentMode: "record",
     currentMonth:"", // 顶部方形日历
@@ -31,6 +32,23 @@ Page({
     compare: "",  // 底部跟上周比的值
     averageMediTake: 0, // 底部的平均值
   }, 
+  showConfetti(){
+    console.log("show confetti runs")
+    this.setData({
+      displayConfetti: ""
+    })
+    let that = this;
+    setTimeout(function() {
+      console.log("timer start")
+      that.unshowConfetti()
+    }, 5000)
+  },
+  unshowConfetti(){
+    console.log("unshow confetti runs")
+    this.setData({
+      displayConfetti: "display:none"
+    })
+  },
   // ******************* 日历逻辑 *******************
   onLoad() {
     // 弹窗
@@ -38,7 +56,6 @@ Page({
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
     let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
-
     // model显示之前先对calendar进行渲染
     const medi_taken = app.globalData.userData.med_date;
     this.convertStringtoDateArray(medi_taken)
@@ -77,6 +94,7 @@ Page({
               that.renderMediTaken()
               // 全部渲染完之后需要单独对今天进行渲染
               that.changeCalendarBoxStyle(that.data.LastClick, "box-selected-taken")
+              that.showConfetti();
             });
           }
           try {
@@ -86,14 +104,11 @@ Page({
           }
         }
       })
-   
-    }
-    
+    }    
     this.setData({
       curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()}
     })
   },
-  
   // 处理bar chart的数据
   processAnalystPageData() {
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(this.data.medi_taken);
@@ -259,8 +274,10 @@ Page({
       
       if(toggleResult) {
         that.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
+        this.showConfetti()
       } else {
         that.changeCalendarBoxStyle(curTapDate, "box-selected")
+        this.unshowConfetti()
       }
 
       that.setData({
@@ -269,7 +286,6 @@ Page({
       // 更新分析页面的数据
       wx.hideLoading()
       that.processAnalystPageData()
-      
     });
     
   },

@@ -1,4 +1,10 @@
 <view class="medicineContainer">
+  <image
+    style="{{displayConfetti}}"
+    class="confetti"
+    wx-if="{{currentMode == 'record'}}"
+    src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/confetti.gif">
+  </image>
 
   <!-- **** purple square on top **** -->
   <view class="infoBox">
@@ -39,12 +45,12 @@
     />
   </view> 
 
-  <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
-      <text class="toggleButton-text">已服药</text>
-      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
-      <text class="toggleButton-notice-on">是</text> 
-      <text class="toggleButton-notice-off">否</text> 
-    </view>
+  <view wx-if="{{currentMode == 'record'}}"  class="toggleButton">
+    <text class="toggleButton-text">已服药</text>
+    <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
+    <text class="toggleButton-notice-on">是</text> 
+    <text class="toggleButton-notice-off">否</text> 
+  </view>
 
   <!-- **** calendar content -- the data visu **** -->
   <view wx-if="{{currentMode != 'record'}}" class="calendar_content_container">
