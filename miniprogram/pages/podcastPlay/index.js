@@ -24,9 +24,7 @@ Page({
     const app = getApp()
     // console.log(app.globalData);
     app.globalData.audio_unload = false;
-    console.log("触发onload")
     // 这里要要根据podcast的类型(是普通podcast还是meditation)设置allPodCastData,然后也要根据type来设置count, count的作用是去上一个博客或者下一个博客的时候, 不会超出范围
-    
     let allPodCastData;
     let count;
     let curr_podcast_fav; // [1, 1, 1, null], 列举了每个podcast的收藏情况, 1为收藏
@@ -37,7 +35,7 @@ Page({
     if(podCastType !== '冥想') {
       // The media type is podcast
       allPodCastData =  wx.getStorageSync('allPodCastData');
-      count = app.globalData.podcastsAvailability.length
+      count = app.globalData.podCast.length
       if (!app.globalData.userData.fav_podcasts) {
         curr_podcast_fav = -1;
       } else {
@@ -100,7 +98,6 @@ Page({
 
   // 音频播放-初始化
   audioInit(url, title) {
-    console.log("audio init")
     myAudio.src = url 
 
     // 设置音频播放倍速，此处若不设置，页面上点击设置倍速就不会产生效果
@@ -114,23 +111,18 @@ Page({
 
     // 暂停监听
     myAudio.onPause(() => {
-      console.log("onPause");
     })
 
     myAudio.onSeeking(() => {
-      console.log("onSeeking");
-      console.log("音频加载中, 还不能播放")
       this.setData({
         loading: true
       })
     })
 
     myAudio.onSeeked(() => {
-      console.log("onSeeked");
       if (this.data.pause) {
         return;
       }
-      console.log("init能够播放")
       myAudio.duration
       this.setData({
         loading: false
@@ -139,8 +131,6 @@ Page({
     })
 
     myAudio.onWaiting(() => {
-      console.log("onWaiting");
-      console.log("音频加载中, 还不能播放")
       this.setData({
         loading: true
       })
@@ -148,21 +138,18 @@ Page({
 
     // 监听音频进入可以播放状态的事件。但不保证后面可以流畅播放，必须要这个监听，不然播放时长更新监听不会生效，不能给进度条更新值
     myAudio.onCanplay(() => {
-      console.log("onCanPlay");
       if (this.data.pause) {
         return;
       }
-      console.log("init能够播放")
       myAudio.duration
-      this.setData({
-        loading: false
-      })
+      // this.setData({
+      //   loading: false
+      // })
       myAudio.play();
     })
 
     // 播放监听
     myAudio.onPlay(() => {
-      console.log("onPlay");
       if (app.globalData.audio_unload) {
         return;
       }
@@ -170,7 +157,6 @@ Page({
         paused: false,
         loading: false
       })
-      console.log("init当前音频正在播放中")
     })
 
     // 播放时长更新监听
@@ -184,10 +170,8 @@ Page({
       })
     })
     myAudio.onStop(()=> {
-      console.log("音频停止")
     })
     myAudio.onPause(()=> {
-      console.log("音频暂停")
     })
     myAudio.onEnded(() => {
       // 这个podCastEndStatus主要是用作下面来判断当播客播完的时候,是否要给数据库记录该播客是否已经完成
@@ -322,7 +306,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    console.log("audio onHide")
     // 暂停播放
     this.audioPause()
   },
@@ -332,9 +315,6 @@ Page({
    */
 onUnload: function () {
     // 停止播放
-    console.log("audio onUnload")
-    // myAudio.pause()
-    // myAudio.stop()
     app.globalData.audio_unload = true;
     this.setData({
       paused: true
@@ -366,7 +346,7 @@ onUnload: function () {
         curPodCastId = 0
       }
     }
-    console.log('cur podcast id', curPodCastId)
+
     let allPodCastData;
     let currPodCast;
 
@@ -464,7 +444,6 @@ onUnload: function () {
   // 这个方程是专门用来处理收藏情况下的next button的, 由于fav_list的格式为[1,1,null, 1];
   // Overall, this function is designed to find the next index in a list after a given index where the value is not null and equal to 1. It handles cases where the search needs to wrap around to the beginning of the list and returns null if no such value is found.
   getNextIndex(list, index) {
-    console.log("next click", list, index)
     // Get the length of the list
     const length = list.length;
     // Increment the index until a non-null value is found

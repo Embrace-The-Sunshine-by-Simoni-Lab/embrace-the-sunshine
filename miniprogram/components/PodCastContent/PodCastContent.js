@@ -26,7 +26,7 @@ Component({
     currPodcastOrder: -1, // 当前是哪个podcast
     podCastInfo: {}, // 当前podcast的内容
     open_ended_answer: "", // 开放式问题用户的答案
-    podCastType: "", // 判断当前podcast是不是冥想
+    podCastType_content: "", // 判断当前podcast是不是冥想
     meditation_open_end_filled_status: false, // 判断用户是否至少填写了一个字符
     curr_Podcast_quiz_length: -1
   },
@@ -34,7 +34,7 @@ Component({
     // 同时更新当前podcast是不是冥想
     let currentPodcastType = this.properties.podCastType
     this.setData({
-      podCastType: currentPodcastType,
+      podCastType_content: currentPodcastType,
     })
     this.refresh();
   },
@@ -42,13 +42,9 @@ Component({
   methods: {
     async refresh() {
       if(this.properties.currPodCastOrder == -1) return;
-
       let allPodCastData;
       let currUserAnswer;
-      // console.log("type", this.properties.podCastType)
-      // console.log("order", this.properties.currPodCastOrder)
-      // console.log("app global podcast", app.globalData.podcast_progress_data)
-      // console.log("app global meditation", app.globalData.meditation_progress_data)
+    
       // 这里要要根据podcast的类型(是普通podcast还是meditation)设置allPodCastData以及对应的问题答案
       // podcast_progress和meditation_progress都是一样的,没有记录的都是默认都是空的[]
       // 有数据的时候podcast_progress的格式为[[],[],[]]

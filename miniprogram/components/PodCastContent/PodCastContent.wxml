@@ -15,7 +15,7 @@
   </view>
 
   <!-- ****** PodCast Content(regular podcast) ****** -->
-  <view class="ContentContainer" wx-if="{{mode == 'Content' && podCastType !== '冥想'}}">
+  <view class="ContentContainer" wx-if="{{mode == 'Content' && podCastType_content !== '冥想'}}">
     <view wx:if="{{podCastInfo.episode !== '冥想'}}" class="first_level" wx:for-item="first_item" wx:for-index="idx" wx:for="{{podCastInfo.pod_Cast_Content}}" wx:key="idx">
       {{first_item.firstLevel}} {{first_item.time}}
       <view class="second_level" wx:for-item="item2" wx:for-index="idx" wx:for="{{first_item.firstLevel_content}}" wx:key="idx">
@@ -35,7 +35,7 @@
   </view>
 
   <!-- ****** PodCast Content(meditation) ****** -->
-  <view wx:if="{{mode === 'Content' && podCastType === '冥想'}}" class="podcast_meditation_content_container">
+  <view wx:if="{{mode === 'Content' && podCastType_content === '冥想'}}" class="podcast_meditation_content_container">
     <image class="podcast_meditation_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/meditation, person with newton cradle.svg"></image>
     <view class="podcast_meditation_text" >请跟着录音,</view>
     <view class="podcast_meditation_text" >一起进入冥想状态</view>
@@ -47,7 +47,7 @@
       <view wx:for="{{podCastInfo.pod_Cast_Quiz}}" wx:key="order" wx:if="{{index === currentDisplayQuestion}}" class="QuestionBlock">
         <View>
           <text class="QuestionOrder">{{item.order}} </text>
-          <text wx:if="{{podCastType !== '冥想'}}" class="QuestionOrder">({{index+1}}/{{curr_Podcast_quiz_length}})</text>
+          <text wx:if="{{podCastType_content !== '冥想'}}" class="QuestionOrder">({{index+1}}/{{curr_Podcast_quiz_length}})</text>
         </View>
         <text class="QuestionContent">{{item.question}}</text>
       </view>
@@ -72,20 +72,20 @@
             </view>
             <!-- 如果还未提交那么就是一个可输入框, 否则就是一个固定的方框 -->
             <view wx:else class="open_ended_box">
-              <textarea maxlength="100" class="open_ended_question" name="userName" placeholder="{{podCastType === '冥想' ? '填写您的对于本集冥想的反馈' : '填写您的想法'}}"
+              <textarea maxlength="100" class="open_ended_question" name="userName" placeholder="{{podCastType_content === '冥想' ? '填写您的对于本集冥想的反馈' : '填写您的想法'}}"
     bindinput="userNameInput" auto-focus="true"/>
               <!-- 冥想的提交窗口 -->
               <!-- 1.冥想的enable button -->
-              <view wx:if="{{podCastType === '冥想' && meditation_open_end_filled_status}}" class="meditation_submit" bind:tap="submitQuiz" data-type="冥想">提交</view>
+              <view wx:if="{{podCastType_content === '冥想' && meditation_open_end_filled_status}}" class="meditation_submit" bind:tap="submitQuiz" data-type="冥想">提交</view>
               <!-- 2.冥想的disabled button -->
-              <view wx:if="{{podCastType === '冥想' && !meditation_open_end_filled_status}}" class="meditation_disable_button">提交</view>
+              <view wx:if="{{podCastType_content === '冥想' && !meditation_open_end_filled_status}}" class="meditation_disable_button">提交</view>
             </view>
           </view>
         </view>
       </view>
 
       <!-- 提交窗口 -->
-      <view class="SubmitBlock" wx-if="{{mode == 'Quiz' && podCastInfo.pod_Cast_Quiz.length !== 0 && podCastType !== '冥想'}}">
+      <view class="SubmitBlock" wx-if="{{mode == 'Quiz' && podCastInfo.pod_Cast_Quiz.length !== 0 && podCastType_content !== '冥想'}}">
         <image class="prev_question" src="../../images/next-enable.png"  data-direction="prev" bind:tap="changeQuestion"></image>
         <view wx:if="{{allQuestionAnswered && !submitClicked}}" class="Submit_Button" bind:tap="submitQuiz" data-type="播客">提交</view>
         <view wx:else class="Disabled_Button">提交</view>

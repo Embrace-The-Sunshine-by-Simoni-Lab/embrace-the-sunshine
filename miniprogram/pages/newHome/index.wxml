@@ -6,7 +6,7 @@
   <view class="homeBanner">
     <swiper indicator-dots="{{indicatorDots}}" 	indicator-active-color="#BDBDBD"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper">
-      <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < podcastsAvailability.length && idx < 3}}" class="block">
+      <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < podCastInfo.length && idx < 3}}" class="block">
         <swiper-item class="{{item.episode === '冥想' ? 'swipe_orange_background' : ''}}">
           <view class="swiper-item {{item}}" data-id="{{item.podCast_Id}}" data-podcastType="播客"bind:tap="jumpToPodCastPlay">
             <view class="homeBannerContent">

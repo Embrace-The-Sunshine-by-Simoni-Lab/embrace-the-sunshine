@@ -30,8 +30,10 @@ Page({
     // ******************* 分析页面底部逻辑 *******************
     compare: "",  // 底部跟上周比的值
     averageMediTake: 0, // 底部的平均值
-
     time: '00:00am',
+    // ******************* 笔记逻辑 *******************
+    note: "",
+    ifCanEnterNote: false,
   }, 
   // ******************* 日历逻辑 *******************
   onLoad() {
@@ -91,13 +93,18 @@ Page({
    
     }
     
+    // 判断笔记是否为空
+    if(note !== "") {
+      this.setData({
+        ifCanEnterNote: true
+      })
+    }
     let currentTime = this.getCurrentTime()
     this.setData({
       curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()},
       time: currentTime
     })
   },
-  
   getCurrentTime: function() {
     var now = new Date(); // create a new Date object with the current date and time
     var hours = now.getHours(); // get the current hour (0-23)
@@ -116,7 +123,29 @@ Page({
     var timeString = hours.toString().padStart(2, '0') + ':' + minutes + amOrPm;
     return timeString
   },
-  
+  readyToEnter() {
+    console.log("readyToEnter")
+    this.setData({
+      ifCanEnterNote: true
+    })
+  },
+  saveNote() {
+    this.setData({
+      ifCanEnterNote: false
+    })
+  },
+  userNameInput(e) {
+    const userInputText = e.detail.value
+    this.setData({
+      note: userInputText
+    })
+  },
+  userOnFocus() {
+    // console.log("user click box")
+    this.setData({
+      ifCanEnterNote: true
+    })
+  },
   // 处理bar chart的数据
   processAnalystPageData() {
     let _medi_taken_classified_by_years = this.createMedi_taken_classified_by_years(this.data.medi_taken);
@@ -142,6 +171,9 @@ Page({
       compare,
       analyticsData
     })
+  },
+  onFocus: function (e) {
+    console.log('Textarea is focused');
   },
   convertDateobjToDateOBJ(obj) {
     return new Date(obj.year, obj.month-1, obj.date)
@@ -229,10 +261,9 @@ Page({
           LastClick: this.data.curTapDate
         })
       }
+      this.showModal();
     } 
-
-    console.log("用户点击完方块")
-    this.showModal();
+    // this.showModal();
   },
   bindTimeChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -300,9 +331,7 @@ Page({
       })
     }.bind(this), 200)
   },
-  pickCurrTime: function() {
-    console.log("users pick curr time")
-  },
+
   // 改变格子颜色
   changeCalendarBoxStyle(dateObj, styleName) {
     const calendar = this.selectComponent('#calendar').calendar

@@ -5,9 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    podcastRegisterAvailability: [],
     podCastInfo: [],
-    podcastsAvailability: [],
     fav_podcastComplete: [],
     fav_meditationComplete: [],
     podcastBtn: '',
@@ -19,7 +17,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    console.log("收藏onload")
     let allPodCastData =  wx.getStorageSync('allPodCastData');
     let podcastComplete = app.globalData.userData.finished_podcasts
     let meditationComplete = app.globalData.userData.finished_meditations
@@ -31,10 +28,6 @@ Page({
     let fav_podcastComplete = this.getCorrespondingComplete(favList_podcast, podcastComplete, 'podCast_Id')
     let fav_meditationComplete = this.getCorrespondingComplete(favList_meditation,meditationComplete, 'meditation_Id')
 
-    console.log("onload fav_podcastComplete", fav_podcastComplete)
-    console.log("onload fav_meditationComplete", fav_meditationComplete)
-    
-    console.log("favList_podcast", favList_podcast)
     this.setData({
       podCastInfo: allPodCastData,
       fav_podcastComplete: fav_podcastComplete,
@@ -46,9 +39,7 @@ Page({
   },
 
   getCorrespondingComplete(firstList = [], secondList = [], key) {
-    console.log("call func", firstList, secondList)
     let newList = Array.from({ length: firstList.length }, () => -1);
-    console.log("newList", newList)
     for (let i = 0; i < firstList.length; i++) {
       let id = firstList[i][key];
       newList[i] = secondList[id];
@@ -57,7 +48,6 @@ Page({
   },
 
   onShow() {
-    console.log("收藏onshow")
     let podcastComplete = app.globalData.userData.finished_podcasts
     let meditationComplete = app.globalData.userData.finished_meditations
 
@@ -67,9 +57,6 @@ Page({
 
     let fav_podcastComplete = this.getCorrespondingComplete(favList_podcast, podcastComplete, 'podCast_Id')
     let fav_meditationComplete = this.getCorrespondingComplete(favList_meditation,meditationComplete, 'meditation_Id')
-
-    console.log("onshow fav_podcastComplete", fav_podcastComplete)
-    console.log("onshow fav_meditationComplete", fav_meditationComplete)
 
     if (this.data.typeBeforeJump == '播客' || this.data.typeBeforeJump == '') {
       this.choosePodcasts()
@@ -130,23 +117,10 @@ Page({
     })
   },
 
-  // generate podcast availability and on podcast complete array and register time podcast array
-  generatePodcastAvailabilityArray(podcastComplete, podcastRegisterAvailability) {
-    if(podcastComplete.length == 0) return [1]
-    let result = [1];
-    for (let i = 0; i < podcastComplete.length; i++) {
-      if (podcastComplete[i] === 1 && podcastRegisterAvailability[i + 1] === 1) {
-        result[i + 1] = 1;
-      }
-    }
-    return result
-  },
-
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.podcasttype
 
-    console.log("jumpToPodCastPlay", clickedPodCastNum, type)
     this.setData ({
       typeBeforeJump: type
     })

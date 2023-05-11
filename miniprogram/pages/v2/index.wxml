@@ -13,9 +13,19 @@
       <text class="titleMonth">{{currentMonth}}月</text>
       <text class="titleDate">{{currentDate}}</text>
     </view>
-    <view class="medicineNotice" wx-if="{{currentMode=='record'}}">
+    <!-- <view class="medicineNotice" wx-if="{{currentMode=='record'}}">
       {{toggleButtonStatus ? "今日已服药": "今日未服药"}}
+    </view> -->
+
+    <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
+      <text class="toggleButton-text">已服药</text>
+      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
+      <text class="toggleButton-notice-on">是</text> 
+      <text class="toggleButton-notice-off">否</text> 
     </view>
+
+
+
     <!-- analyst content -->
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
     <view wx-if="{{currentMode=='analyst'}}" class="calendar_datepicker">
@@ -40,30 +50,39 @@
   </view> 
 
   <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
-  <!--弹出框  -->
-  <!-- <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
-    <view bind:tap="pickCurrTime" class="note_take_title">我的服药笔记</view>
-    <textarea maxlength="100" class="medication_note" name="userName" bindinput="userNameInput" auto-focus="true" placeholder="填写您的服药记录" />
-    <view class="section">
-      <view class="time_edit_header">
-        <view class="note_take_title_time">
-          当前时间
-        </view>
-        <picker mode="time" value="{{time}}" start="00:00" bindchange="bindTimeChange">
-          <view class="edit_button">编辑</view>
-        </picker>
+    <!--弹出框  -->
+    <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+      <view class="note_take_title">
+        <view>服药情况</view> 
+        <view class="time_box">
+          <view class="time_box_title">记录时间</view>
+          <picker mode="time" value="{{time}}" start="00:00" bindchange="bindTimeChange">
+            <view class="medi_exact_time">{{time}}</view>
+          </picker>
+          <!-- <view class="medi_exact_time">{{time}}</view> -->
+        </view> 
       </view>
-      <view class="medi_exact_time">{{time}}</view>
-    </view>
-    <view class="time_save">保存</view>
-  </view> -->
+      <!-- 如果此时用户没有note  -->
+      <view class="no_content_box" wx:if="{{!ifCanEnterNote && note === ''}}" bindtap="readyToEnter">
+        <view wx:if="{{note === '' && !ifCanEnterNote}}">记录您的情况</view>
+      </view>
+      <!-- 如果此时用户有note  -->
+      <view class="no_content_box" wx:if="{{!ifCanEnterNote && note !== ''}}">
+        <view class="has_content" wx:if="{{note !== ''}}">{{note}}</view>
+        <image wx:if="{{note !== ''}}" class="note_confirm" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/meditation_audio/edit.svg" bindtap="readyToEnter"></image>
+      </view>
 
-  <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
+      <textarea wx:if="{{ifCanEnterNote}}" autofocus="true" value="{{note}}" maxlength="74" class="medication_note" name="userName" bindinput="userNameInput" placeholder="填写您的服药记录">
+        <image class="note_confirm" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/meditation_audio/send button.svg" bind:tap="saveNote">checkmark</image>
+      </textarea>
+    </view>
+
+  <!-- <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
     <text class="toggleButton-text">已服药</text>
     <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
     <text class="toggleButton-notice-on">是</text> 
     <text class="toggleButton-notice-off">否</text> 
-  </view>
+  </view> -->
 
   <!-- **** calendar content -- the data visu **** -->
   <view wx-if="{{currentMode != 'record'}}" class="calendar_content_container">

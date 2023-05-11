@@ -11,11 +11,6 @@
       data-podcastType="播客"
       data-id="{{item.podCast_Id}}" 
       bind:tap="jumpToPodCastPlay">
-      <!-- <image 
-        style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
-        src="../../images/homepage/LOCK.png" 
-        class="podcast_lock">
-      </image> -->
       <view class="castImage">
         <image class="castImageItem" src="{{item.podCastListURL}}"></image>
       </view>
