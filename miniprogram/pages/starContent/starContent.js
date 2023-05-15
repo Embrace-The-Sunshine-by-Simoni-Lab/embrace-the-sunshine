@@ -20,7 +20,7 @@ Page({
   onLoad(options) {
     let allPodCastData =  wx.getStorageSync('allPodCastData');
     let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
-    let podcastComplete = app.globalData.podcastComplete
+    let podcastComplete = app.globalData.userData.finished_podcasts
     let podcastsAvailability = app.globalData.podcastsAvailability
     let favList = this.getFavList('podcast');
 
@@ -37,8 +37,8 @@ Page({
   },
 
   onShow() {
-    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
-    let new_podcast_complete = app.globalData.finished_podcasts
+    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.userData.finished_podcasts || [], app.globalData.podcastRegisterAvailability)
+    let new_podcast_complete = app.globalData.userData.finished_podcasts
     app.globalData.podcastsAvailability = new_podcast_availability
     if (this.data.typeBeforeJump == '播客' || this.data.typeBeforeJump == '') {
       this.choosePodcasts()
