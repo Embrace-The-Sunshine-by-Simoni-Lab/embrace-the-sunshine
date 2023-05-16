@@ -10,12 +10,6 @@
   position: absolute;
   width: 750rpx;
   height: 1770rpx;
-  /*display: none;
-   top: 5rpx; 
-  background-color: lightgrey;*/
-  /* border-radius: 50%; */
-  /* background-color: #ff6699; */
-  /* animation: confetti-fall 2s linear infinite; */
 }
 
 .confetti:nth-child(2) {

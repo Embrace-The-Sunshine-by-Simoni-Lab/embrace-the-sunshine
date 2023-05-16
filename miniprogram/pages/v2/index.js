@@ -41,7 +41,7 @@ Page({
     setTimeout(function() {
       console.log("timer start")
       that.unshowConfetti()
-    }, 5000)
+    }, 7000)
   },
   unshowConfetti(){
     console.log("unshow confetti runs")
@@ -119,7 +119,6 @@ Page({
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
-    console.log("this.data.anlyticsData", this.data.analyticsData)
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
     this.generateDisplayDate(this.data.analyticsData[0])
@@ -134,6 +133,7 @@ Page({
       compare,
       analyticsData
     })
+    console.log("this.data.anlyticsData", this.data.analyticsData)
   },
   convertDateobjToDateOBJ(obj) {
     return new Date(obj.year, obj.month-1, obj.date)

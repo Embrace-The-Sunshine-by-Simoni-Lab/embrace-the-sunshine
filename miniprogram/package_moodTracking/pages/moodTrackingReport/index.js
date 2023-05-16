@@ -7,9 +7,13 @@ Page({
   data: {
     cWidth: 310,
     cHeight: 190,
+    // ******************* userScoreInfo *******************
     userScoreValue: '',
     userScoreType: '情绪状况',
     userScoreColor: '#7B7B7B',
+    userMoodDescription: '',
+    userMoodTitle: '',
+    // ******************* time period buttons *******************
     oneMonth: '',
     threeMonth: '',
     sixMonth: '',
@@ -18,26 +22,34 @@ Page({
     OneMonthMoodTrackData: {},
     ThreeMonthMoodTrackData: {},
     SixMonthMoodTrackData: {},
+    // ******************* podcast scroll *******************
+    mediaList: [],
+    swiperPosition: 0, // 内容滚动的进度
+    slideWidth: 250,  // 滚动条默认长度
+    currentClickedBar: 0,
+    lastClickBar: 0,
+    left: 0,
   },
 
   onLoad(options) {
+    console.log("onLoad() data", this.data)
     this.getUserScoreLevel();
     this.getUserScoreDate();
-    // console.log("data", this.data)
-    // console.log("global date: " + app.globalData.userData.mood_track.mood_date)
-    // console.log("global score: "  + app.globalData.userData.mood_track.mood_score)
-    var onLoadData, onLoadDataRange, onLoadScoreValue, onLoadScoreType, onLoadScoreColor;
+    var onLoadData, onLoadDataRange, onLoadScoreValue, onLoadScoreType, onLoadScoreColor, onLoadMoodTitle, onLoadMoodDescription;
     if (this.data.OneMonthMoodTrackData.categories.length > 0) {
       onLoadData = this.data.OneMonthMoodTrackData
       onLoadDataRange = this.dateFormat("oneMonth")
       onLoadScoreValue = this.data.userScoreInfo.scoreValue[this.data.userScoreInfo.scoreValue.length-1],
       onLoadScoreType = this.data.userScoreInfo.scoreType[this.data.userScoreInfo.scoreType.length-1],
       onLoadScoreColor = this.data.userScoreInfo.scoreColor[this.data.userScoreInfo.scoreColor.length-1]
+      onLoadMoodTitle = this.data.userScoreInfo.moodTitle[this.data.userScoreInfo.scoreColor.length-1],
+      onLoadMoodDescription = this.data.userScoreInfo.moodDescription[this.data.userScoreInfo.scoreColor.length-1]
     } else {
+      onLoadData = []
       onLoadDataRange = ['近30天无数据']
     }
-    
     console.log("onLoadDataRange", onLoadDataRange)
+    console.log("this.data.userScoreInfo", this.data.userScoreInfo)
     this.setData({
       oneMonth: true,
       threeMonth: false,
@@ -46,7 +58,16 @@ Page({
       timePeriodDate: onLoadDataRange,
       userScoreValue: onLoadScoreValue,
       userScoreType: onLoadScoreType,
-      userScoreColor: onLoadScoreColor
+      userScoreColor: onLoadScoreColor,
+      userMoodTitle: onLoadMoodTitle,
+      userMoodDescription: onLoadMoodDescription,
+      mediaList: [
+        {id: 0, title: "认识情绪", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast1/standard.svg"},
+        {id: 1, title: "承受痛苦", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast2/standard.svg"},
+        {id: 2, title: "全然接受现实", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast3/standar.svg"},
+        {id: 3, title: "情绪管理", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast4/standard.svg"},
+        {id: 4, title: "情绪总结篇", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast4/standard.svg"},
+      ]
     })
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);
   },
@@ -191,9 +212,15 @@ Page({
     return 1 + Math.round(((DATE.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   },
 
-  drawCharts(id,data){
+  drawCharts(id, data){
+    console.log("data passed to drawCharts", data)
+    if(data == undefined || data.length == 0 || data.categories.length == 0) {
+      data = {
+        "categories": ["", "", "", "", "", "", "", "", ""],
+        "series": []
+      }
+    }
     const ctx = wx.createCanvasContext(id, this);
-    console.log("this.data.categories", this.data.categories);
     uChartsInstance[id] = new uCharts({
         type: "line",
         context: ctx,
@@ -287,56 +314,74 @@ Page({
     var currCategory = ""
     var currType = ""
     var typeColor = ""
+    var title = ""
+    var description = ""
     var scoreLevel = []
     var scoreCategory = []
     var scoreType = []
     var scoreValue = []
     var scoreColor = []
+    var moodTitle = []
+    var moodDescription= []
     for(var i = 0; i < userScoreValue.length; i++){
       var score = userScoreValue[i]
       if(score <= 4) {
         currLevel = "1"
         currCategory = "mini-depress"
         currType = "情绪正常"
-        typeColor= '#46BA74'
+        typeColor = '#46BA74'
+        title = "不错 😀";
+        description = "太棒了～您的情绪状态不错，看来您最近有在努力地调节情绪，请继续加油，阳光和我们一直在！";  
       } else if (score <= 9) {
         currLevel = "2"
         currCategory = "mild-depress"
         currType = "轻度抑郁"
         typeColor = '#91D300'
+        title = "不错 😊";
+        description = "看来您最近的情绪状态有些波动，请尝试使用播客里讲到的技巧来管理情绪～加油，阳光和我们一直在！";  
       } else if (score <= 14) {
         currLevel = "3"
         currCategory = "moder-depress"
         currType = "中度抑郁"
         typeColor = '#FFC300'
+        title = "还ok 🙂";
+        description = "您的情绪状态有些波动，要是想找人聊聊的话，可以随时发消息给我们～如果您的状态持续几周都是如此，建议您跟我们的心理咨询师联系～阳光和我们一直在！";  
       } else if (score <= 19) {
         currLevel = "4"
         currCategory = "moder-severe-depress"
         currType = "高度抑郁"
         typeColor = '#F48657'
+        title = "不太好 🥺";
+        description = "您的情绪状态有些低落，请及时与我们的心理咨询师联系～阳光和我们一直在！";
       } else {
         currLevel = "5"
         currCategory = "severe-depress"
         currType = "重度抑郁"
         typeColor = '#FA5151'
+        title = "不太好 🥺";
+        description = "您的情绪状态有些低落，请及时联系我们的咨询师，我们会帮您做心理评估，并和您一起制定方案来改善情绪状态。阳光和我们一直在！";  
       }
       scoreValue.unshift(score);
       scoreLevel.unshift(currLevel);
       scoreCategory.unshift(currCategory);
       scoreType.unshift(currType);
       scoreColor.unshift(typeColor)
+      moodTitle.unshift(title)
+      moodDescription.unshift(description)
     }
     var userScoreInfo = {}
     userScoreInfo["scoreValue"] = scoreValue;
-    userScoreInfo["scoreLevel"] = scoreLevel,
-    userScoreInfo["scoreCategory"] = scoreCategory,
-    userScoreInfo["scoreType"] = scoreType,
-    userScoreInfo['scoreColor'] = scoreColor,
+    userScoreInfo["scoreLevel"] = scoreLevel;
+    userScoreInfo["scoreCategory"] = scoreCategory;
+    userScoreInfo["scoreType"] = scoreType;
+    userScoreInfo['scoreColor'] = scoreColor;
+    userScoreInfo['moodTitle'] = moodTitle;
+    userScoreInfo['moodDescription'] = moodDescription;
     this.setData({"userScoreInfo": userScoreInfo})
     // console.log(userScoreInfo);
     return userScoreInfo.scoreValue;
   },
-  
+
   touchstart(e){
     uChartsInstance[e.target.id].scrollStart(e);
   },
@@ -345,6 +390,7 @@ Page({
     uChartsInstance[e.target.id].scroll(e);
   },
   
+  // clicking-dot logic is included
   touchend(e){
     uChartsInstance[e.target.id].scrollEnd(e);
     uChartsInstance[e.target.id].touchLegend(e);
@@ -366,7 +412,9 @@ Page({
       this.setData({
         userScoreValue: this.data.userScoreInfo.scoreValue[tapObj.index + (total_len - category_len)],
         userScoreType: this.data.userScoreInfo.scoreType[tapObj.index + (total_len - category_len)],
-        userScoreColor: this.data.userScoreInfo.scoreColor[tapObj.index + (total_len - category_len)]
+        userScoreColor: this.data.userScoreInfo.scoreColor[tapObj.index + (total_len - category_len)],
+        userMoodTitle: this.data.userScoreInfo.moodTitle[tapObj.index + (total_len - category_len)],
+        userMoodDescription: this.data.userScoreInfo.moodDescription[tapObj.index + (total_len - category_len)]
       })
       
     }
@@ -424,6 +472,7 @@ Page({
         timePeirodDate: this.dateFormat("oneMonth")
       }
     )
+    console.log("this.data.timePeriodDate in oneMonth()", this.data.timePeriodDate)
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.OneMonthMoodTrackData);
   },
 
@@ -440,9 +489,10 @@ Page({
         threeMonth: true,
         sixMonth: false,
         timePeriodText: '近90天',
-        timePeirodDate: (empty_three_month ? empty_data_placeholder: this.dateFormat("threeMonth"))
+        timePeirodDate: (empty_three_month ? empty_data_placeholder : this.dateFormat("threeMonth"))  
       }
     ),
+    console.log("this.data.timePeriodDate in threeMonth()", this.data.timePeriodDate)
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.ThreeMonthMoodTrackData);
   },
 
@@ -463,16 +513,26 @@ Page({
         timePeirodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat("sixMonth"))
       }
     )
+    console.log("this.data.timePeriodDate in sixMonth()", this.data.timePeriodDate)
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.SixMonthMoodTrackData);
   },
 
-  handlePdrecommend() {
+  // 获取滚动条向左边移动的长度
+  scroll(e) {
+    const chunkCount = this.data.mediaList.length // 5
+    const userScroll = e.detail.scrollLeft
+    const barScroll = (userScroll * 30) / ((chunkCount - 4) * 20)
+    this.setData({
+      slideLeft: barScroll
+    })
+  },
+  
+  handlePdrecommend(e) {
     console.log('bindtap function runs')
     // let clickedPodCastNum = e.currentTarget.dataset.id
     // let type = e.currentTarget.dataset.podcasttype
-    let clickedPodCastNum = 0
+    let clickedPodCastNum = e.currentTarget.dataset.bindex
     let type = "播客"
-    // /podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     wx.navigateTo({
       url: `../../../pages/podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })

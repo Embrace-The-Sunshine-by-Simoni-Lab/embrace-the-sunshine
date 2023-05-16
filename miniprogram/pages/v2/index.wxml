@@ -5,7 +5,6 @@
     wx-if="{{currentMode == 'record'}}"
     src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/confetti.gif">
   </image>
-
   <!-- **** purple square on top **** -->
   <view class="infoBox">
     <view class="btnBox">
