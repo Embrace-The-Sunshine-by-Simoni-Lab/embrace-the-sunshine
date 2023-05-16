@@ -13,9 +13,6 @@
       <text class="titleMonth">{{currentMonth}}月</text>
       <text class="titleDate">{{currentDate}}</text>
     </view>
-    <!-- <view class="medicineNotice" wx-if="{{currentMode=='record'}}">
-      {{toggleButtonStatus ? "今日已服药": "今日未服药"}}
-    </view> -->
 
     <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
       <text class="toggleButton-text">已服药</text>
@@ -24,7 +21,7 @@
       <text class="toggleButton-notice-off">否</text> 
     </view>
 
-
+    <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/notes.svg" class="note_take" bindtap="showNotePanel"></image>
 
     <!-- analyst content -->
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
@@ -69,20 +66,13 @@
       <!-- 如果此时用户有note  -->
       <view class="no_content_box" wx:if="{{!ifCanEnterNote && note !== ''}}">
         <view class="has_content" wx:if="{{note !== ''}}">{{note}}</view>
-        <image wx:if="{{note !== ''}}" class="note_confirm" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/meditation_audio/edit.svg" bindtap="readyToEnter"></image>
+        <image wx:if="{{note !== ''}}" class="note_confirm" src="../../images/calendar/editbutton.svg" bindtap="readyToEnter"></image>
       </view>
 
       <textarea wx:if="{{ifCanEnterNote}}" autofocus="true" value="{{note}}" maxlength="74" class="medication_note" name="userName" bindinput="userNameInput" placeholder="填写您的服药记录">
-        <image class="note_confirm" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/meditation_audio/send button.svg" bind:tap="saveNote">checkmark</image>
+        <image class="note_confirm" src="../../images/calendar/send_button.svg" bind:tap="saveNote">checkmark</image>
       </textarea>
     </view>
-
-  <!-- <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
-    <text class="toggleButton-text">已服药</text>
-    <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
-    <text class="toggleButton-notice-on">是</text> 
-    <text class="toggleButton-notice-off">否</text> 
-  </view> -->
 
   <!-- **** calendar content -- the data visu **** -->
   <view wx-if="{{currentMode != 'record'}}" class="calendar_content_container">

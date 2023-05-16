@@ -261,9 +261,11 @@ Page({
           LastClick: this.data.curTapDate
         })
       }
-      this.showModal();
+      // this.showModal();
     } 
-    // this.showModal();
+  },
+  showNotePanel: function() {
+    this.showModal();
   },
   bindTimeChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)

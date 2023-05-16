@@ -38,6 +38,13 @@
 .note_take_title_time {
   font-weight: 500;
 }
+.note_take {
+  position: absolute;
+  right: 1rpx;
+  bottom: 1rpx;
+  width: 137rpx;
+  height: 137rpx;
+}
 .time_save {
   position:absolute;
   bottom: 30px;
@@ -252,6 +259,7 @@ Page{
   margin-right: 105px;
 }
 .infoBox {
+  position: relative;
   padding-bottom: 15rpx;
   display: flex;
   flex-direction: column;
