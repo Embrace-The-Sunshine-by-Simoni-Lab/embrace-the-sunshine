@@ -40,10 +40,10 @@
 }
 .note_take {
   position: absolute;
-  right: 1rpx;
-  bottom: 1rpx;
-  width: 137rpx;
-  height: 137rpx;
+  right: 23rpx;
+  bottom: 23rpx;
+  width: 60rpx;
+  height: 60rpx;
 }
 .time_save {
   position:absolute;
@@ -61,7 +61,7 @@
 }
 .medication_note {
   background: white;
-  border: 1px solid #4D50A4;
+  border: 2px solid #4D50A4;
   border-radius: 5px;
   width: 100%;
   height: 300rpx;
@@ -107,12 +107,11 @@
 }
 /*对话框 */
 .commodity_attr_box {
-  padding: 50rpx;
+  padding: 35rpx;
   /* background: #FDFBFC; */
-  background: green;
-  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.1);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   height: 380rpx;
   overflow: hidden;
   position: fixed;
@@ -166,13 +165,13 @@ Page{
 .toggleButton-notice-on {
   position: absolute;
   left: 122px;
-  top: 7px;
+  top: 9px;
   color: #FFFFFF;
 }
 .toggleButton-notice-off {
   position: absolute;
   left: 148px;
-  top: 7px;
+  top: 9px;
   color: #FFFFFF;
 }
 .medi-taken {

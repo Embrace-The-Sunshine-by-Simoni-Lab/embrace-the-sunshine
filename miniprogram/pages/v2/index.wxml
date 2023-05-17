@@ -21,7 +21,7 @@
       <text class="toggleButton-notice-off">否</text> 
     </view>
 
-    <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/notes.svg" class="note_take" bindtap="showNotePanel"></image>
+    <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/note.svg" class="note_take" bindtap="showNotePanel"></image>
 
     <!-- analyst content -->
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
@@ -69,7 +69,7 @@
         <image wx:if="{{note !== ''}}" class="note_confirm" src="../../images/calendar/editbutton.svg" bindtap="readyToEnter"></image>
       </view>
 
-      <textarea wx:if="{{ifCanEnterNote}}" autofocus="true" value="{{note}}" maxlength="74" class="medication_note" name="userName" bindinput="userNameInput" placeholder="填写您的服药记录">
+      <textarea wx:if="{{ifCanEnterNote}}" autofocus="true" value="{{note}}" maxlength="350" class="medication_note" name="userName" bindinput="userNameInput" placeholder="填写您的服药记录">
         <image class="note_confirm" src="../../images/calendar/send_button.svg" bind:tap="saveNote">checkmark</image>
       </textarea>
     </view>

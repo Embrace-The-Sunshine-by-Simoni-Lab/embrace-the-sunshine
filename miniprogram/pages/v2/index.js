@@ -42,14 +42,15 @@ Page({
     let today = new Date()
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
     let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
-
     // model显示之前先对calendar进行渲染
     const medi_taken = app.globalData.userData.med_date;
     this.convertStringtoDateArray(medi_taken)
+
     this.setData({
       medi_taken,
       currentMonth: today.getMonth()+1,
-      currentDate: today.getDate()
+      currentDate: today.getDate(),
+      curTapDate: today
     })
     // 用户如果点击了model需要执行的内容
     if(!ifTodayTaken && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
@@ -124,13 +125,36 @@ Page({
     return timeString
   },
   readyToEnter() {
-    console.log("readyToEnter")
+    // console.log("current user tap date", this.data.curTapDate)
     this.setData({
       ifCanEnterNote: true
     })
   },
   saveNote() {
+    let current_tap_date = this.data.curTapDate
+    let user_enter_note = this.data.note
+    let myDate = new Date(current_tap_date.year, current_tap_date.month - 1, current_tap_date.date);
+    if(isNaN(myDate)) {
+      myDate = new Date()
+    }
+
+    wx.cloud.callFunction({
+      name: 'POST_note_change',
+      data: {
+        date: myDate,
+        content: user_enter_note
+      },
+      success: out => {
+        console.log(out);
+      },
+      fail: out => {
+        console.log("fail to call POST_note_change");
+        console.log(out);
+      }
+    });
+
     this.setData({
+      note: user_enter_note,
       ifCanEnterNote: false
     })
   },
@@ -138,12 +162,6 @@ Page({
     const userInputText = e.detail.value
     this.setData({
       note: userInputText
-    })
-  },
-  userOnFocus() {
-    // console.log("user click box")
-    this.setData({
-      ifCanEnterNote: true
     })
   },
   // 处理bar chart的数据
@@ -171,9 +189,6 @@ Page({
       compare,
       analyticsData
     })
-  },
-  onFocus: function (e) {
-    console.log('Textarea is focused');
   },
   convertDateobjToDateOBJ(obj) {
     return new Date(obj.year, obj.month-1, obj.date)
@@ -236,6 +251,8 @@ Page({
     let tap_day = e.detail.date
 
     const tap_date = new Date(tap_year, tap_month - 1, tap_day)
+
+    // console.log("current user tap date", tap_date)
     // 只允许用户点击早于今天的日期
     if(tap_date < today) {
       this.setData({
@@ -264,9 +281,33 @@ Page({
       // this.showModal();
     } 
   },
+
   showNotePanel: function() {
-    this.showModal();
+    let current_tap_date = this.data.curTapDate
+    let myDate = new Date(current_tap_date.year, current_tap_date.month - 1, current_tap_date.date);
+    if(isNaN(myDate)) {
+      myDate = new Date()
+    }
+    let that = this
+  
+    wx.cloud.callFunction({
+      name: 'GET_note',
+      data: {
+        date: myDate,
+      },
+      success: out => {
+        that.setData({
+          note: out.result.data.content
+        })
+        that.showModal();
+      },
+      fail: out => {
+        console.log("fail to call GET_note");
+        console.log(out);
+      }
+    });
   },
+
   bindTimeChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     let temp = this.changeTimeFormat(e.detail.value)
