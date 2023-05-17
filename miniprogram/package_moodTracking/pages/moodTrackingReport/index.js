@@ -25,7 +25,7 @@ Page({
     // ******************* podcast scroll *******************
     mediaList: [],
     swiperPosition: 0, // 内容滚动的进度
-    slideWidth: 250,  // 滚动条默认长度
+    slideWidth: 270,  // 滚动条默认长度
     currentClickedBar: 0,
     lastClickBar: 0,
     left: 0,

@@ -125,6 +125,7 @@ Page{
   width: 100%;
   height: 300rpx;
   white-space: nowrap;
+  justify-content: space-between;
 }
 
 .scrollable_pd {
