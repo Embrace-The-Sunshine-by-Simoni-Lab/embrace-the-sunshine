@@ -1,14 +1,14 @@
 <view class="medicineContainer">
-  <!-- **** purple square on top **** -->
+  <!-- information board on top -->
   <view class="infoBox">
-    <text class="medicineRecord">{{timePeriodText}}情绪记录</text>
-    <!-- <view class="medicineRecord_date">{{timePeriodDate}}</view> -->
+    <view class="moodTitle">本周情绪记录：{{userMoodTitle ? userMoodTitle : "暂无"}}</view>
+    <view class="moodDescription">{{userMoodDescription}}</view>
   </view>
   <!-- line graph -->
   <view class="line_chart_container">
     <view class="line_chart_heading">
-      <view class="line_chart_tittle_container">
-        <text class="tittle_text">自测抑郁症风险等级</text>
+      <view class="line_chart_title_container">
+        <text class="title_text">自测抑郁症风险等级</text>
       </view>
       <view class="btnBox">
         <mainButton type="{{oneMonth ? 'oneMonth-fill':'oneMonth-empty'}}" class="madicineBtn" bindtap="chooseOneMonth"></mainButton>
@@ -31,18 +31,21 @@
       </view>
     </view>
   </view>
-  <view class="calendar_circle_container">
-      <view class="calendar_circle">
-        <l-circle percent='100' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{userScoreColor}}"
-        ></l-circle>
-        <view class="calendar_circle_text_container">
-          <view class="calendar_circle_text">{{userScoreValue}}分</view>
+  <!-- podcast recommend -->
+  <view class="pdRecommend_container">
+    <view><text class="pdRecommend_header">推荐播客</text></view>
+      <scroll-view scroll-x class="scrollPd_container" bindscroll="scroll">
+        <view style="display: inline-block;" wx:for="{{mediaList}}" wx:key="index" wx:for-index="bindex">
+          <view class="scrollable_pd" bindtap="handlePdrecommend" data-bindex='{{bindex}}'>
+            <view class="pd_title">{{item.title}}</view>
+            <view class="img_container"><image class="pdImg" src="{{item.img}}"/></view>
+          </view>
         </view>
-      </view>
-      <view class="calendar_summary_container">
-        <view class="calendar_summary_container_circle" style="background: {{userScoreColor}};"></view>
-        <text class="calendar_summary_container_text" style="color: {{userScoreColor}};">{{userScoreType}}</text>
-      </view>
-  </view> 
+      </scroll-view>
+
+    <view class="slide">
+      <view class="slide-show" style="width: {{slideWidth}}rpx; margin-left:{{slideLeft == 0 ? 0 : slideLeft + 'rpx'}};"></view>
+    </view>
+  </view>
 </view>
 

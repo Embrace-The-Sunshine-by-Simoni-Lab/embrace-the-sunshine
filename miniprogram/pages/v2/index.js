@@ -2,6 +2,7 @@ const app = getApp();
 
 Page({
   data: {
+    displayConfetti: false,
     // ******************* 分析页面顶部逻辑 *******************
     currentMode: "record",
     currentMonth:"", // 顶部方形日历
@@ -21,7 +22,7 @@ Page({
     lowestWeekNum: -1,
     medi_taken_classified_by_years: {},
     curTapDate: {},
-    // ******************* bar chart逻辑 ******************* 
+    // ******************* bar chart逻辑 *******************
     swiperPosition: 0, // bar chart中间内容滚动的进度
     slideWidth: 40,  // 滚动条默认长度
     currentClickedBar: 0,
@@ -34,7 +35,8 @@ Page({
     // ******************* 笔记逻辑 *******************
     note: "",
     ifCanEnterNote: false,
-  }, 
+  },
+
   // ******************* 日历逻辑 *******************
   onLoad() {
     // 弹窗
@@ -91,11 +93,9 @@ Page({
           }
         }
       })
-   
     }
-    
     // 判断笔记是否为空
-    if(note !== "") {
+    if(this.data.note !== "") {
       this.setData({
         ifCanEnterNote: true
       })
@@ -174,7 +174,6 @@ Page({
     this.setData({
       medi_taken_classified_by_years: _medi_taken_classified_by_years
     })
-    console.log("this.data.anlyticsData", this.data.analyticsData)
     this.prepareAnalyticsData()
     this.modifyDateList(this.data.analyticsData)
     this.generateDisplayDate(this.data.analyticsData[0])
@@ -189,6 +188,7 @@ Page({
       compare,
       analyticsData
     })
+    console.log("this.data.anlyticsData", this.data.analyticsData)
   },
   convertDateobjToDateOBJ(obj) {
     return new Date(obj.year, obj.month-1, obj.date)
@@ -279,7 +279,7 @@ Page({
         })
       }
       // this.showModal();
-    } 
+    }
   },
 
   showNotePanel: function() {
@@ -289,7 +289,7 @@ Page({
       myDate = new Date()
     }
     let that = this
-  
+
     wx.cloud.callFunction({
       name: 'GET_note',
       data: {
@@ -331,7 +331,7 @@ Page({
     // Construct the new time string
     var newTime = hours.toString() + ":" + minutes.toString().padStart(2, "0") + " " + amOrPm;
     return newTime;
-  }, 
+  },
   //显示对话框
   showModal: function () {
     // 显示遮罩层
@@ -382,7 +382,7 @@ Page({
     const StyledObj = {year:dateObj.year, month:dateObj.month, date:dateObj.date, class: styleName}
     toSet.push(StyledObj)
     calendar.setDateStyle(toSet)
-  }, 
+  },
   // 判断当前点击的格子是不是已经确认服药了
   checkIfTapDateTaken(dateObj) {
     let curr_medi_taken = this.data.medi_taken_obj
@@ -421,24 +421,17 @@ Page({
       that.convertStringtoDateArray(newDateLst)
       that.setData({
         medi_taken: newDateLst,
+        displayConfetti: true
       })
       that.renderMediTaken()
-      
-      if(toggleResult) {
-        that.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
-      } else {
-        that.changeCalendarBoxStyle(curTapDate, "box-selected")
-      }
-
       that.setData({
         toggleButtonStatus: newMediStatus
       })
       // 更新分析页面的数据
       wx.hideLoading()
       that.processAnalystPageData()
-      
     });
-    
+
   },
   // 把所有已经服药过的日期渲染成红色
   renderMediTaken() {
@@ -474,7 +467,7 @@ Page({
     // 改变bar透明度
     let curAnalyticsData = this.data.analyticsData;
     curAnalyticsData[this.data.lastClickBar].opacity = 0.5
-    curAnalyticsData[e.currentTarget.dataset.bindex].opacity = 1 
+    curAnalyticsData[e.currentTarget.dataset.bindex].opacity = 1
     this.setData({
       currentClickedBar: e.currentTarget.dataset.bindex,
       compare: newCompareStr,
@@ -517,7 +510,7 @@ Page({
     return date_month + "." + date_date
   },
   // 把所有的日期按照周排列好 (Jara's func)
-  prepareAnalyticsData() { 
+  prepareAnalyticsData() {
     let today = new Date();
     let _analyticsData = [];
     let _weekNumToRange = {};
@@ -536,7 +529,7 @@ Page({
     // highest week number and lowest week number
     let HighestDate = new Date(this_year_medi_taken[0]);
     let HighestWeekNum = this.getWeekNum(HighestDate);
-    
+
     let LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 1]);
     let LowestWeekNum = this.getWeekNum(LowestDate);
     // 跨年
@@ -544,7 +537,7 @@ Page({
       LowestDate = new Date(this_year_medi_taken[this_year_medi_taken.length - 2]);
       LowestWeekNum = this.getWeekNum(LowestDate);
     }
-    
+
     for (let i = 0; i < this_year_medi_taken.length; i++) {
       let currDate = new Date(this_year_medi_taken[i]);
       let curr_weekNum = this.getWeekNum(currDate);
@@ -595,7 +588,7 @@ Page({
   },
   createMedi_taken_classified_by_years(medi_taken) {
     let _medi_taken_classified_by_years = {};
-    for (let i = 0; i < medi_taken.length; i++) { 
+    for (let i = 0; i < medi_taken.length; i++) {
       let currDate = new Date(medi_taken[i]);
       if (_medi_taken_classified_by_years[currDate.getFullYear()] == null) {
         _medi_taken_classified_by_years[currDate.getFullYear()] = [];
@@ -609,13 +602,13 @@ Page({
   getCompareString(index) {
     if(index == 0) {
       return "+0"
-    } 
+    }
     let curCount = this.data.analyticsData[index].count;
     let prevCount = this.data.analyticsData[index - 1].count
     if(curCount > prevCount) {
       return "+" + (curCount - prevCount)
     } else if (curCount < prevCount) {
-      return "-" + Math.abs(curCount - prevCount) 
+      return "-" + Math.abs(curCount - prevCount)
     } else {
       return "+0"
     }
