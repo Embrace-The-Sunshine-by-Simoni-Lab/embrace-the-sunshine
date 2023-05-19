@@ -42,7 +42,6 @@
           </view>
         </view>
       </scroll-view>
-
     <view class="slide">
       <view class="slide-show" style="width: {{slideWidth}}rpx; margin-left:{{slideLeft == 0 ? 0 : slideLeft + 'rpx'}};"></view>
     </view>

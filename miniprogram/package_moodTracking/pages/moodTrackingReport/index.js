@@ -519,10 +519,12 @@ Page({
 
   // 获取滚动条向左边移动的长度
   scroll(e) {
+    // 淡紫色滚动框默认长度 this.data.slideWidth: 270, 
     const chunkCount = this.data.mediaList.length // 5
     const userScroll = e.detail.scrollLeft
     const barScroll = (userScroll * 30) / ((chunkCount - 4) * 20)
     this.setData({
+      // 深紫色滚动条 margin-left: slideLeft  + 'rpx'
       slideLeft: barScroll
     })
   },
