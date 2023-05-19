@@ -289,7 +289,10 @@ Page({
       myDate = new Date()
     }
     let that = this
-
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     wx.cloud.callFunction({
       name: 'GET_note',
       data: {
@@ -300,12 +303,16 @@ Page({
           note: out.result.data.content
         })
         that.showModal();
+
       },
       fail: out => {
         console.log("fail to call GET_note");
         console.log(out);
+      },
+      complete: out => {
+        wx.hideLoading();
       }
-    });
+    })
   },
 
   bindTimeChange: function(e) {
