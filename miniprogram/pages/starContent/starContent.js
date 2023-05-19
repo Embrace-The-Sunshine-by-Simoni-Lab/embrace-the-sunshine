@@ -5,41 +5,59 @@ Page({
    * 页面的初始数据
    */
   data: {
-    podcastRegisterAvailability: [],
     podCastInfo: [],
-    podcastsAvailability: [],
-    podcastComplete: [],
+    fav_podcastComplete: [],
+    fav_meditationComplete: [],
     podcastBtn: '',
     meditationBtn: '',
     favList: [],
-    typeBeforeJump: ''
+    typeBeforeJump: '播客'
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     let allPodCastData =  wx.getStorageSync('allPodCastData');
-    let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
     let podcastComplete = app.globalData.userData.finished_podcasts
-    let podcastsAvailability = app.globalData.podcastsAvailability
-    let favList = this.getFavList('podcast');
+    let meditationComplete = app.globalData.userData.finished_meditations
+
+    // 获取播客和冥想的完成情况
+    let favList_podcast = this.getFavList('podcast')
+    let favList_meditation = this.getFavList('meditation')
+
+    let fav_podcastComplete = this.getCorrespondingComplete(favList_podcast, podcastComplete, 'podCast_Id')
+    let fav_meditationComplete = this.getCorrespondingComplete(favList_meditation,meditationComplete, 'meditation_Id')
 
     this.setData({
       podCastInfo: allPodCastData,
-      podcastsAvailability: podcastsAvailability,
-      podcastRegisterAvailability: podcastRegisterAvailability,
-      podcastComplete: podcastComplete,
-      favList: favList,
-      jumpToPodCastPlay: 'podcast',
+      fav_podcastComplete: fav_podcastComplete,
+      fav_meditationComplete: fav_meditationComplete,
+      favList: favList_podcast,
       podcastBtn: true,
       meditationBtn: false,
     })
   },
 
+  getCorrespondingComplete(firstList = [], secondList = [], key) {
+    let newList = Array.from({ length: firstList.length }, () => -1);
+    for (let i = 0; i < firstList.length; i++) {
+      let id = firstList[i][key];
+      newList[i] = secondList[id];
+    }
+    return newList;
+  },
+
   onShow() {
-    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.userData.finished_podcasts || [], app.globalData.podcastRegisterAvailability)
-    let new_podcast_complete = app.globalData.userData.finished_podcasts
-    app.globalData.podcastsAvailability = new_podcast_availability
+    let podcastComplete = app.globalData.userData.finished_podcasts
+    let meditationComplete = app.globalData.userData.finished_meditations
+
+    // 获取播客和冥想的完成情况
+    let favList_podcast = this.getFavList('podcast')
+    let favList_meditation = this.getFavList('meditation')
+
+    let fav_podcastComplete = this.getCorrespondingComplete(favList_podcast, podcastComplete, 'podCast_Id')
+    let fav_meditationComplete = this.getCorrespondingComplete(favList_meditation,meditationComplete, 'meditation_Id')
+
     if (this.data.typeBeforeJump == '播客' || this.data.typeBeforeJump == '') {
       this.choosePodcasts()
     } else {
@@ -47,8 +65,8 @@ Page({
     }
     
     this.setData({
-      podcastsAvailability: new_podcast_availability,
-      podcastComplete: new_podcast_complete,
+      fav_podcastComplete: fav_podcastComplete,
+      fav_meditationComplete: fav_meditationComplete,
     })
   },
 
@@ -84,7 +102,8 @@ Page({
     this.setData ({
       favList : favList,
       podcastBtn: true,
-      meditationBtn: false
+      meditationBtn: false,
+      typeBeforeJump: '播客'
     })
   },
 
@@ -93,26 +112,15 @@ Page({
     this.setData ({
       favList : favList,
       podcastBtn: false,
-      meditationBtn: true
+      meditationBtn: true,
+      typeBeforeJump: '冥想'
     })
-  },
-
-  // generate podcast availability and on podcast complete array and register time podcast array
-  generatePodcastAvailabilityArray(podcastComplete, podcastRegisterAvailability) {
-    if(podcastComplete.length == 0) return [1]
-    let result = [1];
-    for (let i = 0; i < podcastComplete.length; i++) {
-      if (podcastComplete[i] === 1 && podcastRegisterAvailability[i + 1] === 1) {
-        result[i + 1] = 1;
-      }
-    }
-    return result
   },
 
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.podcasttype
-    
+
     this.setData ({
       typeBeforeJump: type
     })

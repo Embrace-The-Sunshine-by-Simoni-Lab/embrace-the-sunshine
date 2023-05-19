@@ -23,7 +23,6 @@ Page({
 
   onShow() {
     let new_meditation_complete = app.globalData.userData.finished_meditations
-    console.log("new_meditation_completeaa", new_meditation_complete)
     this.setData({
       meditationComplete: new_meditation_complete
     })
@@ -32,9 +31,6 @@ Page({
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.podcasttype
-    console.log("dd", e.currentTarget)
-    console.log("clickedPodCastNum", clickedPodCastNum)
-    console.log("type", type)
     wx.navigateTo({
       url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })
