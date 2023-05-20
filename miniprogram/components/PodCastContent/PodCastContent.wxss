@@ -194,6 +194,7 @@
   background: rgb(139, 139, 161);
 }
 .SubmitBlock {
+  background: white;
   position: absolute;
   bottom: 10rpx;
   left: 50%;
@@ -202,10 +203,11 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 20rpx;
 }
 .Submit_Button {
-  width: 400rpx;
-  height: 65rpx;
+  width: 200rpx;
+  height: 70rpx;
   color: #FFFFFF;
   font-size: 30rpx;
   line-height: 70rpx;
@@ -214,8 +216,8 @@
   text-align: center;
 }
 .Disabled_Button {
-  width: 400rpx;
-  height: 65rpx;
+  width: 200rpx;
+  height: 70rpx;
   color: rgba(0, 0, 0, 0.1);
   font-size: 30rpx;
   line-height: 70rpx;
@@ -235,13 +237,46 @@
   margin-top: 70rpx;
 }
 .next_question {
-  width: 60rpx; 
-  height: 55rpx;
+  color: black;
+  background: white;
+  width: 210rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  border-style: solid;
+  border-width: thin;
+  border-color: #4D50A4;
 }
 .prev_question {
-  width: 60rpx; 
-  height: 55rpx;
-  transform: scaleX(-1);
+  color: black;
+  background-color: white;
+  width: 210rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  border-style: solid;
+  border-width: thin;
+  border-color: #4D50A4;
+}
+.next_question_disable {
+  color: #333333;
+  background: #F2F2F2;
+  width: 210rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+}
+.prev_question_disable {
+  color: #333333;
+  background: #F2F2F2;
+  width: 210rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
 }
 .open_ended_box {
   width: 100%;

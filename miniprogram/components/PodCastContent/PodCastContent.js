@@ -135,6 +135,7 @@ Component({
       } else if(direction === 'next' && currentDisplayQuestion <= questionCount - 2) {
         currentDisplayQuestion += 1
       } 
+      console.log("test:", currentDisplayQuestion)
       this.setData({
         currentDisplayQuestion
       })
