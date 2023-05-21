@@ -6,16 +6,26 @@
   </view>
 
   <!-- 正确答案揭晓 -->
-  <view wx:if="{{reportPageClicked}}" class="Option {{    (userAnswer[idx] != -1 && userAnswer[idx] != correctAnswer[idx]) ? 'wrongAnswer': (correctAnswer[idx] == 1 ?  (correctAnswer[idx] == userAnswer[idx] ? 'correctSelected': 'correctAnswer'): '')}}" wx:for-item="item" wx:for-index="idx" wx:for="{{option_info.options}}" wx:key="idx" data-index='{{idx}}'>
-    <text>{{item.option_content}}</text>
-    <view wx:if="{{explanationVisible[idx]}}" style="height: 20rpx;"></view>
+  <view wx:if="{{reportPageClicked}}" wx:for-item="item" wx:for-index="idx" wx:for="{{option_info.options}}" wx:key="idx" data-index='{{idx}}'>
+    <view class="option_outside_box">
+      <view class="Option {{(userAnswer[idx] != -1 && userAnswer[idx] != correctAnswer[idx]) ? 'wrongAnswer': (correctAnswer[idx] == 1 ?  (correctAnswer[idx] == userAnswer[idx] ? 'correctSelected': 'correctAnswer'): '')}}">
+        <!-- 选择方块 -->
+        <image src="{{userAnswer[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/option_select.svg': 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/option_not_select.svg'}}" class="option_select"></image>
 
-    <view wx:if="{{item.option_explanation}}" class="expandExplanation" style="text-decoration: underline; color: rgba(23, 37, 169, 0.81);" bindtap="toggleExplanation" data-index='{{idx}}'>
-      <text>{{buttonText}}</text>
-      <text class="triangle" style="{{buttonText === '展开解释' ? 'border-top: 20rpx solid rgba(23, 37, 169, 0.81);': 'border-bottom: 20rpx solid rgba(23, 37, 169, 0.81);'}}"></text>
+        <view>
+          <text>{{item.option_content}}</text>
+          <view wx:if="{{explanationVisible[idx]}}" style="height: 20rpx;"></view>
+
+          <view wx:if="{{item.option_explanation}}" class="expandExplanation" style="text-decoration: underline; color: rgba(23, 37, 169, 0.81);" bindtap="toggleExplanation" data-index='{{idx}}'>
+            <text>{{buttonText}}</text>
+            <text class="triangle" style="{{buttonText === '展开解释' ? 'border-top: 20rpx solid rgba(23, 37, 169, 0.81);': 'border-bottom: 20rpx solid rgba(23, 37, 169, 0.81);'}}"></text>
+          </view>
+          <view wx:if="{{explanationVisible[idx]}}" class="explanationDetail">解释: {{item.option_explanation}}</view>
+        </view>
+      </view>
+      <image class="option_answer_mark" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/check_mark.svg"></image>
     </view>
-
-    <view wx:if="{{explanationVisible[idx]}}" class="explanationDetail">解释: {{item.option_explanation}}</view>
+    <!-- 选项的内容 -->
   </view>
 
 
