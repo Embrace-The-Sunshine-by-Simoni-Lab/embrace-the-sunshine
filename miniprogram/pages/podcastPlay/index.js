@@ -166,6 +166,9 @@ Page({
 
     // 播放时长更新监听
     myAudio.onTimeUpdate(() => {
+      this.setData({
+        paused: false
+      })
       if (app.globalData.audio_unload) {
         myAudio.stop();
         return;
@@ -232,6 +235,10 @@ Page({
     });
   },
   restartAudioFromBeginning() {
+    if (app.globalData.audio_unload) {
+      myAudio.stop();
+      return;
+    }
     myAudio.seek(0);
     myAudio.play();
   },
