@@ -118,7 +118,7 @@
   margin-right: 5px;
 }
 
-.oneMonth-empty text, .threeMonth-empty text, .sixMonth-empty text {
+.oneMonth-empty text, .threeMonth-empty text, .sixMonth-empty text, .podcast-empty text, .meditation-empty text {
   position: relative;
   left: 5.5px;
 }
@@ -137,7 +137,41 @@
   bottom: 2px;
 }
 
-.oneMonth-fill text, .threeMonth-fill text, .sixMonth-fill text {
+.oneMonth-fill text, .threeMonth-fill text, .sixMonth-fill text, .podcast-fill text, .meditation-fill text {
   position: relative;
   left: 5.5px;
+}
+
+ .podcast-empty, .meditation-empty {
+  font-size: 30rpx;
+  line-height: 55rpx;
+  color: #4D50A4;
+  background: #FFFFFF;
+  opacity: 100%;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+  margin-right: 30rpx;
+  bottom: 2rpx;
+}
+
+.podcast-fill, .meditation-fill {
+  font-size: 30rpx;
+  line-height: 55rpx;
+  /* height: 28px !important; */
+  color:#FFFFFF;
+  background: #4D50A4;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+  margin-right: 30rpx;
+  bottom: 2rpx;
+}
+
+.podcast-fill, .podcast-empty {
+  width: 225rpx;
+}
+
+.meditation-empty, .meditation-fill {
+  width: 134rpx;
 }

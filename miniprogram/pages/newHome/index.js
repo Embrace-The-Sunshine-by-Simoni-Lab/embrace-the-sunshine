@@ -8,76 +8,64 @@ Page({
     indicatorDots: true,
     podCastInfo: [], 
     meditationInfo: [],
-    podCastInfo_remove_meditation: [],
     progressBarColor: "", // 首页药物追踪的进度条背景
-    podcastsAvailability: [], // 综合播客的完成状态和注册时间最终确定展示的播客
-    podcastRegisterAvailability: [], // 判断用户是否发已经注册了足够多的时间来获取更新的播客
-    podcastComplete: [] // 用来设置播客已完成的未完成的打勾
+    podcastComplete: [], // 用来设置播客已完成的未完成的打勾
+    meditationComplete: []
   },
   onLoad: function() {
-    if(app.globalData.podcastsAvailability)
-      var is_new_user = false;
-      let that = this;
-      if (!app.globalData.logged) {
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        })
-        wx.cloud.callFunction({
-          name: 'auto_sign_in',
-          data: {
-          },
-          success: async out => {
-            if (out.result.errCode == 0) {
-              if (out.result.data) {
-                app.globalData.userData = out.result.data;
-                app.globalData.podcast_progress_data = out.result.podcast_progress_data;
-                app.globalData.meditation_progress_data = out.result.meditation_progress_data;
+    var is_new_user = false;
+    let that = this;
+    if (!app.globalData.logged) {
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      wx.cloud.callFunction({
+        name: 'auto_sign_in',
+        data: {
+        },
+        success: async out => {
+          if (out.result.errCode == 0) {
+            if (out.result.data) {
+              app.globalData.userData = out.result.data;
+              app.globalData.podcast_progress_data = out.result.podcast_progress_data;
+              app.globalData.meditation_progress_data = out.result.meditation_progress_data;
 
-                app.globalData.logged = true;
-                is_new_user = out.result.is_new_user;
-                // 先设置
-                that.setData({
-                  podcastComplete: app.globalData.userData.finished_podcasts || [],
-                });
-                that.change_home_progress_style()
-                await that.createPodcastRegisterAvailability(app)
-                // 通过podcastComplete和podcastRegisterAvailability来改变podcastsAvailability的值
-                let new_podcast_availability = that.generatePodcastAvailabilityArray(that.data.podcastComplete, that.data.podcastRegisterAvailability)
-
-                app.globalData.podcastComplete = that.data.podcastComplete
-                app.globalData.podcastRegisterAvailability = that.data.podcastRegisterAvailability
-                app.globalData.podcastsAvailability = new_podcast_availability
-                this.setData({
-                  podcastsAvailability: new_podcast_availability
-                })
-              } else {
-                console.log(out.errMsg);
-              }
+              app.globalData.logged = true;
+              is_new_user = out.result.is_new_user;
+              // 先设置podcast和meditation的完成情况
+              that.setData({
+                podcastComplete: app.globalData.userData.finished_podcasts || [],
+                meditationComplete: app.globalData.userData.finished_meditations || []
+              });
+              that.change_home_progress_style()
             } else {
               console.log(out.errMsg);
             }
-            // 判断是否今天已经服药
-            let today = new Date()
-            let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
-            this.setData({
-              showRedDot: !ifTodayTaken
-            })
-          },
-          fail: out => {
-            console.log('call function failed')
-          },
-          complete: out => {
-            wx.hideLoading()
-            // start onboarding page if this is new user
-            if (is_new_user) {
-              wx.navigateTo({
-                url: "../onboarding/onboarding",
-              })
-            }
+          } else {
+            console.log(out.errMsg);
           }
-        })
-        this.change_home_progress_style()
+          // 判断是否今天已经服药
+          let today = new Date()
+          let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
+          this.setData({
+            showRedDot: !ifTodayTaken
+          })
+        },
+        fail: out => {
+          console.log('call function failed')
+        },
+        complete: out => {
+          wx.hideLoading()
+          // start onboarding page if this is new user
+          if (is_new_user) {
+            wx.navigateTo({
+              url: "../onboarding/onboarding",
+            })
+          }
+        }
+      })
+      this.change_home_progress_style()
     } 
 
     // 获取并且更新所有的播客内容
@@ -92,18 +80,8 @@ Page({
             // 根据播客的id进行排序
             let sorted_podcast = this.sortPodCastList(allPodCastData)
             // 根据用户注册时间创建podcastRegisterAvailability
-            const date = new Date(app.globalData.userData.reg_time);
-            const today = new Date();
-            const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000)) + 1;
-            const podcastRegisterAvailability = new Array(sorted_podcast.length);
-            for (let i = 0; i < podcastRegisterAvailability.length; i++) {
-              if (i <= inputWeek) {
-                podcastRegisterAvailability[i] = 1;
-              }
-            }
             this.setData({
               podCastInfo: sorted_podcast,
-              podcastRegisterAvailability,
             })
             // 把排列好的博客放进缓存
             app.globalData.podCast = sorted_podcast;
@@ -118,7 +96,7 @@ Page({
       },
       complete: out => {
         wx.hideLoading()
-       }
+      }
     })
 
     // 获取并且更新所有的Meditation内容
@@ -130,7 +108,6 @@ Page({
         if (out.result.errcode == 0) {
           if (out.result.data) {
             let allMeditationData = out.result.data;
-            console.log("allMeditationData", allMeditationData)
             this.setData({
               meditationInfo: allMeditationData,
             })
@@ -166,12 +143,10 @@ Page({
 
   onShow() {
     // 实时更新首页的availability状态
-    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [],app.globalData.podcastRegisterAvailability)
     this.setData({
-      podcastComplete: app.globalData.podcastComplete || [],
-      podcastsAvailability: new_podcast_availability
+      podcastComplete: app.globalData.userData.finished_podcasts || [],
+      meditationComplete: app.globalData.userData.finished_meditations || [],
     })
-
     // 获取并且更新首页服药天数状态
     try {
       let medi_taken_days = app.globalData.userData.med_date
@@ -195,33 +170,6 @@ Page({
         showRedDot: false
       })
     }
-
-  },
-
-  async createPodcastRegisterAvailability(app) {
-    let allPodCastData =  await wx.getStorageSync('allPodCastData');
-    const date = new Date(app.globalData.userData.reg_time);
-    const today = new Date();
-    const inputWeek = Math.floor((today - date) / (7 * 24 * 60 * 60 * 1000));
-    const podcastRegisterAvailability = new Array(allPodCastData.length);
-    for (let i = 0; i < podcastRegisterAvailability.length; i++) {
-        podcastRegisterAvailability[i] = i <= inputWeek ? 1: -1;
-    }
-
-    this.setData({
-      podcastRegisterAvailability
-    })
-  },
-  // generate podcast availability and on podcast complete array and register time podcast array
-  generatePodcastAvailabilityArray(podcastComplete, podcastRegisterAvailability) {
-    if(podcastComplete.length == 0) return [1]
-    let result = [1];
-    for (let i = 0; i < podcastComplete.length; i++) {
-      if (podcastComplete[i] === 1 && podcastRegisterAvailability[i + 1] === 1) {
-        result[i + 1] = 1;
-      }
-    }
-    return result
   },
 
   // 改变首页药物追踪进度条的逻辑
@@ -315,6 +263,7 @@ Page({
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.podcasttype
+    // url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     wx.navigateTo({
       url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}`
     })
@@ -323,7 +272,7 @@ Page({
   jumpToUnAvailableNotice(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
     let currpodcast_finish_status = this.data.podcastComplete[clickedPodCastNum - 1]
-    if (currpodcast_finish_status === -1 || this.data.podcastComplete.length == 0 || clickedPodCastNum - 1 >= app.globalData.podcastComplete.length) {
+    if (currpodcast_finish_status === -1 || this.data.podcastComplete.length == 0 || clickedPodCastNum - 1 >= app.globalData.userData.finished_podcasts.length) {
       wx.showModal({
         content: '请先完成当前内容',
         confirmText: '我知道了',

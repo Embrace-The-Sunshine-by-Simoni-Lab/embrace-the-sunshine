@@ -33,10 +33,50 @@ exports.main = async (event, context) => {
   });
   var new_med_date = userData.med_date;
   // only stores 90 days' data
-  while (new_med_date.length > 90) {
-    new_med_date.pop();
+  // while (new_med_date.length > 90) {
+  //   new_med_date.pop();
+  // }
+  // new_med_date.unshift(new Date(event.date));
+  
+  const inputDate = new Date(event.date);
+  console.log(inputDate.getFullYear());
+  console.log(inputDate.getMonth());
+  console.log(inputDate.getDate());
+  console.log("-----------------------START CHECKING-----------------");
+  // maintain order
+  let i = 0;
+  let evict = false;
+  console.log("length: " + new_med_date.length);
+  for (i = 0; i < new_med_date.length; i++) {
+    let currDate = new Date(new_med_date[i]);
+    console.log(currDate.getFullYear());
+    console.log(currDate.getMonth());
+    console.log(currDate.getDate());
+    
+    if (currDate.getFullYear() < inputDate.getFullYear()) {
+      console.log("different year");
+      break;
+    } else if (currDate.getFullYear() === inputDate.getFullYear() && currDate.getMonth() < inputDate.getMonth()) {
+      console.log("different month");
+      break;
+    } else if (currDate.getFullYear() === inputDate.getFullYear() && currDate.getMonth() === inputDate.getMonth() && currDate.getDate() < inputDate.getDate()) {
+      console.log("different day");
+      break;
+    }
+
+    if (currDate.getFullYear() === inputDate.getFullYear() && currDate.getMonth() === inputDate.getMonth() && currDate.getDate() === inputDate.getDate()) {
+      console.log("same day, start evicting");
+      evict = true;
+      break;
+    }
+    console.log("-----------------------");
   }
-  new_med_date.unshift(new Date(event.date));
+
+  if (evict) {
+    new_med_date.splice(i, 1);
+  } else {
+    new_med_date.splice(i, 0, inputDate);
+  }
   
   await db.collection("main_db")
   .where({
@@ -47,6 +87,18 @@ exports.main = async (event, context) => {
       med_date: new_med_date
     }
   })
+
+  // // save time data to 
+  // var notes;
+  // await db.collection("notes_db")
+  // .where({
+  //   openid: wxContext.OPENID
+  // })
+  // .get()
+  // .then(res => {
+  //   notes = res.data[0];
+  // });
+
 
   result.data.med_date = new_med_date;
   return result

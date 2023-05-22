@@ -5,75 +5,127 @@ Page({
    * 页面的初始数据
    */
   data: {
-    podcastRegisterAvailability: [],
     podCastInfo: [],
-    podcastsAvailability: [],
-    podcastComplete: [],
-    fav_podcasts: []
+    fav_podcastComplete: [],
+    fav_meditationComplete: [],
+    podcastBtn: '',
+    meditationBtn: '',
+    favList: [],
+    typeBeforeJump: '播客'
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     let allPodCastData =  wx.getStorageSync('allPodCastData');
-    console.log(app.globalData.podcastComplete)
-    let podcastRegisterAvailability = app.globalData.podcastRegisterAvailability
-    let podcastComplete = app.globalData.podcastComplete
-    let podcastsAvailability = app.globalData.podcastsAvailability
-    let fav_podcastsIdx = app.globalData.userData.fav_podcasts
-    console.log("fav_podcastsIdx", fav_podcastsIdx)
-    let fav_podcasts = [];
-    if (typeof fav_podcastsIdx !== 'undefined') {
-      fav_podcastsIdx.forEach((element, index) => {
-        if (element == 1) {
-          fav_podcasts.push(allPodCastData[index])
-        }
-      });
-      console.log(fav_podcasts)
-    }
-    // // make podcastComplete and fav_podcasts same length
-    // while (podcastComplete.length < fav_podcasts.length) {
-    //   podcastComplete.push(-1);
-    // }
-    console.log("fav_podcasts", fav_podcasts);
-    console.log("podcastComplete", podcastComplete)
+    let podcastComplete = app.globalData.userData.finished_podcasts
+    let meditationComplete = app.globalData.userData.finished_meditations
 
+    // 获取播客和冥想的完成情况
+    let favList_podcast = this.getFavList('podcast')
+    let favList_meditation = this.getFavList('meditation')
+
+    let fav_podcastComplete = this.getCorrespondingComplete(favList_podcast, podcastComplete, 'podCast_Id')
+    let fav_meditationComplete = this.getCorrespondingComplete(favList_meditation,meditationComplete, 'meditation_Id')
 
     this.setData({
       podCastInfo: allPodCastData,
-      podcastsAvailability: podcastsAvailability,
-      podcastRegisterAvailability: podcastRegisterAvailability,
-      podcastComplete: podcastComplete,
-      fav_podcasts: fav_podcasts
+      fav_podcastComplete: fav_podcastComplete,
+      fav_meditationComplete: fav_meditationComplete,
+      favList: favList_podcast,
+      podcastBtn: true,
+      meditationBtn: false,
     })
+  },
+
+  getCorrespondingComplete(firstList = [], secondList = [], key) {
+    let newList = Array.from({ length: firstList.length }, () => -1);
+    for (let i = 0; i < firstList.length; i++) {
+      let id = firstList[i][key];
+      newList[i] = secondList[id];
+    }
+    return newList;
   },
 
   onShow() {
-    let new_podcast_availability = this.generatePodcastAvailabilityArray(app.globalData.podcastComplete || [], app.globalData.podcastRegisterAvailability)
-    let new_podcast_complete = app.globalData.finished_podcasts
-    app.globalData.podcastsAvailability = new_podcast_availability
+    let podcastComplete = app.globalData.userData.finished_podcasts
+    let meditationComplete = app.globalData.userData.finished_meditations
 
+    // 获取播客和冥想的完成情况
+    let favList_podcast = this.getFavList('podcast')
+    let favList_meditation = this.getFavList('meditation')
+
+    let fav_podcastComplete = this.getCorrespondingComplete(favList_podcast, podcastComplete, 'podCast_Id')
+    let fav_meditationComplete = this.getCorrespondingComplete(favList_meditation,meditationComplete, 'meditation_Id')
+
+    if (this.data.typeBeforeJump == '播客' || this.data.typeBeforeJump == '') {
+      this.choosePodcasts()
+    } else {
+      this.chooseMeditation()
+    }
+    
     this.setData({
-      podcastsAvailability: new_podcast_availability,
-      podcastComplete: new_podcast_complete
+      fav_podcastComplete: fav_podcastComplete,
+      fav_meditationComplete: fav_meditationComplete,
     })
   },
-  // generate podcast availability and on podcast complete array and register time podcast array
-  generatePodcastAvailabilityArray(podcastComplete, podcastRegisterAvailability) {
-    if(podcastComplete.length == 0) return [1]
-    let result = [1];
-    for (let i = 0; i < podcastComplete.length; i++) {
-      if (podcastComplete[i] === 1 && podcastRegisterAvailability[i + 1] === 1) {
-        result[i + 1] = 1;
+
+  getFavList(mediatType) {
+    let favList = []
+    // console.log("app.globalData.userData", app.globalData.userData)
+    if (mediatType == 'podcast') {
+      let allPodCastData = wx.getStorageSync('allPodCastData');
+      let favListIdx = app.globalData.userData.fav_podcasts
+      if (typeof favListIdx !== 'undefined') {
+        favListIdx.forEach((element, index) => {
+          if (element == 1) {
+            favList.push(allPodCastData[index])
+          }
+        });
+      }
+    } else {
+      let allMeditationData = wx.getStorageSync('allMeditationData');
+      let favListIdx = app.globalData.userData.fav_medi
+      if (typeof favListIdx !== 'undefined') {
+        favListIdx.forEach((element, index) => {
+          if (element == 1) {
+            favList.push(allMeditationData[index])
+          }
+        });
       }
     }
-    return result
+    return favList;
   },
+
+  choosePodcasts() {
+    let favList = this.getFavList('podcast');
+    this.setData ({
+      favList : favList,
+      podcastBtn: true,
+      meditationBtn: false,
+      typeBeforeJump: '播客'
+    })
+  },
+
+  chooseMeditation() {
+    let favList = this.getFavList('meditation');
+    this.setData ({
+      favList : favList,
+      podcastBtn: false,
+      meditationBtn: true,
+      typeBeforeJump: '冥想'
+    })
+  },
+
   jumpToPodCastPlay(e) {
     let clickedPodCastNum = e.currentTarget.dataset.id
-    console.log(clickedPodCastNum)
+    let type = e.currentTarget.dataset.podcasttype
+
+    this.setData ({
+      typeBeforeJump: type
+    })
     wx.navigateTo({
-      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}`
+      url: `../podcastPlay/index?podCastOrder=${clickedPodCastNum}&type=${type}&enterFromCollection=${true}`
     })
   },
 })

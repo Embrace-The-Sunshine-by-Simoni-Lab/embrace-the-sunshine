@@ -1,4 +1,9 @@
 <view class="medicineContainer">
+  <image
+    wx:if="{{displayConfetti}}"
+    class="confetti"
+    src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/confetti.gif">
+  </image>
 
   <!-- **** purple square on top **** -->
   <view class="infoBox">
@@ -13,9 +18,16 @@
       <text class="titleMonth">{{currentMonth}}月</text>
       <text class="titleDate">{{currentDate}}</text>
     </view>
-    <view class="medicineNotice" wx-if="{{currentMode=='record'}}">
-      {{toggleButtonStatus ? "今日已服药": "今日未服药"}}
+
+    <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
+      <text class="toggleButton-text">已服药</text>
+      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
+      <text class="toggleButton-notice-on">是</text>
+      <text class="toggleButton-notice-off">否</text>
     </view>
+
+    <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/note.svg" class="note_take" bindtap="showNotePanel"></image>
+
     <!-- analyst content -->
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
     <view wx-if="{{currentMode=='analyst'}}" class="calendar_datepicker">
@@ -30,25 +42,45 @@
     <calendar
       id="calendar"
       wx-if="{{currentMode=='record'}}"
-      config="{{calendarConfig}}" 
+      config="{{calendarConfig}}"
       bind:takeoverTap="takeoverTap"
       bind:afterTapDate="afterTapDate"
       bind:afterCalendarRender="afterCalendarRender"
       bind:onSwipe="onSwipe"
       bind:whenChangeMonth="whenChangeMonth"
     />
-  </view> 
+  </view>
 
-  <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
-      <text class="toggleButton-text">已服药</text>
-      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
-      <text class="toggleButton-notice-on">是</text> 
-      <text class="toggleButton-notice-off">否</text> 
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+    <!--弹出框  -->
+    <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+      <view class="note_take_title">
+        <view>服药情况</view>
+        <!-- <view class="time_box">
+          <view class="time_box_title">服药时间</view>
+          <picker mode="time" value="{{time}}" start="00:00" bindchange="bindTimeChange">
+            <view class="medi_exact_time">{{time}}</view>
+          </picker>
+        </view> -->
+      </view>
+      <!-- 如果此时用户没有note  -->
+      <view class="no_content_box" wx:if="{{!ifCanEnterNote && note === ''}}" bindtap="readyToEnter">
+        <view wx:if="{{note === '' && !ifCanEnterNote}}">记录您的情况</view>
+      </view>
+      <!-- 如果此时用户有note  -->
+      <view class="no_content_box" wx:if="{{!ifCanEnterNote && note !== ''}}">
+        <view class="has_content" wx:if="{{note !== ''}}">{{note}}</view>
+        <image wx:if="{{note !== ''}}" class="note_confirm" src="../../images/calendar/editbutton.svg" bindtap="readyToEnter"></image>
+      </view>
+
+      <textarea wx:if="{{ifCanEnterNote}}" autofocus="true" value="{{note}}" maxlength="350" class="medication_note" name="userName" bindinput="userNameInput" placeholder="填写您的服药记录">
+        <image class="note_confirm" src="../../images/calendar/send_button.svg" bind:tap="saveNote">checkmark</image>
+      </textarea>
     </view>
 
   <!-- **** calendar content -- the data visu **** -->
   <view wx-if="{{currentMode != 'record'}}" class="calendar_content_container">
-    <text class="calendar_content_title">服药天数</text> 
+    <text class="calendar_content_title">服药天数</text>
     <!-- bar chart here -->
     <view class="calendar_bar_container">
       <!-- y label -->
@@ -66,7 +98,7 @@
               <view bind:tap="clickBar" data-bindex='{{bindex}}'>
                 <view class="scroll-view-item-grey">
                   <view class="scroll-view-item-color" style="height: {{160 * item.count / 7}}px; background: {{item.color}}; opacity: {{item.opacity}};"></view>
-                </view> 
+                </view>
                 <view class="scroll-view-item-text">
                   <view class="scroll-view-item-date">{{item.start}}</view>
                   <view class="scroll-view-item-date">-</view>
@@ -76,7 +108,7 @@
             </view>
           </scroll-view>
         </view>
-        
+
         <view class="slide">
           <view class="slide-show" style="width: {{slideWidth}}px; margin-left:{{slideLeft == 0 ? 0 : slideLeft+'px'}};"></view>
         </view>
@@ -87,7 +119,7 @@
       <view class="calendar_circle">
         <l-circle wx-if="{{currentMode != 'record'}}"  percent='{{analyticsData[currentClickedBar].count / 7 * 100}}' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{analyticsData[currentClickedBar].color}}"></l-circle>
         <view class="calendar_circle_text_container">
-          <view class="calendar_circle_big_num">{{analyticsData[currentClickedBar].count}}</view> 
+          <view class="calendar_circle_big_num">{{analyticsData[currentClickedBar].count}}</view>
           <view class="calendar_circle_small_text">本周已服药天数</view>
         </view>
       </view>

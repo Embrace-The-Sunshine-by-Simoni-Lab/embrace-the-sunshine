@@ -194,6 +194,7 @@
   background: rgb(139, 139, 161);
 }
 .SubmitBlock {
+  color: white;
   position: absolute;
   bottom: 10rpx;
   left: 50%;
@@ -202,6 +203,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 20rpx;
 }
 .Submit_Button {
   width: 400rpx;
