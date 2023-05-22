@@ -28,8 +28,6 @@ Component({
     let questionLength = this.properties.option_info.options.length
     let initExplanationVisible = new Array(questionLength).fill(false);
 
-    console.log("user_answer", this.properties.user_answer)
-    console.log("correct answer", this.properties.option_info.correctAnswer)
     this.setData({
       correctAnswer: this.properties.option_info.correctAnswer,
       explanationVisible: initExplanationVisible,

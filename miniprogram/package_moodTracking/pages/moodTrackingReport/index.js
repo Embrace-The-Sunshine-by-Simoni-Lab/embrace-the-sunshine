@@ -32,7 +32,6 @@ Page({
   },
 
   onLoad(options) {
-    console.log("onLoad() data", this.data)
     this.getUserScoreLevel();
     this.getUserScoreDate();
     var onLoadData, onLoadDataRange, onLoadScoreValue, onLoadScoreType, onLoadScoreColor, onLoadMoodTitle, onLoadMoodDescription;
@@ -65,8 +64,8 @@ Page({
         {id: 0, title: "认识情绪", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast1/standard.svg"},
         {id: 1, title: "承受痛苦", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast2/standard.svg"},
         {id: 2, title: "全然接受现实", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast3/standar.svg"},
-        {id: 3, title: "情绪管理", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast4/standard.svg"},
-        {id: 4, title: "情绪总结篇", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast4/standard.svg"},
+        // {id: 3, title: "情绪管理", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast4/standard.svg"},
+        // {id: 4, title: "情绪总结篇", img: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/podcast/podcast4/standard.svg"},
       ]
     })
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);

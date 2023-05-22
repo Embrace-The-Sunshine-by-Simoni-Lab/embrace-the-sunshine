@@ -188,7 +188,6 @@ Page({
       compare,
       analyticsData
     })
-    console.log("this.data.anlyticsData", this.data.analyticsData)
   },
   convertDateobjToDateOBJ(obj) {
     return new Date(obj.year, obj.month-1, obj.date)
