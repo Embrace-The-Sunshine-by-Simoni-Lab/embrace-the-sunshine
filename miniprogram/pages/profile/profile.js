@@ -55,6 +55,19 @@ Page({
       username: app.globalData.userData.nickname
     })
   }, 
+  onCopy: function() {
+    let that = this;
+    wx.setClipboardData({
+      data: that.data.openid,
+      success(res) {
+        // wx.getClipboardData({
+        //   success(res) {
+        //     console.log(res.data) // 输出：'这是要复制的文本'
+        //   }
+        // })
+      }
+    })
+  },
   setNewName: async function (e) {
     let that = this;
     let newName = e.detail.value.new_name;
