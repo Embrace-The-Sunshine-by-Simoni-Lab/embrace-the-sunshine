@@ -138,6 +138,10 @@ Page({
 
     // 监听音频进入可以播放状态的事件。但不保证后面可以流畅播放，必须要这个监听，不然播放时长更新监听不会生效，不能给进度条更新值
     myAudio.onCanplay(() => {
+      if (app.globalData.audio_unload) {
+        myAudio.stop();
+        return;
+      }
       if (this.data.pause) {
         return;
       }
@@ -151,6 +155,7 @@ Page({
     // 播放监听
     myAudio.onPlay(() => {
       if (app.globalData.audio_unload) {
+        myAudio.stop();
         return;
       }
       this.setData({
@@ -161,6 +166,10 @@ Page({
 
     // 播放时长更新监听
     myAudio.onTimeUpdate(() => {
+      if (app.globalData.audio_unload) {
+        myAudio.stop();
+        return;
+      }
       // 监听播放进度，更新页面播放时长和进度条进度
       this.setData({
         forNowTime: this.format(parseInt(myAudio.currentTime)),
@@ -229,6 +238,11 @@ Page({
   // 开始播放
   audioPlay(val) {
     console.log("触发audioPlay")
+    if (app.globalData.audio_unload) {
+      myAudio.stop();
+      return;
+    }
+    
     myAudio.src = this.data.podCastInfo.url
 
     myAudio.play()
@@ -371,6 +385,10 @@ onUnload: function () {
     myAudio.src = currPodCast.url
 
     myAudio.onCanplay(() => {
+      if (app.globalData.audio_unload) {
+        myAudio.stop();
+        return;
+      }
       myAudio.play();
     });
   },
@@ -423,6 +441,10 @@ onUnload: function () {
       this.setData({
         loading: false
       })
+      if (app.globalData.audio_unload) {
+        myAudio.stop();
+        return;
+      }
       myAudio.play();
     });
   },

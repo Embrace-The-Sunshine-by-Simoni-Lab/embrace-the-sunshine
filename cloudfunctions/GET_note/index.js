@@ -61,6 +61,7 @@ exports.main = async (event, context) => {
   result.errMsg = "success";
   result.data = {};
   result.data.content = "";
+  result.data.timestamp = null;
 
   if (resp != null) {
     let notes = resp.notes;
@@ -68,7 +69,7 @@ exports.main = async (event, context) => {
       let note = notes[i];
       if ((new Date(note.date)).getTime() == date.getTime()) {
         result.data.content = note.content;
-        result.data.timestamp = note.timestamp;
+        // result.data.timestamp = note.timestamp;
         return result;
       }
     }

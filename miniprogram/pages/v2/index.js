@@ -428,7 +428,7 @@ Page({
       that.convertStringtoDateArray(newDateLst)
       that.setData({
         medi_taken: newDateLst,
-        displayConfetti: true
+        displayConfetti: false
       })
       that.renderMediTaken()
       that.setData({

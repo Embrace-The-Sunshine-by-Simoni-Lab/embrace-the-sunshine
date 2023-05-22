@@ -6,12 +6,12 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-
+  var result = {};
   // only need openid
   if (wxContext.OPENID != undefined) {
     console.log("user data: " + wxContext.OPENID);
   } else {
-    var result = {};
+    
     result.errCode = 1;
     result.errMsg = "failed to get user data from WXContext";
     result.data = {};
@@ -25,12 +25,12 @@ exports.main = async (event, context) => {
     return result;
   }
 
-  if (event.timestamp == null) {
-    result.errCode = 2;
-    result.errMsg = "wrong parameter name(timestamp) or wrong input type";
-    result.data = {};
-    return result;
-  }
+  // if (event.timestamp == null) {
+  //   result.errCode = 2;
+  //   result.errMsg = "wrong parameter name(timestamp) or wrong input type";
+  //   result.data = {};
+  //   return result;
+  // }
 
   if (event.date == null) {
     result.errCode = 2;
@@ -58,7 +58,7 @@ exports.main = async (event, context) => {
     
   })
 
-  let ts = new Date(event.timestamp);
+  // let ts = new Date(event.timestamp);
 
   let date = new Date(event.date);
   date.setHours(0);
@@ -68,8 +68,8 @@ exports.main = async (event, context) => {
 
   let item = {
       date: date,
-      content: event.content,
-      timestamp: ts
+      content: event.content
+      // timestamp: ts
   }
 
   if (resp == null) {

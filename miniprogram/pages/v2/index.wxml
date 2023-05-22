@@ -56,13 +56,12 @@
     <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
       <view class="note_take_title">
         <view>服药情况</view>
-        <view class="time_box">
-          <view class="time_box_title">记录时间</view>
+        <!-- <view class="time_box">
+          <view class="time_box_title">服药时间</view>
           <picker mode="time" value="{{time}}" start="00:00" bindchange="bindTimeChange">
             <view class="medi_exact_time">{{time}}</view>
           </picker>
-          <!-- <view class="medi_exact_time">{{time}}</view> -->
-        </view>
+        </view> -->
       </view>
       <!-- 如果此时用户没有note  -->
       <view class="no_content_box" wx:if="{{!ifCanEnterNote && note === ''}}" bindtap="readyToEnter">
