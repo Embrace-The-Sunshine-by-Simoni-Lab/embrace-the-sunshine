@@ -28,6 +28,7 @@ Component({
   },
   
   attached: function() {
+    console.log("single choice", this.properties.userAnswer, this.properties.option_info.correctAnswer)
     let questionLength = this.properties.option_info.options.length
     let initExplanationVisible = new Array(questionLength).fill(false);
 
