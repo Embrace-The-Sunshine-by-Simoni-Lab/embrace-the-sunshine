@@ -8,7 +8,8 @@
   <!-- 正确答案揭晓 -->
   <view wx:if="{{reportPageClicked}}" wx:for-item="item" wx:for-index="idx" wx:for="{{option_info.options}}" wx:key="idx" data-index='{{idx}}'>
     <view class="option_outside_box">
-      <view class="Option {{(userAnswer[idx] != -1 && userAnswer[idx] != correctAnswer[idx]) ? 'wrongAnswer': (correctAnswer[idx] == 1 ?  (correctAnswer[idx] == userAnswer[idx] ? 'correctSelected': 'correctAnswer'): '')}}">
+      <view class="Option {{correctAnswer[idx] === 1 ? 'correctAnswer' : (userAnswer[idx] !== -1 && userAnswer[idx] !== correctAnswer[idx] ? 'wrongAnswer' : '')}}">
+
         <!-- 选择方块 -->
         <image src="{{userAnswer[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/option_select.svg': 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/option_not_select.svg'}}" class="option_select"></image>
 
@@ -23,7 +24,7 @@
           <view wx:if="{{explanationVisible[idx]}}" class="explanationDetail">解释: {{item.option_explanation}}</view>
         </view>
       </view>
-      <image class="option_answer_mark" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/check_mark.svg"></image>
+      <image class="option_answer_mark" src="{{correctAnswer[idx] == 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/check_mark.svg': 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/wrong.svg'}}"></image>
     </view>
     <!-- 选项的内容 -->
   </view>
