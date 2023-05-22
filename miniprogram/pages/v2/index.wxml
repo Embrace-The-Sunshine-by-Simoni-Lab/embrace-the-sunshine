@@ -26,7 +26,7 @@
       <text class="toggleButton-notice-off">否</text>
     </view>
 
-    <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/note.svg" class="note_take" bindtap="showNotePanel"></image>
+    <image wx-if="{{currentMode=='record'}}" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/note.svg" class="note_take" bindtap="showNotePanel"></image>
 
     <!-- analyst content -->
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
