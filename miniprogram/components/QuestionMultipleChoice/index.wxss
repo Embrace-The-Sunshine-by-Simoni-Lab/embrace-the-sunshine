@@ -21,7 +21,7 @@
   border: 1px solid #BDBDBD;
   border-radius: 4px;
   padding-left: 20rpx;
-  width: 620rpx;
+  width: 640rpx;
   box-sizing: border-box;
   padding: 13rpx;
   font-size: 28rpx;
@@ -35,10 +35,21 @@
   background: blue;
 }
 .option_select {
- width: 45rpx;
- height: 45rpx;
- margin-right: 20rpx;
- margin-left: 10rpx;
+  width: 38rpx !important;
+  height: 38rpx !important;
+  margin-right: 20rpx;
+  margin-left: 10rpx;
+}
+.option_selection_container {
+  width: 13%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.option_content_container {
+  width: 87%;
+  display: flex;
+  flex-direction: column;
 }
 .expandExplanation {
   display: flex;

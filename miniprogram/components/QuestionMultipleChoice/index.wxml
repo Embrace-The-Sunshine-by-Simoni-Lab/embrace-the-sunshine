@@ -11,9 +11,11 @@
       <view class="Option {{correctAnswer[idx] === 1 ? 'correctAnswer' : (userAnswer[idx] !== -1 && userAnswer[idx] !== correctAnswer[idx] ? 'wrongAnswer' : '')}}">
 
         <!-- 选择方块 -->
-        <image src="{{userAnswer[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/option_select.svg': 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/option_not_select.svg'}}" class="option_select"></image>
+        <view class="option_selection_container">
+          <image src="{{userAnswer[idx] == 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/option_select.svg': 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/option_not_select.svg'}}" class="option_select"></image>
+        </view>
 
-        <view>
+        <view class="option_content_container">
           <text>{{item.option_content}}</text>
           <view wx:if="{{explanationVisible[idx]}}" style="height: 20rpx;"></view>
 
