@@ -25,10 +25,12 @@ Page({
     // ******************* podcast scroll *******************
     mediaList: [],
     swiperPosition: 0, // 内容滚动的进度
-    slideWidth: 270,  // 滚动条默认长度
-    currentClickedBar: 0,
-    lastClickBar: 0,
-    left: 0,
+    // slideWidth: 270,  // 滚动条默认长度
+    // 进度条专用
+    slideWidth:'',//滑块宽
+    slideLeft:0 ,//滑块位置
+    totalLength:'',//当前滚动列表总长
+    slideRatio:''
   },
 
   onLoad(options) {
@@ -47,8 +49,7 @@ Page({
       onLoadData = []
       onLoadDataRange = ['近30天无数据']
     }
-    console.log("onLoadDataRange", onLoadDataRange)
-    console.log("this.data.userScoreInfo", this.data.userScoreInfo)
+
     this.setData({
       oneMonth: true,
       threeMonth: false,
@@ -69,8 +70,33 @@ Page({
       ]
     })
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', onLoadData);
+    // 进度条
+    var self = this;
+    var systemInfo = wx.getSystemInfoSync();
+    self.setData({
+      windowHeight: systemInfo.windowHeight,
+      windowWidth: systemInfo.windowWidth,
+    })
+    //计算比例
+    this.getRatio();
   },
-
+  //根据分类获取比例
+  getRatio(){
+    var _totalLength = 750
+    var _ratio = 695 / _totalLength * (690 / this.data.windowWidth); //滚动列表长度与滑条长度比例
+    var _showLength = 690 / _totalLength * 695; //当前显示红色滑条的长度(保留两位小数)
+    this.setData({
+      slideWidth: _showLength,
+      totalLength: _totalLength,
+      slideRatio:_ratio
+    })
+  },
+  //slideLeft动态变化
+  getleft(e){
+    this.setData({
+      slideLeft: e.detail.scrollLeft * this.data.slideRatio
+    })
+  }, 
   onReady() {
     let cWidth = this.data.cWidth;
     let cHeight = this.data.cHeight;
@@ -85,9 +111,6 @@ Page({
       userScore: userScore
     })
     this.prepareClassifiedData()
-    console.log(this.data.OneMonthMoodTrackData);
-    console.log(this.data.ThreeMonthMoodTrackData);
-    console.log(this.data.SixMonthMoodTrackData);
   },
 
   dateDiffInDays(date1, date2) {
@@ -101,9 +124,7 @@ Page({
     let userScore = this.data.userScore;
     let oneMonthScoreDate = [];
     let oneMonthScore = [];
-    // console.log(userScoreDate);
-    // console.log(userScore);
-    
+
     for (let i = 0; i < userScoreDate.length; i++) {
       let curr_date = userScoreDate[i];
       let curr_score = userScore[i];
@@ -212,7 +233,6 @@ Page({
   },
 
   drawCharts(id, data){
-    console.log("data passed to drawCharts", data)
     if(data == undefined || data.length == 0 || data.categories.length == 0) {
       data = {
         "categories": ["", "", "", "", "", "", "", "", ""],
@@ -512,19 +532,18 @@ Page({
         timePeirodDate: (empty_six_month ? empty_data_placeholder: this.dateFormat("sixMonth"))
       }
     )
-    console.log("this.data.timePeriodDate in sixMonth()", this.data.timePeriodDate)
     this.drawCharts('jkyWEuYZpJWLcfbnKkmySDRjQLEpHsIG', this.data.SixMonthMoodTrackData);
   },
 
   // 获取滚动条向左边移动的长度
-  scroll(e) {
-    const chunkCount = this.data.mediaList.length // 5
-    const userScroll = e.detail.scrollLeft
-    const barScroll = (userScroll * 30) / ((chunkCount - 4) * 20)
-    this.setData({
-      slideLeft: barScroll
-    })
-  },
+//   scroll(e) {
+//     const chunkCount = this.data.mediaList.length // 5
+//     const userScroll = e.detail.scrollLeft
+//     const barScroll = (userScroll * 30) / ((chunkCount - 4) * 20)
+//     this.setData({
+//       slideLeft: barScroll
+//     })
+//   },
   
   handlePdrecommend(e) {
     console.log('bindtap function runs')

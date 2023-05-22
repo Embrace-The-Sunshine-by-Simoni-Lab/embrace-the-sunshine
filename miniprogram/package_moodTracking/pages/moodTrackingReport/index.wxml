@@ -34,7 +34,7 @@
   <!-- podcast recommend -->
   <view class="pdRecommend_container">
     <view><text class="pdRecommend_header">推荐播客</text></view>
-      <scroll-view scroll-x class="scrollPd_container" bindscroll="scroll">
+      <scroll-view scroll-x class="scrollPd_container" scroll-left='0' bindscroll="getleft">
         <view style="display: inline-block;" wx:for="{{mediaList}}" wx:key="index" wx:for-index="bindex">
           <view class="scrollable_pd" bindtap="handlePdrecommend" data-bindex='{{bindex}}'>
             <view class="pd_title">{{item.title}}</view>
@@ -43,9 +43,12 @@
         </view>
       </scroll-view>
 
-    <view class="slide">
-      <view class="slide-show" style="width: {{slideWidth}}rpx; margin-left:{{slideLeft == 0 ? 0 : slideLeft + 'rpx'}};"></view>
-    </view>
+      <!--滚动条部分-->
+      <view class="slide">
+        <view class='slide-bar' >
+          <view class="slide-show" style="width:{{slideWidth}}rpx; margin-left:{{slideLeft<=1 ? 0 : slideLeft+'rpx'}};"></view>
+        </view>
+      </view>
   </view>
 </view>
 
