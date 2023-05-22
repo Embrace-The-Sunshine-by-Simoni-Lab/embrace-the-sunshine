@@ -18,6 +18,7 @@
   height: 45rpx;
   margin-right: 20rpx;
   margin-left: 10rpx;
+  background: green;
 }
 .option_answer_mark {
   margin-left: 10rpx;
