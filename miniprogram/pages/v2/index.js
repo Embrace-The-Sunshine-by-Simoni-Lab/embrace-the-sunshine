@@ -2,6 +2,7 @@ const app = getApp();
 
 Page({
   data: {
+    confetti_src: "",
     displayConfetti: "display:none",
     // ******************* 分析页面顶部逻辑 *******************
     currentMode: "record",
@@ -35,18 +36,21 @@ Page({
   showConfetti(){
     console.log("show confetti runs")
     this.setData({
-      displayConfetti: ""
+      displayConfetti: "",
+      confetti_src: "cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/confetti.gif"
     })
     let that = this;
     setTimeout(function() {
-      console.log("timer start")
+      console.log(" timer starts and call unshowConfetti")
       that.unshowConfetti()
-    }, 7000)
+      console.log(" timer ends")
+    }, 12000)
   },
   unshowConfetti(){
     console.log("unshow confetti runs")
     this.setData({
-      displayConfetti: "display:none"
+      displayConfetti: "display:none",
+      confetti_src : ""
     })
   },
   // ******************* 日历逻辑 *******************
