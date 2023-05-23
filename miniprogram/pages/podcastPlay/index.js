@@ -257,9 +257,11 @@ Page({
       myAudio.stop();
       return;
     }
-    
-    myAudio.src = this.data.podCastInfo.url
-
+    // 将暂停状态赋值为false
+    this.setData({
+      paused: false,
+    })
+    // myAudio.src = this.data.podCastInfo.url
     myAudio.play()
   },
 
