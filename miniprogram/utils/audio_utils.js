@@ -38,11 +38,15 @@ function getAllPodcastAudioInfo() {
 }
 
 // load audio file
-function loadAudioFile(src) {
-  const innerAudioContext = wx.createInnerAudioContext({
+function loadAudioFile(src, mainTitle, author, podcastPlayImgUrl) {
+  const innerAudioContext = wx.getBackgroundAudioManager({
     useWebAudioImplement: false
   })
   innerAudioContext.src = src;
+  myAudio.title = mainTitle
+  myAudio.singer = author
+  myAudio.coverImgUrl = podcastPlayImgUrl
+   
   // innerAudioContext.onPlay(function(res) {
   //   var duration = innerAudioContext.duration;
   // });
