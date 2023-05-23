@@ -248,6 +248,7 @@ Page({
       myAudio.stop();
       return;
     }
+    console.log("trigger restartAudioFromBeginning")
     myAudio.seek(0);
     myAudio.play();
   },

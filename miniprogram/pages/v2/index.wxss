@@ -174,13 +174,13 @@ Page{
 .toggleButton-notice-on {
   position: absolute;
   left: 122px;
-  top: 9px;
+  top: 7px;
   color: #FFFFFF;
 }
 .toggleButton-notice-off {
   position: absolute;
   left: 148px;
-  top: 9px;
+  top: 7px;
   color: #FFFFFF;
 }
 .medi-taken {
