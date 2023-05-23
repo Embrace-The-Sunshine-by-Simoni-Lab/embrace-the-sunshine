@@ -148,9 +148,9 @@ Page({
         return;
       }
       myAudio.duration
-      // this.setData({
-      //   loading: false
-      // })
+      this.setData({
+        loading: false
+      })
       myAudio.play();
     })
 
@@ -168,9 +168,9 @@ Page({
 
     // 播放时长更新监听
     myAudio.onTimeUpdate(() => {
-      this.setData({
-        paused: false
-      })
+      // this.setData({
+      //   paused: false
+      // })
       if (app.globalData.audio_unload) {
         myAudio.stop();
         return;
