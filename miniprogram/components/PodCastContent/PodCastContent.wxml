@@ -85,15 +85,20 @@
       </view>
 
       <!-- 提交窗口 -->
-      <view class="SubmitBlock" wx-if="{{mode == 'Quiz' && podCastInfo.pod_Cast_Quiz.length !== 0 && podCastType_content !== '冥想'}}">
-        <image class="prev_question" src="../../images/next-enable.png"  data-direction="prev" bind:tap="changeQuestion"></image>
-        <view wx:if="{{allQuestionAnswered && !submitClicked}}" class="Submit_Button" bind:tap="submitQuiz" data-type="播客">提交</view>
-        <view wx:else class="Disabled_Button">提交</view>
-        <image class="next_question" src="../../images/next-enable.png" data-direction="next" bind:tap="changeQuestion"></image>
+      <view class="SubmitBlock" wx-if="{{mode == 'Quiz' && podCastInfo.pod_Cast_Quiz.length !== 0 && podCastType !== '冥想'}}">
+
+        <view wx:if="{{currentDisplayQuestion == 0 && !checkResultClicked}}" class="prev_question_disable">上一题</view>
+        <view wx:else class="prev_question" data-direction="prev" bind:tap="changeQuestion">上一题</view>
+
+        <view wx:if="{{currentDisplayQuestion == curr_Podcast_quiz_length-1 && !submitClicked}}" class="Submit_Button" bind:tap="submitQuiz" data-type="播客">提交</view>
+        <view wx:elif="{{currentDisplayQuestion == curr_Podcast_quiz_length-1 && submitClicked}}" class="Disabled_Button">提交</view>
+
+        <view wx:if="{{user_answer[currentDisplayQuestion] === -1 && currentDisplayQuestion != curr_Podcast_quiz_length-1 && !checkResultClicked}}" class="next_question_disable" disable>下一题</view>
+        <view wx:elif="{{currentDisplayQuestion != curr_Podcast_quiz_length-1}}" class="next_question" data-direction="next" bind:tap="changeQuestion">下一题</view>
+        </view>
       </view>
 
 
       </view>
     </view>
   </view>
-</view>

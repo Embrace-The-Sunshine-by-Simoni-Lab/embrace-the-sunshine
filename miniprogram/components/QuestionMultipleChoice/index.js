@@ -21,17 +21,20 @@ Component({
     userAnswer: [], // 当前用户的选择, 可以选择多个
     correctAnswer: [], // 当前问题的正确答案
     explanationVisible: [],
-    buttonText: '展开解释'
+    buttonText: []
   },
   
   attached: function() {
     let questionLength = this.properties.option_info.options.length
     let initExplanationVisible = new Array(questionLength).fill(false);
+    // 控制每个选项的开启和关闭解释
+    let initExplainWord = new Array(questionLength).fill('关闭解释');
 
     this.setData({
       correctAnswer: this.properties.option_info.correctAnswer,
       explanationVisible: initExplanationVisible,
-      userAnswer: this.properties.user_answer[this.properties.order]
+      userAnswer: this.properties.user_answer[this.properties.order],
+      buttonText: initExplainWord
     })
   },
 
@@ -71,22 +74,25 @@ Component({
     },
     // 用户点击打开关闭选项中的解释
     toggleExplanation: function(event) {
+      let currentExplainationLst = this.data.explanationVisible
       // 获取当前被点击的选项的编号
       const optionIndex = event.currentTarget.dataset.index;
       // 修改 explanationVisible 数组中的某一项的值
       const newExplanationVisible = this.data.explanationVisible.map((visible, index) => {
           return index === optionIndex ? !visible : visible;
       });
-      //修改 buttonText 的值
-      let newButtonText = '';
-      if(this.data.explanationVisible[optionIndex]) {
-          newButtonText = '展开解释';
-      } else {
-          newButtonText = '关闭解释';
+      //修改 buttonText list的值
+      for (let i = 0; i < newExplanationVisible.length; i++) {
+        if (newExplanationVisible[i]) {
+          currentExplainationLst[i] = '展开解释';
+        } else {
+          currentExplainationLst[i] = '关闭解释';
+        }
       }
+      
       this.setData({
           explanationVisible: newExplanationVisible,
-          buttonText: newButtonText
+          buttonText: currentExplainationLst
       });
     }
   }

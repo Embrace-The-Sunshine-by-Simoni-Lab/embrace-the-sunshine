@@ -145,14 +145,14 @@ Page{
   position: absolute;
 }
 
-.slide {
+/* .slide {
   position: relative;
   height: 7rpx;
   width: 100%;
   bottom: 10rpx;
   background:#DCD6F7;
   border-radius: 8rpx;
- }
+ } */
 
 .slide-show {
   height: 7rpx;
@@ -254,4 +254,20 @@ Page{
 .charts {
   width: 600rpx;
   height: 440rpx;
+}
+/* 进度条 */
+.slide{
+  height:30rpx;
+  padding:7rpx 0 5rpx 0;
+  overflow: hidden;
+}
+.slide .slide-bar{
+ width: 690rpx;
+ margin: 0 auto;
+ height: 3px;
+ background:#DCD6F7;
+}
+.slide .slide-bar .slide-show{
+ height:100%;
+ background-color:#4D50A4;
 }

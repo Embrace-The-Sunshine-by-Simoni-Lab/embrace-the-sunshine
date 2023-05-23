@@ -75,5 +75,5 @@
     }
   },
   "lazyCodeLoading": "requiredComponents",
-  "requiredBackgroundModes": ["audio", "location"]
+  "requiredBackgroundModes":["audio","backgroundAudioManager"]
 }

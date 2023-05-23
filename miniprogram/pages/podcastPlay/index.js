@@ -1,5 +1,5 @@
 // 创建音频播放实例
-const myAudio = wx.createInnerAudioContext()
+const myAudio = wx.getBackgroundAudioManager()
 
 const app = getApp()
 Page({
@@ -22,7 +22,6 @@ Page({
   },
   onLoad(options) {
     const app = getApp()
-    // console.log(app.globalData);
     app.globalData.audio_unload = false;
     // 这里要要根据podcast的类型(是普通podcast还是meditation)设置allPodCastData,然后也要根据type来设置count, count的作用是去上一个博客或者下一个博客的时候, 不会超出范围
     let allPodCastData;
@@ -98,8 +97,11 @@ Page({
 
   // 音频播放-初始化
   audioInit(url, title) {
-    myAudio.src = url 
-
+    myAudio.src = this.data.podCastInfo.url
+    myAudio.title = this.data.podCastInfo.mainTitle
+    myAudio.singer = this.data.podCastInfo.author
+    myAudio.coverImgUrl = this.data.podCastInfo.podcastPlayImgUrl
+    
     // 设置音频播放倍速，此处若不设置，页面上点击设置倍速就不会产生效果
     myAudio.playbackRate = 1.0
 
@@ -146,9 +148,9 @@ Page({
         return;
       }
       myAudio.duration
-      // this.setData({
-      //   loading: false
-      // })
+      this.setData({
+        loading: false
+      })
       myAudio.play();
     })
 
@@ -234,6 +236,12 @@ Page({
       }
       this.restartAudioFromBeginning();
     });
+    myAudio.onNext(() => {
+      this.goToNextPodCast()
+    })
+    myAudio.onPrev(() => {
+      this.goToPrevPodCast()
+    })
   },
   restartAudioFromBeginning() {
     if (app.globalData.audio_unload) {
@@ -250,9 +258,11 @@ Page({
       myAudio.stop();
       return;
     }
-    
-    myAudio.src = this.data.podCastInfo.url
-
+    // 将暂停状态赋值为false
+    this.setData({
+      paused: false,
+    })
+    // myAudio.src = this.data.podCastInfo.url
     myAudio.play()
   },
 
@@ -329,13 +339,13 @@ Page({
    */
   onHide: function () {
     // 暂停播放
-    this.audioPause()
+    // this.audioPause()
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-onUnload: function () {
+  onUnload: function () {
     // 停止播放
     app.globalData.audio_unload = true;
     this.setData({
@@ -390,9 +400,16 @@ onUnload: function () {
     myAudio.pause()
     myAudio.stop()
     myAudio.seek(0);
+
     myAudio.src = currPodCast.url
+    myAudio.title = currPodCast.mainTitle
+    myAudio.singer = currPodCast.author
+    myAudio.coverImgUrl = currPodCast.podcastPlayImgUrl
 
     myAudio.onCanplay(() => {
+      this.setData({
+        loading: false
+      })
       if (app.globalData.audio_unload) {
         myAudio.stop();
         return;
@@ -443,12 +460,13 @@ onUnload: function () {
     myAudio.pause()
     myAudio.stop()
     myAudio.seek(0);
+
     myAudio.src = currPodCast.url
+    myAudio.title = currPodCast.mainTitle
+    myAudio.singer = currPodCast.author
+    myAudio.coverImgUrl = currPodCast.podcastPlayImgUrl
 
     myAudio.onCanplay(() => {
-      this.setData({
-        loading: false
-      })
       if (app.globalData.audio_unload) {
         myAudio.stop();
         return;

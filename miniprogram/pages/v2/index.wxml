@@ -117,7 +117,7 @@
 
     <view class="calendar_circle_container">
       <view class="calendar_circle">
-        <l-circle wx-if="{{currentMode != 'record'}}"  percent='{{analyticsData[currentClickedBar].count / 7 * 100}}' show-info='{{true}}' value-size='30' outer-diameter='310' inner-diameter='250' inner-color='#FFFFFF' active-color="{{analyticsData[currentClickedBar].color}}"></l-circle>
+        <l-circle wx-if="{{currentMode != 'record'}}"  percent='{{analyticsData[currentClickedBar].count / 7 * 100}}' show-info='{{true}}' value-size='30' outer-diameter='300' inner-diameter='250' inner-color='#FFFFFF' active-color="{{analyticsData[currentClickedBar].color}}"></l-circle>
         <view class="calendar_circle_text_container">
           <view class="calendar_circle_big_num">{{analyticsData[currentClickedBar].count}}</view>
           <view class="calendar_circle_small_text">本周已服药天数</view>
