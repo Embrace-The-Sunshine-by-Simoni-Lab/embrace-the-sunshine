@@ -427,9 +427,15 @@ Page({
       that.convertStringtoDateArray(newDateLst)
       that.setData({
         medi_taken: newDateLst,
-        displayConfetti: false
       })
       that.renderMediTaken()
+      
+      if(toggleResult) {
+        that.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
+      } else {
+        that.changeCalendarBoxStyle(curTapDate, "box-selected")
+      }
+
       that.setData({
         toggleButtonStatus: newMediStatus
       })
@@ -437,8 +443,58 @@ Page({
       wx.hideLoading()
       that.processAnalystPageData()
     });
-
   },
+  // 把所有已经服药过的日期渲染成红色
+  // renderMediTaken() {
+    // const calendar = this.selectComponent('#calendar').calendar
+    // const toSet = []
+    // const medi_obj =  this.data.medi_taken_obj
+    // for(let i = 0; i < medi_obj.length; i++) {
+    //   let year = medi_obj[i].getFullYear();
+    //   let month = medi_obj[i].getMonth() + 1;
+    //   let date = medi_obj[i].getDate();
+    //   let obj = { year, month, date, class: 'medi-taken'};
+    //   toSet.push(obj)
+    // }
+  //   calendar.setDateStyle(toSet)
+  // },
+  // toggleButtonChange(event) {
+  //   let curTapDate = this.data.curTapDate
+  //   let toggleResult = event.detail.checked
+  //   let newMediStatus = false
+  //   // 改变数据库的药的taken状态
+  //   let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
+  //   if (toggleResult) newMediStatus = true
+  //   let that = this
+  //   wx.showLoading({
+  //     title: '加载中',
+  //     mask: true
+  //   })
+  //   wx.cloud.callFunction({
+  //     name: 'medication_track',
+  //     data: {
+  //         date: dateChange
+  //     }
+  //   })
+  //   .then(res => {
+  //     const newDateLst = res.result.data.med_date;
+  //     app.globalData.userData.med_date = newDateLst
+  //     // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
+  //     that.convertStringtoDateArray(newDateLst)
+  //     that.setData({
+  //       medi_taken: newDateLst,
+  //       displayConfetti: false
+  //     })
+  //     that.renderMediTaken()
+  //     that.setData({
+  //       toggleButtonStatus: newMediStatus
+  //     })
+  //     // 更新分析页面的数据
+  //     wx.hideLoading()
+  //     that.processAnalystPageData()
+  //   });
+
+  // },
   // 把所有已经服药过的日期渲染成红色
   renderMediTaken() {
     const calendar = this.selectComponent('#calendar').calendar
