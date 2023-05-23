@@ -433,6 +433,7 @@ Page{
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  height: 100%;
 }
 .calendar_summary {
   display: flex;
@@ -470,7 +471,7 @@ Page{
   align-items: center;
 }
 .calendar_circle {
-  width: 62%;
+  width: 69%;
   height: 100%;
   display: flex;
   justify-content: center;
