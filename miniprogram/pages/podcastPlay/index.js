@@ -169,7 +169,7 @@ Page({
     // 播放时长更新监听
     myAudio.onTimeUpdate(() => {
       this.setData({
-        paused: false,
+        // paused: false,
         loading: false
       })
       if (app.globalData.audio_unload) {
@@ -248,9 +248,12 @@ Page({
       myAudio.stop();
       return;
     }
-    console.log("trigger restartAudioFromBeginning")
     myAudio.seek(0);
-    myAudio.play();
+
+    myAudio.src = this.data.podCastInfo.url
+    myAudio.title = this.data.podCastInfo.mainTitle
+    myAudio.singer = this.data.podCastInfo.author
+    myAudio.coverImgUrl = this.data.podCastInfo.podcastPlayImgUrl
   },
   // 开始播放
   audioPlay(val) {
