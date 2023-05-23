@@ -155,7 +155,6 @@ Page{
   align-items: center;
   margin: 15px 0 15px 0;
   height: 100%;
-  /* background: green; */
 }
 .toggleButton-text {
   margin-right: 38px;
@@ -355,7 +354,7 @@ Page{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
 }
 .calendar_dateRange {
   color: #2E317D;
@@ -433,7 +432,6 @@ Page{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* background: green; */
   width: 100%;
 }
 .calendar_summary {
@@ -472,7 +470,8 @@ Page{
   align-items: center;
 }
 .calendar_circle {
-  width: 58%;
+  width: 62%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
