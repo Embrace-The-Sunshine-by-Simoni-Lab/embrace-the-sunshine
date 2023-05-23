@@ -167,7 +167,8 @@ Page({
     // 播放时长更新监听
     myAudio.onTimeUpdate(() => {
       this.setData({
-        paused: false
+        paused: false,
+        loading: false
       })
       if (app.globalData.audio_unload) {
         myAudio.stop();
