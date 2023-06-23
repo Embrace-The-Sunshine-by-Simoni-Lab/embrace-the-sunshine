@@ -25,12 +25,12 @@ exports.main = async (event, context) => {
     return result;
   }
 
-  // if (event.timestamp == null) {
-  //   result.errCode = 2;
-  //   result.errMsg = "wrong parameter name(timestamp) or wrong input type";
-  //   result.data = {};
-  //   return result;
-  // }
+  if (event.timestamp == null) {
+    result.errCode = 2;
+    result.errMsg = "wrong parameter name(timestamp) or wrong input type";
+    result.data = {};
+    return result;
+  }
 
   if (event.date == null) {
     result.errCode = 2;
@@ -55,10 +55,9 @@ exports.main = async (event, context) => {
     } else {
       resp = res.data[0];
     }
-    
   })
 
-  // let ts = new Date(event.timestamp);
+  let ts = new Date(event.timestamp);
 
   let date = new Date(event.date);
   date.setHours(0);
@@ -68,8 +67,8 @@ exports.main = async (event, context) => {
 
   let item = {
       date: date,
-      content: event.content
-      // timestamp: ts
+      content: event.content,
+      timestamp: ts
   }
 
   if (resp == null) {
