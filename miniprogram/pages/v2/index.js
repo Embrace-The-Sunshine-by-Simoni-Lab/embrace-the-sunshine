@@ -64,6 +64,10 @@ Page({
         // 用户弹窗点击成功
         success (res) {
           if (res.confirm) {
+            wx.showLoading({
+              title: '加载中',
+              mask: true
+            })
             app.globalData.ifCalendarModalShow = true
             // 把今天改为已经服药
             let today_database = new Date(today.getFullYear(), today.getMonth(), today.getDate())
@@ -84,6 +88,7 @@ Page({
               that.renderMediTaken()
               // 全部渲染完之后需要单独对今天进行渲染
               that.changeCalendarBoxStyle(that.data.LastClick, "box-selected-taken")
+              wx.hideLoading();
             });
           }
           try {
@@ -142,7 +147,8 @@ Page({
       name: 'POST_note_change',
       data: {
         date: myDate,
-        content: user_enter_note
+        content: user_enter_note,
+        timestamp: new Date()
       },
       success: out => {
         console.log(out);
