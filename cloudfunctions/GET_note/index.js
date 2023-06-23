@@ -69,7 +69,7 @@ exports.main = async (event, context) => {
       let note = notes[i];
       if ((new Date(note.date)).getTime() == date.getTime()) {
         result.data.content = note.content;
-        // result.data.timestamp = note.timestamp;
+        result.data.timestamp = note.timestamp;
         return result;
       }
     }
