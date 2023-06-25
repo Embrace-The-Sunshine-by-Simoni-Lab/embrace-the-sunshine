@@ -142,6 +142,30 @@ exports.main = async (event, context) => {
     meditation_progress_data_to_return = meditation_progress_info;
   }
 
+
+  // get medication time info
+  let data_entry;
+  await db.collection("med_time_db")
+  .where({
+    openid: wxContext.OPENID
+  })
+  .get()
+  .then(res => {
+    data_entry = res.data[0];
+  })
+
+  let med_track_date = [];
+  let med_track = [];
+  if (data_entry != undefined) {
+    med_track = data_entry.med_track;
+    for (let i = 0; i < med_track.length; i++) {
+      med_track_date.push(med_track[i].date);
+    }
+  }
+  
+  data_to_return.med_date = med_track_date;
+  data_to_return.med_track = med_track;
+
   var result = {};
   result.is_new_user = is_new_user;
   result.errCode = 0;
