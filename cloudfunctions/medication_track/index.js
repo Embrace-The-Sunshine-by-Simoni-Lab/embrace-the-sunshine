@@ -7,7 +7,8 @@ exports.main = async (event, context) => {
   result.errCode = 0;
   result.errMsg = "";
   result.data = {
-    med_date: []
+    med_date: [],
+    med_track: []
   };
   if (event.date == undefined) {
     result.errCode = 1;
@@ -16,38 +17,27 @@ exports.main = async (event, context) => {
   }
   
 
-  if (event.timestamp == undefined) {
+  if (event.hour == undefined) {
     result.errCode = 1;
-    result.errMsg = "missing required parameter (timestamp)";
+    result.errMsg = "missing required parameter (hour)";
     return result;
   }
   
-  var med_data;
-  const db = cloud.database();
+
   
-  
-  // if (Object.prototype.toString.call(event.date) !== "[object Date]") {
-  //   result.errCode = 2;
-  //   // result.errMsg = "wrong parameter type (should be a date object)"
-  //   result.errMsg = Object.prototype.toString.call(event.date);
-  //   return result;
-  // }s
-  var userData;
+
+  var data_entry;
   const db = cloud.database();
-  await db.collection("main_db")
+  await db.collection("med_time_db")
   .where({
     openid: wxContext.OPENID
   })
   .get()
   .then(res => {
-    userData = res.data[0];
+    data_entry = res.data[0];
   });
-  var new_med_date = userData.med_date;
-  // only stores 90 days' data
-  // while (new_med_date.length > 90) {
-  //   new_med_date.pop();
-  // }
-  // new_med_date.unshift(new Date(event.date));
+  
+
   
   const inputDate = new Date(event.date);
   const cleanDate = new Date(event.date);
@@ -56,87 +46,75 @@ exports.main = async (event, context) => {
   cleanDate.setSeconds(0);
   cleanDate.setMilliseconds(0);
 
-  // console.log(inputDate.getFullYear());
-  // console.log(inputDate.getMonth());
-  // console.log(inputDate.getDate());
-  // console.log("-----------------------START CHECKING-----------------");
-  // maintain order
-  let added = false;
-  for (let i = 0; i < new_med_date.length; i++) {
-    let obj = new_med_date[i];
-    let obj_date = new Date(obj.date);
-    // clean date object for comparison
-    obj_date.setHours(0);
-    obj_date.setMinutes(0);
-    obj_date.setSeconds(0);
-    obj_date.setMilliseconds(0);
+  let item = {
+    date: inputDate,
+    hour: event.hour
+  }
 
-    // console.log(obj_date);
-    // console.log((obj_date == item.date) );
-    if (obj_date.getTime() == cleanDate.getTime()) {
-      new_med_date[i] = inputDate;
-      added = true;
-      break;
-    } else if (obj_date.getTime() > cleanDate.getTime()) {
-      // insert at i
-      new_med_date.splice(i, 0, inputDate);
-      added = true;
-      break;
+  if (data_entry == null) {
+    var med_track = [];
+    med_track.push(item);
+    await db.collection('med_time_db')
+    .add({
+      data: {
+        openid: wxContext.OPENID,
+        med_track: med_track
+      }
+    })
+    .then(res => {
+      console.log("new data entry added to the database");
+    });
+  } else {
+    var med_track = data_entry.med_track;
+    // maintain order
+    let added = false;
+    // let evict = false;
+    for (let i = 0; i < med_track.length; i++) {
+      let obj = med_track[i];
+      let obj_date = new Date(obj.date);
+      // clean date object for comparison
+      obj_date.setHours(0);
+      obj_date.setMinutes(0);
+      obj_date.setSeconds(0);
+      obj_date.setMilliseconds(0);
+
+      // console.log(obj_date);
+      // console.log((obj_date == item.date) );
+      if (obj_date.getTime() == cleanDate.getTime()) {
+        med_track.splice(i, 1);
+        added = true;
+        break;
+      } else if (obj_date.getTime() > cleanDate.getTime()) {
+        // insert at i
+        med_track.splice(i, 0, item);
+        added = true;
+        break;
+      }
+    }
+    if (!added) {
+      console.log("append to end");
+      med_track.push(item);
     }
   }
-  if (!added) {
-    console.log("append to end");
-    new_med_date.push(inputDate);
-  }
+
+
   
-
-  // let i = 0;
-  // let evict = false;
-  // console.log("length: " + new_med_date.length);
-  // for (i = 0; i < new_med_date.length; i++) {
-  //   let currDate = new Date(new_med_date[i]);
-  //   console.log(currDate.getFullYear());
-  //   console.log(currDate.getMonth());
-  //   console.log(currDate.getDate());
-    
-  //   if (currDate.getFullYear() < inputDate.getFullYear()) {
-  //     console.log("different year");
-  //     break;
-  //   } else if (currDate.getFullYear() === inputDate.getFullYear() && currDate.getMonth() < inputDate.getMonth()) {
-  //     console.log("different month");
-  //     break;
-  //   } else if (currDate.getFullYear() === inputDate.getFullYear() && currDate.getMonth() === inputDate.getMonth() && currDate.getDate() < inputDate.getDate()) {
-  //     console.log("different day");
-  //     break;
-  //   }
-
-  //   if (currDate.getFullYear() === inputDate.getFullYear() && currDate.getMonth() === inputDate.getMonth() && currDate.getDate() === inputDate.getDate()) {
-  //     console.log("same day, start evicting");
-  //     evict = true;
-  //     break;
-  //   }
-  //   console.log("-----------------------");
-  // }
-
-  // if (evict) {
-  //   new_med_date.splice(i, 1);
-  // } else {
-  //   new_med_date.splice(i, 0, inputDate);
-  // }
-  
-  await db.collection("main_db")
+  await db.collection("med_time_db")
   .where({
     openid: wxContext.OPENID
   })
   .update({
     data: {
-      med_date: new_med_date
+      med_track: med_track
     }
   })
 
-
-
-
-  result.data.med_date = new_med_date;
+  let med_date = []
+  for (let i = 0; i < med_track.length; i++) {
+    med_date.push(med_track[i].date);
+  }
+  
+  result.data.med_date = med_date;
+  result.data.med_track = med_track;
   return result
 }
