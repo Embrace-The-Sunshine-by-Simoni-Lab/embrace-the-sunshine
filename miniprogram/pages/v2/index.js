@@ -74,11 +74,14 @@ Page({
             wx.cloud.callFunction({
               name: 'medication_track',
               data: {
-                  date: today_database
+                  date: today_database,
+                  hour: 0
               }
             }).then(res => {
               const newDateLst = res.result.data.med_date;
-              app.globalData.userData.med_date = newDateLst
+              app.globalData.userData.med_date = newDateLst;
+              // med hour data (print it out to see details)
+              app.globalDate.userData.med_track = res.result.data.med_track;
               // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
               that.convertStringtoDateArray(newDateLst)
               that.setData({
@@ -423,12 +426,15 @@ Page({
     wx.cloud.callFunction({
       name: 'medication_track',
       data: {
-          date: dateChange
+          date: dateChange,
+          hour: 17
       }
     })
     .then(res => {
       const newDateLst = res.result.data.med_date;
       app.globalData.userData.med_date = newDateLst
+      // med hour data (print it out to see details)
+      app.globalDate.userData.med_track = res.result.data.med_track;
       // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
       that.convertStringtoDateArray(newDateLst)
       that.setData({

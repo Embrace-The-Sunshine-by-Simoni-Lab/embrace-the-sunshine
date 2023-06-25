@@ -25,6 +25,7 @@ Page({
         data: {
         },
         success: async out => {
+          console.log(out.result)
           if (out.result.errCode == 0) {
             if (out.result.data) {
               app.globalData.userData = out.result.data;
