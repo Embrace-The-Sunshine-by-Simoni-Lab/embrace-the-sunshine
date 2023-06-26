@@ -323,9 +323,28 @@ Page({
 
   bindTimeChange: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      time: e.detail.value
+    // this.setData({
+    //   time: e.detail.value
+    // })
+    let curTapDate = this.data.curTapDate;
+    let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
+    wx.cloud.callFunction({
+      name: 'EDIT_medication_time',
+      data: {
+          date: dateChange,
+          hour: e.detail.value
+      },
+      success: out => {
+        app.globalData.userData.med_track = out.result.data.med_track;
+      },
+      fail: out => {
+        console.log("fail to call EDIT_medication_time");
+        console.log(out);
+      }
     })
+      
+
+
   },
 
   //显示对话框
@@ -415,7 +434,7 @@ Page({
       const newDateLst = res.result.data.med_date;
       app.globalData.userData.med_date = newDateLst
       // med hour data (print it out to see details)
-      app.globalDate.userData.med_track = res.result.data.med_track;
+      app.globalData.userData.med_track = res.result.data.med_track;
       // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
       that.convertStringtoDateArray(newDateLst)
       that.setData({

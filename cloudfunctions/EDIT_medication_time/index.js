@@ -9,6 +9,7 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   
   var result = {};
+  result.data = {};
   if (wxContext.OPENID != undefined) {
     console.log("user data: " + wxContext.OPENID);
   } else {
@@ -106,6 +107,7 @@ exports.main = async (event, context) => {
     })
   }
   
+  result.data.med_track = med_track;
   result.msg = "medication time set successfully";
   return result
 }
