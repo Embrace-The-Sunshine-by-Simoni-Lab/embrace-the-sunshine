@@ -1,46 +1,36 @@
-/* package_profile/pages/aboutUs.wxss */
-/* pages/infoPage/infoPage.wxss */
 .background {
-  background-color: #F6F6F6;
+  background-color: white;
 }
 
 .content {
-  background-color: #ffffff;
-  margin-top: 8%;
-  margin-left: 8%;
-  margin-right: 8%;
-  padding-right: 5%;
-  padding-left: 5%;
-  padding-top: 4%;
-  padding-bottom: 5%;
-  border-radius: 10px;
+  background:#FDFBFC;
+  margin-top: 40rpx;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -2px 25px 4px rgba(0, 0, 0, 0.13);
+  padding: 70rpx 35rpx;
 }
 
-.content > .title {
-  padding-bottom: 1%;
-}
-
-.content > .sub_title {
-  padding-top: 3%;
-}
-
-.content > .text {
-  line-height: 25px;
-  color: #888888;
-  font-size: 15px;
+.list-item::before {
+  content: "\2022"; /* Unicode字符编码为圆点 */
+  display: inline-block;
+  margin-right: 6px; /* 调整圆点与文本之间的间距 */
 }
 
 .title {
-  font-size: 25px;
-  font-weight: 500;
-  line-height: 30px;
-  margin-bottom: 5px;
-  letter-spacing: 0px;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.text {
+  color: #888888;
+  line-height: 23px;
+  font-size: 15px;
 }
 
 .sub_title {
+  font-weight: 400;
   margin-top: 20px;
   line-height: 30px;
-  font-size: 20px;
+  font-size: 16px;
   color: black;
 }
