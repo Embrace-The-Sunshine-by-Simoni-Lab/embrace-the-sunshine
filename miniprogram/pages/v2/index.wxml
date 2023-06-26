@@ -19,14 +19,15 @@
       <text class="titleDate">{{currentDate}}</text>
     </view>
 
-    <view wx-if="{{currentMode=='record'}}"  class="toggleButton">
-      <text class="toggleButton-text">已服药</text>
-      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange"/>
-      <text class="toggleButton-notice-on">是</text>
-      <text class="toggleButton-notice-off">否</text>
+    <view wx-if="{{currentMode=='record'}}" class="toggleButton">
+      <view class="time_box">
+        <view>服药时间:</view>
+        <view class="medi_exact_time">{{time}}</view>
+        <picker class="time_box_time" mode="time" value="{{time}}" start="00:00" bindchange="bindTimeChange">
+          <view class="time_box_edit">修改</view>
+        </picker>
+      </view> 
     </view>
-
-    <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/note.svg" class="note_take" bindtap="showNotePanel"></image>
 
     <!-- analyst content -->
     <text wx-if="{{currentMode=='analyst'}}" class="medicineRecord">本周服药记录</text>
@@ -134,6 +135,19 @@
           <view class="calendar_summary_text">平均每周服药天数</view>
         </view>
       </view>
+    </view>
+  </view>
+
+  <view class="status_update">
+    <view class="status_update_check_note" bindtap="showNotePanel">
+      <image src="../../images/calendar/edit.svg" class="status_update_check_note_edit"></image>
+      <view class="status_update_check_note_text">查看服药笔记</view> 
+    </view>
+    <view class="status_update_toggleButton">
+      <text class="status_update_toggleButton_text">已服药</text>
+      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange" class="status_update_toggleButton_switch" />
+      <text class="toggleButton_notice_on">是</text>
+      <text class="toggleButton_notice_off">否</text>
     </view>
   </view>
 </view>

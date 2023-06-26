@@ -19,13 +19,47 @@
   z-index: 1000;
   color: #fff;
 }
+.time_box {
+  display: flex;
+  font-size: 17px;
+  color: #4D50A4;
+
+}
+.time_box_time {
+  display: flex;
+}
+.time_box_edit {
+  text-decoration: underline;
+}
 .time_box_title {
   font-weight: 400;
   font-size: 29rpx;
 }
+.status_update {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+.status_update_check_note {
+  display: flex;
+  justify-content: space-between;
+}
+.status_update_check_note_text {
+  color: #4D50A4;
+  margin-right: 70rpx; 
+}
+.status_update_check_note_edit {
+  height: 50rpx;
+  width: 50rpx;
+  margin-right: 15rpx;
+}
 .time_box {
   display: flex;
   align-items: flex-end;
+}
+.status_update {
+  /* background: green; */
+  display: flex;
 }
 .note_take_title {
   z-index: 8000;
@@ -127,12 +161,18 @@
   margin-bottom: 10px;
   align-items: center;
 }
+.status_update_toggleButton {
+  /* background: orange; */
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 .medi_exact_time {
   font-weight: 400;
   margin-left: 10rpx;
-  text-decoration: underline;
-  color: #237ED2;
-  font-size: 29rpx;
+  margin-right: 18rpx;
+  font-size: 17px;
 }
 
 Page{
@@ -156,13 +196,15 @@ Page{
   margin: 15px 0 15px 0;
   height: 100%;
 }
-.toggleButton-text {
-  margin-right: 38px;
+.status_update_toggleButton_text{
+  margin-right: 15rpx;
   color: #4D50A4;
 }
+.status_update_toggleButton_switch {
+  margin-bottom: -10rpx;
+}
 .toggleButton {
-    /* background: green; */
-  /* background: green; */
+  /* background: orange; */
   width: 200px;
   height: 50px;
   display: flex;
@@ -171,16 +213,16 @@ Page{
   position: relative;
   transform: scale(0.9);
 }
-.toggleButton-notice-on {
+.toggleButton_notice_on {
   position: absolute;
-  left: 122px;
-  top: 7px;
+  left: 68px;
+  top: 5px;
   color: #FFFFFF;
 }
-.toggleButton-notice-off {
+.toggleButton_notice_off {
   position: absolute;
-  left: 148px;
-  top: 7px;
+  left: 93px;
+  top: 5px;
   color: #FFFFFF;
 }
 .medi-taken {
