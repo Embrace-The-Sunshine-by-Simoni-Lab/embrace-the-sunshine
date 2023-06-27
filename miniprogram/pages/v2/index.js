@@ -35,6 +35,10 @@ Page({
     // ******************* 笔记逻辑 *******************
     note: "",
     ifCanEnterNote: false,
+    // ******************* 判断是否显示服药时间 *******************
+    ifDisplayMediTakenTime: false,
+    // ******************* 是否显示时间选择器 *******************
+    ifShowTimePicker: true
   },
 
   // ******************* 日历逻辑 *******************
@@ -101,7 +105,7 @@ Page({
           }
         }
       })
-    }
+    } 
     // 判断笔记是否为空
     if(this.data.note !== "") {
       this.setData({
@@ -109,7 +113,6 @@ Page({
       })
     }
     let currentTime = this.getCurrentTime();
-    console.log("currentTime123", currentTime)
     this.setData({
       curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()},
       time: currentTime
@@ -119,13 +122,10 @@ Page({
     const now = new Date();
     const hours = now.getHours();
     const minutes = now.getMinutes();
-
     // Format the hours
     const formattedHours = hours < 10 ? `0${hours}` : `${hours}`;
-
     // Format the minutes
     const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-
     // Return the formatted time string
     return `${formattedHours}:${formattedMinutes}`;
   },
@@ -256,9 +256,11 @@ Page({
     let tap_month = e.detail.month
     let tap_day = e.detail.date
 
-    const tap_date = new Date(tap_year, tap_month - 1, tap_day)
+    const currentTapDateMediTakenTime = app.globalData.userData.med_track
+    
+    console.log("currentTapDateMediTakenTime", currentTapDateMediTakenTime)
 
-    // console.log("current user tap date", tap_date)
+    const tap_date = new Date(tap_year, tap_month - 1, tap_day)
     // 只允许用户点击早于今天的日期
     if(tap_date < today) {
       this.setData({
@@ -266,9 +268,17 @@ Page({
       })
       // 给当前点击的方框加入深色边框(需要判断是否taken)
       if(this.checkIfTapDateTaken(this.data.curTapDate)) {
+        console.log("该天已经被服药")
         this.changeCalendarBoxStyle(this.data.curTapDate, "box-selected-taken")
+        this.setData({
+          ifDisplayMediTakenTime: true
+        })
       } else {
+        console.log("该天未服药")
         this.changeCalendarBoxStyle(this.data.curTapDate, "box-selected")
+        this.setData({
+          ifDisplayMediTakenTime: false
+        })
       }
       // 取消上一次的深色边框(需要判断是否taken)
       let LastClickDateObj = this.convertDateobjToDateOBJ(this.data.LastClick)
@@ -322,10 +332,11 @@ Page({
   },
 
   bindTimeChange: function(e) {
-    // console.log('picker发送选择改变，携带值为', e.detail.value)
-    // this.setData({
-    //   time: e.detail.value
-    // })
+    // 点击确定后修改显示时间
+    this.setData({
+      time: e.detail.value
+    })
+    // 在数据库中存新的时间
     let curTapDate = this.data.curTapDate;
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
     wx.cloud.callFunction({
@@ -342,9 +353,6 @@ Page({
         console.log(out);
       }
     })
-      
-
-
   },
 
   //显示对话框
@@ -413,11 +421,14 @@ Page({
   // toggle button的改变
   toggleButtonChange(event) {
     let curTapDate = this.data.curTapDate
+    // let toggleResult = event.detail.checked
     let toggleResult = event.detail.checked
     let newMediStatus = false
     // 改变数据库的药的taken状态
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
     if (toggleResult) newMediStatus = true
+
+  
     let that = this
     wx.showLoading({
       title: '加载中',
@@ -456,57 +467,6 @@ Page({
       that.processAnalystPageData()
     });
   },
-  // 把所有已经服药过的日期渲染成红色
-  // renderMediTaken() {
-    // const calendar = this.selectComponent('#calendar').calendar
-    // const toSet = []
-    // const medi_obj =  this.data.medi_taken_obj
-    // for(let i = 0; i < medi_obj.length; i++) {
-    //   let year = medi_obj[i].getFullYear();
-    //   let month = medi_obj[i].getMonth() + 1;
-    //   let date = medi_obj[i].getDate();
-    //   let obj = { year, month, date, class: 'medi-taken'};
-    //   toSet.push(obj)
-    // }
-  //   calendar.setDateStyle(toSet)
-  // },
-  // toggleButtonChange(event) {
-  //   let curTapDate = this.data.curTapDate
-  //   let toggleResult = event.detail.checked
-  //   let newMediStatus = false
-  //   // 改变数据库的药的taken状态
-  //   let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
-  //   if (toggleResult) newMediStatus = true
-  //   let that = this
-  //   wx.showLoading({
-  //     title: '加载中',
-  //     mask: true
-  //   })
-  //   wx.cloud.callFunction({
-  //     name: 'medication_track',
-  //     data: {
-  //         date: dateChange
-  //     }
-  //   })
-  //   .then(res => {
-  //     const newDateLst = res.result.data.med_date;
-  //     app.globalData.userData.med_date = newDateLst
-  //     // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
-  //     that.convertStringtoDateArray(newDateLst)
-  //     that.setData({
-  //       medi_taken: newDateLst,
-  //       displayConfetti: false
-  //     })
-  //     that.renderMediTaken()
-  //     that.setData({
-  //       toggleButtonStatus: newMediStatus
-  //     })
-  //     // 更新分析页面的数据
-  //     wx.hideLoading()
-  //     that.processAnalystPageData()
-  //   });
-
-  // },
   // 把所有已经服药过的日期渲染成红色
   renderMediTaken() {
     const calendar = this.selectComponent('#calendar').calendar

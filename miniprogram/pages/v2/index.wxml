@@ -18,8 +18,8 @@
       <text class="titleMonth">{{currentMonth}}月</text>
       <text class="titleDate">{{currentDate}}</text>
     </view>
-
-    <view wx-if="{{currentMode=='record'}}" class="toggleButton">
+    
+    <view wx-if="{{currentMode=='record' && ifDisplayMediTakenTime}}" class="toggleButton">
       <view class="time_box">
         <view>服药时间:</view>
         <view class="medi_exact_time">{{time}}</view>
@@ -57,12 +57,6 @@
     <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
       <view class="note_take_title">
         <view>服药情况</view>
-        <!-- <view class="time_box">
-          <view class="time_box_title">服药时间</view>
-          <picker mode="time" value="{{time}}" start="00:00" bindchange="bindTimeChange">
-            <view class="medi_exact_time">{{time}}</view>
-          </picker>
-        </view> -->
       </view>
       <!-- 如果此时用户没有note  -->
       <view class="no_content_box" wx:if="{{!ifCanEnterNote && note === ''}}" bindtap="readyToEnter">
@@ -138,14 +132,20 @@
     </view>
   </view>
 
-  <view class="status_update">
+  <view class="status_update" wx:if="{{currentMode=='record'}}">
     <view class="status_update_check_note" bindtap="showNotePanel">
       <image src="../../images/calendar/edit.svg" class="status_update_check_note_edit"></image>
       <view class="status_update_check_note_text">查看服药笔记</view> 
     </view>
     <view class="status_update_toggleButton">
       <text class="status_update_toggleButton_text">已服药</text>
-      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange" class="status_update_toggleButton_switch" />
+
+      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange" class="status_update_toggleButton_switch">
+      </l-switch>
+
+      <picker wx:if="{{toggleButtonStatus}}" class="time_box_time" mode="time" value="{{time}}" start="00:00" bindchange="bindTimeChange">
+      </picker>
+
       <text class="toggleButton_notice_on">是</text>
       <text class="toggleButton_notice_off">否</text>
     </view>
