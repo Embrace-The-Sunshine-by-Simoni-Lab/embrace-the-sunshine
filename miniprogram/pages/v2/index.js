@@ -85,7 +85,8 @@ Page({
     })
 
     let correspondingMediTakenTime;
-    if (currentTapDateMediTakenTime.length != 0 && formatted_today.getTime() == new Date(currentTapDateMediTakenTime[currentTapDateMediTakenTime.length - 1].date).getTime()) {
+    let today_med_taken_check = (currentTapDateMediTakenTime.length != 0 && formatted_today.getTime() == new Date(currentTapDateMediTakenTime[currentTapDateMediTakenTime.length - 1].date).getTime());
+    if (today_med_taken_check) {
       correspondingMediTakenTime = currentTapDateMediTakenTime[currentTapDateMediTakenTime.length - 1].hour;
       console.log("TIME: " + correspondingMediTakenTime)
       this.setData({
@@ -99,7 +100,7 @@ Page({
 
 
     // 用户如果点击了model需要执行的内容
-    if(!ifTodayTaken && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
+    if(!today_med_taken_check && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
       wx.showModal({
         title: '服药记录',
         content: '今天是否已经服药?',
@@ -423,12 +424,21 @@ Page({
     })
     this.animation = animation
     animation.translateY(300).step()
+    let that = this;
+    // picker init
+    if (!that.data.ifDisplayMediTakenTime) {
+      that.setData({
+        hour: "00",
+        minute: "00"
+      })
+    }
+    
     this.setData({
       animationData: animation.export(),
       showPickerModalStatus: true,
-      hour: "00",
-      minute: "00"
-    })
+      hour: that.data.hour,
+      minute: that.data.minute
+    }) 
     setTimeout(function () {
       animation.translateY(0).step()
       this.setData({
@@ -463,7 +473,7 @@ Page({
   hideTimePickerModal: function () {
     // 修改时间
     let new_picker_time = this.data.hour + ':' + this.data.minute
-    // console.log(new_picker_time);
+    console.log("TIME: " + new_picker_time);
     
     let that = this;
     this.setData({
