@@ -63,7 +63,7 @@ Page({
   onLoad() {
     // 弹窗
     let that = this
-    let today = new Date()
+    let today = new Date();
     let lastShownModalTime = wx.getStorageSync('NotificationLastShownTime');
     let ifTodayTaken = this.checkIfTapDateTaken({year: today.getFullYear(), month: today.getMonth()+1, date: today.getDate()})
     // model显示之前先对calendar进行渲染
@@ -74,14 +74,29 @@ Page({
     const currentTapDateMediTakenTime = app.globalData.userData.med_track
 
     console.log("asdf", currentTapDateMediTakenTime)
-    const correspondingMediTakenTime = currentTapDateMediTakenTime.find(obj => new Date(obj.date).getTime() === today.getTime())?.hour;
+    let formatted_today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+
     this.setData({
       medi_taken,
       currentMonth: today.getMonth()+1,
       currentDate: today.getDate(),
       curTapDate: today,
-      time: correspondingMediTakenTime
     })
+
+    let correspondingMediTakenTime;
+    if (currentTapDateMediTakenTime.length != 0 && formatted_today.getTime() == new Date(currentTapDateMediTakenTime[currentTapDateMediTakenTime.length - 1].date).getTime()) {
+      correspondingMediTakenTime = currentTapDateMediTakenTime[currentTapDateMediTakenTime.length - 1].hour;
+      console.log("TIME: " + correspondingMediTakenTime)
+      this.setData({
+        ifDisplayMediTakenTime: true,
+        time: correspondingMediTakenTime
+      })
+    }
+    
+
+    console.log("current med time: " + correspondingMediTakenTime);
+
 
     // 用户如果点击了model需要执行的内容
     if(!ifTodayTaken && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
@@ -110,7 +125,7 @@ Page({
               const newDateLst = res.result.data.med_date;
               app.globalData.userData.med_date = newDateLst;
               // med hour data (print it out to see details)
-              app.globalDate.userData.med_track = res.result.data.med_track;
+              app.globalData.userData.med_track = res.result.data.med_track;
               // 创建medi taken的obj list, 用来防止用户点击红色已服药方块
               that.convertStringtoDateArray(newDateLst)
               that.setData({
@@ -140,7 +155,7 @@ Page({
     let currentTime = this.getCurrentTime();
     this.setData({
       curTapDate: {year: today.getFullYear(), month: today.getMonth() + 1, date: today.getDate()},
-      time: currentTime
+      // time: currentTime
     })
   },
   getCurrentTime: function() {
@@ -410,7 +425,9 @@ Page({
     animation.translateY(300).step()
     this.setData({
       animationData: animation.export(),
-      showPickerModalStatus: true
+      showPickerModalStatus: true,
+      hour: "00",
+      minute: "00"
     })
     setTimeout(function () {
       animation.translateY(0).step()
@@ -446,6 +463,9 @@ Page({
   hideTimePickerModal: function () {
     // 修改时间
     let new_picker_time = this.data.hour + ':' + this.data.minute
+    // console.log(new_picker_time);
+    
+    let that = this;
     this.setData({
       time: new_picker_time,
       ifDisplayMediTakenTime: true
@@ -522,11 +542,12 @@ Page({
       title: '加载中',
       mask: true
     })
+    // 取消服药记录
     wx.cloud.callFunction({
       name: 'medication_track',
       data: {
           date: dateChange,
-          hour: 17
+          hour: "untoggle"
       }
     })
     .then(res => {
@@ -546,6 +567,9 @@ Page({
         that.showPickerModal()
       } else {
         that.changeCalendarBoxStyle(curTapDate, "box-selected")
+        that.setData({
+          ifDisplayMediTakenTime: false
+        })
       }
       that.setData({
         toggleButtonStatus: newMediStatus
