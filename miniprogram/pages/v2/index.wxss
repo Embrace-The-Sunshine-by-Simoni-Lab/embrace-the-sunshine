@@ -43,6 +43,7 @@
 .status_update_check_note {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .status_update_check_note_text {
   color: #4D50A4;
@@ -231,14 +232,14 @@ Page{
 }
 .toggleButton_notice_on {
   position: absolute;
-  left: 68px;
-  top: 5px;
+  left: 70px;
+  top: 7px;
   color: #FFFFFF;
 }
 .toggleButton_notice_off {
   position: absolute;
-  left: 93px;
-  top: 5px;
+  left: 95px;
+  top: 7px;
   color: #FFFFFF;
 }
 .medi-taken {

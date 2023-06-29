@@ -140,7 +140,7 @@
     <view class="status_update_toggleButton">
       <text class="status_update_toggleButton_text">已服药</text>
 
-      <l-switch checked="{{toggleButtonStatus}}" size="65rpx" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange" class="status_update_toggleButton_switch">
+      <l-switch checked="{{toggleButtonStatus}}" size="34px" color="#ccc" select-color="#4D50A4" bind:linchange="toggleButtonChange" class="status_update_toggleButton_switch">
       </l-switch>
 
       <picker wx:if="{{toggleButtonStatus}}" class="time_box_time" mode="time" value="{{time}}" start="00:00" bindchange="bindTimeChange">
