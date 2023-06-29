@@ -142,11 +142,27 @@
 /*对话框 */
 .commodity_attr_box {
   padding: 35rpx;
-  /* background: #FDFBFC; */
+  /* background: blue; */
   box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.2);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   height: 380rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  background: #fff;
+}
+/*对话框 */
+.commodity_attr_box2 {
+  padding: 35rpx;
+  /* background: blue; */
+  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 580rpx;
   overflow: hidden;
   position: fixed;
   bottom: 0;
@@ -713,11 +729,6 @@ Page{
   color: transparent;
  }
 
- .viewBtn{
-  width: 100%;
-  height: 80rpx;
-  padding-top: 20rpx;
- }
  /*返回按钮*/
  .clickBtn{
   width:250rpx;
@@ -731,3 +742,25 @@ Page{
   border-radius: 10rpx;
   text-align: center;
  }
+
+ .time_confirm {
+  color: #0BB955;
+  display: flex;
+  padding: 0 60rpx;
+  justify-content: flex-end;
+}
+.toggle_picker_container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.toggle_picker_container_header {
+  display: flex;
+  line-height: 80rpx;
+  padding: 10rpx 60rpx;
+  font-weight: 300;
+  justify-content: space-between;
+}

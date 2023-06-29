@@ -1,5 +1,17 @@
 const app = getApp();
 
+// toggle button的time picker专用
+const hours = []
+const minutes = []
+for (var i = 0; i <= 24; i++) {
+  var formattedHour = ('0' + i).slice(-2); // Add leading zero for hours less than 10
+  hours.push(formattedHour);
+}
+for (var i = 0; i <= 59; i++) {
+  var formattedMinute = ('0' + i).slice(-2); // Add leading zero for hours less than 10
+  minutes.push(formattedMinute);
+}
+
 Page({
   data: {
     displayConfetti: false,
@@ -38,7 +50,13 @@ Page({
     // ******************* 判断是否显示服药时间 *******************
     ifDisplayMediTakenTime: false,
     // ******************* 是否显示时间选择器 *******************
-    ifShowTimePicker: true
+    ifShowTimePicker: true,
+    // ******************* toggle button的time picker专用 *******************
+    hours: hours,
+    minutes: minutes,
+    hour: 0,
+    minute: 0,
+    showPickerModalStatus: false,
   },
 
   // ******************* 日历逻辑 *******************
@@ -51,13 +69,20 @@ Page({
     // model显示之前先对calendar进行渲染
     const medi_taken = app.globalData.userData.med_date;
     this.convertStringtoDateArray(medi_taken)
+    // 获取所有服药的具体时间(map)
+    // 如果今天有服药时间的话, 那么要对今天的服药时间进行更新
+    const currentTapDateMediTakenTime = app.globalData.userData.med_track
 
+    console.log("asdf", currentTapDateMediTakenTime)
+    const correspondingMediTakenTime = currentTapDateMediTakenTime.find(obj => new Date(obj.date).getTime() === today.getTime())?.hour;
     this.setData({
       medi_taken,
       currentMonth: today.getMonth()+1,
       currentDate: today.getDate(),
-      curTapDate: today
+      curTapDate: today,
+      time: correspondingMediTakenTime
     })
+
     // 用户如果点击了model需要执行的内容
     if(!ifTodayTaken && (lastShownModalTime == null || !this.isSameDay(today, new Date(lastShownModalTime)))) {
       wx.showModal({
@@ -131,7 +156,6 @@ Page({
   },
   
   readyToEnter() {
-    // console.log("current user tap date", this.data.curTapDate)
     this.setData({
       ifCanEnterNote: true
     })
@@ -255,26 +279,24 @@ Page({
     let tap_year = e.detail.year
     let tap_month = e.detail.month
     let tap_day = e.detail.date
-
     const currentTapDateMediTakenTime = app.globalData.userData.med_track
     
-    console.log("currentTapDateMediTakenTime", currentTapDateMediTakenTime)
-
     const tap_date = new Date(tap_year, tap_month - 1, tap_day)
     // 只允许用户点击早于今天的日期
     if(tap_date < today) {
+      const correspondingMediTakenTime = currentTapDateMediTakenTime.find(obj => new Date(obj.date).getTime() === tap_date.getTime())?.hour;
+
       this.setData({
-        curTapDate: {year: tap_year, month: tap_month, date: tap_day}
+        curTapDate: {year: tap_year, month: tap_month, date: tap_day},
+        time: correspondingMediTakenTime
       })
       // 给当前点击的方框加入深色边框(需要判断是否taken)
       if(this.checkIfTapDateTaken(this.data.curTapDate)) {
-        console.log("该天已经被服药")
         this.changeCalendarBoxStyle(this.data.curTapDate, "box-selected-taken")
         this.setData({
           ifDisplayMediTakenTime: true
         })
       } else {
-        console.log("该天未服药")
         this.changeCalendarBoxStyle(this.data.curTapDate, "box-selected")
         this.setData({
           ifDisplayMediTakenTime: false
@@ -319,7 +341,6 @@ Page({
           note: out.result.data.content
         })
         that.showModal();
-
       },
       fail: out => {
         console.log("fail to call GET_note");
@@ -339,6 +360,7 @@ Page({
     // 在数据库中存新的时间
     let curTapDate = this.data.curTapDate;
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
+
     wx.cloud.callFunction({
       name: 'EDIT_medication_time',
       data: {
@@ -376,6 +398,28 @@ Page({
       })
     }.bind(this), 200)
   },
+  // 显示由toggle button控制的time picker
+  showPickerModal: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showPickerModalStatus: true
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+
   //隐藏对话框
   hideModal: function () {
     // 隐藏遮罩层
@@ -394,6 +438,52 @@ Page({
       this.setData({
         animationData: animation.export(),
         showModalStatus: false
+      })
+    }.bind(this), 200)
+  },
+
+  //隐藏toggle button出发的时间选择器
+  hideTimePickerModal: function () {
+    // 修改时间
+    let new_picker_time = this.data.hour + ':' + this.data.minute
+    this.setData({
+      time: new_picker_time,
+      ifDisplayMediTakenTime: true
+    })
+    // hide的同时往数据库存进数据
+    let curTapDate = this.data.curTapDate;
+    let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
+    wx.cloud.callFunction({
+      name: 'EDIT_medication_time',
+      data: {
+          date: dateChange,
+          hour: new_picker_time
+      },
+      success: out => {
+        app.globalData.userData.med_track = out.result.data.med_track;
+      },
+      fail: out => {
+        console.log("fail to call EDIT_medication_time");
+        console.log(out);
+      }
+    })
+        
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showPickerModalStatus: false
       })
     }.bind(this), 200)
   },
@@ -421,14 +511,12 @@ Page({
   // toggle button的改变
   toggleButtonChange(event) {
     let curTapDate = this.data.curTapDate
-    // let toggleResult = event.detail.checked
     let toggleResult = event.detail.checked
     let newMediStatus = false
     // 改变数据库的药的taken状态
     let dateChange = new Date(curTapDate.year, curTapDate.month - 1, curTapDate.date)
     if (toggleResult) newMediStatus = true
 
-  
     let that = this
     wx.showLoading({
       title: '加载中',
@@ -452,13 +540,13 @@ Page({
         medi_taken: newDateLst,
       })
       that.renderMediTaken()
-      
       if(toggleResult) {
         that.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
+        // 当用户开启按钮的时候需要弹出时间选择的窗口
+        that.showPickerModal()
       } else {
         that.changeCalendarBoxStyle(curTapDate, "box-selected")
       }
-
       that.setData({
         toggleButtonStatus: newMediStatus
       })
@@ -467,6 +555,7 @@ Page({
       that.processAnalystPageData()
     });
   },
+
   // 把所有已经服药过的日期渲染成红色
   renderMediTaken() {
     const calendar = this.selectComponent('#calendar').calendar
@@ -721,6 +810,16 @@ Page({
       swiperPosition: newSwiperPosition,
       currentClickedBar,
       analyticsData: curAnalyticsData,
+    })
+  },
+
+  togglePickerBindChange(e) {
+    const val = e.detail.value
+    console.log("hours and minutes",  this.data.hours, this.data.minutes)
+    console.log("valll", val)
+    this.setData({
+      hour: this.data.hours[val[0]],
+      minute: this.data.minutes[val[1]],
     })
   }
 })
