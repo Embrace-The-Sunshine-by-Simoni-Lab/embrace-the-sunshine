@@ -98,7 +98,7 @@ Page({
               that.renderMediTaken()
               // 全部渲染完之后需要单独对今天进行渲染
               that.changeCalendarBoxStyle(that.data.LastClick, "box-selected-taken")
-              that.showConfetti();
+              // that.showConfetti();
             });
           }
           try {
@@ -278,10 +278,10 @@ Page({
       
       if(toggleResult) {
         that.changeCalendarBoxStyle(curTapDate, "box-selected-taken")
-        this.showConfetti()
+        // this.showConfetti()
       } else {
         that.changeCalendarBoxStyle(curTapDate, "box-selected")
-        this.unshowConfetti()
+        // this.unshowConfetti()
       }
 
       that.setData({

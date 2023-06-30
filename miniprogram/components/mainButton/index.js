@@ -4,8 +4,13 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    title:String,
-    type: String
+    title: String,
+    type: String,
+    infoType: {
+      type: String,
+      value: "默认类型"
+    }
+
   },
 
   /**

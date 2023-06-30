@@ -1,12 +1,69 @@
 const app = getApp();
 // pages/infoPage/infoPage.js
-Page({
 
+
+Page({
   /**
    * Page initial data
    */
   data: {
+    text: "",
+    isExpand: true,
+    infoTypeList: [
+      {type: "互助小组"}, 
+      {type: "高校"}, 
+      {type: "医院/社会福利机构"}, 
+      {type: "心理咨询机构"}, 
+      {type: "公众号平台"}, 
+      {type: "心理援助热线"},
+      {type: "Apps"}
+    ],
+    infoList: [
+      {
+        "name": "沙丘心理", 
+        "label" : "互助小组",
+        "mediaType": "公众号", 
+        "abstract" : "互助、共情、探索自我", 
+        "fee": "免费",
+        "contact" : "0123456789",
+        "hours" : "10:00 - 17:00",
+        "link" : "公众号主页",
+      }, 
+      {
+        "name": "沙丘心理2", 
+        "label" : "心理咨询机构",
+        "mediaType": "公众号2", 
+        "abstract" : "互助、共情、探索自我2", 
+        "fee": "",
+        "contact" : "0987654321",
+        "hours" : "08:00 - 18:00"
+      }, 
+    ]
+  },
 
+
+
+  jumpToDetailPage(e) {
+    let name = e.currentTarget.dataset.id
+    console.log("click to jump to the detail page " + name )
+    wx.navigateTo({
+      url: '../infoDetail/infoDetail?name=' + name,
+    });
+  },
+
+  scroll(e) {
+    console.log(e)
+  },
+
+  expansionClick(e) {
+    console.log(e)
+    this.setData({
+      isExpand: !this.data.isExpand
+    })
+  },
+
+  chooseType(e) {
+    console.log("choose type")
   },
 
   /**
@@ -63,87 +120,6 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  /**
-   * When the phone call icon is clicked, users can choose either make a call or copy the number
-   * 当用户点击电话按钮时，可以选择拨打电话或者复制电话
-   */
-
-  phoneIconClicked: function (e) {
-    var that = this
-    var phone_num = e.currentTarget.dataset['index']
-    if (typeof phone_num == 'undefined') {
-      phone_num = '(---------)'
-    }
-    wx.showActionSheet({
-      itemList: ['呼叫 '+phone_num, '复制电话号码'],
-      success: function (res) {
-        if (res.tapIndex == 0) {
-          // 呼叫号码
-          wx.makePhoneCall({
-            phoneNumber: phone_num,
-          })
-        } else if (res.tapIndex == 1)
-        // 复制电话号码
-        wx.setClipboardData({
-          data: phone_num,
-          success() {
-            wx.showToast({
-              title: '复制成功',
-              duration: 700
-            })
-          }
-        })
-      }
-    })
-  },
-
-  linkIconClicked: function (e) {
-    var that = this
-    var url = e.currentTarget.dataset['index']
-    wx.showActionSheet({
-      itemList: ['打开网页链接', '复制网页链接'],
-      success: function (res) {
-        if (res.tapIndex == 0) {
-          // 打开网页链接
-          wx.navvigateTo({
-            url: url,
-          })
-        } else if (res.tapIndex == 1)
-        // 复制网页链接
-        wx.setClipboardData({
-          data: url,
-          success() {
-            wx.showToast({
-              title: '复制成功',
-              duration: 700
-            })
-          }
-        })
-      }
-    })
-  },
-
-  emailIconClicked: function (e) {
-    var that = this
-    var address = e.currentTarget.dataset['index']
-    wx.showActionSheet({
-      itemList: ['复制邮箱地址'],
-      success: function (res) {
-        if (res.tapIndex == 0) {
-          wx.setClipboardData({
-            data: address,
-            success() {
-              wx.showToast({
-                title: '复制成功',
-                duration: 700
-              })
-            }
-          })
-        }
-      }
-    })
   },
 })
 

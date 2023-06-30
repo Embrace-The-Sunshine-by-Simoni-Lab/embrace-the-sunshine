@@ -47,19 +47,14 @@
 }
 
 .itemDetail view {
-  margin-bottom: 9rpx;
+  /* margin-bottom: 20rpx; */
 }
 
 .itemTitle {
+  font-size: 34rpx;
+}
+
+.itemMediaType, .itemHours, .itemContact, .itemWebsite, .itemEmail, .itemPhone, .itemWechatID, .itemCost, .itemFormat  {
   font-size: 32rpx;
-}
-
-.itemAbstract {
-  font-size: 30rpx;
-  color: grey;
-}
-
-.itemMediaType {
-  font-size: 28rpx;
-  color: grey;
+  margin-bottom: 20rpx;
 }

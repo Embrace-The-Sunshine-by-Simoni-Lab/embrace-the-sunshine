@@ -1,59 +1,25 @@
 <!--pages/infoPage/infoPage.wxml-->
-<view class="background">
-  <view class="content">
-    <view class="title">联系专家</view>
-    <view class="text">
-      如果你是大学生，请到您所在的大学心理咨询中心寻求帮助。如果您所在的大学不在以下列表中，请联系您的辅导员询问校内心理咨询资源
-    </view>
-    <view class="sub_title">上海心理援助</view>
-    <view class="text">
-      <view>名称：上海精神卫生中心</view>
-      <view>服务：预约服务，医院内部智能导航，院内专家，等。</view>
-    </view>
-    <view class="icon_bar">
-      <!-- <image class="icon" src="../../images/more_info/link_icon.png" bindtap="linkIconClicked" data-index='http://www.xinqing/sjtu.edu.cn/'></image>
-      <image class="icon" src="../../images/more_info/phone_icon.png"
-      bindtap="phoneIconClicked"></image>
-      <image class="icon" src="../../images/more_info/email_icon.png"
-      bindtap="emailIconClicked"></image>
-      <image class="icon" id="wechat_icon" src="../../images/more_info/wechat_icon.png"></image> -->
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/link_icon.png" bindtap="linkIconClicked" data-index='http://www.xinqing/sjtu.edu.cn/'></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/phone_icon.png" bindtap="phoneIconClicked"></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/email_icon.png" bindtap="emailIconClicked"></image>
-      <image class="icon" id="wechat_icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/wechat_icon.png"></image>
-
-    </view>
-    <view class="sub_title">上海交通大学心理咨询中心</view>
-    <view class="text">
-      <view>服务：个体咨询，心理测试，团体咨询。</view>
-    <view class="icon_bar">
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/link_icon.png" bindtap="linkIconClicked" data-index='http://www.xinqing/sjtu.edu.cn/'></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/phone_icon.png" bindtap="phoneIconClicked"></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/email_icon.png" bindtap="emailIconClicked"></image>
-      <image class="icon" id="wechat_icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/wechat_icon.png"></image>
-    </view>
-    <view class="sub_title">上海财经大学</view>
-    <view class="icon_bar">
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/link_icon.png" bindtap="linkIconClicked" data-index='http://xsc.shufe.edu.cn/20/86/c5428a139398/page/html'></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/phone_icon.png" bindtap="phoneIconClicked" data-index='021-65904073'></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/email_icon.png" bindtap="emailIconClicked" data-index='xlzx@mail.sufe.edu.cn'></image>
-      <image class="icon" id="wechat_icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/wechat_icon.png"></image>
-    </view>
-    <view class="sub_title">复旦大学</view>
-    <view class="icon_bar">
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/link_icon.png" bindtap="linkIconClicked" data-index='http://www.caps.fudan.edu.cn/'></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/phone_icon.png" bindtap="phoneIconClicked" data-index='65643339'></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/email_icon.png" bindtap="emailIconClicked" data-index=''></image>
-      <image class="icon" id="wechat_icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/wechat_icon.png"></image>
-    </view>
-    <view class="sub_title">同济大学</view>
-    <view class="icon_bar">
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/link_icon.png" bindtap="linkIconClicked" data-index='https://railway.tongji.edu.cn/4649/list/html'></image>
-      <!-- 联系方式：021-65983723（四平校区）021-69589851（嘉定校区）-->
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/phone_icon.png" bindtap="phoneIconClicked" data-index='021-65983723'></image>
-      <image class="icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/email_icon.png" bindtap="emailIconClicked" data-index=''></image>
-      <image class="icon" id="wechat_icon" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/more_info/wechat_icon.png"></image>
+<view class="pageContainer">
+  <view class="headerTabs">
+    <scroll-view class="scroll-view" scroll-x="true" bindscroll="scroll">
+      <view class="scroll-view-item" wx:for="{{infoTypeList}}" wx:for-item="item" wx:for-index="idx" wx:key="idx">
+        <view><mainButton type="{{true? 'type-fill' : 'type-empty'}}" class="madicineBtn" bindtap="chooseType" infoType="{{item.type}}"></mainButton></view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="content"> 
+    <view class="listContainer">
+      <view class="listItem" 
+        wx:for="{{infoList}}"
+        wx:for-item="item" 
+        wx:for-index="idx" 
+        wx:key="name">
+        <view class="itemDetail" data-id="{{item.name}}" bind:tap="jumpToDetailPage">
+          <view class="itemTitle">{{item.name}}</view>
+          <view class="itemAbstract">{{item.abstract}}</view> 
+          <view class="itemMediaType">{{item.mediaType}}{{item.fee? " | " + item.fee  : ""}}</view>
+        </view>
       </view>
     </view>
   </view>
-</view>
+</view> 

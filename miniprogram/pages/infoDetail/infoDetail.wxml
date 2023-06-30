@@ -1,0 +1,27 @@
+<view class="pageContainer">
+  <view class="headerTabs">
+    <scroll-view class="scroll-view">
+      <view class="scroll-view-item">
+        <view></view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="content"> 
+    <view class="listContainer">
+      <view class="listItem">
+        <view class="itemDetail">
+          <view class="itemTitle">name沙丘心理</view>
+          <view class="itemMediaType">type公众号</view>
+          <view class="itemHours">服务时间：</view> 
+          <view class="itemContact">联系方式：</view>
+          <view class="itemWebsite">网站网址：</view>
+          <view class="itemEmail">电子邮箱：</view>
+          <view class="itemPhone">电话号码：</view>
+          <view class="itemWechatID">微信账号：</view>
+          <view class="itemCost">费用：</view>
+          <view  class="itemFormat">模式：</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 
