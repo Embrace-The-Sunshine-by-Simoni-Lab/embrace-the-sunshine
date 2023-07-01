@@ -116,6 +116,18 @@ body{
   margin-right: 2%;
 }
 
+.copyButton {
+  background-color: #496c91; /* 按钮的背景颜色 */
+  color: white; /* 按钮的文本颜色 */
+  font-size: 16px; /* 按钮的文本大小 */
+  padding: 10px; /* 按钮内的填充大小 */
+  border-radius: 15px; /* 按钮的边缘半径 */
+  text-align: center; /* 按钮文本的对齐方式 */
+  border: none; /* 按钮边框 */
+  outline: none; /* 删除按钮的默认轮廓 */
+  padding: 5px;
+}
+
 .sub-board-b {
   display: flex;
   flex-direction: row;

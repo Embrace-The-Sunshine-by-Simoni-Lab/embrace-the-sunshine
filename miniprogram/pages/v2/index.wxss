@@ -1,48 +1,245 @@
-.page_container {
+.container {
   position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  background: green;
 }
 
-.confetti {
-  position: absolute;
-  width: 750rpx;
-  height: 1770rpx;
+/*使屏幕变暗  */
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+.time_box {
+  display: flex;
+  font-size: 17px;
+  color: #4D50A4;
+
+}
+.time_box_time {
+  display: flex;
+}
+.time_box_edit {
+  text-decoration: underline;
+}
+.time_box_title {
+  font-weight: 400;
+  font-size: 29rpx;
+}
+.status_update {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+.status_update_check_note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.status_update_check_note_text {
+  color: #4D50A4;
+  margin-right: 70rpx; 
+}
+.status_update_check_note_edit {
+  height: 50rpx;
+  width: 50rpx;
+  margin-right: 15rpx;
+}
+.time_box {
+  display: flex;
+  align-items: flex-end;
+}
+.status_update {
+  /* background: green; */
+  display: flex;
+}
+.note_take_title {
   z-index: 8000;
+  margin-bottom: 10px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.note_take_title_time {
+  font-weight: 500;
+}
+.note_take {
+  position: absolute;
+  right: 23rpx;
+  bottom: 23rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+.time_save {
+  position:absolute;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -200rpx;
+  margin-top: 60rpx;
+  width: 400rpx;
+  height: 80rpx;
+  background: #4D50A4;
+  border-radius: 8px;
+  color: white;
+  line-height: 80rpx;
+  text-align: center;
+}
+.medication_note {
+  background: white;
+  border: 2px solid #4D50A4;
+  border-radius: 5px;
+  width: 100%;
+  height: 300rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  margin-bottom: 20px;
+  position: relative;
+}
+.has_content {
+  color: #4C4C4C;
+}
+.no_content_box {
+  background: white;
+  border: 1px solid #4D50A4;
+  border-radius: 5px;
+  width: 100%;
+  height: 300rpx;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.3);
+  font-weight: 400;
+  padding: 20rpx;
+  margin-bottom: 20px;
+  position: relative;
+}
+.note_confirm {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 15rpx;
+  margin-bottom: 15rpx;
+  width: 82rpx;
+  height: 82rpx;
+  z-index: 6000;
+}
+.edit_button {
+  width: 140rpx;
+  border-radius: 5px;
+  font-weight: 400;
+  background: #F2F2F2;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+}
+/*对话框 */
+.commodity_attr_box {
+  padding: 35rpx;
+  /* background: blue; */
+  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 380rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  background: #fff;
+}
+/*对话框 */
+.commodity_attr_box2 {
+  padding: 35rpx;
+  /* background: blue; */
+  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 580rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  background: #fff;
+}
+.time_edit_header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.status_update_toggleButton {
+  /* background: orange; */
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.medi_exact_time {
+  font-weight: 400;
+  margin-left: 10rpx;
+  margin-right: 18rpx;
+  font-size: 17px;
 }
 
 Page{
   background:#FFFFFF !important;
 }
-
+.confetti {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 8000;
+  /* background: green; */
+}
 .medicineContainer {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin: 15px 0 0 0;
+  margin: 15px 0 15px 0;
+  height: 100%;
 }
-.toggleButton-text {
-  margin-right: 10px;
+.status_update_toggleButton_text{
+  margin-right: 15rpx;
   color: #4D50A4;
 }
+.status_update_toggleButton_switch {
+  margin-bottom: -10rpx;
+}
 .toggleButton {
+  /* background: orange; */
   width: 200px;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  transform: scale(0.9);
 }
-.toggleButton-notice-on {
+.toggleButton_notice_on {
   position: absolute;
-  left: 106px;
-  top: 10px;
+  left: 70px;
+  top: 7px;
   color: #FFFFFF;
 }
-.toggleButton-notice-off {
+.toggleButton_notice_off {
   position: absolute;
-  left: 135px;
-  top: 10px;
+  left: 95px;
+  top: 7px;
   color: #FFFFFF;
 }
 .medi-taken {
@@ -88,6 +285,7 @@ Page{
   display: flex;
   flex-direction:  column;
   align-items: center;
+  margin-bottom: 18rpx;
 }
 .btnBox {
   display: flex;
@@ -128,6 +326,8 @@ Page{
   margin-right: 105px;
 }
 .infoBox {
+  position: relative;
+  padding-bottom: 15rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -154,13 +354,13 @@ Page{
   align-items: center;
   width: 100px;
   height: 100px;
-  border-radius: 50%;    
+  border-radius: 50%;
   background-color: #FFD1C6;
   margin-left: auto;
   margin-right:auto;
 }
 .calendar-box .left .today p {
-  font-size: 2rem;    
+  font-size: 2rem;
 }
 .calendar-box .left .today .monthStr {
   font-size: 0.8rem;
@@ -213,7 +413,7 @@ Page{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
 }
 .calendar_dateRange {
   color: #2E317D;
@@ -273,7 +473,7 @@ Page{
   height: 100%;
 
   display: flex;
-} 
+}
 .calendar_y_axis_label {
   color: #4C4C4C;
   font-size: 12px;
@@ -291,8 +491,8 @@ Page{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  /* background: green; */
   width: 100%;
+  height: 100%;
 }
 .calendar_summary {
   display: flex;
@@ -330,7 +530,8 @@ Page{
   align-items: center;
 }
 .calendar_circle {
-  width: 58%;
+  width: 69%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -353,7 +554,7 @@ Page{
 .charts-box {
   width: 100%;
   height: 300px;
-} 
+}
 .calendar_circle_big_num {
   margin-top: -19px;
   font-weight: 330;
@@ -484,14 +685,14 @@ Page{
   height: 1px;
   background: #eeeeee;
  }
- 
+
  /*列表项*/
  .listContent{
   width:100%;
   margin-top: 20rpx;
   white-space: nowrap;/*父元素 一行显示，不换行*/
   overflow-x: auto;
- 
+
  }
  .item{
   display: inline-block;/*子元素 display: inline-block*/
@@ -508,12 +709,12 @@ Page{
   font-size: 28rpx;
   color:#acacac
  }
- 
+
  .bar_container {
    width: 250px;
    height: 220px;
  }
- 
+
  /*列表项*/
  .item2{
   width: 25%;
@@ -528,12 +729,7 @@ Page{
   height: 0;
   color: transparent;
  }
- 
- .viewBtn{
-  width: 100%;
-  height: 80rpx;
-  padding-top: 20rpx;
- }
+
  /*返回按钮*/
  .clickBtn{
   width:250rpx;
@@ -547,3 +743,25 @@ Page{
   border-radius: 10rpx;
   text-align: center;
  }
+
+ .time_confirm {
+  color: #0BB955;
+  display: flex;
+  padding: 0 60rpx;
+  justify-content: flex-end;
+}
+.toggle_picker_container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.toggle_picker_container_header {
+  display: flex;
+  line-height: 80rpx;
+  padding: 10rpx 60rpx;
+  font-weight: 300;
+  justify-content: space-between;
+}

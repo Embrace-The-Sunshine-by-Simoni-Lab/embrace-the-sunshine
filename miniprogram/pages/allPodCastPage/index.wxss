@@ -4,6 +4,18 @@
   font-weight: 400;
   margin-bottom: 15px;
 }
+.castContent_title_box {
+  display: flex;
+  align-items: center;
+  /* background: green; */
+  margin-bottom: 27rpx;
+}
+.meditation_img {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 20rpx;
+  margin-top: -7rpx;
+}
 .allCastsContainer {
   padding: 20px;
   display: flex;
@@ -70,7 +82,6 @@
   font-weight: 400;
   font-size: 35rpx;
   line-height: 24px;
-  margin-bottom: 18rpx;
   color: #000000;
 }
 .castContent_progress {

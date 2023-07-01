@@ -142,7 +142,45 @@ exports.main = async (event, context) => {
     meditation_progress_data_to_return = meditation_progress_info;
   }
 
+
+  // get medication time info
+  let data_entry;
+  await db.collection("med_time_db")
+  .where({
+    openid: wxContext.OPENID
+  })
+  .get()
+  .then(res => {
+    data_entry = res.data[0];
+  })
+
+  let med_track_date = [];
+  let med_track = [];
+  if (data_entry != undefined) {
+    med_track = data_entry.med_track;
+    for (let i = 0; i < med_track.length; i++) {
+      med_track_date.push(med_track[i].date);
+    }
+  }
+  
+  data_to_return.med_date = med_track_date;
+  data_to_return.med_track = med_track;
+
+
+  // MORE RESOURCES DATA
+  // let resources_cnt = await db.collection("resource_db").count();
+  // resources_cnt = resources_cnt.total;
+  
+  // let all_resources = [];
+  
+  // for (let i = 0; i < resources_cnt; i += 100) {
+  //   let list = await db.collection("resource_db").skip(i).get();
+  //   all_resources = all_resources.concat(list.data);
+  // }
+  
+
   var result = {};
+  // result.all_resources = all_resources;
   result.is_new_user = is_new_user;
   result.errCode = 0;
   result.errMsg = 'successfully return userinformation with is new user';

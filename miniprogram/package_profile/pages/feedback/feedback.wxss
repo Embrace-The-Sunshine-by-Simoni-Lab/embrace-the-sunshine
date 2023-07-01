@@ -10,9 +10,9 @@
   background-color: rgb(255, 255, 255);
   }
 
-  .submit-btn {
+  .submit_btn {
     width: 90%;
     margin-top: 30rpx;
-    background-color: rgba(0, 100, 0, 0.6);
+    background-color: #4D50A4;
     color: #FFF;
   }

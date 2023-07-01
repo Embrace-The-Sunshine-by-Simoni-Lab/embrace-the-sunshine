@@ -3,27 +3,25 @@
   <text class="allCastHeader">模拟咨询室</text>
 
   <view class="homePodCastBox">
-    <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
+    <view class="castItem" 
       wx:for="{{podCastInfo}}" 
       wx:for-item="item" 
       wx:for-index="idx" 
       wx:key="idx" 
       data-podcastType="播客"
       data-id="{{item.podCast_Id}}" 
-      bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
-      <image 
-        style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
-        src="../../images/homepage/LOCK.png" 
-        class="podcast_lock">
-      </image>
+      bind:tap="jumpToPodCastPlay">
       <view class="castImage">
-        <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
+        <image class="castImageItem" src="{{item.podCastListURL}}"></image>
       </view>
 
       <view class="castContent">
         <view class="castContent_top">
           <view class="castContent_top_desc">
-            <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+            <view class="castContent_title_box">
+              <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+              <image wx-if="{{item.mainTitle === '承受痛苦'}}" class="meditation_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/meditation.svg"></image>
+            </view>
             <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
           </view>
           <image src="{{podcastComplete[idx] === 1 ? '../../images/homepage/home-check.png':'../../images/homepage/home-uncheck.png'}}" class="castContent_top_check"></image>

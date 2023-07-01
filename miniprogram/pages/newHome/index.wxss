@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .homeBanner {
   width: 100%;
   border-radius: 10px;
@@ -15,6 +16,18 @@
   background: #F38A73;
   border-radius: 10px;
   height: 100%;
+}
+.castContent_title_box {
+  display: flex;
+  align-items: center;
+  /* background: green; */
+  margin-bottom: 27rpx;
+}
+.meditation_img {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 20rpx;
+  margin-top: -7rpx;
 }
 .homePodCastBox {
   width: 100%;
@@ -93,7 +106,7 @@
   width: 18rpx;
   height: 18rpx;
   position: absolute;
-  left: 178rpx;
+  left: 185rpx;
   top: 0;
   z-index: 200;
   border-radius: 50%;
@@ -251,7 +264,6 @@
   font-weight: 400;
   font-size: 35rpx;
   line-height: 35rpx;
-  margin-bottom: 27rpx;
   color: #000000;
 }
 .castContent_progress {

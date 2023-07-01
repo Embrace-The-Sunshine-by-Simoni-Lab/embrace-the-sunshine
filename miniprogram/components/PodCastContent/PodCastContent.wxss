@@ -81,10 +81,15 @@
   flex-direction: column;
   justify-content: center;
   height: 16%;
+  margin-bottom: 10rpx;
 }
 .ContentChunk {
   display: flex;
   flex-direction: column;
+}
+.option_answer_mark {
+  width: 10rpx;
+  height: 10rpx;
 }
 .AnswerBlock {
   height: 80%;
@@ -194,6 +199,7 @@
   background: rgb(139, 139, 161);
 }
 .SubmitBlock {
+  /* background: green; */
   position: absolute;
   bottom: 10rpx;
   left: 50%;
@@ -202,27 +208,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 20rpx;
 }
-.Submit_Button {
-  width: 400rpx;
-  height: 65rpx;
-  color: #FFFFFF;
-  font-size: 30rpx;
-  line-height: 70rpx;
-  background: #4D50A4;
-  border-radius: 4px;
-  text-align: center;
-}
-.Disabled_Button {
-  width: 400rpx;
-  height: 65rpx;
-  color: rgba(0, 0, 0, 0.1);
-  font-size: 30rpx;
-  line-height: 70rpx;
-  background: #F2F2F2;
-  border-radius: 4px;
-  text-align: center;
-}
+
+
 .meditation_disable_button {
   width: 350rpx;
   height: 80rpx;
@@ -234,14 +223,62 @@
   text-align: center;
   margin-top: 70rpx;
 }
+.Submit_Button {
+  color: white;
+  width: 285rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  border: 1px solid #4D50A4;
+  background: #4D50A4;
+}
 .next_question {
-  width: 60rpx; 
-  height: 55rpx;
+  color: white;
+  width: 285rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  border: 1px solid #4D50A4;
+  background: #4D50A4;
 }
 .prev_question {
-  width: 60rpx; 
-  height: 55rpx;
-  transform: scaleX(-1);
+  color: white;
+  background: #4D50A4;
+  width: 285rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  border: 1px solid #4D50A4;
+}
+.next_question_disable {
+  color: #333333;
+  width: 285rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  border: 1px solid rgba(51, 51, 51, 0.3)
+}
+.prev_question_disable {
+  color: #333333;
+  width: 285rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  border: 1px solid rgba(51, 51, 51, 0.3)
+}
+.Disabled_Button {
+  color: #333333;
+  width: 285rpx;
+  height: 65rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 10rpx;
+  border: 1px solid rgba(51, 51, 51, 0.3)
 }
 .open_ended_box {
   width: 100%;

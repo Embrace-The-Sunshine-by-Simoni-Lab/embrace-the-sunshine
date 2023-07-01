@@ -21,7 +21,7 @@
             <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
             <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
           </view>
-          <image src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg" class="castContent_top_check"></image>
+          <image src="{{meditationComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
         </view>
       </view>
     </view>

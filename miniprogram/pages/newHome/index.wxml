@@ -2,12 +2,13 @@
 
 <view class="homeContainer">
  <!-- home page top -->
+
   <view class="homeBanner">
     <swiper indicator-dots="{{indicatorDots}}" 	indicator-active-color="#BDBDBD"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper">
-      <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < podcastsAvailability.length && idx < 3}}" class="block">
+      <block wx:for="{{podCastInfo}}" wx:for-item="item" wx:for-index="idx"  wx:key="idx" wx:if="{{idx < podCastInfo.length && idx < 3}}" class="block">
         <swiper-item class="{{item.episode === '冥想' ? 'swipe_orange_background' : ''}}">
-          <view class="swiper-item {{item}}" data-id="{{item.podCast_Id}}" bind:tap="jumpToPodCastPlay">
+          <view class="swiper-item {{item}}" data-id="{{item.podCast_Id}}" data-podcastType="播客"bind:tap="jumpToPodCastPlay">
             <view class="homeBannerContent">
               <text class="homePodNum">{{item.episode}}</text>
               <text class="homePodTitle">{{item.mainTitle}}</text>
@@ -23,21 +24,21 @@
   <!-- Home page middle -->
   <view class="homeMiddleBox">
     <view class="homeMoodTrack" bind:tap="jumpToMoodTracking">
-      <text class="mood_text">情绪状态评估</text> 
+      <text class="mood_text">情绪状态评估</text>
       <image class="homeMoodImg" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/cloud.svg"></image>
     </view>
     <view class="homeMediTrack" bind:tap="jumpToCalendar">
       <view class="homeMediTrackContent">
         <view wx:if="{{showRedDot}}" class="reddot"></view>
-        <text class="homeMediTrackContentTitle">药物依从记录</text> 
-        <text class="homeMediTrackContentTitleSmall">本周服药天数</text> 
+        <text class="homeMediTrackContentTitle">药物依从记录</text>
+        <text class="homeMediTrackContentTitleSmall">本周服药天数</text>
 
-        <view class="homeMediTrackProgressBox"> 
+        <view class="homeMediTrackProgressBox">
           <view class="homeMediTrackProgress">
             <view class="homeMediTrackAlreadyTaken" style="width: {{currWeekAlreadyTaken/7*100}}%; background:{{progressBarColor}}">
             </view>
           </view>
-        
+
           <text class="homeMediTrackProgressText">{{currWeekAlreadyTaken}}/7</text>
         </view>
 
@@ -52,48 +53,46 @@
     <view class="homePodCastBox">
       <text class="homePodCastTitle">模拟心理咨询室</text>
       <view class="innerContentBox">
-        <view class="castItem {{(podcastsAvailability[idx] === 1)? '' : 'podcast-unavailable'}}" 
-          wx:for="{{podCastInfo}}" 
-          wx:for-item="item" 
-          wx:for-index="idx" 
-          wx:key="idx" 
-          wx:if="{{idx < 2}}" 
+        <view class="castItem"
+          wx:for="{{podCastInfo}}"
+          wx:for-item="item"
+          wx:for-index="idx"
+          wx:key="idx"
+          wx:if="{{idx < 2}}"
           data-podcastType="播客"
-          data-id="{{item.podCast_Id}}" 
-          bind:tap="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'jumpToPodCastPlay' : 'jumpToUnAvailableNotice'}}">
-          <image 
-            style="display: {{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? 'none' : 'block'}}"
-            src="../../images/homepage/LOCK.png" 
-            class="podcast_lock">
-          </image>
+          data-id="{{item.podCast_Id}}"
+          bind:tap="jumpToPodCastPlay"
+        >
           <view class="castImage">
-            <image class="castImageItem" src="{{(podcastsAvailability[idx] === 1 && idx < podcastsAvailability.length) ? item.podCastListURL : item.podCastListURL_grey}}"></image>
+            <image class="castImageItem" src="{{item.podCastListURL}}"></image>
           </view>
-
           <view class="castContent">
             <view class="castContent_top">
               <view class="castContent_top_desc">
-                <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
-                <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+                <view class="castContent_title_box">
+                  <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+                  <image wx-if="{{item.mainTitle === '承受痛苦'}}" class="meditation_img" src="cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/podcast_audio/meditation.svg"></image>
+                </view>
+                <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view>
               </view>
               <image src="{{podcastComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
             </view>
           </view>
         </view>
-      </view> 
+      </view>
       <text class="checkAll" bind:tap="jumptoAllPodCastPage">查看全部</text>
     </view>
     <!-- 冥想 -->
     <view class="meditationBox">
       <text class="homePodCastTitle">冥想练习</text>
       <view class="innerContentBox">
-        <view class="castItem" 
-          wx:for="{{meditationInfo}}" 
-          wx:for-item="item" 
-          wx:for-index="idx" 
-          wx:key="idx" 
-          wx:if="{{idx < 1}}" 
-          data-id="{{item.meditation_Id}}" 
+        <view class="castItem"
+          wx:for="{{meditationInfo}}"
+          wx:for-item="item"
+          wx:for-index="idx"
+          wx:key="idx"
+          wx:if="{{idx < 1}}"
+          data-id="{{item.meditation_Id}}"
           data-podcastType="{{item.episode}}"
           bind:tap="jumpToPodCastPlay">
           <view class="castImage">
@@ -102,15 +101,17 @@
           <view class="castContent">
             <view class="castContent_top">
               <view class="castContent_top_desc">
-                <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
-                <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view> 
+                <view class="castContent_title_box">
+                  <view class="castContent_top_desc_title">{{item.mainTitle}}</view>
+                </view>
+                <view class="castContent_top_desc_summary">{{item.mainContentSummary}}</view>
               </view>
-              <image src="{{podcastComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
+              <image src="{{meditationComplete[idx] === 1 ? 'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- purple complete button.svg':'cloud://cloud1-2gjzvf7qc03c5783.636c-cloud1-2gjzvf7qc03c5783-1306062016/images/mainPage/home- grey complete button.svg'}}" class="castContent_top_check"></image>
             </view>
           </view>
         </view>
-      </view> 
+      </view>
       <text class="checkAll" bind:tap="jumptoAllMeditationPage">查看全部</text>
     </view>
   </view>
-</view> 
+</view>

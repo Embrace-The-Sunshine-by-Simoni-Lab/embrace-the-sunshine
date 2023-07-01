@@ -5,18 +5,15 @@ Page({
    */
   data: {
     showUploadTip: false,
-    haveGetCodeSrc: false,
+    haveGetRecord: false,
     envId: '',
-    codeSrc: ''
+    record: ''
   },
 
   onLoad(options) {
     this.setData({
       envId: options.envId
     });
-  },
-
-  getCodeSrc() {
     wx.showLoading({
       title: '',
     });
@@ -26,12 +23,11 @@ Page({
         env: this.data.envId
       },
       data: {
-        type: 'getMiniProgramCode'
+        type: 'sumRecord'
       }
     }).then((resp) => {
       this.setData({
-        haveGetCodeSrc: true,
-        codeSrc: resp.result
+        record: resp.result.list
       });
       wx.hideLoading();
     }).catch((e) => {
@@ -43,11 +39,8 @@ Page({
     });
   },
 
-  clearCodeSrc() {
-    this.setData({
-      haveGetCodeSrc: false,
-      codeSrc: ''
-    });
-  }
+  goBack() {
+   wx.navigateBack();
+  },
 
 });
