@@ -1,7 +1,7 @@
+const app = getApp()
 // 创建音频播放实例
 const myAudio = wx.getBackgroundAudioManager()
 
-const app = getApp()
 Page({
   data: {
     collectStatus: false,
@@ -267,7 +267,7 @@ Page({
       paused: false,
     })
     // myAudio.src = this.data.podCastInfo.url
-    myAudio.play()
+     
   },
 
   // 暂停播放
@@ -322,21 +322,12 @@ Page({
     }
   },
 
-  // 进度条改变
-  audioChanging(val) {
-    // 通过 seek 来更改当前播放实例的进度
-    myAudio.seek(val.detail.value)
-    // 界面显示滑动的时间同步改变
-    this.setData({
-      forNowTime: this.format(parseInt(val.detail.value))
-    })
-  },
-
   // 进度条改变完成
   audioChange(val) {
+    console.log("触发audioChange")
     myAudio.seek(val.detail.value)
+    myAudio.play()
   },
-
 
   /**
    * 生命周期函数--监听页面隐藏

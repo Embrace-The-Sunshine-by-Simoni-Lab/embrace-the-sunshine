@@ -19,13 +19,48 @@
   z-index: 1000;
   color: #fff;
 }
+.time_box {
+  display: flex;
+  font-size: 17px;
+  color: #4D50A4;
+
+}
+.time_box_time {
+  display: flex;
+}
+.time_box_edit {
+  text-decoration: underline;
+}
 .time_box_title {
   font-weight: 400;
   font-size: 29rpx;
 }
+.status_update {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+.status_update_check_note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.status_update_check_note_text {
+  color: #4D50A4;
+  margin-right: 70rpx; 
+}
+.status_update_check_note_edit {
+  height: 50rpx;
+  width: 50rpx;
+  margin-right: 15rpx;
+}
 .time_box {
   display: flex;
   align-items: flex-end;
+}
+.status_update {
+  /* background: green; */
+  display: flex;
 }
 .note_take_title {
   z-index: 8000;
@@ -108,11 +143,27 @@
 /*对话框 */
 .commodity_attr_box {
   padding: 35rpx;
-  /* background: #FDFBFC; */
+  /* background: blue; */
   box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.2);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   height: 380rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  background: #fff;
+}
+/*对话框 */
+.commodity_attr_box2 {
+  padding: 35rpx;
+  /* background: blue; */
+  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 580rpx;
   overflow: hidden;
   position: fixed;
   bottom: 0;
@@ -127,12 +178,18 @@
   margin-bottom: 10px;
   align-items: center;
 }
+.status_update_toggleButton {
+  /* background: orange; */
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 .medi_exact_time {
   font-weight: 400;
   margin-left: 10rpx;
-  text-decoration: underline;
-  color: #237ED2;
-  font-size: 29rpx;
+  margin-right: 18rpx;
+  font-size: 17px;
 }
 
 Page{
@@ -156,13 +213,15 @@ Page{
   margin: 15px 0 15px 0;
   height: 100%;
 }
-.toggleButton-text {
-  margin-right: 38px;
+.status_update_toggleButton_text{
+  margin-right: 15rpx;
   color: #4D50A4;
 }
+.status_update_toggleButton_switch {
+  margin-bottom: -10rpx;
+}
 .toggleButton {
-    /* background: green; */
-  /* background: green; */
+  /* background: orange; */
   width: 200px;
   height: 50px;
   display: flex;
@@ -171,15 +230,15 @@ Page{
   position: relative;
   transform: scale(0.9);
 }
-.toggleButton-notice-on {
+.toggleButton_notice_on {
   position: absolute;
-  left: 122px;
+  left: 70px;
   top: 7px;
   color: #FFFFFF;
 }
-.toggleButton-notice-off {
+.toggleButton_notice_off {
   position: absolute;
-  left: 148px;
+  left: 95px;
   top: 7px;
   color: #FFFFFF;
 }
@@ -671,11 +730,6 @@ Page{
   color: transparent;
  }
 
- .viewBtn{
-  width: 100%;
-  height: 80rpx;
-  padding-top: 20rpx;
- }
  /*返回按钮*/
  .clickBtn{
   width:250rpx;
@@ -689,3 +743,25 @@ Page{
   border-radius: 10rpx;
   text-align: center;
  }
+
+ .time_confirm {
+  color: #0BB955;
+  display: flex;
+  padding: 0 60rpx;
+  justify-content: flex-end;
+}
+.toggle_picker_container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+.toggle_picker_container_header {
+  display: flex;
+  line-height: 80rpx;
+  padding: 10rpx 60rpx;
+  font-weight: 300;
+  justify-content: space-between;
+}

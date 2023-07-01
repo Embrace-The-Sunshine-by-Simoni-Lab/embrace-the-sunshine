@@ -2,7 +2,7 @@
 <view class="container">
   <text class="feedback_title">请填写您的反馈</text>
   <textarea class="input"  bindinput="input_handler" focus="{{true}}" value="{{feedback_content}}"/>
-  <button class="submit-btn" bindtap="submit_feedback" hover-class="btn-hover" disabled="{{btn_disable}}">
+  <button class="submit_btn" bindtap="submit_feedback" hover-class="btn-hover" disabled="{{btn_disable}}">
     提交
   </button> 
 </view>
