@@ -24,14 +24,18 @@ Page({
         name: 'auto_sign_in',
         data: {
         },
-        success: async out => {
-          console.log(out.result)
+        success: out => {
+          // console.log(out.result)
           if (out.result.errCode == 0) {
             if (out.result.data) {
+              // global storage
               app.globalData.userData = out.result.data;
+              console.log('33');
               app.globalData.podcast_progress_data = out.result.podcast_progress_data;
               app.globalData.meditation_progress_data = out.result.meditation_progress_data;
-
+              app.globalData.all_resources = out.result.all_resources;
+              console.log('37');
+              // console.log(app.globalData.all_resources);
               app.globalData.logged = true;
               is_new_user = out.result.is_new_user;
               // 先设置podcast和meditation的完成情况
@@ -52,23 +56,27 @@ Page({
           this.setData({
             showRedDot: !ifTodayTaken
           })
+          console.log("success");
         },
         fail: out => {
           console.log('call function failed')
         },
         complete: out => {
-          wx.hideLoading()
+          wx.hideLoading();
           // start onboarding page if this is new user
           if (is_new_user) {
             wx.navigateTo({
               url: "../onboarding/onboarding",
             })
           }
+          console.log("complete");
         }
       })
-      this.change_home_progress_style()
+      console.log("79");
+      this.change_home_progress_style();
     } 
 
+    
     // 获取并且更新所有的播客内容
     wx.cloud.callFunction({
       name: 'getAllPodcastAudio',
@@ -96,7 +104,7 @@ Page({
         console.log('call function failed')
       },
       complete: out => {
-        wx.hideLoading()
+        wx.hideLoading();
       }
     })
 
