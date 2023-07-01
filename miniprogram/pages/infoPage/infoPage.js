@@ -70,7 +70,8 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
+    let globalData = app.globalData
+    console.log(globalData)
   },
 
   /**

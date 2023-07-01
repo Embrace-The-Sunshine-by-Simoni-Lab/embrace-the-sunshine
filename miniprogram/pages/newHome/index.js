@@ -130,7 +130,6 @@ Page({
         if (out.result.errcode == 0) {
           if (out.result.data) {
             let allMeditationData = out.result.data;
-            console.log("allMeditationData", allMeditationData)
             this.setData({
               meditationInfo: allMeditationData,
             })
