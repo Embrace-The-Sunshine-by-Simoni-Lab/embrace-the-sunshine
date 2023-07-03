@@ -54,7 +54,13 @@
   font-size: 34rpx;
 }
 
-.itemMediaType, .itemHours, .itemContact, .itemWebsite, .itemEmail, .itemPhone, .itemWechatID, .itemCost, .itemFormat  {
+.itemMediaType {
+  font-size: 32rpx;
+  margin-bottom: 30rpx;
+  color: grey;
+}
+
+ .itemHours, .itemContact, .itemWebsite, .itemEmail, .itemPhone, .itemWechatID, .itemCost, .itemFormat  {
   font-size: 32rpx;
   margin-bottom: 20rpx;
 }

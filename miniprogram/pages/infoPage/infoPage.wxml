@@ -2,22 +2,22 @@
 <view class="pageContainer">
   <view class="headerTabs">
     <scroll-view class="scroll-view" scroll-x="true" bindscroll="scroll">
-      <view class="scroll-view-item" wx:for="{{infoTypeList}}" wx:for-item="item" wx:for-index="idx" wx:key="idx">
-        <view><mainButton type="{{true? 'type-fill' : 'type-empty'}}" class="madicineBtn" bindtap="chooseType" infoType="{{item.type}}"></mainButton></view>
+      <view class="scroll-view-item" wx:for="{{infoTypeList}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" >
+        <view><mainButton type="{{currentType == item.type? 'type-fill' : 'type-empty'}}" class="madicineBtn" bindtap="chooseType" infoType="{{item.type}}" data-id="{{item.type}}"></mainButton></view>
       </view>
     </scroll-view>
   </view>
   <view class="content"> 
     <view class="listContainer">
       <view class="listItem" 
-        wx:for="{{infoList}}"
+        wx:for="{{filterOrNot? filteredInfoList : infoList}}"
         wx:for-item="item" 
         wx:for-index="idx" 
-        wx:key="name">
+        wx:key="idx">
         <view class="itemDetail" data-id="{{item.name}}" bind:tap="jumpToDetailPage">
           <view class="itemTitle">{{item.name}}</view>
-          <view class="itemAbstract">{{item.abstract}}</view> 
-          <view class="itemMediaType">{{item.mediaType}}{{item.fee? " | " + item.fee  : ""}}</view>
+          <view class="itemAbstract">{{item.type}}</view> 
+          <view class="itemMediaType">{{item.cost? item.cost  : ""}}</view>
         </view>
       </view>
     </view>
