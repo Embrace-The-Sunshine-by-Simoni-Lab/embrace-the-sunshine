@@ -9,6 +9,16 @@ exports.main = async (event, context) => {
   var result = {};
   result.errCode = 0;
   result.errMsg = "";
+  if (wxContext.OPENID != undefined) {
+    console.log("user data: " + wxContext.OPENID);
+  } else {
+    result.errCode = 1;
+    result.errMsg = "failed to get user data from WXContext";
+    result.data = {};
+    return result;
+  }
+
+
   if (event.feedback_text == undefined || event.feedback_text.length == 0) {
     result.errCode = 1;
     result.errMsg = "feedback text should not be empty";
@@ -20,6 +30,7 @@ exports.main = async (event, context) => {
     return result;
   }
   data_to_add = {
+    openid: wxContext.OPENID,
     date: new Date(),
     feedback_text: event.feedback_text,
     solved: false
