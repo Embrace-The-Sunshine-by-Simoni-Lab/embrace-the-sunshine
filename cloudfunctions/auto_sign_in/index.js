@@ -168,19 +168,19 @@ exports.main = async (event, context) => {
 
 
   // MORE RESOURCES DATA
-  // let resources_cnt = await db.collection("resource_db").count();
-  // resources_cnt = resources_cnt.total;
+  let resources_cnt = await db.collection("resource_db").count();
+  resources_cnt = resources_cnt.total;
   
-  // let all_resources = [];
+  let all_resources = [];
   
-  // for (let i = 0; i < resources_cnt; i += 100) {
-  //   let list = await db.collection("resource_db").skip(i).get();
-  //   all_resources = all_resources.concat(list.data);
-  // }
+  for (let i = 0; i < resources_cnt; i += 100) {
+    let list = await db.collection("resource_db").skip(i).get();
+    all_resources = all_resources.concat(list.data);
+  }
   
 
   var result = {};
-  // result.all_resources = all_resources;
+  result.all_resources = all_resources;
   result.is_new_user = is_new_user;
   result.errCode = 0;
   result.errMsg = 'successfully return userinformation with is new user';
