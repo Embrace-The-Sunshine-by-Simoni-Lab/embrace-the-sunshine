@@ -47,8 +47,8 @@
         </view>
       </view>
     </view>
-    <text user-select="{{true}}" >{{openid}}</text>
-    <button class="copyButton" bindtap="onCopy">复制OpenID</button>
+    <!-- <text user-select="{{true}}" >{{openid}}</text>
+    <button class="copyButton" bindtap="onCopy">复制OpenID</button> -->
   </view>
 </view>
 
