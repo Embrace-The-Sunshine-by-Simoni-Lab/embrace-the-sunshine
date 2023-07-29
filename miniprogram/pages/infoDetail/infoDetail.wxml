@@ -1,0 +1,20 @@
+<view class="pageContainer">
+  <view class="content"> 
+    <view class="listContainer">
+      <view class="listItem">
+        <view class="itemDetail">
+          <view class="itemTitle">{{infoDetail.name}}</view>
+          <view class="itemMediaType">{{infoDetail.type}}</view>
+          <view class="itemHours" style="{{infoDetail.service_hour ? '' : displayNone}}">服务时间：{{infoDetail.service_hour}}</view> 
+          <view class="itemContact" style="{{infoDetail.contact_approach ? '' : displayNone}}">联系方式: {{infoDetail.contact_approach}}</view>
+          <view class="itemWebsite" style="{{infoDetail.website ? '' : displayNone}}">网站网址：{{infoDetail.website}}</view>
+          <view class="itemEmail" style="{{infoDetail.email ? '' : displayNone}}">电子邮箱：{{infoDetail.email}}</view>
+          <view class="itemPhone" style="{{infoDetail.phone ? '' : displayNone}}">电话号码：{{infoDetail.phone}}</view>
+          <view class="itemWechatID" style="{{infoDetail.wechat_ID ? '' : displayNone}}">微信账号：{{infoDetail.wechat_ID}}</view>
+          <view class="itemCost" style="{{infoDetail.cost ? '' : displayNone}}">费用：{{infoDetail.cost}}</view>
+          <view  class="itemFormat" style="{{infoDetail.format ? '' : displayNone}}">模式：{{infoDetail.format}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

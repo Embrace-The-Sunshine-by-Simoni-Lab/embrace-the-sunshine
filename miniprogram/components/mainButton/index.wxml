@@ -36,4 +36,5 @@
   <!-- star content meditation button -->
   <text wx-if="{{type=='meditation-fill' || type=='meditation-empty'}}" >冥想练习</text>
 
+  <text wx-if="{{type=='type-fill' || type=='type-empty'}}" >{{infoType}}</text>
 </view>

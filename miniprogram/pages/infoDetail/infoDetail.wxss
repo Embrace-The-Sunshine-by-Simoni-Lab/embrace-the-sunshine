@@ -28,12 +28,13 @@
 
 .content {
   background-color: #ffffff;
-  height: 9500rpx;
+  height: 650rpx;
   margin-top: 5%;
   padding-right: 5%;
   padding-left: 5%;
   padding-top: 7%;
-  border-radius: 40px 40px 0px 0px;
+  padding-bottom: 120%;
+  border-radius: 40px;
   box-shadow: 0 10px 20px 2px #cecece;
 }
 
@@ -46,19 +47,20 @@
 }
 
 .itemDetail view {
-  margin-bottom: 9rpx;
+  /* margin-bottom: 20rpx; */
 }
 
 .itemTitle {
-  font-size: 32rpx;
-}
-
-.itemAbstract {
-  font-size: 30rpx;
-  color: grey;
+  font-size: 34rpx;
 }
 
 .itemMediaType {
-  font-size: 28rpx;
+  font-size: 32rpx;
+  margin-bottom: 30rpx;
   color: grey;
+}
+
+ .itemHours, .itemContact, .itemWebsite, .itemEmail, .itemPhone, .itemWechatID, .itemCost, .itemFormat  {
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
 }

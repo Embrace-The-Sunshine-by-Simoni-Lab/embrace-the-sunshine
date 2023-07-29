@@ -175,3 +175,29 @@
 .meditation-empty, .meditation-fill {
   width: 134rpx;
 }
+
+.type-fill {
+  font-size: 30rpx;
+  line-height: 55rpx;
+  color:#FFFFFF;
+  background: #4D50A4;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+  bottom: 2rpx;
+  padding-left: 12rpx;
+  padding-right: 12rpx;
+}
+
+.type-empty {
+  font-size: 30rpx;
+  line-height: 55rpx;
+  color:#4D50A4;
+  background: #FFFFFF;
+  border: 1px solid #4D50A4;
+  border-radius: 1020px;
+  position: relative;
+  bottom: 2rpx;
+  padding-left: 12rpx;
+  padding-right: 12rpx;
+}

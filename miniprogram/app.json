@@ -5,6 +5,7 @@
     "pages/profileEdit/profileEdit",
     "pages/onboarding/onboarding",
     "pages/infoPage/infoPage",
+    "pages/infoDetail/infoDetail",
     "pages/module/modulePage",
     "pages/v2/index",
     "pages/allPodCastPage/index",
