@@ -667,6 +667,7 @@ Page({
     const chunkCount = this.data.analyticsData.length
     const userScroll = e.detail.scrollLeft
     const barScroll = (userScroll * 210) / ((chunkCount - 4) * 62.5)
+    console.log("barScroll", barScroll)
     this.setData({
       slideLeft: barScroll
     })

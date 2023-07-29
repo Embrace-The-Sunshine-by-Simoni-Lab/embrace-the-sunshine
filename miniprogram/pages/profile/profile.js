@@ -20,7 +20,7 @@ Page({
     })
   },
   goto_resources: function() {
-    wx.redirectTo({
+    wx.switchTab({
       url: "../infoPage/infoPage",
     })
   },

@@ -41,7 +41,7 @@
           <image class="button-img" src="../../images/profile/关于我们.png" style="width: 110rpx; height: 110rpx"></image>
           <text class="buttonList-text">关于我们</text>
         </view>
-        <view class="button-container-vertical" bindtap="">
+        <view class="button-container-vertical" bindtap="goto_privacy">
           <image class="button-img" src="../../images/profile/隐私政策.png" style="width: 110rpx; height: 110rpx"></image>
           <text class="buttonList-text">隐私政策</text>
         </view>

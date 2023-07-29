@@ -1,32 +1,72 @@
 <!--package_profile/pages/aboutUs.wxml-->
 <view class="background">
   <view class="content">
-    <view class="title">拥抱阳光 - turn to sunshine</view>
+    <view class="title">关于我们</view>
 
-    <view class="sub_title">拥抱阳光小程序的功能目的？</view>
     <view class="text">
-      <view>结合认知行为疗法（CBT）与辩证行为疗法（DBT），教你如何应对诊断后复杂的情绪，积极面对挑战，关照身心健康，创造有价值的生活。小程序将内容以文字，音频，以及视频的内容呈现给用户，每一位用户将同时与一位上海心生的工作人员组队，在工作人员的指导下探讨学习心理应对技巧、追踪情绪状态及服药依从性。</view>
+      来自生活方方面面的压力，不免会对引起情绪的波动：职场压力只增不减，亲密关系沟通不畅，有情感诉求但怕对他人造成负担。虽然朋友和家人能够帮忙疏导，有时也会力不从心，甚至说，
+      <text style="text-decoration: underline; font-weight: bold;">是你太敏感啦</text>
+      ，而火上浇油。
     </view>
 
-    <view class="sub_title">信息安全保障？</view>
     <view class="text">
-      <view>我们致力于保护您的隐私与数据安全。小程序不需要您的任何个人信息。所有的数据都经过加密后储存在云端。</view>
+      会不会有的时候， <text style="text-decoration: underline; font-weight: bold;">情绪到达燃点，</text>需要消防员？<text style="text-decoration: underline; font-weight: bold;">情绪跌到深渊，</text>需要一双援手？
     </view>
 
-    <view class="sub_title">拥抱阳光的内容是来源于哪里？</view>
+    <view class="sub_title">暖阳心理为您提供：</view>
     <view class="text">
-      <view>拥抱阳光的内容来自于CBT与DBT，设计者与临床心理学家和经验丰富的心理咨询师一起，共同将CBT与DBT中的心理技巧针对用户的需求进行改编设计。请寻求心理健康治疗，如果
-      如果您有严重的心理疾病，请及时向精神科或心理咨询师寻求诊断与治疗。拥抱阳光不提供医学诊断与治疗。</view>
+      <view>
+        • 线上茶话会，互助支持小组，由温暖的心理咨询师姐姐跟大家一起营造暖心的茶话会
+      </view>
+      <view>
+        • 一对一聊天室
+      </view>
     </view>
 
-    <view class="sub_title">如果您有以下需求，拥抱阳光可以帮到您</view>
     <view class="text">
-      <view class="list-item">如果您想对自己的情绪有进一步的掌控，想要通过一些技巧积极有效地管理情绪，学会与情绪和平共处</view>
-      <view class="list-item">如果您需要社会支持，想要与上海心生的工作人员共同沟通探讨心理技巧</view>
-      <view class="list-item">如果您想知道自己过去一段时间的情绪变化状况</view>
-      <view class="list-item">如果您有时忘记自己是否已经服药，需要工具帮助您记录每天的服药情况</view>
+      线上茶话会已经在进行中，同时，因为暖阳们对社群的强烈需求，单独的社群平台网站正在建立中。如果您感兴趣, <text bindtap="openExternalLink" style="text-decoration: underline; font-weight: bold; color: #44469A">请在这里留言报名，</text>排队等候。平台开放后，您会第一时间收到通知，按照报名顺序陆续被邀请加入平台。
     </view>
-    
+
+    <view class="text">
+      面对负面情绪，很多人选择压抑与逃避，选择不去诉说，也就不会对自己造成二次伤害。久而久之，很多人会说，“这是不是就是<text style="text-decoration: underline; font-weight: bold;">阳光型抑郁？</text>” 
+    </view>
+
+    <view class="text">
+      如何有效应对压力，在繁忙的生活中，觉察自己的情感需求，合理调节情绪和行为，向他人表达合理的诉求？
+    </view>
+
+    <view class="sub_title">暖阳心理为您提供：</view>
+
+    <view class="text">
+      <view>
+        • 平台咨询师录制的冥想资源
+      </view>
+      <view>
+        • 科学管理情绪技巧
+      </view>      
+      <view>
+        • 有效人际沟通技巧
+      </view>     
+      <view>
+        • 改善睡眠健康技巧
+      </view>
+    </view>
+
+    <view class="text">
+      当我们情绪没有被温暖的迎接，无法被理解和接受的时候，孤独感的产生，会把我们带入负面情绪的怪圈，可能会对行为也产生方方面面的影响：积攒了很久的情绪莫名对亲近的人爆发，极端的愤怒或绝望导致我们做出情绪化/不理智的行为，长时间的焦虑和压力导致失眠，工作学习无法集中注意力，甚至连面对自己一度最喜欢的零食，也提不起兴趣。
+    </view>
+
+    <view class="text">
+      暖阳心理背后是来自美国华盛顿大学临床心理学的团队，团队包含经验丰富的临床心理学家和心理咨询师，创意满满的设计师和雷厉风行的程序员们。
+    </view>
+
+    <view class="text">
+      在心理咨询师团队的共同努力下，凭借着在认知行为治疗（CBT）、辩证行为治疗（DBT）、失眠症认知行为治疗（CBT-I）等疗法中丰富的经验，暖阳心理就这样诞生了～～撒花 🎉
+    </view>
+
+    <view class="text">
+      暖阳心理，邀您一起，拥抱阳光洒满心房的日子 ☀️
+    </view>
   </view> 
 </view>
 
