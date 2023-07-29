@@ -7,9 +7,8 @@
   margin-top: 40rpx;
   border-radius: 20px 20px 0 0;
   box-shadow: 0 -2px 25px 4px rgba(0, 0, 0, 0.13);
-  padding: 70rpx 35rpx;
+  padding: 70rpx 50rpx;
 }
-
 .list-item::before {
   content: "\2022"; /* Unicode字符编码为圆点 */
   display: inline-block;
@@ -17,17 +16,22 @@
 }
 
 .title {
-  font-size: 21px;
+  font-size: 23px;
+  font-weight: 400;
+  margin-bottom: 25rpx;
+}
+
+
+.text {
+  color: #a8a6a6;
+  line-height: 23px;
+  font-size: 15px;
+  margin-bottom: 25rpx;
   font-weight: 400;
 }
 
-.text {
-  color: #888888;
-  line-height: 23px;
-  font-size: 15px;
-}
-
 .sub_title {
+  margin-bottom: 20rpx;
   font-weight: 400;
   margin-top: 20px;
   line-height: 30px;

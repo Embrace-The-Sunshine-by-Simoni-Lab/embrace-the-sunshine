@@ -62,5 +62,27 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  openExternalLink: function () {
+    wx.navigateToMiniProgram({
+      appId: 'wxd947200f82267e58', // 将appId参数设置为空字符串
+      path: 'pages/wjxqList/wjxqList?activityId=mT1WPPo', // 不设置path参数
+      extraData: {
+        url: '', // 设置要跳转的网址
+      },
+      envVersion: 'release', // 打开的小程序版本，可选值：develop（开发版）、trial（体验版）、release（正式版）
+      success(res) {
+        console.log('打开成功');
+        const launchOptions = wx.getLaunchOptionsSync();
+        if (launchOptions && launchOptions.extraData && launchOptions.extraData.url) {
+          wx.navigateTo({ url: launchOptions.extraData.url });
+        }
+      },
+      fail(res) {
+        console.error('打开失败', res.errMsg);
+      }
+    });
   }
+
 })
