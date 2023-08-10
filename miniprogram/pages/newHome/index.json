@@ -1,5 +1,5 @@
 {
   "usingComponents": {},
   "enableShareAppMessage": true,
-  "enableShareTimeline": true
+  "enableShareTimeline": false
 }

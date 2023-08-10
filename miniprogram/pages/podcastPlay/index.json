@@ -3,5 +3,5 @@
     "PodCastContent":"/components/PodCastContent/PodCastContent"
   },
   "enableShareAppMessage": true,
-  "enableShareTimeline": true
+  "enableShareTimeline": false
 }

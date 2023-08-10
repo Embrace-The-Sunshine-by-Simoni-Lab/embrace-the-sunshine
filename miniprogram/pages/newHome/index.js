@@ -149,21 +149,21 @@ Page({
     }
   },
 
-  onShareTimeline: function() {
-    return {
-      title: '拥抱阳光Sunshine',
-      path: '/pages/newHome/index',
-      query: 'key=value',
-      success: function() {
-        wx.showToast({
-          title: "分享成功"?
-          icon: 'success',
-          duration: 1500
-        })       
-      }
-      // imageUrl: 'url-to-your-image.jpg'  // 如果需要自定义分享的图片
-    }
-  },
+  // onShareTimeline: function() {
+  //   return {
+  //     title: '拥抱阳光Sunshine',
+  //     path: '/pages/newHome/index',
+  //     query: 'key=value',
+  //     success: function() {
+  //       wx.showToast({
+  //         title: "分享成功"?
+  //         icon: 'success',
+  //         duration: 1500
+  //       })       
+  //     }
+  //     // imageUrl: 'url-to-your-image.jpg'  // 如果需要自定义分享的图片
+  //   }
+  // },
 
   load_podcast_meditation(options) {
     wx.cloud.callFunction({

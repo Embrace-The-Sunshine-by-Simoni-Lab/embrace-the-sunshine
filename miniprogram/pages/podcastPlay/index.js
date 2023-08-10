@@ -104,26 +104,26 @@ Page({
       }
     },
   
-    onShareTimeline: function() {
-      let title = 'Sunshine播客-' + this.data.podCastInfo.mainTitle;
-      let query = '?podcastorder=' + this.data.currPodCastOrder + '&' + 'podcasttype=' + this.data.podCastType;
-      return {
-        title: title,
-        path: '/pages/newHome/index' + query,
-        // query: 'key=value',
-        success: function() {
-          wx.showToast({
-            title: "分享成功",
-            icon: 'success',
-            duration: 1500
-          })       
-        },
-        fail: function() {
-          console.log('分享失败')
-        }
-        // imageUrl: 'url-to-your-image.jpg'  // 如果需要自定义分享的图片
-      }
-    },
+    // onShareTimeline: function() {
+    //   let title = 'Sunshine播客-' + this.data.podCastInfo.mainTitle;
+    //   let query = '?podcastorder=' + this.data.currPodCastOrder + '&' + 'podcasttype=' + this.data.podCastType;
+    //   return {
+    //     title: title,
+    //     path: '/pages/newHome/index' + query,
+    //     // query: 'key=value',
+    //     success: function() {
+    //       wx.showToast({
+    //         title: "分享成功",
+    //         icon: 'success',
+    //         duration: 1500
+    //       })       
+    //     },
+    //     fail: function() {
+    //       console.log('分享失败')
+    //     }
+    //     // imageUrl: 'url-to-your-image.jpg'  // 如果需要自定义分享的图片
+    //   }
+    // },
 
   // 时间格式化
   format(t) {
