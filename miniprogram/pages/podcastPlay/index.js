@@ -82,6 +82,49 @@ Page({
     this.audioInit(currPodCast.url, currPodCast.mainTitle)
   },
 
+    // page sharing
+    onShareAppMessage: function (res) {
+      let title = 'Sunshine播客-' + this.data.podCastInfo.mainTitle;
+      let query = '?podcastorder=' + this.data.currPodCastOrder + '&' + 'podcasttype=' + this.data.podCastType;
+      return {
+        title: title,
+        path: '/pages/newHome/index' + query,
+        // query: 'test=1234test',
+        // imageUrl: 'url-to-your-image.jpg',  // 如果需要自定义分享的图片
+        success: function() {
+          wx.showToast({
+            title: "分享成功",
+            icon: 'success',
+            duration: 1500
+          })       
+        },
+        fail: function() {
+          console.log('分享失败')
+        }
+      }
+    },
+  
+    onShareTimeline: function() {
+      let title = 'Sunshine播客-' + this.data.podCastInfo.mainTitle;
+      let query = '?podcastorder=' + this.data.currPodCastOrder + '&' + 'podcasttype=' + this.data.podCastType;
+      return {
+        title: title,
+        path: '/pages/newHome/index' + query,
+        // query: 'key=value',
+        success: function() {
+          wx.showToast({
+            title: "分享成功",
+            icon: 'success',
+            duration: 1500
+          })       
+        },
+        fail: function() {
+          console.log('分享失败')
+        }
+        // imageUrl: 'url-to-your-image.jpg'  // 如果需要自定义分享的图片
+      }
+    },
+
   // 时间格式化
   format(t) {
     let time = Math.floor(t / 60) >= 10 ? Math.floor(t / 60) : '0' + Math.floor(t / 60)

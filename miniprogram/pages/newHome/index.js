@@ -12,7 +12,9 @@ Page({
     podcastComplete: [], // 用来设置播客已完成的未完成的打勾
     meditationComplete: []
   },
-  onLoad: function() {
+  onLoad: function(options) {
+    console.log(options);
+    // this.enable_sharing();
     var is_new_user = false;
     let that = this;
     if (!app.globalData.logged) {
@@ -69,72 +71,19 @@ Page({
               url: "../onboarding/onboarding",
             })
           }
+          this.load_podcast_meditation(options);
           console.log("complete");
         }
       })
-      console.log("79");
+      // console.log("79");
       this.change_home_progress_style();
-    } 
+    } else {
+          // 获取并且更新所有的播客内容
+      this.load_podcast_meditation(options)
+    }
 
     
-    // 获取并且更新所有的播客内容
-    wx.cloud.callFunction({
-      name: 'getAllPodcastAudio',
-      data: {
-      },
-      success: out => {
-        if (out.result.errCode == 0) {
-          if (out.result.data) {
-            let allPodCastData = out.result.data;
-            // 根据播客的id进行排序
-            let sorted_podcast = this.sortPodCastList(allPodCastData)
-            // 根据用户注册时间创建podcastRegisterAvailability
-            this.setData({
-              podCastInfo: sorted_podcast,
-            })
-            // 把排列好的博客放进缓存
-            app.globalData.podCast = sorted_podcast;
-            wx.setStorageSync('allPodCastData', sorted_podcast)
-          } 
-        } else {
-          console.log(out.errMsg);
-        }
-      },
-      fail: out => {
-        console.log('call function failed')
-      },
-      complete: out => {
-        wx.hideLoading();
-      }
-    })
 
-    // 获取并且更新所有的Meditation内容
-    wx.cloud.callFunction({
-      name: 'getAllMeditationAudio',
-      data: {
-      },
-      success: out => {
-        if (out.result.errcode == 0) {
-          if (out.result.data) {
-            let allMeditationData = out.result.data;
-            this.setData({
-              meditationInfo: allMeditationData,
-            })
-            // 把排列好的博客放进缓存
-            app.globalData.meditation = allMeditationData;
-            wx.setStorageSync('allMeditationData', allMeditationData)
-          } 
-        } else {
-          console.log(out.errMsg);
-        }
-      },
-      fail: out => {
-        console.log('call function failed')
-      },
-      complete: out => {
-        wx.hideLoading()
-        }
-    })
 
     // 药物追踪红点逻辑
     let today = new Date()
@@ -180,6 +129,121 @@ Page({
       })
     }
   },
+
+  // page sharing
+  onShareAppMessage: function (res) {
+    return {
+      title: '拥抱阳光Sunshine',
+      path: '/pages/newHome/index',
+      // imageUrl: 'url-to-your-image.jpg',  // 如果需要自定义分享的图片
+      success: function() {
+        wx.showToast({
+          title: "分享成功"?
+          icon: 'success',
+          duration: 1500
+        })       
+      },
+      fail: function() {
+        console.log('分享失败')
+      }
+    }
+  },
+
+  onShareTimeline: function() {
+    return {
+      title: '拥抱阳光Sunshine',
+      path: '/pages/newHome/index',
+      query: 'key=value',
+      success: function() {
+        wx.showToast({
+          title: "分享成功"?
+          icon: 'success',
+          duration: 1500
+        })       
+      }
+      // imageUrl: 'url-to-your-image.jpg'  // 如果需要自定义分享的图片
+    }
+  },
+
+  load_podcast_meditation(options) {
+    wx.cloud.callFunction({
+      name: 'getAllPodcastAudio',
+      data: {
+      },
+      success: out => {
+        if (out.result.errCode == 0) {
+          if (out.result.data) {
+            let allPodCastData = out.result.data;
+            // 根据播客的id进行排序
+            let sorted_podcast = this.sortPodCastList(allPodCastData)
+            // 根据用户注册时间创建podcastRegisterAvailability
+            this.setData({
+              podCastInfo: sorted_podcast,
+            })
+            // 把排列好的博客放进缓存
+            app.globalData.podCast = sorted_podcast;
+            wx.setStorageSync('allPodCastData', sorted_podcast)
+          } 
+        } else {
+          console.log(out.errMsg);
+        }
+      },
+      fail: out => {
+        console.log('call function failed')
+      },
+      complete: out => {
+        wx.hideLoading();
+        console.log("Podcasts loaded successfully");
+        if (options.podcasttype == '播客') {
+          wx.navigateTo({
+            url: `../podcastPlay/index?podCastOrder=${options.podcastorder}&type=播客`
+          })
+        }
+        
+      }
+    })
+
+    // 获取并且更新所有的Meditation内容
+    wx.cloud.callFunction({
+      name: 'getAllMeditationAudio',
+      data: {
+      },
+      success: out => {
+        if (out.result.errcode == 0) {
+          if (out.result.data) {
+            let allMeditationData = out.result.data;
+            this.setData({
+              meditationInfo: allMeditationData,
+            })
+            // 把排列好的博客放进缓存
+            app.globalData.meditation = allMeditationData;
+            wx.setStorageSync('allMeditationData', allMeditationData)
+          } 
+        } else {
+          console.log(out.errMsg);
+        }
+      },
+      fail: out => {
+        console.log('call function failed')
+      },
+      complete: out => {
+        wx.hideLoading()
+        console.log("Meditation loaded successfully");
+        if (options.podcasttype == '冥想') {
+          wx.navigateTo({
+            url: `../podcastPlay/index?podCastOrder=${options.podcastorder}&type=冥想`
+          })
+        }
+        }
+    })
+  },
+
+  // enable_sharing() {
+  //   wx.showShareMenu({
+  //     withShareTicket: true,
+  //     menus: ['shareAppMessage', 'shareTimeline']
+  //   })
+  // },
 
   // 改变首页药物追踪进度条的逻辑
   change_home_progress_style() {
