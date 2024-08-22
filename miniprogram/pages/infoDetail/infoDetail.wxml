@@ -3,6 +3,7 @@
     <view class="listContainer">
       <view class="listItem">
         <view class="itemDetail">
+          <web-view src=""></web-view>
           <view class="itemTitle">{{infoDetail.name}}</view>
           <view class="itemMediaType">{{infoDetail.type}}</view>
           <view class="itemHours" style="{{infoDetail.service_hour ? '' : displayNone}}">服务时间：{{infoDetail.service_hour}}</view> 
